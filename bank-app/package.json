@@ -5,11 +5,13 @@
   "author": "little mei and fat jun",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js",
-    "start": "node build/dev-server.js",
-    "build": "node build/build.js"
+    "generate:route": "node ./src/util/generate.js ./components ./config/route.config.js",
+    "dev": "npm run generate:route && node build/dev-server.js",
+    "start": "npm run generate:route && node build/dev-server.js",
+    "build": "npm run generate:route && node build/build.js"
   },
   "dependencies": {
+    "fs": "0.0.1-security",
     "vue": "^2.3.3",
     "vue-router": "^2.3.1"
   },

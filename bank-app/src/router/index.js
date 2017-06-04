@@ -1,15 +1,10 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Hello from '@/components/Hello'
+"use strict"
+import Vue from 'vue';
+import Router from 'vue-router';
+import routeConfig from '@/config/route.config';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Hello',
-      component: Hello
-    }
-  ]
-})
+  routes: routeConfig
+});
