@@ -5,7 +5,7 @@
   "author": "little mei and fat jun",
   "private": true,
   "scripts": {
-    "generate:route": "node ./src/util/generate.js ./components ./config/route.config.js",
+    "generate:route": "node ./src/util/generate.js ./entry ./config/route.config.js",
     "dev": "npm run generate:route && node build/dev-server.js",
     "start": "npm run generate:route && node build/dev-server.js",
     "build": "npm run generate:route && node build/build.js"

@@ -8,18 +8,6 @@ let sourceDir = process.argv[2];
 let targetFile = path.join(path.dirname(__dirname), process.argv[3]);
 
 // ----------------解析映射----------------
-let format = (str, obj)=> {
-  if (!str || !obj) {
-    return "";
-  }
-
-  let result = str;
-  for (let key in obj) {
-    result = result.replace(new RegExp("({" + key + "})", "g"), obj[key]);
-  }
-  return result;
-};
-
 let listFilePath = (path, pathRegular)=> {
   let filePaths = [];
   if (!fs.existsSync(path)) {
@@ -52,12 +40,12 @@ let componentsDir = path.join(path.dirname(__dirname), sourceDir);
 let componentsPathRegular = new RegExp("\\w+.vue$");
 let componentsPaths = listFilePath(componentsDir, componentsPathRegular);
 let routeConfigData = [];
-let dirName = "components";
+let dirName = "entry";
 componentsPaths.forEach((path)=> {
   let indexStart = path.indexOf(dirName) + dirName.length;
   let indexPoint = path.indexOf(".");
   let filePath = path.substring(indexStart, indexPoint);
-  let routeData = format('path:"{filePath}",name:"{filePath}",component:resolve => require(["@/components{filePath}"], resolve)', {filePath: filePath});
+  let routeData = `path:"${filePath}",name:"${filePath}",component:resolve => require(["@/entry${filePath}"], resolve)`;
   routeConfigData.push("{" + routeData + "}");
 });
 fs.writeFileSync(targetFile, "export default [" + routeConfigData.join(",") + "]");
