@@ -14,8 +14,18 @@
     ]),
     methods: {
       updateName(){
-        console.log(this.$store);
-        this.$store.dispatch("updateName", 123);
+        let self = this;
+        self.$sendRequest({
+          url: "/sample/index",
+          params: {
+            abc: 11
+          },
+          success(body){
+            self.$store.dispatch("updateName", body.name);
+          },
+          error(err){
+          }
+        });
       }
     }
   }
