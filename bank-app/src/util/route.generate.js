@@ -39,13 +39,15 @@ let listFilePath = (path, pathRegular)=> {
 let componentsDir = path.join(path.dirname(__dirname), sourceDir);
 let componentsPathRegular = new RegExp("\\w+.vue$");
 let componentsPaths = listFilePath(componentsDir, componentsPathRegular);
-let routeConfigData = [];
+let importData = [];
+let initData = [];
 let dirName = "entry";
 componentsPaths.forEach((path)=> {
   let indexStart = path.indexOf(dirName) + dirName.length;
   let indexPoint = path.indexOf(".");
   let filePath = path.substring(indexStart, indexPoint);
-  let routeData = `path:"${filePath}",name:"${filePath}",component:resolve => require(["@/entry${filePath}"], resolve)`;
-  routeConfigData.push("{" + routeData + "}");
+  let componentName = filePath.replace(/\//g, "_");// 斜杠会出错因此转换斜杠成下划线
+  importData.push(`import ${componentName} from "@/entry${filePath}";`);
+  initData.push(`{path: "${filePath}", name:"${filePath}", component: ${componentName}}`);
 });
-fs.writeFileSync(targetFile, "export default [" + routeConfigData.join(",") + "]");
+fs.writeFileSync(targetFile, importData.join("") + "export default [" + initData.join(",") + "]");

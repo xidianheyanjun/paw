@@ -1,1 +1,1 @@
-export default [{path:"/sample/sample",name:"/sample/sample",component:resolve => require(["@/entry/sample/sample"], resolve)}]
+import _sample_sample from "@/entry/sample/sample";export default [{path: "/sample/sample", name:"/sample/sample", component: _sample_sample}]
