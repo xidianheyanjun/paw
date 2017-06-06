@@ -1,7 +1,7 @@
 <template>
   <div class="foot">
     <div class="bar">
-      <div v-for="menu in foot.menuList" class="item">
+      <div v-for="menu in foot.menuList" :class="['item', menu.isActive ? 'active' : '']">
         <router-link :to="menu.path">{{menu.name}}</router-link>
       </div>
     </div>
@@ -35,5 +35,9 @@
     display: inline-block;
     width: 23%;
     text-align: center;
+  }
+
+  .item.active {
+    background-color: #333333;
   }
 </style>

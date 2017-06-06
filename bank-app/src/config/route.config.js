@@ -1,1 +1,1 @@
-import _sample_sample from "@/entry/sample/sample";export default [{path: "/sample/sample", name:"/sample/sample", component: _sample_sample}]
+import _home_index from "@/entry/home/index";import _sample_sample from "@/entry/sample/sample";export default [{path: "/home/index", name:"/home/index", component: _home_index},{path: "/sample/sample", name:"/sample/sample", component: _sample_sample}]

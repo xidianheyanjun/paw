@@ -5,16 +5,20 @@ export default{
   foot: {
     menuList: [{
       name: "首页",
-      path: "/sample/sample"
+      path: "/home/index",
+      isActive: true
     }, {
       name: "信息中心",
-      path: ""
+      path: "",
+      isActive: false
     }, {
       name: "财富中心",
-      path: ""
+      path: "",
+      isActive: false
     }, {
       name: "个人中心",
-      path: ""
+      path: "",
+      isActive: false
     }]
   }
 };
