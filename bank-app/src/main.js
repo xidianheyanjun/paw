@@ -6,6 +6,7 @@ import App from './App';
 import router from './router';
 import store from './vuex/store';
 import env from './env';
+import 'es6-promise/auto';
 
 // 异步请求封装
 Vue.use(VueResouse);

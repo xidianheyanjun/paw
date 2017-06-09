@@ -48,6 +48,9 @@ moduleDirs.forEach(function (moduleDir) {
   let initData = [];
   files.forEach(function (file) {
     let fileName = path.basename(file, '.js');
+    if (fileName == "index") {
+      return false;
+    }
     importData.push(`import ${fileName} from "./${fileName}";`);
     initData.push(`${fileName}: ${fileName}`);
   });
