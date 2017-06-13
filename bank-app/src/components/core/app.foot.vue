@@ -1,11 +1,8 @@
 <template>
-  <div class="foot">
-    <div class="bar">
-      <div v-for="menu in foot.menuList" :class="['item', menu.isActive ? 'active' : '']">
-        <router-link :to="menu.path">{{menu.name}}</router-link>
-      </div>
-    </div>
-  </div>
+  <mu-bottom-nav :value="activeNav" @change="handleChange">
+    <mu-bottom-nav-item v-for="menu in foot.menuList" :key="menu.value" :href="menu.path" :value="menu.value"
+                        :title="menu.name" icon=""/>
+  </mu-bottom-nav>
 </template>
 
 <script>
@@ -15,29 +12,23 @@
     computed: mapGetters([
       "foot"
     ]),
+    data(){
+      return {
+        activeNav: 0
+      };
+    },
     mounted(){
       // 进入时根据地址判断高亮哪个菜单 todo
-      console.log(111);
+      let hash = window.location.hash;
     },
-    methods: {}
+    methods: {
+      handleChange(value){
+        this.activeNav = value;
+      }
+    }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .foot {
-  }
-
-  .bar {
-  }
-
-  .item {
-    display: inline-block;
-    width: 23%;
-    text-align: center;
-  }
-
-  .item.active {
-    background-color: #333333;
-  }
 </style>

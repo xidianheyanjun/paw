@@ -8,6 +8,11 @@ import store from './vuex/store';
 import env from './env';
 import 'es6-promise/auto';
 
+// 引入UI框架
+import MuseUI from 'muse-ui';
+import 'muse-ui/dist/muse-ui.css';
+Vue.use(MuseUI);
+
 // 异步请求封装
 Vue.use(VueResouse);
 Vue.http.options.credentials = true;

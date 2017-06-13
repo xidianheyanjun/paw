@@ -104,4 +104,8 @@
     right: 0;
     height: 8%;
   }
+
+  .tac {
+    text-align: center;
+  }
 </style>
