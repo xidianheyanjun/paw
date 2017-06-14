@@ -1,12 +1,16 @@
 <template>
   <div class="vv-grid vv-tac vv-pr">
     <mu-row gutter class="vv-row">
-      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-light-blue">1</mu-col>
-      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-deep-purple">2</mu-col>
+      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-light-blue">
+      </mu-col>
+      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-deep-purple">
+      </mu-col>
     </mu-row>
     <mu-row gutter class="vv-row vv-mt10">
-      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-pink">3</mu-col>
-      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-light-green">4</mu-col>
+      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-pink">
+      </mu-col>
+      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-light-green">
+      </mu-col>
     </mu-row>
 
     <div class="vv-circle"></div>
