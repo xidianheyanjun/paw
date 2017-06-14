@@ -2,33 +2,24 @@
   <div class="vv-grid vv-tac vv-pr">
     <mu-row gutter class="vv-row">
       <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-light-blue">
-        <mu-flat-button label="金融产品" class="flat-button" icon="account_balance" primary/>
-        <mu-flat-button label="贷款产品" class="flat-button" icon="panorama_fish_eye" primary/>
-        <mu-flat-button label="信用卡" class="flat-button" icon="panorama_fish_eye" primary/>
-        <mu-flat-button label="理财产品" class="flat-button" icon="panorama_fish_eye" primary/>
+        <mu-flat-button v-for="finance in home.financeList" :key="finance.label" :label="finance.label"
+                        :class="finance.cssClass"
+                        :icon="finance.icon" :labelClass="finance.labelClass" :iconClass="finance.iconClass" primary/>
       </mu-col>
       <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-deep-purple">
-        <mu-flat-button label="政银企对接" class="flat-button" icon="forum" primary/>
-        <mu-flat-button label="对接信息发布" class="flat-button" icon="panorama_fish_eye" primary/>
-        <mu-flat-button label="自由邀请洽谈" class="flat-button" icon="panorama_fish_eye" primary/>
-        <mu-flat-button label="对接交流论坛" class="flat-button" icon="panorama_fish_eye" primary/>
+        <mu-flat-button v-for="gb in home.gbList" :key="gb.label" :label="gb.label" :class="gb.cssClass"
+                        :icon="gb.icon" :labelClass="gb.labelClass" :iconClass="gb.iconClass" primary/>
       </mu-col>
     </mu-row>
     <mu-row gutter class="vv-row vv-mt10">
       <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-pink">
-        <mu-flat-button label="特色服务" class="flat-button" labelClass="vv-label" iconClass="vv-icon" icon="room_service"
-                        primary/>
-        <mu-flat-button label="个人征信查询" class="flat-button" icon="panorama_fish_eye" primary/>
-        <mu-flat-button label="附近银行" class="flat-button" icon="panorama_fish_eye" primary/>
-        <mu-flat-button label="金融计算机" class="flat-button" icon="panorama_fish_eye" primary/>
-        <mu-flat-button label="惠银帮办" class="flat-button" icon="panorama_fish_eye" primary/>
-        <mu-flat-button label="信用卡优惠信息" class="flat-button" icon="panorama_fish_eye" primary/>
+        <mu-flat-button v-for="service in home.serviceList" :key="service.label" :label="service.label"
+                        :class="service.cssClass"
+                        :icon="service.icon" :labelClass="service.labelClass" :iconClass="service.iconClass" primary/>
       </mu-col>
       <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-light-green">
-        <mu-flat-button label="金融资讯" class="flat-button" icon="map" primary/>
-        <mu-flat-button label="政策宣传" class="flat-button" icon="panorama_fish_eye" primary/>
-        <mu-flat-button label="金融论坛" class="flat-button" icon="panorama_fish_eye" primary/>
-        <mu-flat-button label="行业动态" class="flat-button" icon="panorama_fish_eye" primary/>
+        <mu-flat-button v-for="info in home.infoList" :key="info.label" :label="info.label" :class="info.cssClass"
+                        :icon="info.icon" :labelClass="info.labelClass" :iconClass="info.iconClass" primary/>
       </mu-col>
     </mu-row>
 
@@ -37,8 +28,12 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   export default {
     name: 'index',
+    computed: mapGetters([
+      "home"
+    ]),
     components: {},
     mounted(){
       this.$store.dispatch("head_setHead", {
@@ -80,6 +75,7 @@
 
   .vv-grid .vv-row .vv-col {
     height: 100%;
+    padding: 5% 0 0 2%;
   }
 
   .vv-bg-light-blue {
@@ -99,25 +95,14 @@
   }
 
   .vv-circle {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
+    margin: -82% auto 0;
+    width: 20%;
+    height: 0;
+    padding-top: 20%;
+    border-radius: 100%;
+    border: 0px solid #ffffff;
+    box-sizing: border-box;
+    position: relative;
     background-color: #ffffff;
-    position: absolute;
-    top: 45%;
-    left: 43%;
-  }
-
-  .flat-button {
-    display: block;
-  }
-
-  .vv-label {
-    font-size: 16px;
-  }
-
-  .vv-icon{
-
   }
 </style>

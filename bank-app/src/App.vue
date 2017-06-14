@@ -112,4 +112,25 @@
   .vv-pr {
     position: relative;
   }
+
+  .vv-flat-button {
+    display: block;
+  }
+
+  .vv-label {
+    font-size: 18px;
+  }
+
+  .vv-sub-label {
+    font-size: 12px;
+  }
+
+  .vv-icon {
+    font-size: 32px;
+  }
+
+  .vv-sub-icon {
+    font-size: 12px;
+    padding-left: 15%;
+  }
 </style>
