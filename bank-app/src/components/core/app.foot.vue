@@ -1,7 +1,7 @@
 <template>
   <mu-bottom-nav :value="activeNav" @change="handleChange">
     <mu-bottom-nav-item v-for="menu in foot.menuList" :key="menu.value" :href="menu.path" :value="menu.value"
-                        :title="menu.name" icon=""/>
+                        :title="menu.name" :icon="menu.icon"/>
   </mu-bottom-nav>
 </template>
 
