@@ -50,4 +50,6 @@ componentsPaths.forEach((path)=> {
   importData.push(`import ${componentName} from "@/entry${filePath}";`);
   initData.push(`{path: "${filePath}", name:"${filePath}", component: ${componentName}}`);
 });
+// 添加默认路径
+initData.push(`{path: "*", redirect: {name: "/home/index"}}`);
 fs.writeFileSync(targetFile, importData.join("") + "export default [" + initData.join(",") + "]");

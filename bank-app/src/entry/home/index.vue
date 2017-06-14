@@ -1,5 +1,15 @@
 <template>
-  <div>
+  <div class="vv-grid vv-tac vv-pr">
+    <mu-row gutter class="vv-row">
+      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-light-blue">1</mu-col>
+      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-deep-purple">2</mu-col>
+    </mu-row>
+    <mu-row gutter class="vv-row vv-mt10">
+      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-pink">3</mu-col>
+      <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-light-green">4</mu-col>
+    </mu-row>
+
+    <div class="vv-circle"></div>
   </div>
 </template>
 
@@ -33,4 +43,46 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .vv-grid {
+    height: 100%;
+  }
+
+  .vv-grid .vv-row {
+    height: 48%;
+  }
+
+  .vv-grid .vv-row.vv-mt10 {
+    margin-top: 4%;
+  }
+
+  .vv-grid .vv-row .vv-col {
+    height: 100%;
+  }
+
+  .vv-bg-light-blue {
+    background-color: #40c4ff;
+  }
+
+  .vv-bg-deep-purple {
+    background-color: #b39ddb;
+  }
+
+  .vv-bg-pink {
+    background-color: #e91e63;
+  }
+
+  .vv-bg-light-green {
+    background-color: #8bc34a;
+  }
+
+  .vv-circle {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #ffffff;
+    position: absolute;
+    top: 45%;
+    left: 43%;
+  }
 </style>

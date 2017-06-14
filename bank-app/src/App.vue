@@ -90,7 +90,7 @@
 
   .rv {
     position: fixed;
-    top: 8%;
+    top: 9%;
     bottom: 8%;
     left: 0;
     right: 0;
@@ -105,7 +105,11 @@
     height: 8%;
   }
 
-  .tac {
+  .vv-tac {
     text-align: center;
+  }
+
+  .vv-pr {
+    position: relative;
   }
 </style>
