@@ -30,7 +30,6 @@ Vue.prototype.$sendRequest = (option)=> {
   let method = env.mode == "dev" ? "get" : "post";
   let params = env.mode == "dev" ? {params: option.params} : option.params;
   return Vue.http[method](requestUrl, params).then(function (data) {
-    console.log(data);
     let body = env.mode != "dev" ? data.body : JSON.parse(data.body);
     option.success && option.success(body);
   }, function (err) {

@@ -1,5 +1,5 @@
 <template>
-  <mu-appbar :title="head.center.title" titleClass="tac">
+  <mu-appbar :title="head.center.title" titleClass="vv-tac">
     <mu-flat-button :label="head.left.title" slot="left"/>
     <mu-flat-button :label="head.right.title" slot="right"/>
   </mu-appbar>
