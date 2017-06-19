@@ -49,8 +49,10 @@
         },
         right: {
           img: "",
-          title: "去登陆",
-          callback: null
+          title: "地图",
+          callback: function () {
+            window.location.href = "#/common/map";
+          }
         }
       });
     }

@@ -1,7 +1,7 @@
 <template>
   <mu-appbar :title="head.center.title" titleClass="vv-tac">
-    <mu-flat-button :label="head.left.title" icon="reply" slot="left"/>
-    <mu-flat-button :label="head.right.title" icon="place" slot="right"/>
+    <mu-flat-button @click="navClick('left')" :label="head.left.title" icon="reply" slot="left"/>
+    <mu-flat-button @click="navClick('right')" :label="head.right.title" icon="place" slot="right"/>
   </mu-appbar>
 </template>
 
@@ -14,7 +14,6 @@
     ]),
     methods: {
       navClick(position){
-        console.log(position);
         let callback = this.head[position].callback;
         if (callback && typeof(callback) == "function") {
           callback();
