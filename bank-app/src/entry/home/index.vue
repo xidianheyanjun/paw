@@ -53,8 +53,6 @@
           callback: null
         }
       });
-
-      this.$store.dispatch("foot_setActive", 0);
     }
   }
 </script>

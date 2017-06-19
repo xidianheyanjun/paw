@@ -6,7 +6,7 @@
     <div class="rv">
       <router-view></router-view>
     </div>
-    <div class="foot">
+    <div v-if="mode=='dev'" class="foot">
       <appFoot></appFoot>
     </div>
   </div>
@@ -15,11 +15,17 @@
 <script>
   import appHead from "@/components/core/app.head";
   import appFoot from "@/components/core/app.foot";
+  import env from "./env";
   export default {
     name: 'app',
     components: {
       appHead,
       appFoot
+    },
+    data(){
+      return {
+        mode: env.mode
+      };
     }
   }
 </script>
