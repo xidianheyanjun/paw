@@ -22,7 +22,7 @@ if (!fs.lstatSync(sourceDir).isDirectory()) {
 let moduleDirs = fs.readdirSync(sourceDir);
 moduleDirs.forEach(function (moduleDir) {
   console.log("=================================================================");
-  if (moduleDir == "store.js" || moduleDir == ".DS_Store") {
+  if (moduleDir == "store.js" || moduleDir.indexOf('.') >= 0) {
     console.log("[" + moduleDir + "] skip");
     console.log("=================================================================");
     console.log("");
@@ -66,7 +66,7 @@ moduleImport.push('import Vue from "vue";import Vuex from "vuex";Vue.use(Vuex);'
 console.log("=================================================================");
 console.log("[" + targetFile + "]");
 moduleDirs.forEach(function (moduleDir) {
-  if (moduleDir == "store.js" || moduleDir == ".DS_Store") {
+  if (moduleDir == "store.js" || moduleDir.indexOf('.') >= 0) {
     console.log("[" + moduleDir + "] skip");
     return false;
   }
