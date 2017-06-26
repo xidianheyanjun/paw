@@ -13,7 +13,7 @@
 
     <div>
       <mu-list>
-        <mu-list-item v-for="item in banner" :to="item.url">
+        <mu-list-item v-for="item in banner" :key="item.id" :to="item.url">
           <img :src="item.img"/>
         </mu-list-item>
       </mu-list>
