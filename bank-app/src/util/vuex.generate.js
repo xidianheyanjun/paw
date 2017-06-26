@@ -22,7 +22,7 @@ if (!fs.lstatSync(sourceDir).isDirectory()) {
 let moduleDirs = fs.readdirSync(sourceDir);
 moduleDirs.forEach(function (moduleDir) {
   console.log("=================================================================");
-  if (moduleDir == "store.js") {
+  if (moduleDir == "store.js" || moduleDir.indexOf(".") > 0) {
     console.log("[" + moduleDir + "] skip");
     console.log("=================================================================");
     console.log("");
