@@ -49,6 +49,8 @@ componentsPaths.forEach((path)=> {
   let componentName = filePath.replace(/\//g, "_");// 斜杠会出错因此转换斜杠成下划线
   importData.push(`import ${componentName} from "@/entry${filePath}";`);
   initData.push(`{path: "${filePath}", name:"${filePath}", component: ${componentName}}`);
+  // 详情页增加标识
+  initData.push(`{path: "${filePath}/:id", name:"${filePath}/id", component: ${componentName}}`);
 });
 // 添加默认路径
 initData.push(`{path: "*", redirect: {name: "/home/index"}}`);
