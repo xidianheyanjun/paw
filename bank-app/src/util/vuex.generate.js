@@ -66,7 +66,7 @@ moduleImport.push('import Vue from "vue";import Vuex from "vuex";Vue.use(Vuex);'
 console.log("=================================================================");
 console.log("[" + targetFile + "]");
 moduleDirs.forEach(function (moduleDir) {
-  if (moduleDir == "store.js") {
+  if (moduleDir == "store.js" || moduleDir.indexOf(".") > 0) {
     console.log("[" + moduleDir + "] skip");
     return false;
   }
