@@ -8,7 +8,7 @@
 <script>
   import { mapGetters } from 'vuex';
   export default {
-    name: 'gbInfo',
+    name: 'gbComment',
     computed: mapGetters([]),
     components: {},
     data(){
@@ -25,12 +25,12 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/gb/publish";
+            window.location.href = "#/gb/forum";
           }
         },
         center: {
           img: "",
-          title: "政银企",
+          title: "论坛详情",
           callback: null
         },
         right: {
