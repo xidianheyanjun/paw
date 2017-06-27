@@ -8,6 +8,5 @@ module.exports = {
       ? config.build.productionSourceMap
       : config.dev.cssSourceMap,
     extract: isProduction
-  }),
-  postcss: [require('postcss-cssnext')()]
+  })
 }

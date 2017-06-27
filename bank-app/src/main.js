@@ -10,8 +10,6 @@ import 'es6-promise/auto';
 
 // 引入UI框架
 import MuseUI from 'muse-ui';
-import 'muse-ui/dist/muse-ui.css';
-import 'material-design-icons/iconfont/material-icons.css';
 Vue.use(MuseUI);
 
 // 异步请求封装
