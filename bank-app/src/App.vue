@@ -103,17 +103,19 @@
     right: 0;
     height: 8%;
   }
-  .clearfix:after{
-    content:'';
-    height:0;
-    display:block;
-    visibility:hidden;
-    clear:both;
+
+  .clearfix:after {
+    content: '';
+    height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
   }
-  .fix-width-content{
-    text-align:ellipsis;
-    white-space:nowrap;
-    overflow:hidden;
+
+  .fix-width-content {
+    text-align: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .vv-tac {
@@ -142,6 +144,5 @@
 
   .vv-sub-icon {
     font-size: 12px;
-    padding-left: 15%;
   }
 </style>
