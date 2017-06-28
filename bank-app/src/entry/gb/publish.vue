@@ -4,19 +4,19 @@
       <h3>政银企对接</h3>
     </div>
 
-    <div>
-      <mu-list>
-        <mu-list-item v-for="item in list" :key="item.id" :title="item.title"
-                      @click="redirect2detail(item)"></mu-list-item>
-      </mu-list>
-    </div>
-
-    <div>
-      <mu-list>
-        <mu-list-item v-for="item in banner" :key="item.id" :to="item.url">
-          <img :src="item.img"/>
+    <div class="tab-body">
+      <div>
+        <mu-list>
+          <mu-list-item v-for="item in list" :key="item.id" :title="item.title"
+                        @click="redirect2detail('policy', item)"></mu-list-item>
+        </mu-list>
+      </div>
+      <hr class="divid-line"/>
+      <div>
+        <mu-list-item v-for="item in banner" :key="item.id">
+          <img :src="item.img" class="banner"/>
         </mu-list-item>
-      </mu-list>
+      </div>
     </div>
   </div>
 </template>
@@ -41,10 +41,22 @@
         }, {
           title: "XXX年XX月啊抠脚大汉卡机的花见花开",
           id: "4"
+        }, {
+          title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+          id: "5"
+        }, {
+          title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+          id: "6"
+        }, {
+          title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+          id: "7"
         }],
         banner: [{
-          img: "",
+          img: "static/images/banner.png",
           id: "5"
+        }, {
+          img: "static/images/banner.png",
+          id: "6"
         }]
       };
     },
@@ -81,4 +93,16 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .tab-body {
+    padding: 0 20px;
+  }
+
+  .divid-line {
+    border: 1px dashed #9575cd;
+  }
+
+  .banner {
+    width: 100%;
+    height: 80px;
+  }
 </style>
