@@ -55,7 +55,7 @@
       <mu-sub-header>用途卡精选</mu-sub-header>
 
       <mu-row gutter class="vv-row vv-left-right">
-        <mu-col width="50" tablet="50" desktop="50" v-for="item in list" class="vv-col">
+        <mu-col width="50" tablet="50" desktop="50" v-for="item in list" :key="item.title" class="vv-col">
           <mu-col width="50" tablet="50" desktop="50" class="vv-info">
             <span class="vv-title">{{item.title}}</span>
             <span class="vv-subTitle">{{item.info}}</span>
@@ -71,7 +71,7 @@
         </mu-col>
       </mu-row>
       <mu-row gutter class="vv-row vv-top-bottom">
-        <mu-col width="25" tablet="25" desktop="25" v-for="item in list2" class="vv-col">
+        <mu-col width="25" tablet="25" desktop="25" v-for="item in list2" :key="item.title" class="vv-col">
           <div class="vv-info">
             <span class="vv-title">{{item.title}}</span>
           </div>

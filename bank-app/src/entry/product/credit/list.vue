@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="vv-cards">
-        <mu-col width="50" tablet="50" desktop="50" class="vv-col clearfix" v-for="item in list">
+        <mu-col width="50" tablet="50" desktop="50" class="vv-col clearfix" v-for="item in list"  :key="item.title">
             <mu-card class="vv-card">
               <mu-card-media title="" subTitle="" class="vv-card-image">
                 <img :src="item.image" />
