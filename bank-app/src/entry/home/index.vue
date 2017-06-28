@@ -2,23 +2,23 @@
   <div class="vv-grid vv-tac vv-pr">
     <mu-row gutter class="vv-row">
       <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-light-blue">
-        <mu-flat-button v-for="finance in home.financeList" :key="finance.label" :label="finance.label"
+        <mu-flat-button v-for="finance in home.financeList" :to="finance.href" :key="finance.label" :label="finance.label"
                         :class="finance.cssClass"
                         :icon="finance.icon" :labelClass="finance.labelClass" :iconClass="finance.iconClass" primary/>
       </mu-col>
       <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-deep-purple">
-        <mu-flat-button v-for="gb in home.gbList" :key="gb.label" :label="gb.label" :class="gb.cssClass"
+        <mu-flat-button v-for="gb in home.gbList" :to="gb.href" :key="gb.label" :label="gb.label" :class="gb.cssClass"
                         :icon="gb.icon" :labelClass="gb.labelClass" :iconClass="gb.iconClass" primary/>
       </mu-col>
     </mu-row>
     <mu-row gutter class="vv-row vv-mt10">
       <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-pink">
-        <mu-flat-button v-for="service in home.serviceList" :key="service.label" :label="service.label"
+        <mu-flat-button v-for="service in home.serviceList" :to="service.href" :key="service.label" :label="service.label"
                         :class="service.cssClass"
                         :icon="service.icon" :labelClass="service.labelClass" :iconClass="service.iconClass" primary/>
       </mu-col>
       <mu-col width="50" tablet="50" desktop="50" class="vv-col vv-bg-light-green">
-        <mu-flat-button v-for="info in home.infoList" :key="info.label" :label="info.label" :class="info.cssClass"
+        <mu-flat-button v-for="info in home.infoList" :to="info.href" :key="info.label" :label="info.label" :class="info.cssClass"
                         :icon="info.icon" :labelClass="info.labelClass" :iconClass="info.iconClass" primary/>
       </mu-col>
     </mu-row>
