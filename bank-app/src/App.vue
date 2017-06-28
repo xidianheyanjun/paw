@@ -103,6 +103,18 @@
     right: 0;
     height: 8%;
   }
+  .clearfix:after{
+    content:'';
+    height:0;
+    display:block;
+    visibility:hidden;
+    clear:both;
+  }
+  .fix-width-content{
+    text-align:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+  }
 
   .vv-tac {
     text-align: center;
