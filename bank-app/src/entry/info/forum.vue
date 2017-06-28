@@ -8,7 +8,7 @@
 <script>
   import { mapGetters } from 'vuex';
   export default {
-    name: 'gbIndustry',
+    name: 'gbForum',
     computed: mapGetters([]),
     components: {},
     data(){
@@ -25,7 +25,7 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/info/index/industry";
+            window.location.href = "#/info/index/forum";
           }
         },
         center: {

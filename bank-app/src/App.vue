@@ -6,26 +6,19 @@
     <div class="rv">
       <router-view></router-view>
     </div>
-    <div v-if="mode=='dev'" class="foot">
-      <appFoot></appFoot>
-    </div>
   </div>
 </template>
 
 <script>
   import appHead from "@/components/core/app.head";
-  import appFoot from "@/components/core/app.foot";
   import env from "./env";
   export default {
     name: 'app',
     components: {
-      appHead,
-      appFoot
+      appHead
     },
     data(){
-      return {
-        mode: env.mode
-      };
+      return {};
     }
   }
 </script>
@@ -96,8 +89,8 @@
 
   .rv {
     position: fixed;
-    top: 9%;
-    bottom: 8%;
+    top: 10%;
+    bottom: 0;
     left: 0;
     right: 0;
     overflow-y: auto;
