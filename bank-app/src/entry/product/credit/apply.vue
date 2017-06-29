@@ -70,7 +70,7 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/product/credit/index";
+            window.location.href = "#/product/credit/list";
           }
         },
         center: {

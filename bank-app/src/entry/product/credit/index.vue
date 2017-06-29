@@ -1,57 +1,37 @@
 <template>
   <div>
-    <div>
-      <mu-dropDown-menu :value="gzxzValue" @change="changeGzxz">
-        <mu-menu-item v-for="item in gzxz" :key="item.value" :value="item.value" :title="item.name"/>
-      </mu-dropDown-menu>
-      <mu-dropDown-menu :value="ysrValue" @change="changeYsr">
-        <mu-menu-item v-for="item in ysr" :key="item.value" :value="item.value" :title="item.name"/>
-      </mu-dropDown-menu>
-      <mu-dropDown-menu :value="zcValue" @change="changeZc">
-        <mu-menu-item v-for="item in zc" :key="item.value" :value="item.value" :title="item.name"/>
-      </mu-dropDown-menu>
-    </div>
-
-    <div class="vv-center">
-      <mu-row gutter class="vv-row">
-        <mu-col width="25" tablet="25" desktop="25">
-          <mu-icon value="home"/>
-          <div>招商银行</div>
+    <div class="vv-module">
+      <mu-row gutter class="vv-tab">
+        <mu-col width="33" tablet="33" desktop="33">
+          <mu-dropDown-menu :value="gzxzValue" @change="changeGzxz">
+            <mu-menu-item v-for="item in gzxz" :key="item.value" :value="item.value" :title="item.name"/>
+          </mu-dropDown-menu>
         </mu-col>
-        <mu-col width="25" tablet="25" desktop="25">
-          <mu-icon value="home"/>
-          <div>人民银行</div>
+        <mu-col width="33" tablet="33" desktop="33">
+          <mu-dropDown-menu :value="ysrValue" @change="changeYsr">
+            <mu-menu-item v-for="item in ysr" :key="item.value" :value="item.value" :title="item.name"/>
+          </mu-dropDown-menu>
         </mu-col>
-        <mu-col width="25" tablet="25" desktop="25">
-          <mu-icon value="home"/>
-          <div>民生银行</div>
-        </mu-col>
-        <mu-col width="25" tablet="25" desktop="25">
-          <mu-icon value="home"/>
-          <div>建设银行</div>
+        <mu-col width="33" tablet="33" desktop="33">
+          <mu-dropDown-menu :value="zcValue" @change="changeZc">
+            <mu-menu-item v-for="item in zc" :key="item.value" :value="item.value" :title="item.name"/>
+          </mu-dropDown-menu>
         </mu-col>
       </mu-row>
-      <mu-row gutter class="vv-row">
-        <mu-col width="25" tablet="25" desktop="25">
-          <mu-icon value="home"/>
-          <div>江苏银行</div>
-        </mu-col>
-        <mu-col width="25" tablet="25" desktop="25">
-          <mu-icon value="home"/>
-          <div>大众银行</div>
-        </mu-col>
-        <mu-col width="25" tablet="25" desktop="25">
-          <mu-icon value="home"/>
-          <div>上海银行</div>
-        </mu-col>
-        <mu-col width="25" tablet="25" desktop="25">
-          <mu-icon value="home"/>
-          <div>浙江银行</div>
-        </mu-col>
-      </mu-row>
+      
+      <div class="vv-center">
+        <mu-row gutter class="vv-row">
+          <mu-col width="25" tablet="25" desktop="25" v-for="item in banks" :key="item.name">
+            <a class="vv-block" :href="item.href">
+              <img class="vv-icon" :src="item.icon"/>
+              <div>{{item.name}}</div>
+            </a>
+          </mu-col>
+        </mu-row>
+      </div>
     </div>
 
-    <div class="vv-cards">
+    <div class="vv-module vv-cards">
       <mu-sub-header>用途卡精选</mu-sub-header>
 
       <mu-row gutter class="vv-row vv-left-right">
@@ -59,7 +39,7 @@
           <mu-col width="50" tablet="50" desktop="50" class="vv-info">
             <span class="vv-title">{{item.title}}</span>
             <span class="vv-subTitle">{{item.info}}</span>
-          </mu-col>
+          </mu-col> 
           <mu-col width="50" tablet="50" desktop="50" class="vv-card">
             <mu-card>
               <mu-card-media title="" subTitle="">
@@ -67,7 +47,6 @@
               </mu-card-media>
             </mu-card>
           </mu-col>
-          
         </mu-col>
       </mu-row>
       <mu-row gutter class="vv-row vv-top-bottom">
@@ -85,11 +64,11 @@
     </div>
 
     <div class="vv-cards">
-      <mu-sub-header>热销推荐<mu-flat-button label="选卡中心" class="vv-button"/></mu-sub-header>
+      <mu-sub-header class="vv-title">热卡推荐<mu-flat-button label="选卡中心 &gt;" class="vv-button" to="/product/credit/list" /></mu-sub-header>
 
       <mu-card>
         <mu-card-media title="" subTitle="">
-          <img src="../../../../static/images/sun.jpg" />
+          <img src="../../../../static/images/ad.jpg" />
         </mu-card-media>
       </mu-card>
       
@@ -104,31 +83,64 @@
     components: {},
     data(){
       return {
+        banks: [{
+          name: '招商银行',
+          href: '#/product/credit/list',
+          icon: '../../../../static/images/bank.png'
+        }, {
+          name: '招商银行',
+          href: '#/product/credit/list',
+          icon: '../../../../static/images/bank.png'
+        }, {
+          name: '招商银行',
+          href: '#/product/credit/list',
+          icon: '../../../../static/images/bank.png'
+        }, {
+          name: '招商银行',
+          href: '#/product/credit/list',
+          icon: '../../../../static/images/bank.png'
+        }, {
+          name: '招商银行',
+          href: '#/product/credit/list',
+          icon: '../../../../static/images/bank.png'
+        },{
+          name: '招商银行',
+          href: '#/product/credit/list',
+          icon: '../../../../static/images/bank.png'
+        },{
+          name: '招商银行',
+          href: '#/product/credit/list',
+          icon: '../../../../static/images/bank.png'
+        },{
+          name: '招商银行',
+          href: '#/product/credit/list',
+          icon: '../../../../static/images/bank.png'
+        }],
         list: [{
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg'
         }, {
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg'
         }],
         list2: [{
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg'
         }, {
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg'
         }, {
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg'
         }, {
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg'
         }],
         gzxzValue: "1",
         ysrValue: "1",
@@ -232,16 +244,32 @@
         this.zcValue = value;
       }
     }
-  }
+  } 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.vv-tab{
+  padding:0 5%;
+}
+.vv-module{
+  border-bottom:10px solid #eee;
+}
+.vv-icon{
+  width:45px;
+  border-radius:100%;
+}
 .vv-center{
   text-align:center;
 }
 .vv-center .vv-row{
-  margin-top:5%;
+  margin:5%;
+}
+.vv-block{
+  display:block;
+  margin-bottom:10%;
+  color:rgba(0, 0, 0, 0.87);
+  font-size:12px;
 }
 .vv-cards{
 }
@@ -262,18 +290,28 @@
   display:block;
 }
 .vv-cards .vv-row .vv-title{
-  font-size:18px;
+  font-size:14px;
   margin-bottom:5%;
 }
 .vv-cards .vv-row .vv-subTitle{
   color:green;
+  font-size:12px;
+}
+.vv-cards .vv-top-bottom{
+  margin-bottom:3%;
 }
 .vv-cards .vv-top-bottom .vv-col{
-  // padding:5%;
+  padding:2%;
   text-align:center;
   border:1px solid #eee;
 }
+.vv-cards .vv-title{
+  position:relative;
+}
 .vv-cards .vv-button{
-  float:right;
+  position:absolute;
+  right:0;
+  top:10%;
+  color:rgba(0, 0, 0, 0.54);
 }
 </style>

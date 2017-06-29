@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="vv-cards">
-        <mu-col width="50" tablet="50" desktop="50" class="vv-col clearfix" v-for="item in list"  :key="item.title">
+        <a class="vv-col clearfix" v-for="item in list" :href="item.href"  :key="item.title">
             <mu-card class="vv-card">
               <mu-card-media title="" subTitle="" class="vv-card-image">
                 <img :src="item.image" />
@@ -13,8 +13,7 @@
                 </ul>
               </div>
             </mu-card>
-        </mu-col>
-      
+        </a>
     </div>
 
   </div>
@@ -30,23 +29,28 @@
         list: [{
           title: '平安银行标准信用卡',
           info: ['首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障'],
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg',
+          href: '#/product/credit/apply'
         }, {
           title: '好车主',
           info: ['加油享折扣'],
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg',
+          href: '#/product/credit/apply'
         }, {
           title: '平安银行标准信用卡',
           info: ['首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障'],
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg',
+          href: '#/product/credit/apply'
         }, {
           title: '平安银行标准信用卡',
           info: ['首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障'],
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg',
+          href: '#/product/credit/apply'
         }, {
           title: '平安银行标准信用卡',
           info: ['首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障'],
-          image: '../../../../static/images/sun.jpg'
+          image: '../../../../static/images/credit.jpg',
+          href: '#/product/credit/apply'
         },]
         
       };
@@ -84,6 +88,8 @@
 <style scoped>
 .vv-col{
   margin:5%;
+  display:block;
+  color:rgba(0, 0, 0, 0.87);
 }
 .vv-card{
   box-shadow:none;

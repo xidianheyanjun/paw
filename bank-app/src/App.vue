@@ -89,7 +89,7 @@
 
   .rv {
     position: fixed;
-    top: 10%;
+    top: 8%;
     bottom: 0;
     left: 0;
     right: 0;

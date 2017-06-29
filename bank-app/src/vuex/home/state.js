@@ -11,7 +11,7 @@ export default{
       iconClass: "vv-icon"
     }, {
       label: "贷款产品",
-      href: '/product/credit/index',
+      href: '/product/loan/index',
       cssClass: "vv-flat-button",
       labelClass: "vv-sub-label",
       icon: "panorama_fish_eye",
