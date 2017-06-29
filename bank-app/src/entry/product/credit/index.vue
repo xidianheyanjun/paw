@@ -68,7 +68,7 @@
 
       <mu-card>
         <mu-card-media title="" subTitle="">
-          <img src="../../../../static/images/ad.jpg" />
+          <img src="static/images/ad.jpg" />
         </mu-card-media>
       </mu-card>
       
@@ -86,61 +86,61 @@
         banks: [{
           name: '招商银行',
           href: '#/product/credit/list',
-          icon: '../../../../static/images/bank.png'
+          icon: 'static/images/bank.png'
         }, {
           name: '招商银行',
           href: '#/product/credit/list',
-          icon: '../../../../static/images/bank.png'
+          icon: 'static/images/bank.png'
         }, {
           name: '招商银行',
           href: '#/product/credit/list',
-          icon: '../../../../static/images/bank.png'
+          icon: 'static/images/bank.png'
         }, {
           name: '招商银行',
           href: '#/product/credit/list',
-          icon: '../../../../static/images/bank.png'
+          icon: 'static/images/bank.png'
         }, {
           name: '招商银行',
           href: '#/product/credit/list',
-          icon: '../../../../static/images/bank.png'
+          icon: 'static/images/bank.png'
         },{
           name: '招商银行',
           href: '#/product/credit/list',
-          icon: '../../../../static/images/bank.png'
+          icon: 'static/images/bank.png'
         },{
           name: '招商银行',
           href: '#/product/credit/list',
-          icon: '../../../../static/images/bank.png'
+          icon: 'static/images/bank.png'
         },{
           name: '招商银行',
           href: '#/product/credit/list',
-          icon: '../../../../static/images/bank.png'
+          icon: 'static/images/bank.png'
         }],
         list: [{
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/credit.jpg'
+          image: 'static/images/credit.jpg'
         }, {
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/credit.jpg'
+          image: 'static/images/credit.jpg'
         }],
         list2: [{
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/credit.jpg'
+          image: 'static/images/credit.jpg'
         }, {
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/credit.jpg'
+          image: 'static/images/credit.jpg'
         }, {
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/credit.jpg'
+          image: 'static/images/credit.jpg'
         }, {
           title: '好车主',
           info: '加油享折扣',
-          image: '../../../../static/images/credit.jpg'
+          image: 'static/images/credit.jpg'
         }],
         gzxzValue: "1",
         ysrValue: "1",

@@ -1,6 +1,5 @@
 <template>
     <div>
-    dd
     </div>
 </template>
 <script>
@@ -12,6 +11,8 @@ export default {
         }
     },
     mounted() {
+        // 如果有携带参数则设置参数
+        // this.pageType = this.$route.params["id"] || "company";
         this.$store.dispatch("head_setHead", {
             left: {
                 img: "",
@@ -32,7 +33,7 @@ export default {
                 window.location.href = "#/common/map";
                 }
             }
-            });
+        });
     }
 }
 </script>
