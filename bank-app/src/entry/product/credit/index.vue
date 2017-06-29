@@ -270,6 +270,7 @@
   margin-bottom:10%;
   color:rgba(0, 0, 0, 0.87);
   font-size:12px;
+  text-align:center;
 }
 .vv-cards{
 }

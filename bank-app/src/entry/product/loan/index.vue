@@ -1,8 +1,8 @@
 <template>
     <div class="vv-wrapper">
         <div class="vv-content">
-            <mu-raised-button label="企业用户贷款" to="/product/loan/search" class="demo-raised-button vv-button" primary/>
-            <mu-raised-button label="个人用户贷款" to="/product/loan/search" class="demo-raised-button vv-button" primary/>
+            <mu-raised-button label="企业用户贷款" to="/product/loan/search/company" class="demo-raised-button vv-button" primary/>
+            <mu-raised-button label="个人用户贷款" to="/product/loan/search/personal" class="demo-raised-button vv-button" primary/>
         </div>
     </div>
 </template>

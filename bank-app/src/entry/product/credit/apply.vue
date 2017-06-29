@@ -43,7 +43,7 @@
     </mu-select-field>
     <mu-text-field label="单位地址" hintText=""/>
     <mu-text-field label="单位电话" hintText=""/>
-    <mu-select-field v-model="work" :labelFocusClass="['label-foucs']" label="单位所属行业" hintText="">
+    <mu-select-field v-model="type" :labelFocusClass="['label-foucs']" label="单位所属行业" hintText="">
         <mu-menu-item value="1" title="机关"/>
         <mu-menu-item value="2" title="国有"/>
         <mu-menu-item value="3" title="三资"/>
@@ -59,7 +59,17 @@
 <script>
   import { mapGetters } from 'vuex';
   export default {
-    name: 'product',
+    name: 'applyCredit',
+    data() {
+      return {
+        city: '',
+        study: '',
+        marry: '',
+        house: '',
+        work: '',
+        type: ''
+      }
+    },
     computed: mapGetters([
       "product"
     ]),
