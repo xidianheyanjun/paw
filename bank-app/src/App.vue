@@ -137,7 +137,7 @@
 
   .vv-sub-label {
     font-size: 12px;
-    padding-left: 10%;
+    padding-left: 20%;
   }
 
   .vv-icon {
