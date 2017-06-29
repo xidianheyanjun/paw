@@ -34,7 +34,7 @@
     <div class="vv-module vv-cards">
       <mu-sub-header>用途卡精选</mu-sub-header>
 
-      <mu-row gutter class="vv-row vv-left-right">
+      <mu-row class="vv-row vv-left-right">
         <mu-col width="50" tablet="50" desktop="50" v-for="item in list" :key="item.title" class="vv-col">
           <mu-col width="50" tablet="50" desktop="50" class="vv-info">
             <span class="vv-title">{{item.title}}</span>
@@ -49,7 +49,7 @@
           </mu-col>
         </mu-col>
       </mu-row>
-      <mu-row gutter class="vv-row vv-top-bottom">
+      <mu-row class="vv-row vv-top-bottom">
         <mu-col width="25" tablet="25" desktop="25" v-for="item in list2" :key="item.title" class="vv-col">
           <div class="vv-info">
             <span class="vv-title">{{item.title}}</span>
@@ -301,9 +301,13 @@
   margin-bottom:3%;
 }
 .vv-cards .vv-top-bottom .vv-col{
-  padding:2%;
+  padding:4%;
   text-align:center;
   border:1px solid #eee;
+}
+.vv-cards .vv-top-bottom .vv-title{
+  display:block;
+  margin-bottom:5%;
 }
 .vv-cards .vv-title{
   position:relative;
