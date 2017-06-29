@@ -1,7 +1,22 @@
 <template>
   <div>
-    <mu-sub-header>{{info.title}}</mu-sub-header>
-    <mu-content-block>{{info.content}}</mu-content-block>
+    <div class="tab-body">
+      <div>
+        <div class="list-title">4月12日中小微企业对接会圆满完成</div>
+      </div>
+      <hr class="divid-line"/>
+      <div>
+        <mu-row v-for="item in list" :key="item.id" class="vv-row">
+          <mu-col width="20" tablet="20" desktop="20" class="vv-col-user">
+            <img :src="item.img" class="img">
+            <div class="name">{{item.name}}</div>
+          </mu-col>
+          <mu-col width="80" tablet="80" desktop="80" class="vv-col-text">
+            {{item.text}}
+          </mu-col>
+        </mu-row>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,10 +28,37 @@
     components: {},
     data(){
       return {
-        info: {
-          title: "XXX年XX月啊抠脚大汉卡机的花见花开",
-          content: "散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！"
-        }
+        list: [{
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          id: 1
+        }, {
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          id: 2
+        }, {
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          id: 3
+        }, {
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          id: 4
+        }, {
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          id: 5
+        }, {
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          id: 6
+        }]
       };
     },
     mounted(){
@@ -47,4 +89,42 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .tab-body {
+    padding: 0 20px;
+  }
+
+  .divid-line {
+    border: 1px dashed #9575cd;
+  }
+
+  .list-title {
+    padding-top: 20px;
+    font-size: 14px;
+    color: #ad1457;
+  }
+
+  .vv-row {
+    background-color: #fccb97;
+    margin: 10px 5px;
+  }
+
+  .vv-col-user {
+    text-align: center;
+    padding: 6% 0;
+  }
+
+  .img {
+    width: 40%;
+  }
+
+  .name {
+    font-size: 14px;
+    padding-top: 10%;
+  }
+
+  .vv-col-text {
+    padding: 10px 10px;
+    line-height: 150%;
+    text-indent: 10%;
+  }
 </style>

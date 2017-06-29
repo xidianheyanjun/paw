@@ -1,22 +1,29 @@
 <template>
   <div>
-    <div>
-      <h3>邀请洽谈</h3>
-    </div>
+    <div class="tab-body">
+      <div>
+        <div class="list-title">政银企预约</div>
+      </div>
+      <hr class="divid-line"/>
+      <div>
+        <mu-row v-for="item in list" :key="item.id" class="vv-row">
+          <mu-col v-if="item.position=='left'" width="20" tablet="20" desktop="20" class="vv-col-user">
+            <img :src="item.img" class="img">
+            <div class="name">{{item.name}}</div>
+          </mu-col>
+          <mu-col v-if="item.position=='left'" width="80" tablet="80" desktop="80" class="vv-col-text">
+            {{item.text}}
+          </mu-col>
 
-    <div>
-      <mu-list>
-        <mu-list-item v-for="item in list" :key="item.id" :title="item.title"
-                      @click="redirect2detail(item)"></mu-list-item>
-      </mu-list>
-    </div>
-
-    <div>
-      <mu-list>
-        <mu-list-item v-for="item in banner" :key="item.id" :to="item.url">
-          <img :src="item.img"/>
-        </mu-list-item>
-      </mu-list>
+          <mu-col v-if="item.position=='right'" width="80" tablet="80" desktop="80" class="vv-col-text">
+            {{item.text}}
+          </mu-col>
+          <mu-col v-if="item.position=='right'" width="20" tablet="20" desktop="20" class="vv-col-user">
+            <img :src="item.img" class="img">
+            <div class="name">{{item.name}}</div>
+          </mu-col>
+        </mu-row>
+      </div>
     </div>
   </div>
 </template>
@@ -30,21 +37,41 @@
     data(){
       return {
         list: [{
-          title: "XXX年XX月啊抠脚大汉卡机的花见花开",
-          id: "1"
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          position: "left",
+          id: 1
         }, {
-          title: "XXX年XX月啊抠脚大汉卡机的花见花开",
-          id: "2"
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          position: "right",
+          id: 2
         }, {
-          title: "XXX年XX月啊抠脚大汉卡机的花见花开",
-          id: "3"
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          position: "right",
+          id: 3
         }, {
-          title: "XXX年XX月啊抠脚大汉卡机的花见花开",
-          id: "4"
-        }],
-        banner: [{
-          img: "",
-          id: "5"
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          position: "right",
+          id: 4
+        }, {
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          position: "right",
+          id: 5
+        }, {
+          img: "static/images/head.png",
+          name: "白竹制造",
+          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
+          position: "right",
+          id: 6
         }]
       };
     },
@@ -81,4 +108,44 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .tab-body {
+    padding: 0 20px;
+  }
+
+  .divid-line {
+    border: 1px dashed #9575cd;
+  }
+
+  .list-title {
+    padding-top: 20px;
+    font-size: 14px;
+    color: #ad1457;
+  }
+
+  .vv-row {
+    margin: 10px 5px;
+  }
+
+  .vv-col-user {
+    text-align: center;
+    padding: 6% 0;
+  }
+
+  .img {
+    width: 40%;
+    border-radius: 5px;
+  }
+
+  .name {
+    font-size: 14px;
+    padding-top: 10%;
+  }
+
+  .vv-col-text {
+    background-color: #fccb97;
+    padding: 10px 10px;
+    line-height: 150%;
+    text-indent: 10%;
+    border-radius: 5px;
+  }
 </style>

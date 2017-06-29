@@ -1,14 +1,11 @@
 <template>
   <div>
-    <div>
-      <h3>政银企对接</h3>
-    </div>
-
     <div class="tab-body">
       <div>
+        <div class="list-title">政银企对接</div>
         <mu-list>
           <mu-list-item v-for="item in list" :key="item.id" :title="item.title"
-                        @click="redirect2detail('policy', item)"></mu-list-item>
+                        @click="redirect2detail(item)"></mu-list-item>
         </mu-list>
       </div>
       <hr class="divid-line"/>
@@ -104,5 +101,11 @@
   .banner {
     width: 100%;
     height: 80px;
+  }
+
+  .list-title {
+    padding-top: 20px;
+    font-size: 14px;
+    color: #ad1457;
   }
 </style>

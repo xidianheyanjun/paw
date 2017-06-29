@@ -1,22 +1,19 @@
 <template>
   <div>
-    <div>
-      <h3>交流论坛</h3>
-    </div>
-
-    <div>
-      <mu-list>
-        <mu-list-item v-for="item in list" :key="item.id" :title="item.title"
-                      @click="redirect2detail(item)"></mu-list-item>
-      </mu-list>
-    </div>
-
-    <div>
-      <mu-list>
-        <mu-list-item v-for="item in banner" :key="item.id" :to="item.url">
-          <img :src="item.img"/>
+    <div class="tab-body">
+      <div>
+        <div class="list-title">交流论坛</div>
+        <mu-list>
+          <mu-list-item v-for="item in list" :key="item.id" :title="item.title"
+                        @click="redirect2detail(item)"></mu-list-item>
+        </mu-list>
+      </div>
+      <hr class="divid-line"/>
+      <div>
+        <mu-list-item v-for="item in banner" :key="item.id">
+          <img :src="item.img" class="banner"/>
         </mu-list-item>
-      </mu-list>
+      </div>
     </div>
   </div>
 </template>
@@ -36,14 +33,14 @@
           title: "XXX年XX月啊抠脚大汉卡机的花见花开",
           id: "2"
         }, {
-          title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+          title: "4月12日中小微企业对接会圆满完成",
           id: "3"
         }, {
           title: "XXX年XX月啊抠脚大汉卡机的花见花开",
           id: "4"
         }],
         banner: [{
-          img: "",
+          img: "static/images/banner.png",
           id: "5"
         }]
       };
@@ -73,7 +70,7 @@
     },
     methods: {
       redirect2detail(item){
-        window.location.href = "#/gb/info/" + item.id;
+        window.location.href = "#/gb/comment/" + item.id;
       }
     }
   }
@@ -81,4 +78,22 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .tab-body {
+    padding: 0 20px;
+  }
+
+  .divid-line {
+    border: 1px dashed #9575cd;
+  }
+
+  .banner {
+    width: 100%;
+    height: 80px;
+  }
+
+  .list-title {
+    padding-top: 20px;
+    font-size: 14px;
+    color: #ad1457;
+  }
 </style>
