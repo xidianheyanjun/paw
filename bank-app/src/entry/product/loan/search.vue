@@ -23,7 +23,7 @@
                         <mu-menu-item value="6" title="其他"/>
                     </mu-select-field>
                     <mu-date-picker label="贷款期限" hintText=""/>
-                    <mu-raised-button label="点击查询" class="demo-raised-button" primary fullWidth/>
+                    <mu-raised-button label="点击查询" class="demo-raised-button" to="/product/loan/list/company" primary fullWidth/>
                 </mu-content-block>
             </div>
             <div class="vv-company" v-if="pageType === 'personal'">
@@ -81,7 +81,7 @@
                         <mu-menu-item value="6" title="其他"/>
                     </mu-select-field>
                     <mu-text-field label="职务" hintText=""/>
-                    <mu-raised-button label="点击查询" class="demo-raised-button" primary fullWidth/>
+                    <mu-raised-button label="点击查询" class="demo-raised-button" to="/product/loan/list/personal" primary fullWidth/>
                 </mu-content-block>
             </div>
         </div>
