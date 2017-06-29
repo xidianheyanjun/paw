@@ -50,7 +50,7 @@
         </mu-list>
       </div>
       <hr class="divid-line"/>
-      <div>
+      <div class="message-container">
         <div class="list-title">留言</div>
         <div class="message-body">
           <div v-for="message in forum.messages" class="message">{{message.text}}</div>
@@ -71,25 +71,25 @@
         activeTab: "policy",
         policy: {
           list: [{
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "1"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "2"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "3"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "4"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "5"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "6"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "7"
           }],
           banner: [{
@@ -102,16 +102,16 @@
         },
         industry: {
           list: [{
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "1"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "2"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "3"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "4"
           }],
           banner: [{
@@ -121,16 +121,16 @@
         },
         forum: {
           list: [{
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "1"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "2"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "3"
           }, {
-            title: "XXX年XX月啊抠脚大汉卡机的花见花开",
+            title: "4月12日中小微企业对接会圆满完成",
             id: "4"
           }],
           messages: [{
@@ -211,6 +211,10 @@
     color: #ad1457;
   }
 
+  .message-container {
+    background-color: #f6c19f;
+  }
+
   .message-body {
     padding: 0 15px;
   }
@@ -221,5 +225,12 @@
     padding: 8px 0;
     word-break: break-all;
     word-wrap: break-word;
+  }
+
+  .icon {
+    border-radius: 50%;
+    background-color: #ff0000;
+    width: 10px;
+    height: 10px;
   }
 </style>

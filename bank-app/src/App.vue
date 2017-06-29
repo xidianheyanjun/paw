@@ -84,12 +84,12 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 8%;
+    height: 56px;
   }
 
   .rv {
     position: fixed;
-    top: 8%;
+    top: 56px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -128,6 +128,7 @@
 
   .vv-flat-button {
     display: block;
+    color: #ffffff;
   }
 
   .vv-label {
@@ -136,6 +137,7 @@
 
   .vv-sub-label {
     font-size: 12px;
+    padding-left: 10%;
   }
 
   .vv-icon {
@@ -144,5 +146,6 @@
 
   .vv-sub-icon {
     font-size: 12px;
+    padding-left: 10%;
   }
 </style>
