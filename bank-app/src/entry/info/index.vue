@@ -7,10 +7,10 @@
     </mu-tabs>
     <div v-if="activeTab === 'policy'" class="tab-body">
       <div>
-        <mu-list>
-          <mu-list-item v-for="item in policy.list" :key="item.id" :title="item.title"
-                        @click="redirect2detail('policy', item)"></mu-list-item>
-        </mu-list>
+        <div v-for="item in policy.list" :key="item.id" @click="redirect2detail('policy', item)" class="list-item">
+          <span class="triangle-right"></span>
+          <span>{{item.title}}</span>
+        </div>
       </div>
       <hr class="divid-line"/>
       <div>
@@ -22,18 +22,18 @@
     <div v-if="activeTab === 'industry'" class="tab-body">
       <div>
         <div class="list-title">国内新闻</div>
-        <mu-list>
-          <mu-list-item v-for="item in industry.list" :key="item.id" :title="item.title"
-                        @click="redirect2detail('industry', item)"></mu-list-item>
-        </mu-list>
+        <div v-for="item in industry.list" :key="item.id" @click="redirect2detail('industry', item)" class="list-item">
+          <span class="triangle-right"></span>
+          <span>{{item.title}}</span>
+        </div>
       </div>
       <hr class="divid-line"/>
       <div>
         <div class="list-title">XX新闻</div>
-        <mu-list>
-          <mu-list-item v-for="item in industry.list" :key="item.id" :title="item.title"
-                        @click="redirect2detail('industry', item)"></mu-list-item>
-        </mu-list>
+        <div v-for="item in industry.list" :key="item.id" @click="redirect2detail('industry', item)" class="list-item">
+          <span class="triangle-right"></span>
+          <span>{{item.title}}</span>
+        </div>
       </div>
       <hr class="divid-line"/>
       <div>
@@ -44,10 +44,10 @@
     </div>
     <div v-if="activeTab === 'forum'" class="tab-body">
       <div>
-        <mu-list>
-          <mu-list-item v-for="item in forum.list" :key="item.id" :title="item.title"
-                        @click="redirect2detail('forum', item)" class="vv-item"></mu-list-item>
-        </mu-list>
+        <div v-for="item in forum.list" :key="item.id" @click="redirect2detail('forum', item)" class="list-item">
+          <span class="triangle-right"></span>
+          <span>{{item.title}}</span>
+        </div>
       </div>
       <hr class="divid-line"/>
       <div class="message-container">
@@ -209,6 +209,16 @@
     padding-top: 20px;
     font-size: 14px;
     color: #ad1457;
+  }
+
+  .list-item {
+    padding: 16px;
+  }
+
+  .list-item span {
+    vertical-align: middle;
+    padding-left: 8px;
+    color: rgba(0, 0, 0, 0.6);
   }
 
   .message-container {

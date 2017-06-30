@@ -39,7 +39,7 @@
   fieldset, form, label, legend,
   table, caption, tbody, tfoot, thead, tr, th, td,
   article, aside, canvas, details, embed,
-  figure, figcaption, footer, header, hgroup,
+  figure, figcaption, footer, header,
   menu, nav, output, ruby, section, summary,
   time, mark, audio, video {
     margin: 0;
@@ -52,7 +52,7 @@
 
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
-  footer, header, hgroup, menu, nav, section {
+  footer, header, menu, nav, section {
     display: block;
   }
 
@@ -112,12 +112,6 @@
     clear: both;
   }
 
-  .fix-width-content {
-    text-align: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-
   .vv-tac {
     text-align: center;
   }
@@ -129,6 +123,14 @@
   .vv-flat-button {
     display: block;
     color: #ffffff;
+    text-align: left;
+  }
+
+  .vv-menu {
+    display: block;
+    color: #ffffff;
+    text-align: left;
+    margin: 8% 0;
   }
 
   .vv-label {
@@ -136,8 +138,8 @@
   }
 
   .vv-sub-label {
-    font-size: 12px;
-    padding-left: 20%;
+    font-size: 16px;
+    padding-left: 6%;
   }
 
   .vv-icon {
@@ -145,7 +147,24 @@
   }
 
   .vv-sub-icon {
+    display: inline-block;
     font-size: 12px;
-    padding-left: 10%;
+    width: 10px;
+    height: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-left: 16%;
+  }
+
+  .triangle-right {
+    font-size: 0;
+    line-height: 0;
+    border-width: 10px;
+    border-color: #e5304f;
+    border-right-width: 0;
+    border-style: dashed;
+    border-left-style: solid;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
   }
 </style>
