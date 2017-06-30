@@ -14,7 +14,9 @@
         left: {
           img: "",
           title: "返回",
-          callback: null
+          callback: function () {
+            window.location.href = "#/home/index";
+          }
         },
         center: {
           img: "",

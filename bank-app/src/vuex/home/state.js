@@ -63,42 +63,42 @@ export default{
     }],
     serviceList: [{
       label: "特色服务",
-      href: '#/service/hot/index',
+      href: '#/service/help',
       cssClass: "vv-flat-button",
       labelClass: "vv-label",
       icon: "room_service",
       iconClass: "vv-icon"
     }, {
       label: "个人征信查询",
-      href: '#/service/zx/index',
+      href: '#/service/zx',
       cssClass: "vv-flat-button",
       labelClass: "vv-sub-label",
       icon: "panorama_fish_eye",
       iconClass: "vv-sub-icon"
     }, {
       label: "附近银行",
-      href: '#/service/map/index',
+      href: '#/service/nearbank',
       cssClass: "vv-flat-button",
       labelClass: "vv-sub-label",
       icon: "panorama_fish_eye",
       iconClass: "vv-sub-icon"
     }, {
       label: "金融计算机",
-      href: '#/service/cacla/index',
+      href: '#/service/calculator',
       cssClass: "vv-flat-button",
       labelClass: "vv-sub-label",
       icon: "panorama_fish_eye",
       iconClass: "vv-sub-icon"
     }, {
       label: "惠银帮办",
-      href: '#/service/help/index',
+      href: '#/service/help',
       cssClass: "vv-flat-button",
       labelClass: "vv-sub-label",
       icon: "panorama_fish_eye",
       iconClass: "vv-sub-icon"
     }, {
       label: "信用卡优惠信息",
-      href: '#/service/credit/index',
+      href: '#/service/offers',
       cssClass: "vv-flat-button",
       labelClass: "vv-sub-label",
       icon: "panorama_fish_eye",
