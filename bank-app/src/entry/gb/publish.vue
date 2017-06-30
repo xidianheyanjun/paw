@@ -3,10 +3,10 @@
     <div class="tab-body">
       <div>
         <div class="list-title">政银企对接</div>
-        <mu-list>
-          <mu-list-item v-for="item in list" :key="item.id" :title="item.title"
-                        @click="redirect2detail(item)"></mu-list-item>
-        </mu-list>
+        <div v-for="item in list" :key="item.id" @click="redirect2detail(item)" class="list-item">
+          <span class="triangle-right"></span>
+          <span>{{item.title}}</span>
+        </div>
       </div>
       <hr class="divid-line"/>
       <div>
@@ -107,5 +107,15 @@
     padding-top: 20px;
     font-size: 14px;
     color: #ad1457;
+  }
+
+  .list-item {
+    padding: 16px;
+  }
+
+  .list-item span {
+    vertical-align: middle;
+    padding-left: 8px;
+    color: rgba(0, 0, 0, 0.6);
   }
 </style>

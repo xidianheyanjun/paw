@@ -2,28 +2,50 @@
   <div class="vv-grid vv-tac vv-pr">
     <div class="vv-row">
       <div class="vv-col-lt vv-bg-light-blue">
-        <mu-flat-button v-for="finance in home.financeList" @click="goto(finance.href)" :key="finance.label"
-                        :label="finance.label"
-                        :class="finance.cssClass"
-                        :icon="finance.icon" :labelClass="finance.labelClass" :iconClass="finance.iconClass" primary/>
+        <mu-flat-button @click="goto(home.finance.href)" :key="home.finance.label"
+                        :label="home.finance.label"
+                        :class="home.finance.cssClass"
+                        :icon="home.finance.icon" :labelClass="home.finance.labelClass"
+                        :iconClass="home.finance.iconClass" primary/>
+        <div v-for="menu in home.finance.subMenu" :class="menu.cssClass" @click="goto(menu.href)">
+          <span :class="menu.iconClass"></span>
+          <span :class="menu.labelClass">{{menu.label}}</span>
+        </div>
       </div>
       <div class="vv-col-rt vv-bg-deep-purple">
-        <mu-flat-button v-for="gb in home.gbList" @click="goto(gb.href)" :key="gb.label" :label="gb.label"
-                        :class="gb.cssClass"
-                        :icon="gb.icon" :labelClass="gb.labelClass" :iconClass="gb.iconClass" primary/>
+        <mu-flat-button @click="goto(home.gb.href)" :key="home.gb.label"
+                        :label="home.gb.label"
+                        :class="home.gb.cssClass"
+                        :icon="home.gb.icon" :labelClass="home.gb.labelClass"
+                        :iconClass="home.gb.iconClass" primary/>
+        <div v-for="menu in home.gb.subMenu" :class="menu.cssClass" @click="goto(menu.href)">
+          <span :class="menu.iconClass"></span>
+          <span :class="menu.labelClass">{{menu.label}}</span>
+        </div>
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-lb vv-bg-pink">
-        <mu-flat-button v-for="service in home.serviceList" @click="goto(service.href)" :key="service.label"
-                        :label="service.label"
-                        :class="service.cssClass"
-                        :icon="service.icon" :labelClass="service.labelClass" :iconClass="service.iconClass" primary/>
+        <mu-flat-button @click="goto(home.service.href)" :key="home.service.label"
+                        :label="home.service.label"
+                        :class="home.service.cssClass"
+                        :icon="home.service.icon" :labelClass="home.service.labelClass"
+                        :iconClass="home.service.iconClass" primary/>
+        <div v-for="menu in home.service.subMenu" :class="menu.cssClass" @click="goto(menu.href)">
+          <span :class="menu.iconClass"></span>
+          <span :class="menu.labelClass">{{menu.label}}</span>
+        </div>
       </div>
       <div class="vv-col-rb vv-bg-light-green">
-        <mu-flat-button v-for="info in home.infoList" @click="goto(info.href)" :key="info.label" :label="info.label"
-                        :class="info.cssClass"
-                        :icon="info.icon" :labelClass="info.labelClass" :iconClass="info.iconClass" primary/>
+        <mu-flat-button @click="goto(home.info.href)" :key="home.info.label"
+                        :label="home.info.label"
+                        :class="home.info.cssClass"
+                        :icon="home.info.icon" :labelClass="home.info.labelClass"
+                        :iconClass="home.info.iconClass" primary/>
+        <div v-for="menu in home.info.subMenu" :class="menu.cssClass" @click="goto(menu.href)">
+          <span :class="menu.iconClass"></span>
+          <span :class="menu.labelClass">{{menu.label}}</span>
+        </div>
       </div>
     </div>
 
