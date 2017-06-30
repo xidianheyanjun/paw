@@ -3,7 +3,8 @@
         <mu-sub-header class="vv-title">{{title}}</mu-sub-header>
         <mu-content-block>
             <div class="vv-detail">{{detail}}</div>
-            <div class="vv-apply">{{apply}}</div>
+            <mu-flat-button class="vv-star" @click="star" label="点击收藏"
+                        icon="star" primary/>
         </mu-content-block>
     </div>
 </template>
@@ -13,8 +14,7 @@ export default {
     data(){
         return {
             title: '工商银行赣州分行xxx贷款',
-            detail: '贷款产品详细介绍',
-            apply: '申请条件介绍'
+            detail: '贷款产品详细介绍'
         }
     },
     mounted() {
@@ -23,12 +23,12 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                window.location.href = "#/product/loan/index";
+                window.location.href = "#/product/finance/index";
                 }
             },
             center: {
                 img: "",
-                title: "贷款产品",
+                title: "理财产品",
                 callback: null
             },
             right: {
@@ -41,6 +41,9 @@ export default {
         });
     },
     methods: {
+        star() {
+
+        }
     }
 }
 </script>
@@ -56,6 +59,10 @@ export default {
     margin-bottom:5%;
     background-color: #fccb97;
     border-radius: 5px;
-    height:100px;
+    height:200px;
+}
+.vv-star{
+    float:right;
+    color:red;
 }
 </style>

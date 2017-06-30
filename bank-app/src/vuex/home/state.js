@@ -26,7 +26,7 @@ export default{
       iconClass: "vv-sub-icon"
     }, {
       label: "理财产品",
-      href: '#/product/credit/index',
+      href: '#/product/finance/index',
       cssClass: "vv-flat-button",
       labelClass: "vv-sub-label",
       icon: "panorama_fish_eye",

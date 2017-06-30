@@ -108,6 +108,7 @@
 .vv-card .vv-card-info .text{
     font-size:12px;
     margin-bottom:5%;
+    color:rgba(0,0,0,.54);
 }
 .vv-card .vv-card-info li{
     margin-bottom:5px;

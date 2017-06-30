@@ -93,4 +93,8 @@ export default {
 .vv-col .title{
     margin-bottom:5%;
 }
+.vv-col .content{
+    color:rgba(0,0,0,.54);
+    font-size:12px;
+}
 </style>

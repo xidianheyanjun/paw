@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="vv-module">
-      <mu-row gutter class="vv-tab">
+      <mu-row class="vv-tab">
         <mu-col width="33" tablet="33" desktop="33">
           <mu-dropDown-menu :value="gzxzValue" @change="changeGzxz">
             <mu-menu-item v-for="item in gzxz" :key="item.value" :value="item.value" :title="item.name"/>
