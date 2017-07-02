@@ -2,6 +2,6 @@
  * Created by Administrator on 2017/6/5.
  */
 export default {
-  mode: "dev",
-  requestRoot: "/static/mock"
+  mode: "build",
+  requestRoot: ""
 };

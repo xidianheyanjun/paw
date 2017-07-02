@@ -153,7 +153,7 @@
     height: 10px;
     background-color: #ffffff;
     border-radius: 5px;
-    margin-left: 16%;
+    margin-left: 12%;
   }
 
   .triangle-right {
@@ -166,5 +166,9 @@
     border-left-style: solid;
     border-top-color: transparent;
     border-bottom-color: transparent;
+  }
+
+  .rv div.list-item {
+    padding: 8px;
   }
 </style>
