@@ -2,7 +2,7 @@
   "name": "bank-app",
   "version": "1.0.0",
   "description": "an app running on android and ios for bank",
-  "author": "little mei and fat jun",
+  "author": "little mei & fat jun",
   "private": true,
   "scripts": {
     "copy:dev": "node ./src/util/copy.js ./src/env/dev.env.js ./src/env.js",
