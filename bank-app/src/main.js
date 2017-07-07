@@ -23,10 +23,10 @@ Vue.config.productionTip = false;
 // option.params:上送的参数
 // option.success:成功回调
 // option.error:失败回调
-Vue.prototype.$sendRequest = (option)=> {
+Vue.prototype.$sendRequest = (option) => {
   let requestUrl = env.requestRoot + option.url;
   let method = env.mode == "dev" ? "get" : "post";
-  let params = env.mode == "dev" ? {params: option.params} : option.params;
+  let params = env.mode == "dev" ? {params: option.params} : {params: JSON.stringify(option.params)};
   return Vue.http[method](requestUrl, params).then(function (data) {
     console.log(data)
     let body = env.mode != "dev" ? data.body : JSON.parse(data.body);

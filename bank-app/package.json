@@ -6,10 +6,12 @@
   "private": true,
   "scripts": {
     "copy:dev": "node ./src/util/copy.js ./src/env/dev.env.js ./src/env.js",
+    "copy:test": "node ./src/util/copy.js ./src/env/test.env.js ./src/env.js",
     "copy:build": "node ./src/util/copy.js ./src/env/build.env.js ./src/env.js",
     "generate:route": "node ./src/util/route.generate.js ./entry ./config/route.config.js",
     "generate:vuex": "node ./src/util/vuex.generate.js ./vuex ./vuex/store.js",
     "dev": "npm run generate:route && npm run generate:vuex && npm run copy:dev && node build/dev-server.js",
+    "test": "npm run generate:route && npm run generate:vuex && npm run copy:test && node build/dev-server.js",
     "start": "npm run generate:route && npm run generate:vuex && npm run copy:dev && node build/dev-server.js",
     "build": "npm run generate:route && npm run generate:vuex && npm run copy:build && node build/build.js"
   },
