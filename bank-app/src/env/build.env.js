@@ -3,5 +3,5 @@
  */
 export default {
   mode: "build",
-  requestRoot: ""
+  requestRoot: "http://39.108.155.19:8080/end"
 };
