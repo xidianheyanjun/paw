@@ -11,6 +11,7 @@
           <span class="triangle-right"></span>
           <span>{{item.title}}</span>
         </div>
+        <mu-infinite-scroll :scroller="policyScroller" :loading="policyLoading" @load="onInfinite('policy')"/>
       </div>
       <hr class="divid-line"/>
       <div>
@@ -26,14 +27,7 @@
           <span class="triangle-right"></span>
           <span>{{item.title}}</span>
         </div>
-      </div>
-      <hr class="divid-line"/>
-      <div>
-        <div class="list-title">XX新闻</div>
-        <div v-for="item in industry.list" :key="item.id" @click="redirect2detail('industry', item)" class="list-item">
-          <span class="triangle-right"></span>
-          <span>{{item.title}}</span>
-        </div>
+        <mu-infinite-scroll :scroller="industryScroller" :loading="industryLoading" @load="onInfinite('industry')"/>
       </div>
       <hr class="divid-line"/>
       <div>
@@ -48,6 +42,7 @@
           <span class="triangle-right"></span>
           <span>{{item.title}}</span>
         </div>
+        <mu-infinite-scroll :scroller="forumScroller" :loading="forumLoading" @load="onInfinite('forum')"/>
       </div>
       <hr class="divid-line"/>
       <div class="message-container">
@@ -70,28 +65,12 @@
       return {
         activeTab: "policy",
         policy: {
-          list: [{
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "1"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "2"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "3"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "4"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "5"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "6"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "7"
-          }],
+          loading: false,
+          scroller: null,
+          pageIndex: 0,
+          pageSize: 20,
+          totalPage: -1,
+          list: [],
           banner: [{
             img: "static/images/banner.png",
             id: "5"
@@ -101,38 +80,24 @@
           }]
         },
         industry: {
-          list: [{
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "1"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "2"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "3"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "4"
-          }],
+          loading: false,
+          scroller: null,
+          pageIndex: 0,
+          pageSize: 20,
+          totalPage: -1,
+          list: [],
           banner: [{
             img: "static/images/banner.png",
             id: "5"
           }]
         },
         forum: {
-          list: [{
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "1"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "2"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "3"
-          }, {
-            title: "4月12日中小微企业对接会圆满完成",
-            id: "4"
-          }],
+          loading: false,
+          scroller: null,
+          pageIndex: 0,
+          pageSize: 20,
+          totalPage: -1,
+          list: [],
           messages: [{
             text: "赵先生：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
             id: "1"
@@ -153,7 +118,8 @@
       };
     },
     mounted(){
-      this.$store.dispatch("head_setHead", {
+      let self = this;
+      self.$store.dispatch("head_setHead", {
         left: {
           img: "",
           title: "返回",
@@ -175,15 +141,61 @@
         }
       });
 
+      self.policyScroller = self.$el;
+      self.industryScroller = self.$el;
+      self.forumScroller = self.$el;
+
       // 如果有携带参数则设置参数
-      this.activeTab = this.$route.params["id"] || "policy";
+      self.activeTab = self.$route.params["id"] || "policy";
+      self.changeTab(self.activeTab);
     },
     methods: {
       changeTab(value){
-        this.activeTab = value;
+        let self = this;
+        self.activeTab = value;
+        if (self[value].totalPage == -1) {
+          self.loadMore(value);
+
+          // 第一次进来查询banner或者留言 todo
+        }
       },
       redirect2detail(kind, item){
         window.location.href = "#/info/" + kind + "/" + item.id;
+      },
+      onInfinite(kind){
+        let self = this;
+        if (self[kind].loading) {
+          return false;
+        }
+
+        if (self[kind].totalPage != -1 && self[kind].pageIndex >= self[kind].totalPage) {
+          console.log("loadMore", self[kind].totalPage, self[kind].pageIndex);
+          return false;
+        }
+
+        self.loadMore(kind);
+      },
+      loadMore(kind){
+        let self = this;
+        self[kind].loading = true;
+        self[kind].pageIndex += 1;
+        self.$sendRequest({
+          url: "/info/list",
+          params: {
+            kind: kind,
+            pageIndex: self[kind].pageIndex,
+            pageSize: self[kind].pageSize
+          },
+          success(body){
+            for (let count = 0; count < body.list.length; ++count) {
+              self[kind].list.push(body.list[count]);
+            }
+            self[kind].totalPage = body.totalPage;
+            self[kind].loading = false;
+          },
+          error(err){
+          }
+        });
       }
     }
   }
