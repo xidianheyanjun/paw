@@ -1,39 +1,31 @@
 <template>
   <div class="paper">
     <div class="setting">
-      <div class="menu">
-        <div class="menu-name">头像</div>
-        <div class="menu-icon">
-          <mu-avatar :src="avatar" class="avatar"/>
-        </div>
-      </div>
-      <div class="menu">
-        <div class="menu-name">昵称</div>
-        <div class="menu-icon">{{nickName}}</div>
-      </div>
-      <div class="menu">
-        <div class="menu-name">手机号</div>
-        <div class="menu-icon">{{tel}}</div>
+      <div v-for="item in list" class="menu">
+        <div class="menu-name">{{item.name}}</div>
+        <div class="menu-icon">&gt;</div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-  import {mapGetters} from 'vuex';
+  import { mapGetters } from 'vuex';
   export default {
-    name: 'personEdit',
-    computed: mapGetters([]),
+    name: 'personCollect',
     components: {},
-    data(){
+    computed: mapGetters([
+      "person"
+    ]),
+    data() {
       return {
-        avatar: "static/images/person.jpg",
-        nickName: "",
-        tel: ""
+        storeKind: "",
+        list: []
       };
     },
-    mounted(){
-      this.$store.dispatch("head_setHead", {
+    mounted() {
+      let self = this;
+      self.storeKind = self.$route.params["id"] || "credit";
+      self.$store.dispatch("head_setHead", {
         left: {
           img: "",
           title: "返回",
@@ -43,7 +35,7 @@
         },
         center: {
           img: "",
-          title: "个人资料",
+          title: self.person.mapStoreKind[self.storeKind],
           callback: null
         },
         right: {
@@ -55,27 +47,16 @@
         }
       });
 
-      // 从服务器拉取数据填充 todo
+      // 分页查询 todo
     },
-    methods: {
-      onMenuClick(type, param){
-        switch (type) {
-          case "forward":
-            window.location.href = param;
-            break;
-        }
-      }
-    }
+    methods: {}
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .paper {
     display: block;
     width: 100%;
     height: 100%;
-    background-color: #f0f0f0;
   }
 
   .setting {

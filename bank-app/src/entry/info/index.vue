@@ -177,7 +177,6 @@
 
       // 如果有携带参数则设置参数
       this.activeTab = this.$route.params["id"] || "policy";
-
     },
     methods: {
       changeTab(value){

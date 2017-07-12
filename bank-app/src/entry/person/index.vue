@@ -2,7 +2,7 @@
   <div class="paper">
     <div class="info">
       <mu-avatar :src="avatar" class="avatar"/>
-      <div v-if="!isLogin" @click="login" class="font-title mt-title">立即登录</div>
+      <div v-if="!person.isLogin" @click="login" class="font-title mt-title">立即登录</div>
       <div v-if="person.isLogin" class="font-title mt-title">busy boy</div>
     </div>
 
@@ -12,6 +12,8 @@
         <div class="menu-icon">&gt;</div>
       </div>
     </div>
+
+    <toast/>
   </div>
 </template>
 
@@ -22,7 +24,9 @@
     computed: mapGetters([
       "person"
     ]),
-    components: {},
+    components: {
+      toast
+    },
     data(){
       return {
         avatar: "static/images/person.jpg"
@@ -60,6 +64,34 @@
       },
       forward(url){
         window.location.href = url;
+      },
+      logout(){
+        self.$sendRequest({
+          url: "/user/logout",
+          params: {},
+          success(body){
+            if (body.code != 'success') {
+              self.$store.dispatch("box_set_toast", {
+                show: true,
+                toastText: body.msg
+              });
+              return false;
+            }
+
+            // 退出成功清除客户端token todo
+
+            self.$store.dispatch("box_set_toast", {
+              show: true,
+              toastText: "退出成功"
+            });
+          },
+          error(err){
+            self.$store.dispatch("box_set_toast", {
+              show: true,
+              toastText: "服务器繁忙,请稍后再试"
+            });
+          }
+        });
       },
       onMenuClick(type, param){
         if (!this.person.isLogin) {

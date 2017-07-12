@@ -1,38 +1,25 @@
 <template>
   <div class="paper">
     <div class="setting">
-      <div class="menu">
-        <div class="menu-name">头像</div>
-        <div class="menu-icon">
-          <mu-avatar :src="avatar" class="avatar"/>
-        </div>
-      </div>
-      <div class="menu">
-        <div class="menu-name">昵称</div>
-        <div class="menu-icon">{{nickName}}</div>
-      </div>
-      <div class="menu">
-        <div class="menu-name">手机号</div>
-        <div class="menu-icon">{{tel}}</div>
+      <div v-for="menu in person.storeKind" @click="forward(menu.href)" class="menu">
+        <div class="menu-name">{{menu.name}}</div>
+        <div class="menu-icon">&gt;</div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-  import {mapGetters} from 'vuex';
+  import { mapGetters } from 'vuex';
   export default {
-    name: 'personEdit',
-    computed: mapGetters([]),
+    name: 'personStore',
     components: {},
-    data(){
-      return {
-        avatar: "static/images/person.jpg",
-        nickName: "",
-        tel: ""
-      };
+    computed: mapGetters([
+      "person"
+    ]),
+    data() {
+      return {};
     },
-    mounted(){
+    mounted() {
       this.$store.dispatch("head_setHead", {
         left: {
           img: "",
@@ -43,7 +30,7 @@
         },
         center: {
           img: "",
-          title: "个人资料",
+          title: "我的收藏",
           callback: null
         },
         right: {
@@ -54,28 +41,19 @@
           }
         }
       });
-
-      // 从服务器拉取数据填充 todo
     },
     methods: {
-      onMenuClick(type, param){
-        switch (type) {
-          case "forward":
-            window.location.href = param;
-            break;
-        }
+      forward(href){
+        window.location.href = href;
       }
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .paper {
     display: block;
     width: 100%;
     height: 100%;
-    background-color: #f0f0f0;
   }
 
   .setting {

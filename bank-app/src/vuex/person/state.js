@@ -11,19 +11,15 @@ export default{
     }, {
       name: "个人征信",
       type: "forward",
-      param: ""
+      param: "#/service/zx"
     }, {
       name: "我的公积金查询",
       type: "forward",
       param: ""
     }, {
-      name: "我的理财",
-      type: "forward",
-      param: ""
-    }, {
       name: "我的收藏",
       type: "forward",
-      param: ""
+      param: "#/person/store"
     }, {
       name: "热点推送",
       type: "forward",
@@ -34,8 +30,23 @@ export default{
       param: ""
     }, {
       name: "退出登录",
-      type: "forward",
+      type: "logout",
       param: ""
+    }],
+    mapStoreKind: {
+      credit: "信用卡优惠信息",
+      finance: "理财信息",
+      loan: "贷款信息"
+    },
+    storeKind: [{
+      name: "收藏的信用卡优惠信息",
+      href: "#/person/collect/credit"
+    }, {
+      name: "收藏的理财信息",
+      href: "#/person/collect/finance"
+    }, {
+      name: "收藏的贷款信息",
+      href: "#/person/collect/loan"
     }]
   }
 };
