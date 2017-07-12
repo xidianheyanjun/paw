@@ -6,6 +6,8 @@
         <div class="menu-icon">&gt;</div>
       </div>
     </div>
+
+    <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="onInfinite"/>
   </div>
 </template>
 <script>
@@ -19,7 +21,12 @@
     data() {
       return {
         storeKind: "",
-        list: []
+        list: [],
+        pageIndex: 0,
+        pageSize: 20,
+        totalPage: -1,
+        loading: false,
+        scroller: null
       };
     },
     mounted() {
@@ -47,9 +54,48 @@
         }
       });
 
-      // 分页查询 todo
+      self.scroller = self.$el;
+
+      // 分页查询
+      self.loadMore();
     },
-    methods: {}
+    methods: {
+      onInfinite(){
+        let self = this;
+        if (self.loading) {
+          return false;
+        }
+
+        if (self.totalPage != -1 && self.pageIndex >= self.totalPage) {
+          console.log("loadMore", self.totalPage, self.pageIndex);
+          return false;
+        }
+
+        self.loadMore();
+      },
+      loadMore(){
+        let self = this;
+        self.loading = true;
+        self.pageIndex += 1;
+        self.$sendRequest({
+          url: "/person/collect",
+          params: {
+            storeKind: self.storeKind,
+            pageIndex: self.pageIndex,
+            pageSize: self.pageSize
+          },
+          success(body){
+            for (let count = 0; count < body.list.length; ++count) {
+              self.list.push(body.list[count]);
+            }
+            self.totalPage = body.totalPage;
+            self.loading = false;
+          },
+          error(err){
+          }
+        });
+      }
+    }
   }
 </script>
 <style scoped>
