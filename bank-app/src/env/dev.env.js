@@ -3,5 +3,6 @@
  */
 export default {
   mode: "dev",
+  useNative: false,
   requestRoot: "/static/mock"
 };

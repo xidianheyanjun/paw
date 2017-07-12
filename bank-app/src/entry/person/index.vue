@@ -1,13 +1,13 @@
 <template>
   <div class="paper">
     <div class="info">
-      <mu-avatar src="static/images/person.jpg" class="avatar"/>
+      <mu-avatar :src="avatar" class="avatar"/>
       <div v-if="!isLogin" @click="login" class="font-title mt-title">立即登录</div>
-      <div v-if="isLogin" class="font-title mt-title">busy boy</div>
+      <div v-if="person.isLogin" class="font-title mt-title">busy boy</div>
     </div>
 
     <div class="setting">
-      <div v-for="menu in menuList" @click="onMenuClick(menu.type, menu.param)" class="menu">
+      <div v-for="menu in person.menuList" @click="onMenuClick(menu.type, menu.param)" class="menu">
         <div class="menu-name">{{menu.name}}</div>
         <div class="menu-icon">&gt;</div>
       </div>
@@ -19,44 +19,13 @@
   import {mapGetters} from 'vuex';
   export default {
     name: 'personIndex',
-    computed: mapGetters([]),
+    computed: mapGetters([
+      "person"
+    ]),
     components: {},
     data(){
       return {
-        isLogin: false,
-        menuList: [{
-          name: "个人资料",
-          type: "forward",
-          param: "#/person/edit"
-        }, {
-          name: "个人征信",
-          type: "forward",
-          param: ""
-        }, {
-          name: "我的公积金查询",
-          type: "forward",
-          param: ""
-        }, {
-          name: "我的理财",
-          type: "forward",
-          param: ""
-        }, {
-          name: "我的收藏",
-          type: "forward",
-          param: ""
-        }, {
-          name: "热点推送",
-          type: "forward",
-          param: ""
-        }, {
-          name: "帮助与反馈",
-          type: "forward",
-          param: ""
-        }, {
-          name: "退出登录",
-          type: "forward",
-          param: ""
-        }]
+        avatar: "static/images/person.jpg"
       };
     },
     mounted(){
@@ -89,12 +58,15 @@
       logout(){
         this.isLogin = false;
       },
+      forward(url){
+        window.location.href = url;
+      },
       onMenuClick(type, param){
-        switch (type) {
-          case "forward":
-            window.location.href = param;
-            break;
+        if (!this.person.isLogin) {
+          forward("#/person/login");
+          return false;
         }
+        this[type](param);
       }
     }
   }

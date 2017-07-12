@@ -3,5 +3,6 @@
  */
 export default {
   mode: "test",
+  useNative: false,
   requestRoot: "http://192.168.1.109:1989/end"
 };

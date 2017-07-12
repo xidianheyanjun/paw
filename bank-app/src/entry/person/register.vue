@@ -75,14 +75,14 @@ export default {
                 success(body){
                     if (body.code === 'success') {
                         self.$store.dispatch("updateName", self.account);
-                        
+
                         self.toast = true;
                         if (self.toastTimer) {
                             clearTimeout(self.toastTimer);
                         }
-                        self.toastTimer = setTimeout(() => { self.toast = false }, 2000);
+                        self.toastTimer = setTimeout(()=>{ self.toast = false; }, 2000);
                     }
-                    
+
                 },
                 error(err){
                 }
