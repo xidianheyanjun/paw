@@ -6,6 +6,7 @@ import App from './App';
 import router from './router';
 import store from './vuex/store';
 import env from './env';
+import native from './util/native';
 import 'es6-promise/auto';
 
 // 引入UI框架
@@ -26,7 +27,10 @@ Vue.config.productionTip = false;
 Vue.prototype.$sendRequest = (option) => {
   let requestUrl = env.requestRoot + option.url;
   let method = env.mode == "dev" ? "get" : "post";
-  let params = env.mode == "dev" ? {params: option.params} : {params: JSON.stringify(option.params)};
+  let userInfo = native.getUserInfo();
+  option.params.userId = userInfo.userId;
+  option.params.token = userInfo.token;
+  let params = env.mode == "dev" ? {data: option.params} : {data: JSON.stringify(option.params)};
   return Vue.http[method](requestUrl, params).then(function (data) {
     console.log(data);
     let body = env.mode != "dev" ? data.body : JSON.parse(data.body);

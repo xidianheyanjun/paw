@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex';
+  import {mapGetters} from 'vuex';
   export default {
     name: 'personCollect',
     components: {},
@@ -37,7 +37,7 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/person/index";
+            window.location.href = "#/person/store";
           }
         },
         center: {
@@ -78,20 +78,21 @@
         self.loading = true;
         self.pageIndex += 1;
         self.$sendRequest({
-          url: "/person/collect",
+          url: "/user/collect",
           params: {
             storeKind: self.storeKind,
             pageIndex: self.pageIndex,
             pageSize: self.pageSize
           },
           success(body){
-            for (let count = 0; count < body.list.length; ++count) {
-              self.list.push(body.list[count]);
+            for (let count = 0; count < body.data.list.length; ++count) {
+              self.list.push(body.data.list[count]);
             }
-            self.totalPage = body.totalPage;
+            self.totalPage = body.data.totalPage;
             self.loading = false;
           },
           error(err){
+            self.loading = false;
           }
         });
       }

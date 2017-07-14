@@ -3,7 +3,6 @@
  */
 export default{
   person: {
-    isLogin: false,
     menuList: [{
       name: "个人资料",
       type: "forward",

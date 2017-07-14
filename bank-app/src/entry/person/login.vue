@@ -6,17 +6,14 @@
                      :errorText="passwordError"/>
       <mu-raised-button label="立即登录" class="register-btn" @click="login" primary fullWidth/>
     </div>
-    <toast/>
   </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex';
-  import toast from "@/components/box/toast";
+  import {mapGetters} from 'vuex';
+  import native from "@/util/native";
   export default {
     name: 'personLogin',
-    components: {
-      toast
-    },
+    components: {},
     computed: mapGetters([]),
     data() {
       return {
@@ -76,7 +73,11 @@
               return false;
             }
 
-            // 登录成功写token到客户端 todo
+            // 登录成功写token到客户端
+            native.setUserInfo({
+              userId: body.userId,
+              token: body.token
+            });
 
             // 跳转到个人中心
             window.location.href = "#/person/index";

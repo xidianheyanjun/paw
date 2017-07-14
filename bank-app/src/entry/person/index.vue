@@ -12,8 +12,6 @@
         <div class="menu-icon">&gt;</div>
       </div>
     </div>
-
-    <toast/>
   </div>
 </template>
 
@@ -22,11 +20,10 @@
   export default {
     name: 'personIndex',
     computed: mapGetters([
-      "person"
+      "person",
+      "person_isLogin"
     ]),
-    components: {
-      toast
-    },
+    components: {},
     data(){
       return {
         avatar: "static/images/person.jpg"
@@ -94,8 +91,13 @@
         });
       },
       onMenuClick(type, param){
-        if (!this.person.isLogin) {
-          forward("#/person/login");
+        console.log(this.person_isLogin);
+        if (!this.person_isLogin) {
+          this.$store.dispatch("box_set_toast", {
+            show: true,
+            toastText: "请先登录"
+          });
+          this.forward("#/person/login");
           return false;
         }
         this[type](param);

@@ -6,16 +6,20 @@
     <div class="rv">
       <router-view></router-view>
     </div>
+
+    <toast/>
   </div>
 </template>
 
 <script>
   import appHead from "@/components/core/app.head";
+  import toast from "@/components/box/toast";
   import env from "./env";
   export default {
     name: 'app',
     components: {
-      appHead
+      appHead,
+      toast
     },
     data(){
       return {};
