@@ -90,7 +90,7 @@
   .setting .menu .menu-name {
     display: inline-block;
     padding-left: 6%;
-    width: 80%;
+    width: 65%;
     font-size: 18px;
     height: 42px;
     line-height: 42px;
@@ -100,8 +100,10 @@
   .setting .menu .menu-icon {
     display: inline-block;
     font-size: 18px;
+    width: 30%;
     height: 42px;
     line-height: 42px;
     color: #cccccc;
+    text-align: center;
   }
 </style>

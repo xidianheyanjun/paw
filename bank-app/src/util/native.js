@@ -14,7 +14,8 @@ let setUserInfo = (data) => {
 let getUserInfo = () => {
   if (env.useNative) {
   } else {
-    return JSON.parse(window.localStorage.getItem("userInfo")) || {};
+    let userInfoJson = window.localStorage.getItem("userInfo");
+    return userInfoJson ? JSON.parse(userInfoJson) : {};
   }
 };
 

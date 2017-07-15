@@ -3,6 +3,6 @@
  */
 export default {
   mode: "build",
-  useNative: true,
+  useNative: false,
   requestRoot: "http://39.108.155.19:8080/end"
 };
