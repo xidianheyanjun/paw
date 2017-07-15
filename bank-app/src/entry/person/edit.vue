@@ -8,12 +8,8 @@
         </div>
       </div>
       <div class="menu">
-        <div class="menu-name">昵称</div>
-        <div class="menu-icon">{{nickName}}</div>
-      </div>
-      <div class="menu">
         <div class="menu-name">手机号</div>
-        <div class="menu-icon">{{tel}}</div>
+        <div class="menu-icon">{{account}}</div>
       </div>
     </div>
   </div>
@@ -21,15 +17,15 @@
 
 <script>
   import {mapGetters} from 'vuex';
+  import native from "@/util/native";
   export default {
     name: 'personEdit',
     computed: mapGetters([]),
     components: {},
     data(){
       return {
-        avatar: "static/images/person.jpg",
-        nickName: "",
-        tel: ""
+        avatar: "static/images/atavar.png",
+        account: ""
       };
     },
     mounted(){
@@ -55,7 +51,10 @@
         }
       });
 
-      // 从服务器拉取数据填充 todo
+      // 从服务器拉取数据填充
+
+      let userInfo = native.getUserInfo();
+      this.account = userInfo.account || "";
     },
     methods: {
       onMenuClick(type, param){

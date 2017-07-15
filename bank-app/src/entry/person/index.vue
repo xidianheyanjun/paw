@@ -2,8 +2,8 @@
   <div class="paper">
     <div class="info">
       <mu-avatar :src="avatar" class="avatar"/>
-      <div v-if="!person.isLogin" @click="login" class="font-title mt-title">立即登录</div>
-      <div v-if="person.isLogin" class="font-title mt-title">busy boy</div>
+      <div v-if="!person_isLogin" @click="login" class="font-title mt-title">立即登录</div>
+      <div v-if="person_isLogin" class="font-title mt-title">{{account}}</div>
     </div>
 
     <div class="setting">
@@ -17,16 +17,18 @@
 
 <script>
   import {mapGetters} from 'vuex';
+  import native from "@/util/native";
   export default {
     name: 'personIndex',
     computed: mapGetters([
-      "person",
-      "person_isLogin"
+      "person"
     ]),
     components: {},
     data(){
       return {
-        avatar: "static/images/person.jpg"
+        avatar: "static/images/atavar.png",
+        person_isLogin: false,
+        account: ""
       };
     },
     mounted(){
@@ -51,18 +53,20 @@
           }
         }
       });
+
+      this.person_isLogin = native.isLogin();
+      let userInfo = native.getUserInfo();
+      this.account = userInfo.account || "";
     },
     methods: {
       login(){
-        this.isLogin = true;
-      },
-      logout(){
-        this.isLogin = false;
+        this.forward("#/person/login");
       },
       forward(url){
         window.location.href = url;
       },
       logout(){
+        let self = this;
         self.$sendRequest({
           url: "/user/logout",
           params: {},
@@ -75,7 +79,14 @@
               return false;
             }
 
-            // 退出成功清除客户端token todo
+            // 退出成功清除客户端token
+            native.setUserInfo({
+              userId: "",
+              account: "",
+              token: ""
+            });
+
+            self.person_isLogin = native.isLogin();
 
             self.$store.dispatch("box_set_toast", {
               show: true,
@@ -91,8 +102,7 @@
         });
       },
       onMenuClick(type, param){
-        console.log(this.person_isLogin);
-        if (!this.person_isLogin) {
+        if (!native.isLogin()) {
           this.$store.dispatch("box_set_toast", {
             show: true,
             toastText: "请先登录"

@@ -18,7 +18,12 @@ let getUserInfo = () => {
   }
 };
 
+let islogin = () => {
+  return !!getUserInfo().userId;
+};
+
 export default {
   setUserInfo: setUserInfo,
-  getUserInfo: getUserInfo
+  getUserInfo: getUserInfo,
+  isLogin: islogin
 };
