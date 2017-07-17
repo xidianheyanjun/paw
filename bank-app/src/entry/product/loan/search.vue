@@ -12,8 +12,8 @@
                         <mu-menu-item value="5" title="个体"/>
                         <mu-menu-item value="6" title="其他"/>
                     </mu-select-field>
-                    <mu-text-field label="注册资金" hintText=""/>
-                    <mu-text-field label="贷款金额" hintText=""/>
+                    <mu-text-field label="注册资金" hintText="" v-model="registeredCapital" type="number" />
+                    <mu-text-field label="贷款金额" hintText="" v-model="loanAmount" type="number" />
                     <mu-select-field v-model="loanType" :labelFocusClass="['label-foucs']" label="贷款品种" hintText="请选择">
                         <mu-menu-item value="1" title="机关"/>
                         <mu-menu-item value="2" title="国有"/>
@@ -22,8 +22,8 @@
                         <mu-menu-item value="5" title="个体"/>
                         <mu-menu-item value="6" title="其他"/>
                     </mu-select-field>
-                    <mu-date-picker label="贷款期限" hintText=""/>
-                    <mu-raised-button label="点击查询" class="demo-raised-button" to="/product/loan/list/company" primary fullWidth/>
+                    <mu-date-picker label="贷款期限" hintText="月" v-model="loanPeriod" type="number" />
+                    <mu-raised-button label="点击查询" class="demo-raised-button" @click="searchCompanyClick" primary fullWidth/>
                 </mu-content-block>
             </div>
             <div class="vv-company" v-if="pageType === 'personal'">
@@ -81,7 +81,7 @@
                         <mu-menu-item value="6" title="其他"/>
                     </mu-select-field>
                     <mu-text-field label="职务" hintText=""/>
-                    <mu-raised-button label="点击查询" class="demo-raised-button" to="/product/loan/list/personal" primary fullWidth/>
+                    <mu-raised-button label="点击查询" class="demo-raised-button" @click="searchBtnClick" primary fullWidth/>
                 </mu-content-block>
             </div>
         </div>
@@ -107,7 +107,10 @@ export default {
         return {
             pageType: 'company',
             companyNature: '',
+            registeredCapital: '',
+            loanAmount: '',
             loanType: '',
+            loanPeriod: '',
             banks: [{
                 name: '流动资金贷款',
                 href: '#/product/credit/list',
@@ -175,6 +178,47 @@ export default {
                 }
             }
         });
+    },
+    methods: {
+        searchCompanyClick() {
+            let self = this;
+            let {
+                companyNature,
+                registeredCapital,
+                loanAmount,
+                loanType,
+                loanPeriod
+                } = self;
+            self.$sendRequest({
+                url: "/product/loan/search",
+                params: {
+                    type: self.pageType,
+                    companyNature,
+                    registeredCapital,
+                    loanAmount,
+                    loanType,
+                    loanPeriod
+                },
+                success(body){
+                    if (body.code != 'success') {
+                    self.$store.dispatch("box_set_toast", {
+                        show: true,
+                        toastText: body.msg
+                    });
+                    return false;
+                    }
+
+                    // 跳转到贷款列表页
+                    window.location.href = "#/product/loan/list";
+                },
+                error(err){
+                    self.$store.dispatch("box_set_toast", {
+                    show: true,
+                    toastText: "服务器繁忙,请稍后再试"
+                    });
+                }
+            });
+        }
     }
 }
 </script>
