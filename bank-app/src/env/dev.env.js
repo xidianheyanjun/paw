@@ -4,5 +4,6 @@
 export default {
   mode: "dev",
   useNative: false,
+  useSign: false,
   requestRoot: "/static/mock"
 };

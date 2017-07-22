@@ -30,7 +30,11 @@ Vue.prototype.$sendRequest = (option) => {
   let userInfo = native.getUserInfo();
   option.params.userId = userInfo.userId;
   option.params.token = userInfo.token;
-  let params = env.mode == "dev" ? {data: option.params} : {data: JSON.stringify(option.params)};
+  let data = JSON.stringify(option.params);
+  let params = env.mode == "dev" ? {data: option.params} : {
+    data: data,
+    sign: env.useSign ? native.sign(data) : ""
+  };
   return Vue.http[method](requestUrl, params).then(function (data) {
     console.log(data);
     let body = env.mode != "dev" ? data.body : JSON.parse(data.body);
