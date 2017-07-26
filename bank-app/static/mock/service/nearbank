@@ -1,0 +1,45 @@
+{
+  "code": "success",
+  "msg": "成功",
+  "data": [{
+    "title": "中国农业银行（章江南路支行）",
+    "addr": "章江南大道水岸新天地A栋6-8号",
+    "href": "#/common/map",
+    "icon": "static/images/bank.png",
+    "distance": "131米"
+  }, {
+    "title": "中国农业银行（章江南路支行）",
+    "addr": "章江南大道水岸新天地A栋6-8号",
+    "href": "#/common/map",
+    "icon": "static/images/bank.png",
+    "distance": "131米"
+  }, {
+    "title": "中国农业银行（章江南路支行）",
+    "addr": "章江南大道水岸新天地A栋6-8号",
+    "href": "#/common/map",
+    "icon": "static/images/bank.png",
+    "distance": "131米"
+  }, {
+    "title": "中国农业银行（章江南路支行）",
+    "addr": "章江南大道水岸新天地A栋6-8号",
+    "href": "#/common/map",
+    "icon": "static/images/bank.png",
+    "distance": "131米"
+  }, {
+    "title": "中国农业银行（章江南路支行）",
+    "addr": "章江南大道水岸新天地A栋6-8号",
+    "href": "#/common/map",
+    "icon": "static/images/bank.png",
+    "distance": "131米"
+  }, {
+    "title": "中国农业银行（章江南路支行）",
+    "addr": "章江南大道水岸新天地A栋6-8号",
+    "href": "#/common/map",
+    "icon": "static/images/bank.png",
+    "distance": "131米"
+  }]
+}
+
+
+
+      

@@ -57,43 +57,7 @@ export default {
                 value: '4',
                 name: '农业银行'
             }],
-            list: [{
-                title: '中国农业银行（章江南路支行）',
-                addr: '章江南大道水岸新天地A栋6-8号',
-                href: '#/common/map',
-                icon: 'static/images/bank.png',
-                distance: '131米'
-            }, {
-                title: '中国农业银行（章江南路支行）',
-                addr: '章江南大道水岸新天地A栋6-8号',
-                href: '#/common/map',
-                icon: 'static/images/bank.png',
-                distance: '131米'
-            }, {
-                title: '中国农业银行（章江南路支行）',
-                addr: '章江南大道水岸新天地A栋6-8号',
-                href: '#/common/map',
-                icon: 'static/images/bank.png',
-                distance: '131米'
-            }, {
-                title: '中国农业银行（章江南路支行）',
-                addr: '章江南大道水岸新天地A栋6-8号',
-                href: '#/common/map',
-                icon: 'static/images/bank.png',
-                distance: '131米'
-            }, {
-                title: '中国农业银行（章江南路支行）',
-                addr: '章江南大道水岸新天地A栋6-8号',
-                href: '#/common/map',
-                icon: 'static/images/bank.png',
-                distance: '131米'
-            }, {
-                title: '中国农业银行（章江南路支行）',
-                addr: '章江南大道水岸新天地A栋6-8号',
-                href: '#/common/map',
-                icon: 'static/images/bank.png',
-                distance: '131米'
-            }]
+            list: []
         }
     },
     mounted() {
@@ -118,6 +82,15 @@ export default {
                 }
             }
         });
+        this.renderList();
+    },
+    watch: {
+        lateValue(v) {
+            this.renderList();
+        },
+        bankValue(v) {
+            this.renderList();
+        }
     },
     methods: {
         changeLate(value) {
@@ -129,7 +102,22 @@ export default {
         goto(url){
             console.log(url)
             window.location.href = url;
-        }
+        },
+        renderList() {
+            let self = this;
+            this.$sendRequest({
+            url: '/service/nearbank',
+            params: {
+                lateValue: self.lateValue,
+                bankValue: self.bankValue
+            },
+            success(body){
+                self.list = body.data;
+            },
+            error(err){
+            }
+        });
+      },
     }
 }
 </script>

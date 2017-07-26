@@ -13,8 +13,8 @@ export default {
     name: 'loan',
     data(){
         return {
-            title: '工商银行赣州分行xxx贷款',
-            detail: '贷款产品详细介绍'
+            title: '',
+            detail: ''
         }
     },
     mounted() {
@@ -39,10 +39,25 @@ export default {
                 }
             }
         });
+        this.init();
     },
     methods: {
         star() {
 
+        },
+        init() {
+            let self = this;
+            this.$sendRequest({
+            url: '/product/finance/detail/' + self.$route.params['id'],
+            params: {
+            },
+            success(body){
+                self.title = body.data.title;
+                self.detail = body.data.detail;
+            },
+            error(err){
+            }
+            });
         }
     }
 }
