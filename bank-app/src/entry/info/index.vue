@@ -11,7 +11,7 @@
           <span class="triangle-right"></span>
           <span>{{item.title}}</span>
         </div>
-        <mu-infinite-scroll :scroller="policyScroller" :loading="policyLoading" @load="onInfinite('policy')"/>
+        <mu-infinite-scroll :scroller="policy.scroller" :loading="policy.loading" @load="onInfinite('policy')"/>
       </div>
       <hr class="divid-line"/>
       <div>
@@ -27,7 +27,7 @@
           <span class="triangle-right"></span>
           <span>{{item.title}}</span>
         </div>
-        <mu-infinite-scroll :scroller="industryScroller" :loading="industryLoading" @load="onInfinite('industry')"/>
+        <mu-infinite-scroll :scroller="industry.scroller" :loading="industry.loading" @load="onInfinite('industry')"/>
       </div>
       <hr class="divid-line"/>
       <div>
@@ -42,13 +42,13 @@
           <span class="triangle-right"></span>
           <span>{{item.title}}</span>
         </div>
-        <mu-infinite-scroll :scroller="forumScroller" :loading="forumLoading" @load="onInfinite('forum')"/>
+        <mu-infinite-scroll :scroller="forum.scroller" :loading="forum.loading" @load="onInfinite('forum')"/>
       </div>
       <hr class="divid-line"/>
-      <div class="message-container">
+      <div class="message-container" v-if="forum.messages.length">
         <div class="list-title">留言</div>
         <div class="message-body">
-          <div v-for="message in forum.messages" class="message">{{message.text}}</div>
+          <div v-for="message in forum.messages" :key="message.id" class="message">{{message.text}}</div>
         </div>
       </div>
     </div>
@@ -71,13 +71,7 @@
           pageSize: 20,
           totalPage: -1,
           list: [],
-          banner: [{
-            img: "static/images/banner.png",
-            id: "5"
-          }, {
-            img: "static/images/banner.png",
-            id: "6"
-          }]
+          banner: []
         },
         industry: {
           loading: false,
@@ -86,10 +80,7 @@
           pageSize: 20,
           totalPage: -1,
           list: [],
-          banner: [{
-            img: "static/images/banner.png",
-            id: "5"
-          }]
+          banner: []
         },
         forum: {
           loading: false,
@@ -98,22 +89,7 @@
           pageSize: 20,
           totalPage: -1,
           list: [],
-          messages: [{
-            text: "赵先生：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            id: "1"
-          }, {
-            text: "钱先生：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            id: "2"
-          }, {
-            text: "孙先生：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            id: "3"
-          }, {
-            text: "李先生：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            id: "4"
-          }, {
-            text: "周先生：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            id: "5"
-          }]
+          messages: []
         }
       };
     },
@@ -141,9 +117,9 @@
         }
       });
 
-      self.policyScroller = self.$el;
-      self.industryScroller = self.$el;
-      self.forumScroller = self.$el;
+      self.policy.scroller = self.$el;
+      self.industry.scroller = self.$el;
+      self.forum.scroller = self.$el;
 
       // 如果有携带参数则设置参数
       self.activeTab = self.$route.params["id"] || "policy";
@@ -163,6 +139,7 @@
         window.location.href = "#/info/" + kind + "/" + item.id;
       },
       onInfinite(kind){
+        console.warn('无法执行')
         let self = this;
         if (self[kind].loading) {
           return false;
@@ -187,10 +164,13 @@
             pageSize: self[kind].pageSize
           },
           success(body){
-            for (let count = 0; count < body.list.length; ++count) {
-              self[kind].list.push(body.list[count]);
-            }
-            self[kind].totalPage = body.totalPage;
+            // for (let count = 0; count < body.data.list.length; ++count) {
+            //   self[kind].list.push(body.data.list[count]);
+            // }
+            self[kind].list = self[kind].list.concat(body.data.list);
+            self[kind].banner = self[kind].banner && self[kind].banner.concat(body.data.banner);
+            self[kind].messages = self[kind].messages && self[kind].messages.concat(body.data.messages);
+            self[kind].totalPage = body.data.totalPage;
             self[kind].loading = false;
           },
           error(err){

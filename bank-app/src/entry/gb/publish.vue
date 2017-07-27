@@ -26,35 +26,8 @@
     components: {},
     data(){
       return {
-        list: [{
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "1"
-        }, {
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "2"
-        }, {
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "3"
-        }, {
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "4"
-        }, {
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "5"
-        }, {
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "6"
-        }, {
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "7"
-        }],
-        banner: [{
-          img: "static/images/banner.png",
-          id: "5"
-        }, {
-          img: "static/images/banner.png",
-          id: "6"
-        }]
+        list: [],
+        banner: []
       };
     },
     mounted(){
@@ -79,8 +52,23 @@
           }
         }
       });
+      this.init();
     },
     methods: {
+      init() {
+        let self = this;
+        this.$sendRequest({
+          url: '/gb/publish',
+          params: {
+          },
+          success(body){
+            self.list = body.data.list;
+            self.banner = body.data.banner;
+          },
+          error(err){
+          }
+        });
+      },
       redirect2detail(item){
         window.location.href = "#/gb/info/" + item.id;
       }

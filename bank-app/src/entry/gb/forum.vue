@@ -26,23 +26,8 @@
     components: {},
     data(){
       return {
-        list: [{
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "1"
-        }, {
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "2"
-        }, {
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "3"
-        }, {
-          title: "4月12日中小微企业对接会圆满完成",
-          id: "4"
-        }],
-        banner: [{
-          img: "static/images/banner.png",
-          id: "5"
-        }]
+        list: [],
+        banner: []
       };
     },
     mounted(){
@@ -67,8 +52,23 @@
           }
         }
       });
+      this.init();
     },
     methods: {
+      init() {
+        let self = this;
+        this.$sendRequest({
+          url: '/gb/forum',
+          params: {
+          },
+          success(body){
+            self.list = body.data.list;
+            self.banner = body.data.banner;
+          },
+          error(err){
+          }
+        });
+      },
       redirect2detail(item){
         window.location.href = "#/gb/comment/" + item.id;
       }

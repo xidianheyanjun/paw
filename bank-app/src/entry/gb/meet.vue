@@ -36,43 +36,7 @@
     components: {},
     data(){
       return {
-        list: [{
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          position: "left",
-          id: 1
-        }, {
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          position: "right",
-          id: 2
-        }, {
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          position: "right",
-          id: 3
-        }, {
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          position: "right",
-          id: 4
-        }, {
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          position: "right",
-          id: 5
-        }, {
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          position: "right",
-          id: 6
-        }]
+        list: []
       };
     },
     mounted(){
@@ -97,8 +61,22 @@
           }
         }
       });
+      this.init();
     },
     methods: {
+      init() {
+        let self = this;
+        this.$sendRequest({
+          url: '/gb/meet',
+          params: {
+          },
+          success(body){
+            self.list = body.data;
+          },
+          error(err){
+          }
+        });
+      },
       redirect2detail(item){
         window.location.href = "#/gb/info/" + item.id;
       }

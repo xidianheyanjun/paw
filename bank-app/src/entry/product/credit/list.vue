@@ -26,33 +26,7 @@
     components: {},
     data(){
       return {
-        list: [{
-          title: '平安银行标准信用卡',
-          info: ['首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障'],
-          image: 'static/images/credit.jpg',
-          href: '#/product/credit/apply'
-        }, {
-          title: '好车主',
-          info: ['加油享折扣'],
-          image: 'static/images/credit.jpg',
-          href: '/product/credit/apply'
-        }, {
-          title: '平安银行标准信用卡',
-          info: ['首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障'],
-          image: 'static/images/credit.jpg',
-          href: '/product/credit/apply'
-        }, {
-          title: '平安银行标准信用卡',
-          info: ['首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障'],
-          image: 'static/images/credit.jpg',
-          href: '/product/credit/apply'
-        }, {
-          title: '平安银行标准信用卡',
-          info: ['首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障','首刷即享全方位公共交通意外保障'],
-          image: 'static/images/credit.jpg',
-          href: '/product/credit/apply'
-        }]
-        
+        list: []
       };
     },
     mounted () {
@@ -77,9 +51,22 @@
           }
         }
       });
+      this.init();
     },
     methods: {
-      
+      init() {
+        let self = this;
+        this.$sendRequest({
+          url: '/product/credit/list',
+          params: {
+          },
+          success(body){
+            self.list = body.data;
+          },
+          error(err){
+          }
+        });
+      }
     }
   }
 </script>

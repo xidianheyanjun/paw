@@ -28,37 +28,7 @@
     components: {},
     data(){
       return {
-        list: [{
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          id: 1
-        }, {
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          id: 2
-        }, {
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          id: 3
-        }, {
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          id: 4
-        }, {
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          id: 5
-        }, {
-          img: "static/images/head.png",
-          name: "白竹制造",
-          text: "对接会议非常成功,感谢大家的积极配合和支持!我想咨询一下改业务怎么处理?",
-          id: 6
-        }]
+        list: []
       };
     },
     mounted(){
@@ -83,6 +53,23 @@
           }
         }
       });
+      this.init();
+    },
+    methods: {
+      init() {
+        let self = this;
+        let commentId = this.$route.params['id'];
+        this.$sendRequest({
+          url: '/gb/comment/' + commentId,
+          params: {
+          },
+          success(body){
+            self.list = body.data;
+          },
+          error(err){
+          }
+        });
+      }
     }
   }
 </script>

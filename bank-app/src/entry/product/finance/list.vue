@@ -2,7 +2,7 @@
   <div>
     <mu-row class="vv-tab">
     <mu-col width="25" tablet="25" desktop="25">
-        <mu-dropDown-menu :value="yieldratolValue" @change="changeYieldrate" autoWidth='auto'>
+        <mu-dropDown-menu :value="yieldratolValue" @change="changeYieldrate" :autoWidth="true">
         <mu-menu-item v-for="item in yieldrato" :key="item.value" :value="item.value" :title="item.name"/>
         </mu-dropDown-menu>
     </mu-col>
@@ -86,15 +86,7 @@
             value: '4',
             name: '农业银行'
         }],
-        list: [{
-            title: '工商银行赣州分行xxx贷款',
-            content: '贷款品种介绍及要求：达士大夫撒大法师打',
-            href: '#/product/finance/detail/001'
-        },{
-            title: '工商银行赣州分行xxx贷款',
-            content: '贷款品种介绍及要求：达士大夫撒大法师打',
-            href: '#/product/finance/detail/002'
-        }]
+        list: []
       };
     },
     mounted () {
@@ -119,6 +111,21 @@
           }
         }
       });
+      this.renderList();
+    },
+    watch: {
+      yieldratolValue(v) {
+        this.renderList();
+      },
+      applyMoneyValue(v) {
+        this.renderList();
+      },
+      bankValue(v) {
+        this.renderList();
+      },
+      bankValue(v) {
+        this.renderList();
+      }
     },
     methods: {
       changeYieldrate (value) {
@@ -132,6 +139,23 @@
       },
       changeBank (value) {
         this.bankValue = value;
+      },
+      renderList() {
+        let self = this;
+        this.$sendRequest({
+          url: '/product/finance/list',
+          params: {
+              yieldratolValue: self.yieldratolValue,
+              applyMoneyValue: self.applyMoneyValue,
+              buydaysValue: self.buydaysValue,
+              bankValue: self.bankValue
+          },
+          success(body){
+              self.list = body.data;
+          },
+          error(err){
+          }
+        });
       }
     }
   } 
