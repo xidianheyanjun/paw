@@ -18,7 +18,7 @@ let setUserInfo = (data) => {
 let getUserInfo = () => {
   if (env.useNative) {
     if (window.AndroidJSInterfaceV2) {
-      window.AndroidJSInterfaceV2.invoke('data','getToken','wersdfff',null);
+      window.AndroidJSInterfaceV2.invoke('data', 'getToken', '', null);
     } else {
     }
   } else {

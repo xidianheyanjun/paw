@@ -2,7 +2,8 @@
  * Created by Administrator on 2017/6/5.
  */
 export default {
-  mode: "test",
+  mode: "dev",
   useNative: false,
-  requestRoot: "http://192.168.1.109:1989/end"
+  useSign: false,
+  requestRoot: "/static/mock"
 };
