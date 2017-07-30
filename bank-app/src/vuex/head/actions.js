@@ -11,7 +11,7 @@ export default{
       },
       center: {
         img: head.center.img || "",
-        title: head.center.title || "首页",
+        title: head.center.title || "惠银",
         callback: head.center.callback || null
       },
       right: {
