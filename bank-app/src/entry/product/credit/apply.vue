@@ -267,6 +267,9 @@
     text-align: left;
     vertical-align: middle;
 }
+.vv-row .vv-col-value .mu-text-field {
+  width: 100%;
+}
 .vv-form .vv-button {
     margin: 5% 0;
 }

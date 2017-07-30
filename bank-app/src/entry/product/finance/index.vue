@@ -83,37 +83,7 @@
           href: '#/product/finance/list',
           icon: 'static/images/bank.png'
         }],
-        list: [{
-            tag: '人气',
-            title: '江西银行优盛理财-创鑫16366A',
-            time: '85天',
-            money: '5万',
-            num: '3.87'
-        }, {
-            tag: '推荐',
-            title: '江西银行优盛理财-创鑫16366A',
-            time: '85天',
-            money: '5万',
-            num: '3.87'
-        }, {
-            tag: '',
-            title: '江西银行优盛理财-创鑫16366A',
-            time: '85天',
-            money: '5万',
-            num: '4.56'
-        }, {
-            tag: '',
-            title: '江西银行优盛理财-创鑫16366A',
-            time: '85天',
-            money: '5万',
-            num: '4.56'
-        }, {
-            tag: '',
-            title: '江西银行优盛理财-创鑫16366A',
-            time: '85天',
-            money: '5万',
-            num: '4.56'
-        }]
+        list: []
         
         
        
@@ -141,9 +111,22 @@
           }
         }
       });
+      this.init();
     },
     methods: {
-      
+      init() {
+        let self = this;
+        this.$sendRequest({
+          url: '/product/finance/index',
+          params: {
+          },
+          success(body){
+            self.list = body.data.list;
+          },
+          error(err){
+          }
+        });
+      }
     }
   } 
 </script>
@@ -187,11 +170,18 @@
 .vv-col .tag{
     display:inline-block;
     padding:1px 2%;
-    background:red;
+    background:#ff4081;
     border-radius:5px;
     font-size:10px;
     color:#fff;
     vertical-align:2px;
+}
+.vv-col .title{
+    display:inline-block;
+    text-overflow: ellipsis;
+    width:70%;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .vv-col .ft{
     position:relative;
@@ -212,7 +202,7 @@
     display:block;
     font-size:18px;
     font-weight:bold;
-    color:red;
+    color:#2196f3;
 }
 .vv-col .rt .txt{
     display:block;

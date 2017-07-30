@@ -1,26 +1,26 @@
 <template>
   <div>
     <mu-row class="vv-tab">
-    <mu-col width="25" tablet="25" desktop="25">
-        <mu-dropDown-menu :value="yieldratolValue" @change="changeYieldrate" :autoWidth="true">
-        <mu-menu-item v-for="item in yieldrato" :key="item.value" :value="item.value" :title="item.name"/>
-        </mu-dropDown-menu>
-    </mu-col>
-    <mu-col width="25" tablet="25" desktop="25">
-        <mu-dropDown-menu :value="buydaysValue" @change="changeBuydays">
-        <mu-menu-item v-for="item in buydays" :key="item.value" :value="item.value" :title="item.name"/>
-        </mu-dropDown-menu>
-    </mu-col>
-    <mu-col width="25" tablet="25" desktop="25">
-        <mu-dropDown-menu :value="applyMoneyValue" @change="changeApplyMoney">
-        <mu-menu-item v-for="item in applyMoney" :key="item.value" :value="item.value" :title="item.name"/>
-        </mu-dropDown-menu>
-    </mu-col>
-    <mu-col width="25" tablet="25" desktop="25">
-        <mu-dropDown-menu :value="bankValue" @change="changeBank">
-        <mu-menu-item v-for="item in bank" :key="item.value" :value="item.value" :title="item.name"/>
-        </mu-dropDown-menu>
-    </mu-col>
+        <mu-col width="25" tablet="25" desktop="25">
+            <mu-dropDown-menu :value="yieldratolValue" @change="changeYieldrate">
+            <mu-menu-item v-for="item in yieldrato" :key="item.value" :value="item.value" :title="item.name"/>
+            </mu-dropDown-menu>
+        </mu-col>
+        <mu-col width="25" tablet="25" desktop="25">
+            <mu-dropDown-menu :value="buydaysValue" @change="changeBuydays">
+            <mu-menu-item v-for="item in buydays" :key="item.value" :value="item.value" :title="item.name"/>
+            </mu-dropDown-menu>
+        </mu-col>
+        <mu-col width="25" tablet="25" desktop="25">
+            <mu-dropDown-menu :value="applyMoneyValue" @change="changeApplyMoney">
+            <mu-menu-item v-for="item in applyMoney" :key="item.value" :value="item.value" :title="item.name"/>
+            </mu-dropDown-menu>
+        </mu-col>
+        <mu-col width="25" tablet="25" desktop="22">
+            <mu-dropDown-menu :value="bankValue" @change="changeBank">
+            <mu-menu-item v-for="item in bank" :key="item.value" :value="item.value" :title="item.name"/>
+            </mu-dropDown-menu>
+        </mu-col>
     </mu-row>
     
     <div class="vv-list">
