@@ -211,16 +211,17 @@ export default {
 }
 .vv-row .vv-col-title {
     display: inline-block;
-    width: 25%;
+    width: 38%;
     margin-bottom: 4%;
-    margin-right: 5%;
+    margin-right: 2%;
     vertical-align: middle;
     text-align: right;
 }
 
 .vv-row .vv-col-value {
     display: inline-block;
-    width: 60%;
+    width: 50%;
+    overflow: hidden;
     text-align: left;
     vertical-align: middle;
 }

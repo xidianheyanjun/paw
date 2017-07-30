@@ -3,10 +3,10 @@
         <mu-sub-header class="vv-title" v-if="pageType === 'company'">企业用户贷款产品查询</mu-sub-header>
         <mu-sub-header class="vv-title" v-if="pageType === 'personal'">个人用户贷款产品查询</mu-sub-header>
         <mu-dropDown-menu class="vv-dropdown" :value="bankValue" @change="changeBank">
-            <mu-menu-item v-for="item in banks" :key="item.value" :value="item.value" :title="item.name"/>
+            <mu-menu-item v-for="(item, index) in banks" :key="index" :value="item.value" :title="item.name"/>
         </mu-dropDown-menu>
         <mu-content-block>
-            <a class="vv-col" v-for="item in list" :href="item.href" :key="item.title">
+            <a class="vv-col" v-for="(item, index) in list" @click="goto(item)" :key="index">
                 <div class="title">{{item.title}}</div>
                 <div class="content">{{item.content}}</div>
             </a>
@@ -30,15 +30,7 @@ export default {
                 value: '3',
                 name: '招商银行'
             }],
-            list: [{
-                title: '工商银行赣州分行xxx贷款',
-                content: '贷款品种介绍及要求：达士大夫撒大法师打',
-                href: '#/product/loan/detail/001'
-            },{
-                title: '工商银行赣州分行xxx贷款',
-                content: '贷款品种介绍及要求：达士大夫撒大法师打',
-                href: '#/product/loan/detail/002'
-            }]
+            list: []
         }
     },
     mounted() {
@@ -49,7 +41,8 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                window.location.href = "#/product/loan/index";
+                // window.location.href = "#/product/loan/index";
+                    history.back(-1);
                 }
             },
             center: {
@@ -65,10 +58,30 @@ export default {
                 }
             }
         });
+        this.renderList();
     },
     methods: {
         changeBank(value) {
             this.bankValue = value;
+            this.renderList();
+        },
+        renderList() {
+            let self = this;
+            this.$sendRequest({
+                url: '/product/loan/list',
+                params: {
+                    type: self.pageType,
+                    bankValue: self.bankValue
+                },
+                success(body){
+                    self.list = body.data;
+                },
+                error(err){
+                }
+            });
+        },
+        goto(item) {
+            window.location.href = '#/product/loan/detail/' + item.id;
         }
     }
 }

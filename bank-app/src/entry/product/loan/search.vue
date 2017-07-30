@@ -1,86 +1,198 @@
 <template>
     <div>
         <div class="vv-search">
-            <div class="vv-company" v-if="pageType === 'company'">
+            <div class="vv-company form" v-if="pageType === 'company'">
                 <mu-sub-header class="vv-title">企业用户贷款产品查询</mu-sub-header>
                 <mu-content-block>
-                    <mu-select-field v-model="companyNature" :labelFocusClass="['label-foucs']" label="企业性质" hintText="请选择">
-                        <mu-menu-item value="1" title="机关"/>
-                        <mu-menu-item value="2" title="国有"/>
-                        <mu-menu-item value="3" title="三资"/>
-                        <mu-menu-item value="4" title="私企"/>
-                        <mu-menu-item value="5" title="个体"/>
-                        <mu-menu-item value="6" title="其他"/>
-                    </mu-select-field>
-                    <mu-text-field label="注册资金" hintText="" v-model="registeredCapital" type="number" />
-                    <mu-text-field label="贷款金额" hintText="" v-model="loanAmount" type="number" />
-                    <mu-select-field v-model="loanType" :labelFocusClass="['label-foucs']" label="贷款品种" hintText="请选择">
-                        <mu-menu-item value="1" title="机关"/>
-                        <mu-menu-item value="2" title="国有"/>
-                        <mu-menu-item value="3" title="三资"/>
-                        <mu-menu-item value="4" title="私企"/>
-                        <mu-menu-item value="5" title="个体"/>
-                        <mu-menu-item value="6" title="其他"/>
-                    </mu-select-field>
-                    <mu-date-picker label="贷款期限" hintText="月" v-model="loanPeriod" type="number" />
-                    <mu-raised-button label="点击查询" class="demo-raised-button" @click="searchCompanyClick" primary fullWidth/>
+                    <div class="vv-row">
+                        <div class="vv-col-title">企业性质</div>
+                        <div class="vv-col-value">
+                            <mu-select-field v-model="companyData.companyNature" :labelFocusClass="['label-foucs']" label="" hintText="请选择">
+                            <mu-menu-item value="1" title="机关"/>
+                            <mu-menu-item value="2" title="国有"/>
+                            <mu-menu-item value="3" title="三资"/>
+                            <mu-menu-item value="4" title="私企"/>
+                            <mu-menu-item value="5" title="个体"/>
+                            <mu-menu-item value="6" title="其他"/>
+                        </mu-select-field>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">注册资金</div>
+                        <div class="vv-col-value">
+                            <mu-text-field label="" hintText="" v-model.trim="companyData.registeredCapital" type="number" />
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">贷款金额</div>
+                        <div class="vv-col-value">
+                            <mu-text-field label="" hintText="" v-model.trim="companyData.loanAmount" type="number" />
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">贷款品种</div>
+                        <div class="vv-col-value">
+                            <mu-select-field v-model="companyData.loanType" :labelFocusClass="['label-foucs']" label="" hintText="请选择">
+                                <mu-menu-item value="1" title="机关"/>
+                                <mu-menu-item value="2" title="国有"/>
+                                <mu-menu-item value="3" title="三资"/>
+                                <mu-menu-item value="4" title="私企"/>
+                                <mu-menu-item value="5" title="个体"/>
+                                <mu-menu-item value="6" title="其他"/>
+                            </mu-select-field>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">贷款期限</div>
+                        <div class="vv-col-value">
+                            <mu-date-picker label="" hintText="" v-model.trim="companyData.loanPeriod" type="number" />
+                        </div>
+                    </div>
+                    <mu-raised-button label="点击查询" class="demo-raised-button vv-button" @click="searchBtnClick" primary fullWidth/>
                 </mu-content-block>
             </div>
-            <div class="vv-company" v-if="pageType === 'personal'">
+            <div class="vv-company form" v-if="pageType === 'personal'">
                 <mu-sub-header class="vv-title">个人用户贷款产品查询</mu-sub-header>
                 <mu-content-block>
-                    <mu-text-field label="姓名" hintText=""/>
-                    <mu-text-field label="身份证号码" hintText=""/>
-                    <mu-date-picker label="证件到期日" hintText=""/>
-                    <mu-text-field label="信用卡发证机关" hintText=""/>
-                    <mu-select-field v-model="city" :labelFocusClass="['label-foucs']" label="户籍所在城市" hintText="">
-                        <mu-menu-item value="1" title="同身份证城市"/>
-                        <mu-menu-item value="2" title="其他城市"/>
-                    </mu-select-field>
-                    <mu-select-field v-model="study" :labelFocusClass="['label-foucs']" label="教育程度" hintText="">
-                        <mu-menu-item value="1" title="本科"/>
-                        <mu-menu-item value="2" title="大专"/>
-                        <mu-menu-item value="3" title="高中或中专"/>
-                        <mu-menu-item value="4" title="其他"/>
-                    </mu-select-field>
-                    <mu-select-field v-model="marry" :labelFocusClass="['label-foucs']" label="婚姻状况" hintText="">
-                        <mu-menu-item value="1" title="未婚"/>
-                        <mu-menu-item value="2" title="已婚"/>
-                        <mu-menu-item value="3" title="其他"/>
-                    </mu-select-field>
-                    <mu-text-field label="手机号码" hintText=""/>
-                    <mu-text-field label="住宅电话" hintText=""/>
-                    <mu-select-field v-model="house" :labelFocusClass="['label-foucs']" label="住宅性质" hintText="">
-                        <mu-menu-item value="1" title="租房"/>
-                        <mu-menu-item value="2" title="有按揭"/>
-                        <mu-menu-item value="3" title="无按揭"/>
-                        <mu-menu-item value="4" title="宿舍"/>
-                        <mu-menu-item value="5" title="父母家"/>
-                        <mu-menu-item value="6" title="其他"/>
-                    </mu-select-field>
-                    <mu-text-field label="住房地址" hintText=""/>
-                    <mu-text-field label="电子邮箱" hintText=""/>
-                    <mu-text-field label="单位全称" hintText=""/>
-                    <mu-text-field label="现工作单位年限" hintText=""/>
-                    <mu-text-field label="年薪" hintText=""/>
-                    <mu-select-field v-model="work" :labelFocusClass="['label-foucs']" label="单位所属行业" hintText="">
-                        <mu-menu-item value="1" title="政府"/>
-                        <mu-menu-item value="2" title="科教"/>
-                        <mu-menu-item value="3" title="商贸"/>
-                        <mu-menu-item value="4" title="制造业"/>
-                        <mu-menu-item value="5" title="其他"/>
-                    </mu-select-field>
-                    <mu-text-field label="单位地址" hintText=""/>
-                    <mu-text-field label="单位电话" hintText=""/>
-                    <mu-select-field v-model="type" :labelFocusClass="['label-foucs']" label="单位所属行业" hintText="">
-                        <mu-menu-item value="1" title="机关"/>
-                        <mu-menu-item value="2" title="国有"/>
-                        <mu-menu-item value="3" title="三资"/>
-                        <mu-menu-item value="4" title="私企"/>
-                        <mu-menu-item value="5" title="个体"/>
-                        <mu-menu-item value="6" title="其他"/>
-                    </mu-select-field>
-                    <mu-text-field label="职务" hintText=""/>
+                    <div class="vv-row">
+                        <div class="vv-col-title">姓名</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.name" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">身份证号码</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.cardNo" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">证件到期日</div>
+                        <div class="vv-col-value">
+                            <mu-date-picker v-model.trim="personalData.cardExpiredDate" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">信用卡发证机关</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.creditBank" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">户籍所在城市</div>
+                        <div class="vv-col-value">
+                            <mu-select-field v-model="personalData.cardCity" :labelFocusClass="['label-foucs']" label="" hintText="">
+                                <mu-menu-item value="1" title="同身份证城市"/>
+                                <mu-menu-item value="2" title="其他城市"/>
+                            </mu-select-field>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">教育程度</div>
+                        <div class="vv-col-value">
+                            <mu-select-field v-model="personalData.degree" :labelFocusClass="['label-foucs']" label="" hintText="">
+                                <mu-menu-item value="1" title="本科"/>
+                                <mu-menu-item value="2" title="大专"/>
+                                <mu-menu-item value="3" title="高中或中专"/>
+                                <mu-menu-item value="4" title="其他"/>
+                            </mu-select-field>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">婚姻状况</div>
+                        <div class="vv-col-value">
+                            <mu-select-field v-model="personalData.maritalStatus" :labelFocusClass="['label-foucs']" label="" hintText="">
+                                <mu-menu-item value="1" title="未婚"/>
+                                <mu-menu-item value="2" title="已婚"/>
+                                <mu-menu-item value="3" title="其他"/>
+                            </mu-select-field>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">手机号码</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.mobile" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">住宅电话</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.homeTel" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">住宅性质</div>
+                        <div class="vv-col-value">
+                            <mu-select-field v-model="personalData.houseProperty" :labelFocusClass="['label-foucs']" label="" hintText="">
+                                <mu-menu-item value="1" title="租房"/>
+                                <mu-menu-item value="2" title="有按揭"/>
+                                <mu-menu-item value="3" title="无按揭"/>
+                                <mu-menu-item value="4" title="宿舍"/>
+                                <mu-menu-item value="5" title="父母家"/>
+                                <mu-menu-item value="6" title="其他"/>
+                            </mu-select-field>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">住房地址</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.hoseAddress" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">电子邮箱</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.email" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">单位全称</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.workCompany" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">现工作单位年限</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.workYears" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">年薪</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.yearSalary" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">单位所属行业</div>
+                        <div class="vv-col-value">
+                            <mu-select-field v-model="personalData.workCompanyNature" :labelFocusClass="['label-foucs']" label="" hintText="">
+                                <mu-menu-item value="1" title="政府"/>
+                                <mu-menu-item value="2" title="科教"/>
+                                <mu-menu-item value="3" title="商贸"/>
+                                <mu-menu-item value="4" title="制造业"/>
+                                <mu-menu-item value="5" title="其他"/>
+                            </mu-select-field>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">单位地址</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.workCompanyAddress" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">单位电话</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.workCompanyTel" label="" hintText=""/>
+                        </div>
+                    </div>
+                    <div class="vv-row">
+                        <div class="vv-col-title">职务</div>
+                        <div class="vv-col-value">
+                            <mu-text-field v-model.trim="personalData.job" label="" hintText=""/>
+                        </div>
+                    </div>
                     <mu-raised-button label="点击查询" class="demo-raised-button" @click="searchBtnClick" primary fullWidth/>
                 </mu-content-block>
             </div>
@@ -106,11 +218,34 @@ export default {
     data(){
         return {
             pageType: 'company',
-            companyNature: '',
-            registeredCapital: '',
-            loanAmount: '',
-            loanType: '',
-            loanPeriod: '',
+            companyData: {
+                companyNature: '',
+                registeredCapital: '',
+                loanAmount: '',
+                loanType: '',
+                loanPeriod: ''
+            },
+            personalData: {
+                name: '',
+                cardNo: '',
+                cardExpiredDate: '',
+                creditBank: '',
+                cardCity: '',
+                degree: '',
+                maritalStatus: '',
+                mobile: '',
+                homeTel: '',
+                houseProperty: '',
+                hoseAddress: '',
+                email: '',
+                workCompany: '',
+                workYears: '',
+                yearSalary: '',
+                workCompanyNature: '',
+                workCompanyAddress: '',
+                workCompanyTel: '',
+                job: ''
+            },
             banks: [{
                 name: '流动资金贷款',
                 href: '#/product/credit/list',
@@ -180,25 +315,25 @@ export default {
         });
     },
     methods: {
-        searchCompanyClick() {
+        searchBtnClick() {
             let self = this;
-            let {
-                companyNature,
-                registeredCapital,
-                loanAmount,
-                loanType,
-                loanPeriod
-                } = self;
+            let pageType = self.pageType;
+            let formData = self[pageType + 'Data'];
+            for (let key in formData) {
+                if (formData.hasOwnProperty(key)) {
+                    if (!formData[key] && !formData[key].length) {
+                        self.$store.dispatch("box_set_toast", {
+                            show: true,
+                            toastText: '请完成填写'
+                        });
+                        // return;
+                    }
+                }
+            }
+            formData.type = pageType;
             self.$sendRequest({
                 url: "/product/loan/search",
-                params: {
-                    type: self.pageType,
-                    companyNature,
-                    registeredCapital,
-                    loanAmount,
-                    loanType,
-                    loanPeriod
-                },
+                params: formData,
                 success(body){
                     if (body.code != 'success') {
                     self.$store.dispatch("box_set_toast", {
@@ -240,5 +375,35 @@ export default {
 }
 .mu-text-field{
     width:100%;
+}
+.form{
+    // width: 90%;
+    margin: 0 auto;
+}
+.form .vv-row {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 5px;
+    line-height: 40px;
+}
+.vv-row .vv-col-title {
+    display: inline-block;
+    width: 38%;
+    margin-bottom: 4%;
+    margin-right: 2%;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.vv-row .vv-col-value {
+    display: inline-block;
+    width: 50%;
+    overflow: hidden;
+    text-align: left;
+    vertical-align: middle;
+}
+.form .vv-button {
+    margin: 5% 0;
 }
 </style>

@@ -2,8 +2,7 @@
     <div>
         <mu-sub-header class="vv-title">{{title}}</mu-sub-header>
         <mu-content-block>
-            <div class="vv-detail">{{detail}}</div>
-            <div class="vv-apply">{{apply}}</div>
+            <div class="vv-detail">{{content}}</div>
         </mu-content-block>
     </div>
 </template>
@@ -12,9 +11,8 @@ export default {
     name: 'loan',
     data(){
         return {
-            title: '工商银行赣州分行xxx贷款',
-            detail: '贷款产品详细介绍',
-            apply: '申请条件介绍'
+            title: '',
+            content: ''
         }
     },
     mounted() {
@@ -23,7 +21,8 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                window.location.href = "#/product/loan/index";
+                // window.location.href = "#/product/loan/index";
+                    history.back(-1);
                 }
             },
             center: {
@@ -39,8 +38,29 @@ export default {
                 }
             }
         });
+        this.init();
     },
     methods: {
+        init() {
+            let self = this;
+            let detailId = this.$route.params['id'];
+            if (!detailId) {
+                return;
+            }
+            this.$sendRequest({
+                url: '/product/loan/detail/' + detailId,
+                params: {
+                    type: self.pageType,
+                    bankValue: self.bankValue
+                },
+                success(body){
+                    self.title = body.data.title;
+                    self.content = body.data.content;
+                },
+                error(err){
+                }
+            });
+        },
     }
 }
 </script>

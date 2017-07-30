@@ -32,7 +32,7 @@
           title: "返回",
           callback: function () {
             // window.location.href = "#/person/index";
-            history.back();
+            history.back(-1);
           }
         },
         center: {
