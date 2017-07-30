@@ -8,7 +8,7 @@
     
     <ul class="navs">
       <li class="vv-col vv-bg-light-blue">
-        <div class="navs-item" @click="goto(home.finance.href)">
+        <div class="navs-item">
           <mu-flat-button
                         :class="home.finance.cssClass"
                         :icon="home.finance.icon" :labelClass="home.finance.labelClass"
@@ -22,7 +22,7 @@
         </div>
       </li>
       <li class="vv-col vv-bg-deep-purple">
-        <div class="navs-item" @click="goto(home.gb.href)">
+        <div class="navs-item">
           <mu-flat-button
                         :class="home.gb.cssClass"
                         :icon="home.gb.icon" :labelClass="home.gb.labelClass"
@@ -36,7 +36,7 @@
         </div>
       </li>
       <li class="vv-col vv-bg-pink">
-        <div class="navs-item" @click="goto(home.service.href)">
+        <div class="navs-item">
           <mu-flat-button
                         :class="home.service.cssClass"
                         :icon="home.service.icon" :labelClass="home.service.labelClass"
@@ -50,7 +50,7 @@
         </div>
       </li>
       <li class="vv-col vv-bg-light-green">
-        <div class="navs-item" @click="goto(home.info.href)">
+        <div class="navs-item">
           <mu-flat-button
                         :class="home.info.cssClass"
                         :icon="home.info.icon" :labelClass="home.info.labelClass"

@@ -183,6 +183,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .mu-tabs {
+    position: fixed;
+  }
   .tab-body {
     padding: 0 20px;
   }

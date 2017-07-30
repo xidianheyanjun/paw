@@ -93,11 +93,12 @@
 
   .rv {
     position: fixed;
-    top: 56px;
+    top: 55px;
     bottom: 0;
     left: 0;
     right: 0;
     overflow-y: auto;
+    background: #f8f8f8;
   }
 
   .foot {

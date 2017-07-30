@@ -1,21 +1,15 @@
 <template>
-<div class="help-info">
-    <div class="help-hd">
-        帮办热线
-        <span class="tel">8008000</span>
+<div class="info">
+    <div class="info-hd">服务条款</div>
+    <div class="info-bd">
+      服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款
     </div>
-    <div class="help-bd">
-        <span class="title">惠银帮办：</span>
-        提供合理方案，快速沟通银行<br>
-        全程传递资料 助您轻松解决贷款难题
-    </div>
-
 </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 export default {
-    name: 'serviceHelp',
+    name: 'serviceZXInfo',
     computed: mapGetters([]),
     components: {},
     data(){
@@ -29,12 +23,12 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                window.location.href = "#/home/index";
+                window.location.href = "#/service/zx";
                 }
             },
             center: {
                 img: "",
-                title: "惠银帮办",
+                title: "服务条款",
                 callback: null
             },
             right: {
@@ -52,25 +46,20 @@ export default {
 }
 </script>
 <style scoped>
-.help-info {
-    display: absolute;
-    margin: 50% auto;
-    width: 240px;
-    height: 100%;
+.info {
+  box-sizing: border-box;
+  padding: 8%;
+  height: 100%;
 }
-.help-hd {
-    font-size: 28px;
+.info-hd {
+    font-size: 14px;
     color: #374760;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-    border-bottom: 2px solid #374760;
+    margin-bottom: 10px;
+    text-align: center;
 }
-.help-bd {
-    font-size: 13px;
-    line-height: 16px;
-}
-.help-hd .tel,
-.help-bd .title {
-    color: #2196f3;
+.info-bd {
+    font-size: 12px;
+    line-height: 18px;
+    text-indent: 2em;
 }
 </style>

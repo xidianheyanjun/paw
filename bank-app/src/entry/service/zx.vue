@@ -19,18 +19,33 @@
         </ul>
     </div>
     <div class="form">
-        <mu-text-field label="真实姓名：" hintText=""/>
-        <mu-text-field label="身份证：" hintText=""/>
-        <mu-text-field label="验证码：" hintText=""/>
-        <div class="col">
-            <mu-checkbox label="我已阅读服务条款" class="vv-checkbox" :value="true"/>
-            <a href="#" class="link">服务条款</a>
+        <div class="vv-row">
+            <div class="vv-col-title">真实姓名</div>
+            <div class="vv-col-value">
+                <mu-text-field v-model.trim="name" :errorText="nameError" hintText="" fullWidth/>
+            </div>
         </div>
-        <mu-raised-button label="下一步" class="vv-next" primary fullWidth/>
+        <div class="vv-row">
+            <div class="vv-col-title">身份证</div>
+            <div class="vv-col-value">
+                <mu-text-field v-model.trim="cardNo" :errorText="cardNoError" hintText="" fullWidth/>
+            </div>
+        </div>
+        <div class="vv-row">
+            <div class="vv-col-title">验证码</div>
+            <div class="vv-col-value">
+                <mu-text-field v-model.trim="indentifyNo" :errorText="indentifyNoError" hintText="" fullWidth/>
+            </div>
+        </div>
+        <div class="vv-row col">
+            <mu-checkbox label="我已阅读服务条款" class="vv-checkbox" v-model="checkVal"/>
+            <a href="#/service/zxintro" class="link">服务条款</a>
+        </div>
+        <mu-raised-button @click="nextClick" label="下一步" class="vv-next" primary fullWidth/>
     </div>
     <div class="ft">
         <span class="msg">已有征信中心账户</span>
-        <a href="javascript:;" class="link">立即登录</a>
+        <a href="#/person/login" class="link">立即登录</a>
     </div>
 
 </div>
@@ -43,7 +58,30 @@ export default {
     components: {},
     data(){
         return {
-
+            checkVal: true,
+            name: '',
+            cardNo: '',
+            indentifyNo: '',
+            nameError: '',
+            cardNoError: '',
+            indentifyNoError: ''
+        }
+    },
+    watch: {
+        name(v1, v2) {
+            if (v1 !== v2) {
+                this.nameError = '';
+            }
+        },
+        cardNo(v1, v2) {
+            if (v1 !== v2) {
+                this.cardNoError = '';
+            }
+        },
+        indentifyNo(v1, v2) {
+            if (v1 !== v2) {
+                this.indentifyNoError = '';
+            }
         }
     },
     mounted() {
@@ -70,7 +108,58 @@ export default {
         });
     },
     methods: {
+        nextClick() {
+            let self = this;
+            if (!self.name.length) {
+                self.nameError = '请输入真实姓名';
+                return;
+            }
+            if (!self.cardNo.length) {
+                self.cardNoError = '请输入身份证';
+                return;
+            }
+            if (!self.indentifyNo.length) {
+                self.indentifyNoError = '请输入验证码';
+                return;
+            }
+            if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(self.cardNo)) {  
+                self.cardNoError = '身份证输入不合法';
+                // return;
+            }
+            if (!self.checkVal) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请阅读并同意服务条款'
+                });
+                return;
+            }
+            self.$sendRequest({
+                url: '/service/zx',
+                params: {
+                    name: self.name,
+                    cardNo: self.cardNo,
+                    indentifyNo: self.indentifyNo
+                },
+                success(body){
+                    if (body.code != 'success') {
+                        self.$store.dispatch('box_set_toast', {
+                            show: true,
+                            toastText: body.msg
+                        });
+                        return false;
+                    }
 
+                    // 跳转到下一步
+                    // window.location.href = '#/service/zx';
+                },
+                error(err){
+                    self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '服务器繁忙,请稍后再试'
+                    });
+                }
+            });
+        }
     }
 }
 </script>
@@ -110,23 +199,49 @@ export default {
     background:#2196f3;
 }
 .form{
-    margin-left:10%;
+    width: 90%;
+    margin: 0 auto;
 }
+.form .vv-row {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 5px;
+    line-height: 40px;
+}
+.vv-row .vv-col-title {
+    display: inline-block;
+    width: 25%;
+    margin-bottom: 4%;
+    margin-right: 5%;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.vv-row .vv-col-value {
+    display: inline-block;
+    width: 60%;
+    text-align: left;
+    vertical-align: middle;
+}
+
 .form .col{
+    margin-top: 5%;
     position:relative;
 }
 .form .vv-button{
     color:rgba(0,0,0,.54);
 }
+.form .vv-checkbox{
+    vertical-align: middle;
+}
 .form .link{
-    position:absolute;
-    right:5%;
-    top:8px;
+    float:right;
     color:#2196f3;
     text-decoration:underline;
+    vertical-align: middle;
 }
 .form .vv-next{
-    width:90%;
     margin:5% auto;
 }
 .ft{

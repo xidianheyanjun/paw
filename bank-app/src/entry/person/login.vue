@@ -31,7 +31,8 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/person/index";
+            // window.location.href = "#/person/index";
+            history.back();
           }
         },
         center: {

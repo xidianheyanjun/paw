@@ -48,7 +48,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #eee;
+    // background-color: #eee;
     // background: url(../../../assets/images/sun.jpg) no-repeat;
     // background-size: 100% 100%;
   }
