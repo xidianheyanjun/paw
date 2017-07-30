@@ -348,8 +348,8 @@ export default {
                 },
                 error(err){
                     self.$store.dispatch("box_set_toast", {
-                    show: true,
-                    toastText: "服务器繁忙,请稍后再试"
+                        show: true,
+                        toastText: "服务器繁忙,请稍后再试"
                     });
                 }
             });

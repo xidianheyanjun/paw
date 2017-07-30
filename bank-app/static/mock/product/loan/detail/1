@@ -1,0 +1,9 @@
+{
+  "code": "success",
+  "msg": "成功",
+  "data": {
+    "title": "工商银行赣州分行xxx贷款",
+    "content": "贷款产品详细介绍",
+    "id": "1"
+  }
+}
