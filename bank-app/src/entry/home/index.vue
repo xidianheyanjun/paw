@@ -1,9 +1,14 @@
 <template>
   <div class="paper">
     <div class="info">
-      <mu-avatar :src="avatar" class="avatar"/>
-      <div v-if="!person_isLogin" @click="login" class="font-title mt-title">点击登录</div>
-      <div v-if="person_isLogin" class="font-title mt-title">{{account}}</div>
+      <template v-if="!person_isLogin">
+        <mu-avatar :src="avatar" @click="goto('#/person/login')" class="avatar" />
+        <div class="font-title mt-title" @click="goto('#/person/login')">点击登录</div>
+      </template>
+      <template v-if="person_isLogin">
+        <mu-avatar :src="avatar" class="avatar" @click="goto('#/person/index')" />
+        <div class="font-title mt-title" @click="goto('#/person/index')">{{account}}</div>
+      </template>
     </div>
     
     <ul class="navs">
@@ -64,63 +69,13 @@
         </div>    
       </li>
     </ul>
-
   </div>
-  <!--div class="vv-grid vv-tac vv-pr">
-    <div class="vv-row">
-      <div class="vv-col-lt vv-bg-light-blue">
-        <mu-flat-button @click="goto(home.finance.href)" :key="home.finance.label"
-                        :label="home.finance.label"
-                        :class="home.finance.cssClass"
-                        :icon="home.finance.icon" :labelClass="home.finance.labelClass"
-                        :iconClass="home.finance.iconClass" primary/>
-        <div v-for="menu in home.finance.subMenu" :class="menu.cssClass" @click="goto(menu.href)">
-          <span :class="menu.iconClass"></span>
-          <span :class="menu.labelClass">{{menu.label}}</span>
-        </div>
-      </div>
-      <div class="vv-col-rt vv-bg-deep-purple">
-        <mu-flat-button @click="goto(home.gb.href)" :key="home.gb.label"
-                        :label="home.gb.label"
-                        :class="home.gb.cssClass"
-                        :icon="home.gb.icon" :labelClass="home.gb.labelClass"
-                        :iconClass="home.gb.iconClass" primary/>
-        <div v-for="menu in home.gb.subMenu" :class="menu.cssClass" @click="goto(menu.href)">
-          <span :class="menu.iconClass"></span>
-          <span :class="menu.labelClass">{{menu.label}}</span>
-        </div>
-      </div>
-    </div>
-    <div class="vv-row">
-      <div class="vv-col-lb vv-bg-pink">
-        <mu-flat-button @click="goto(home.service.href)" :key="home.service.label"
-                        :label="home.service.label"
-                        :class="home.service.cssClass"
-                        :icon="home.service.icon" :labelClass="home.service.labelClass"
-                        :iconClass="home.service.iconClass" primary/>
-        <div v-for="menu in home.service.subMenu" :class="menu.cssClass" @click="goto(menu.href)">
-          <span :class="menu.iconClass"></span>
-          <span :class="menu.labelClass">{{menu.label}}</span>
-        </div>
-      </div>
-      <div class="vv-col-rb vv-bg-light-green">
-        <mu-flat-button @click="goto(home.info.href)" :key="home.info.label"
-                        :label="home.info.label"
-                        :class="home.info.cssClass"
-                        :icon="home.info.icon" :labelClass="home.info.labelClass"
-                        :iconClass="home.info.iconClass" primary/>
-        <div v-for="menu in home.info.subMenu" :class="menu.cssClass" @click="goto(menu.href)">
-          <span :class="menu.iconClass"></span>
-          <span :class="menu.labelClass">{{menu.label}}</span>
-        </div>
-      </div>
-    </div>
-
-  </div-->
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
+  import native from "@/util/native";
+  const DEFAULT_AVATAR = "static/images/atavar.png";
   export default {
     name: 'index',
     computed: mapGetters([
@@ -128,8 +83,17 @@
     ]),
     data() {
       return {
-        avatar: "static/images/atavar.png",
+        avatar: DEFAULT_AVATAR,
         person_isLogin: false
+      }
+    },
+    watch: {
+      person_isLogin(v) {
+        if (v) {
+          let userInfo = native.getUserInfo();
+          this.account = userInfo.account || "";
+          this.avatar = userInfo.avatar || DEFAULT_AVATAR;
+        }
       }
     },
     mounted(){
@@ -152,13 +116,11 @@
           }
         }
       });
+      this.person_isLogin = native.isLogin();
     },
     methods: {
       goto(url){
         window.location.href = url;
-      },
-      login(){
-        this.goto("#/person/login");
       }
     }
   }
@@ -182,8 +144,8 @@
   }
 
   .avatar {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
   }
 
   .font-title {
@@ -224,21 +186,21 @@
   
   .navs-item{
     float: left;
-    width: 20%;
-    padding: 5% 0;
+    width: 22%;
+    padding: 4% 0;
     color: #fff;
     text-align: center;
     font-size: 13px;
   }
   .vv-flat-button {
-    margin-bottom: 5px;
-    min-width: 75px;
+    margin: 0 auto 5px;
+    min-width: 40px;
   }
   .menus{
     float: left;
     height: 100%;
     box-sizing: border-box;
-    width: 80%;
+    width: 78%;
     background: #f8f8f8;
     padding: 0 5%;
   }

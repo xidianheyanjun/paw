@@ -1,9 +1,14 @@
 <template>
   <div class="paper">
     <div class="info">
-      <mu-avatar :src="avatar" class="avatar"/>
-      <div v-if="!person_isLogin" @click="login" class="font-title mt-title">立即登录</div>
-      <div v-if="person_isLogin" class="font-title mt-title">{{account}}</div>
+      <template v-if="!person_isLogin">
+        <mu-avatar :src="avatar" class="avatar" />
+        <div class="font-title mt-title" @click="login">点击登录</div>
+      </template>
+      <template v-if="person_isLogin">
+        <mu-avatar :src="avatar" class="avatar" />
+        <div class="font-title mt-title">{{account}}</div>
+      </template>
     </div>
 
     <div class="setting">
@@ -18,6 +23,7 @@
 <script>
   import {mapGetters} from 'vuex';
   import native from "@/util/native";
+  const DEFAULT_AVATAR = "static/images/atavar.png";
   export default {
     name: 'personIndex',
     computed: mapGetters([
@@ -26,10 +32,19 @@
     components: {},
     data(){
       return {
-        avatar: "static/images/atavar.png",
+        avatar: DEFAULT_AVATAR,
         person_isLogin: false,
         account: ""
       };
+    },
+    watch: {
+      person_isLogin(v) {
+        if (v) {
+          let userInfo = native.getUserInfo();
+          this.account = userInfo.account || "";
+          this.avatar = userInfo.avatar || DEFAULT_AVATAR;
+        }
+      }
     },
     mounted(){
       this.$store.dispatch("head_setHead", {
@@ -55,8 +70,6 @@
       });
 
       this.person_isLogin = native.isLogin();
-      let userInfo = native.getUserInfo();
-      this.account = userInfo.account || "";
     },
     methods: {
       login(){
@@ -126,14 +139,15 @@
   }
 
   .info {
+    height: 30%;
     text-align: center;
     padding: 10%;
     background-color: #374760;
   }
 
   .avatar {
-    width: 20%;
-    height: 20%;
+    width: 60px;
+    height: 60px;
   }
 
   .font-title {
