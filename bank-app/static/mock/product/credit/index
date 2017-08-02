@@ -1,0 +1,92 @@
+{
+  "code": "success",
+  "msg": "成功",
+  "data": {
+    "banks": [{
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }],
+    "list": [{
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }, {
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }],
+    "list2": [{
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }, {
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }, {
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }, {
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }],
+    "pickList": [{
+      "name": "性质A",
+      "list": [{
+        "name": "性质A-1",
+        "value": "1"
+      }, {
+        "name": "性质A-2",
+        "value": "2"
+      }, {
+        "name": "性质A-3",
+        "value": "3"
+      }]
+    }, {
+      "name": "性质B",
+      "list": [{
+        "name": "性质B-1",
+        "value": "1"
+      }, {
+        "name": "性质B-2",
+        "value": "2"
+      }]
+    }, {
+      "name": "性质C",
+      "list": [{
+        "name": "性质C-1",
+        "value": "1"
+      }, {
+        "name": "性质C-2",
+        "value": "2"
+      }]
+    }]
+  }
+}
+
+
+
+      

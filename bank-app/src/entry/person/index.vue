@@ -16,6 +16,10 @@
         <div class="menu-name">{{menu.name}}</div>
         <div class="menu-icon">&gt;</div>
       </div>
+      <div v-show="person_isLogin" @click="logout" class="menu">
+        <div class="menu-name">退出登录</div>
+        <div class="menu-icon">&gt;</div>
+      </div>
     </div>
   </div>
 </template>
@@ -172,7 +176,7 @@
   .setting .menu .menu-name {
     display: inline-block;
     padding-left: 6%;
-    width: 80%;
+    width: 90%;
     font-size: 18px;
     height: 42px;
     line-height: 42px;
