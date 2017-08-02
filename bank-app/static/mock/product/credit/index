@@ -2,57 +2,6 @@
   "code": "success",
   "msg": "成功",
   "data": {
-    "banks": [{
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }],
-    "list": [{
-      "title": "好车主",
-      "info": "加油享折扣",
-      "image": "static/images/credit.jpg"
-    }, {
-      "title": "好车主",
-      "info": "加油享折扣",
-      "image": "static/images/credit.jpg"
-    }],
-    "list2": [{
-      "title": "好车主",
-      "info": "加油享折扣",
-      "image": "static/images/credit.jpg"
-    }, {
-      "title": "好车主",
-      "info": "加油享折扣",
-      "image": "static/images/credit.jpg"
-    }, {
-      "title": "好车主",
-      "info": "加油享折扣",
-      "image": "static/images/credit.jpg"
-    }, {
-      "title": "好车主",
-      "info": "加油享折扣",
-      "image": "static/images/credit.jpg"
-    }],
     "pickList": [{
       "name": "性质A",
       "list": [{
@@ -83,6 +32,75 @@
         "name": "性质C-2",
         "value": "2"
       }]
+    }],
+    "banks": [{
+      "id": "1",
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "招商银行",
+      "icon": "static/images/bank.png"
+    }],
+    "list": [{
+      "id": "1001",
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }, {
+      "id": "1001",
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }],
+    "list2": [{
+      "id": "1001",
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }, {
+      "id": "1001",
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }, {
+      "id": "1001",
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }, {
+      "id": "1001",
+      "title": "好车主",
+      "info": "加油享折扣",
+      "image": "static/images/credit.jpg"
+    }],
+    "banners": [{
+      "id": "12",
+      "img": "static/images/ad.jpg"
     }]
   }
 }

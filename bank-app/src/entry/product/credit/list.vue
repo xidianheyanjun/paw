@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="vv-cards">
-        <a class="vv-col clearfix" v-for="item in list" :href="item.href"  :key="item.title">
+        <a class="vv-col clearfix" v-for="(item, index) in list" :key="index" @click="cardClick(item)">
             <mu-card class="vv-card">
               <mu-card-media title="" subTitle="" class="vv-card-image">
                 <img :src="item.image" />
@@ -54,16 +54,30 @@
       this.init();
     },
     methods: {
+      cardClick(item) {
+        window.location.href = '#/product/credit/apply/' + item.id;
+      },
       init() {
         let self = this;
         this.$sendRequest({
-          url: '/product/credit/list',
+          url: '/product/credit/list/' + this.$route.params['id'],
           params: {
           },
           success(body){
-            self.list = body.data;
+            if (body.code === 'success') {
+              self.list = body.data;
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
           },
           error(err){
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
           }
         });
       }
@@ -72,6 +86,11 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+.rv {
+  background: #fff;
+}
+</style>
 <style scoped>
 .vv-col{
   margin:5%;
