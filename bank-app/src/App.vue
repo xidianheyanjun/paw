@@ -176,4 +176,21 @@
   .rv div.list-item {
     padding: 8px;
   }
+
+  /**rest muse-ui css */
+html .vv-tab .mu-dropDown-menu-line{
+  display: none;
+}
+html .mu-menu-item-wrapper.active {
+  color:#2196f3;
+}
+html .mu-dropDown-menu {
+  font-size:14px;
+}
+html .mu-dropDown-menu-icon{
+  right: 27px;
+}
+html .mu-dropDown-menu-text{
+  padding-left:10px;
+}
 </style>

@@ -211,7 +211,7 @@
     width: 33%;
     padding: 5% 0;
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .navs .vv-bg-deep-purple,

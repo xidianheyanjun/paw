@@ -1,0 +1,89 @@
+{
+  "code": "success",
+  "msg": "成功",
+  "data": {
+    "pickList": [{
+      "list": [{
+        "name": "全部银行",
+        "value": "allbank"
+      }, {
+        "name": "招商银行",
+        "value": "zs"
+      }, {
+        "name": "民生银行",
+        "value": "ms"
+      }, {
+        "name": "浦发银行",
+        "value": "pf"
+      }, {
+        "name": "平安银行",
+        "value": "pa"
+      }]
+    }, {
+      "list": [{
+        "name": "全部用途",
+        "value": "allyt"
+      },{
+        "name": "大额取现卡",
+        "value": "qx"
+      }, {
+        "name": "车主卡",
+        "value": "cz"
+      }]
+    }, {
+      "list": [{
+        "name": "全部等级",
+        "value": "alldj"
+      }, {
+        "name": "普卡",
+        "value": "pk"
+      }, {
+        "name": "金卡",
+        "value": "jk"
+      }, {
+        "name": "白金卡",
+        "value": "bjk"
+      }]
+    }, {
+      "list": [{
+        "name": "更多",
+        "value": "more"
+      }, {
+        "name": "年费",
+        "value": "nf"
+      }, {
+        "name": "币种",
+        "value": "bz"
+      }, {
+        "name": "特权",
+        "value": "tq"
+      }]
+    }],
+    "banks": [{
+      "title": "平安银行标准信用卡",
+      "info": ["首刷即享全方位公共交通意外保障", "首刷即享全方位公共交通意外保障", "首刷即享全方位公共交通意外保障"],
+      "image": "static/images/credit.jpg"
+    }, {
+      "title": "好车主",
+      "info": ["加油享折扣"],
+      "image": "static/images/credit.jpg"
+    }, {
+      "title": "平安银行标准信用卡",
+      "info": ["首刷即享全方位公共交通意外保障", "首刷即享全方位公共交通意外保障", "首刷即享全方位公共交通意外保障"],
+      "image": "static/images/credit.jpg"
+    }, {
+      "title": "平安银行标准信用卡",
+      "info": ["首刷即享全方位公共交通意外保障", "首刷即享全方位公共交通意外保障", "首刷即享全方位公共交通意外保障"],
+      "image": "static/images/credit.jpg"
+    }, {
+      "title": "平安银行标准信用卡",
+      "info": ["首刷即享全方位公共交通意外保障", "首刷即享全方位公共交通意外保障", "首刷即享全方位公共交通意外保障"],
+      "image": "static/images/credit.jpg"
+    }]
+  }
+}
+
+
+
+
+      

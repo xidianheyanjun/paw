@@ -165,7 +165,7 @@
 
   .setting {
     background-color: #ffffff;
-    margin: 4% 0;
+    // margin: 4% 0;
   }
 
   .setting .menu {
@@ -177,7 +177,7 @@
     display: inline-block;
     padding-left: 6%;
     width: 90%;
-    font-size: 18px;
+    font-size: 16px;
     height: 42px;
     line-height: 42px;
     color: #4b4b4b;

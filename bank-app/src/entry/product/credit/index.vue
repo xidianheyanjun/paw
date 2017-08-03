@@ -11,10 +11,16 @@
       
       <div class="vv-center">
         <mu-row gutter class="vv-row">
-          <mu-col width="25" tablet="25" desktop="25" v-for="item in banks" :key="item.name">
+          <mu-col width="25" tablet="25" desktop="25" v-for="(item, index) in banks" :key="index">
             <a class="vv-block" @click="bankClick(item)">
               <img class="vv-icon" :src="item.icon"/>
               <div>{{item.name}}</div>
+            </a>
+          </mu-col>
+          <mu-col width="25" tablet="25" desktop="25">
+            <a class="vv-block" @click="moreClick">
+              <img class="vv-icon" src="static/images/bank.png"/>
+              <div>更多</div>
             </a>
           </mu-col>
         </mu-row>
@@ -135,6 +141,9 @@
           }
         });
       },
+      moreClick() {
+        window.location.href = '#/product/credit/list/';
+      },     
       bankClick(item) {
         window.location.href = '#/product/credit/list/' + item.id;
       },
@@ -181,11 +190,6 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-html .vv-tab .mu-dropDown-menu-line{
-  display: none;
-}
-</style>
 <style scoped>
 .vv-tab{
   // padding:0 5%;

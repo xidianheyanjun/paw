@@ -2,13 +2,13 @@
   <div class="paper">
     <div class="form">
       <div class="vv-row">
-        <div class="vv-col-title">手机号码</div>
+        <div class="vv-col-title">手机号</div>
         <div class="vv-col-value">
           <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" />
         </div>
       </div>
       <div class="vv-row">
-        <div class="vv-col-title">密码</div>
+        <div class="vv-col-title">密 码</div>
         <div class="vv-col-value">
           <mu-text-field label="" hintText="(6-16位字符)" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" />
         </div>
@@ -117,14 +117,14 @@
 .form .vv-row {
   display: block;
   width: 100%;
-  height: 40px;
-  margin-bottom: 5px;
+  // height: 40px;
+  // margin-bottom: 5px;
   line-height: 40px;
 }
 .vv-row .vv-col-title {
   display: inline-block;
-  width: 25%;
-  margin-bottom: 4%;
+  width: 20%;
+  margin-bottom: 2%;
   margin-right: 2%;
   vertical-align: middle;
   text-align: right;
@@ -152,6 +152,6 @@
 .register {
   text-align: right;
   margin: 8% 0 0;
-  font-size:12px;
+  font-size:14px;
 }
 </style>
