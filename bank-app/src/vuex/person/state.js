@@ -27,10 +27,6 @@ export default{
       name: "帮助与反馈",
       type: "forward",
       param: ""
-    }, {
-      name: "退出登录",
-      type: "logout",
-      param: ""
     }],
     mapStoreKind: {
       credit: "信用卡优惠信息",

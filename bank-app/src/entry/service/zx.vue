@@ -90,7 +90,8 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                window.location.href = "#/home/index";
+                    // window.location.href = "#/home/index";
+                    history.back(-1);
                 }
             },
             center: {

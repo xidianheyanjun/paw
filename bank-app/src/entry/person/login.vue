@@ -4,13 +4,13 @@
       <div class="vv-row">
         <div class="vv-col-title">手机号码</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" />
+          <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" />
         </div>
       </div>
       <div class="vv-row">
         <div class="vv-col-title">密码</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="(6-16位字符)" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" />
+          <mu-text-field label="" hintText="(6-16位字符)" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" />
         </div>
       </div>
       <div class="register">没有账号？<a class="link" :href="registerUrl">马上注册</a></div>
@@ -59,6 +59,9 @@
       });
     },
     methods: {
+      clearErrorTips(err) {
+        this[err] = '';
+      },
       login() {
         let self = this;
         if (!self.account.length) {
@@ -87,7 +90,7 @@
 
             // 登录成功写token到客户端
             native.setUserInfo({
-              userId: body.userId,
+              userId: body.data.userId || '',
               account: self.account,
               token: body.token
             });

@@ -69,7 +69,7 @@
   .setting .menu .menu-name {
     display: inline-block;
     padding-left: 6%;
-    width: 80%;
+    width: 90%;
     font-size: 18px;
     height: 42px;
     line-height: 42px;

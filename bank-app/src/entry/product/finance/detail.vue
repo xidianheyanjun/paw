@@ -52,10 +52,21 @@ export default {
             params: {
             },
             success(body){
-                self.title = body.data.title;
-                self.detail = body.data.detail;
+                if (body.code === 'success') {
+                    self.title = body.data.title;
+                    self.detail = body.data.detail;
+                } else {
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: body.msg
+                    });
+                }
             },
             error(err){
+                self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: '服务器繁忙,请稍后再试'
+                });
             }
             });
         }

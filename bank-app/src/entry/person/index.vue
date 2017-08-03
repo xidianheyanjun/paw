@@ -1,14 +1,23 @@
 <template>
   <div class="paper">
     <div class="info">
-      <mu-avatar :src="avatar" class="avatar"/>
-      <div v-if="!person_isLogin" @click="login" class="font-title mt-title">立即登录</div>
-      <div v-if="person_isLogin" class="font-title mt-title">{{account}}</div>
+      <template v-if="!person_isLogin">
+        <mu-avatar :src="avatar" class="avatar" />
+        <div class="font-title mt-title" @click="login">点击登录</div>
+      </template>
+      <template v-if="person_isLogin">
+        <mu-avatar :src="avatar" class="avatar" />
+        <div class="font-title mt-title">{{account}}</div>
+      </template>
     </div>
 
     <div class="setting">
       <div v-for="menu in person.menuList" @click="onMenuClick(menu.type, menu.param)" class="menu">
         <div class="menu-name">{{menu.name}}</div>
+        <div class="menu-icon">&gt;</div>
+      </div>
+      <div v-show="person_isLogin" @click="logout" class="menu">
+        <div class="menu-name">退出登录</div>
         <div class="menu-icon">&gt;</div>
       </div>
     </div>
@@ -18,6 +27,7 @@
 <script>
   import {mapGetters} from 'vuex';
   import native from "@/util/native";
+  const DEFAULT_AVATAR = "static/images/atavar.png";
   export default {
     name: 'personIndex',
     computed: mapGetters([
@@ -26,10 +36,19 @@
     components: {},
     data(){
       return {
-        avatar: "static/images/atavar.png",
+        avatar: DEFAULT_AVATAR,
         person_isLogin: false,
         account: ""
       };
+    },
+    watch: {
+      person_isLogin(v) {
+        if (v) {
+          let userInfo = native.getUserInfo();
+          this.account = userInfo.account || "";
+          this.avatar = userInfo.avatar || DEFAULT_AVATAR;
+        }
+      }
     },
     mounted(){
       this.$store.dispatch("head_setHead", {
@@ -55,8 +74,6 @@
       });
 
       this.person_isLogin = native.isLogin();
-      let userInfo = native.getUserInfo();
-      this.account = userInfo.account || "";
     },
     methods: {
       login(){
@@ -126,14 +143,15 @@
   }
 
   .info {
+    height: 30%;
     text-align: center;
     padding: 10%;
     background-color: #374760;
   }
 
   .avatar {
-    width: 20%;
-    height: 20%;
+    width: 60px;
+    height: 60px;
   }
 
   .font-title {
@@ -158,7 +176,7 @@
   .setting .menu .menu-name {
     display: inline-block;
     padding-left: 6%;
-    width: 80%;
+    width: 90%;
     font-size: 18px;
     height: 42px;
     line-height: 42px;

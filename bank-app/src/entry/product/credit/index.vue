@@ -2,19 +2,9 @@
   <div>
     <div class="vv-module">
       <mu-row class="vv-tab">
-        <mu-col width="33" tablet="33" desktop="33">
-          <mu-dropDown-menu :value="gzxzValue" @change="changeGzxz">
-            <mu-menu-item v-for="item in gzxz" :key="item.value" :value="item.value" :title="item.name"/>
-          </mu-dropDown-menu>
-        </mu-col>
-        <mu-col width="33" tablet="33" desktop="33">
-          <mu-dropDown-menu :value="ysrValue" @change="changeYsr">
-            <mu-menu-item v-for="item in ysr" :key="item.value" :value="item.value" :title="item.name"/>
-          </mu-dropDown-menu>
-        </mu-col>
-        <mu-col width="33" tablet="33" desktop="33">
-          <mu-dropDown-menu :value="zcValue" @change="changeZc">
-            <mu-menu-item v-for="item in zc" :key="item.value" :value="item.value" :title="item.name"/>
+        <mu-col width="33" tablet="33" desktop="33" v-for="(pick, index) in pickList" :key="index">
+          <mu-dropDown-menu :value="pick.value" @change="openPick($event, pick)">
+            <mu-menu-item v-for="(item, idx) in pick.list" :key="idx" :value="item.value" :title="item.name"/>
           </mu-dropDown-menu>
         </mu-col>
       </mu-row>
@@ -22,7 +12,7 @@
       <div class="vv-center">
         <mu-row gutter class="vv-row">
           <mu-col width="25" tablet="25" desktop="25" v-for="item in banks" :key="item.name">
-            <a class="vv-block" :href="item.href">
+            <a class="vv-block" @click="bankClick(item)">
               <img class="vv-icon" :src="item.icon"/>
               <div>{{item.name}}</div>
             </a>
@@ -35,30 +25,34 @@
       <mu-sub-header>用途卡精选</mu-sub-header>
 
       <mu-row class="vv-row vv-left-right">
-        <mu-col width="50" tablet="50" desktop="50" v-for="item in list" :key="item.title" class="vv-col">
-          <mu-col width="50" tablet="50" desktop="50" class="vv-info">
-            <span class="vv-title">{{item.title}}</span>
-            <span class="vv-subTitle">{{item.info}}</span>
-          </mu-col> 
-          <mu-col width="50" tablet="50" desktop="50" class="vv-card">
+        <mu-col width="50" tablet="50" desktop="50" v-for="(item, index) in list" :key="index" class="vv-col">
+          <div @click="cardClick(item)">
+            <mu-col width="50" tablet="50" desktop="50" class="vv-info">
+              <span class="vv-title">{{item.title}}</span>
+              <span class="vv-subTitle">{{item.info}}</span>
+            </mu-col> 
+            <mu-col width="50" tablet="50" desktop="50" class="vv-card">
+              <mu-card>
+                <mu-card-media title="" subTitle="">
+                  <img :src="item.image" />
+                </mu-card-media>
+              </mu-card>
+            </mu-col>
+          </div>
+        </mu-col>
+      </mu-row>
+      <mu-row class="vv-row vv-top-bottom">
+        <mu-col width="25" tablet="25" desktop="25" v-for="(item, index) in list2" :key="index" class="vv-col">
+          <div @click="cardClick(item)">
+            <div class="vv-info">
+              <span class="vv-title">{{item.title}}</span>
+            </div>
             <mu-card>
               <mu-card-media title="" subTitle="">
                 <img :src="item.image" />
               </mu-card-media>
             </mu-card>
-          </mu-col>
-        </mu-col>
-      </mu-row>
-      <mu-row class="vv-row vv-top-bottom">
-        <mu-col width="25" tablet="25" desktop="25" v-for="item in list2" :key="item.title" class="vv-col">
-          <div class="vv-info">
-            <span class="vv-title">{{item.title}}</span>
           </div>
-         <mu-card>
-            <mu-card-media title="" subTitle="">
-              <img :src="item.image" />
-            </mu-card-media>
-          </mu-card>
         </mu-col>
       </mu-row>
     </div>
@@ -67,8 +61,8 @@
       <mu-sub-header class="vv-title">热卡推荐<mu-flat-button label="选卡中心 &gt;" class="vv-button" to="/product/credit/list" /></mu-sub-header>
 
       <mu-card>
-        <mu-card-media title="" subTitle="">
-          <img src="static/images/ad.jpg" />
+        <mu-card-media title="" subTitle="" v-for="(item, index) in banners" :key="index">
+          <img :src="item.img" @click="bannerClick(item)" />
         </mu-card-media>
       </mu-card>
       
@@ -83,131 +77,11 @@
     components: {},
     data(){
       return {
-        banks: [{
-          name: '招商银行',
-          href: '#/product/credit/list',
-          icon: 'static/images/bank.png'
-        }, {
-          name: '招商银行',
-          href: '#/product/credit/list',
-          icon: 'static/images/bank.png'
-        }, {
-          name: '招商银行',
-          href: '#/product/credit/list',
-          icon: 'static/images/bank.png'
-        }, {
-          name: '招商银行',
-          href: '#/product/credit/list',
-          icon: 'static/images/bank.png'
-        }, {
-          name: '招商银行',
-          href: '#/product/credit/list',
-          icon: 'static/images/bank.png'
-        },{
-          name: '招商银行',
-          href: '#/product/credit/list',
-          icon: 'static/images/bank.png'
-        },{
-          name: '招商银行',
-          href: '#/product/credit/list',
-          icon: 'static/images/bank.png'
-        },{
-          name: '招商银行',
-          href: '#/product/credit/list',
-          icon: 'static/images/bank.png'
-        }],
-        list: [{
-          title: '好车主',
-          info: '加油享折扣',
-          image: 'static/images/credit.jpg'
-        }, {
-          title: '好车主',
-          info: '加油享折扣',
-          image: 'static/images/credit.jpg'
-        }],
-        list2: [{
-          title: '好车主',
-          info: '加油享折扣',
-          image: 'static/images/credit.jpg'
-        }, {
-          title: '好车主',
-          info: '加油享折扣',
-          image: 'static/images/credit.jpg'
-        }, {
-          title: '好车主',
-          info: '加油享折扣',
-          image: 'static/images/credit.jpg'
-        }, {
-          title: '好车主',
-          info: '加油享折扣',
-          image: 'static/images/credit.jpg'
-        }],
-        gzxzValue: "1",
-        ysrValue: "1",
-        zcValue: "1",
-        gzxz: [{
-          name: "性质A",
-          value: "1"
-        }, {
-          name: "性质B",
-          value: "2"
-        }, {
-          name: "性质C",
-          value: "3"
-        }],
-        ysr: [{
-          name: "收入A",
-          value: "1"
-        }, {
-          name: "收入B",
-          value: "2"
-        }, {
-          name: "收入C",
-          value: "3"
-        }],
-        zc: [{
-          name: "资产A",
-          value: "1"
-        }, {
-          name: "资产B",
-          value: "2"
-        }, {
-          name: "资产C",
-          value: "3"
-        }],
-        bank: [{
-          name: "中信银行",
-          img: "home",
-          url: ""
-        }, {
-          name: "中国银行",
-          img: "home",
-          url: ""
-        }, {
-          name: "招商银行",
-          img: "home",
-          url: ""
-        }, {
-          name: "建设银行",
-          img: "home",
-          url: ""
-        }, {
-          name: "民生银行",
-          img: "home",
-          url: ""
-        }, {
-          name: "浦发银行",
-          img: "home",
-          url: ""
-        }, {
-          name: "江苏银行",
-          img: "home",
-          url: ""
-        }, {
-          name: "人民银行",
-          img: "home",
-          url: ""
-        }]
+        pickList: [],
+        banks: [],
+        list: [],
+        list2: [],
+        banners: []
       };
     },
     mounted () {
@@ -232,25 +106,90 @@
           }
         }
       });
+      this.init();
     },
     methods: {
-      changeGzxz (value) {
-        this.gzxzValue = value;
+      openPick(value, pick) {
+        let self = this;
+        pick.value = value;
+        this.$sendRequest({
+          url: '/product/credit/index/' + value,
+          params: {
+          },
+          success(body){
+            if (body.code === 'success') {
+              let data = body.data;
+              self.banks = data.banks;
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
+          },
+          error(err){
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
+          }
+        });
       },
-      changeYsr (value) {
-        this.ysrValue = value;
+      bankClick(item) {
+        window.location.href = '#/product/credit/list/' + item.id;
       },
-      changeZc (value) {
-        this.zcValue = value;
+      cardClick(item) {
+        window.location.href = '#/product/credit/list/' + item.id;
+      },
+      bannerClick(item) {
+        window.location.href = '#/product/credit/list/' + item.id;
+      },
+      init() {
+        let self = this;
+        this.$sendRequest({
+          url: '/product/credit/index',
+          params: {
+          },
+          success(body){
+            if (body.code === 'success') {
+              let data = body.data;
+              data.pickList.forEach((item, index) => {
+                item.value = item.list[0].value;
+              });
+              self.pickList = data.pickList;
+              self.banks = data.banks;
+              self.list = data.list;
+              self.list2 = data.list2;
+              self.banners = data.banners;
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
+          },
+          error(err){
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
+          }
+        });
       }
     }
   } 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+html .vv-tab .mu-dropDown-menu-line{
+  display: none;
+}
+</style>
 <style scoped>
 .vv-tab{
-  padding:0 5%;
+  // padding:0 5%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 .vv-module{
   border-bottom:10px solid #eee;

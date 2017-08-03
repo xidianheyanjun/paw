@@ -4,19 +4,19 @@
       <div class="vv-row">
         <div class="vv-col-title">手机号码</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" />
+          <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" />
         </div>
       </div>
       <div class="vv-row">
         <div class="vv-col-title">密码</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="(6-16位字符)" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" />
+          <mu-text-field label="" hintText="(6-16位字符)" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" />
         </div>
       </div>
       <div class="vv-row">
         <div class="vv-col-title">再次输入密码</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="(6-16位字符)" v-model.trim="password2" type="password" :errorText="passwordError2" :minLength="6" :maxLength="16" />
+          <mu-text-field label="" hintText="(6-16位字符)" v-model.trim="password2" type="password" :errorText="passwordError2" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError2')" />
         </div>
       </div>
       <mu-raised-button label="立即注册" class="vv-button" @click="register" primary fullWidth/>
@@ -64,6 +64,9 @@
       });
     },
     methods: {
+      clearErrorTips(err) {
+        this[err] = '';
+      },
       register() {
         let self = this;
         if (!self.account.length) {
@@ -74,8 +77,6 @@
           self.passwordError = '密码不能为空';
           return;
         }
-        console.log(self.password)
-        console.log(self.password2)
         if (self.password != self.password2) {
           self.passwordError2 = '两次输入的密码不一致';
           return;

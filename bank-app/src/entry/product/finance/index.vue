@@ -4,7 +4,7 @@
       <div class="vv-center">
         <mu-row gutter class="vv-row">
           <mu-col width="25" tablet="25" desktop="25" v-for="item in banks" :key="item.name">
-            <a class="vv-block" :href="item.href">
+            <a class="vv-block" @click="bankClick(item)">
               <img class="vv-icon" :src="item.icon"/>
               <div>{{item.name}}</div>
             </a>
@@ -16,7 +16,7 @@
     <div>
       <mu-sub-header class="vv-subheader">热销产品<mu-flat-button label="&gt;" class="vv-button" to="/product/finance/list" /></mu-sub-header>
       <mu-content-block>
-        <div class="vv-col" v-for="item in list" :key="item.title">
+        <div class="vv-col" v-for="(item, index) in list" :key="index" @click="productClick(item)">
             <div class="hd">
                 <span class="tag" v-if="item.tag">{{item.tag}}</span>
                 <span class="title">{{item.title}}</span>
@@ -50,43 +50,8 @@
     components: {},
     data(){
       return {
-        banks: [{
-          name: '招商银行',
-          href: '#/product/finance/list',
-          icon: 'static/images/bank.png'
-        }, {
-          name: '招商银行',
-          href: '#/product/finance/list',
-          icon: 'static/images/bank.png'
-        }, {
-          name: '招商银行',
-          href: '#/product/finance/list',
-          icon: 'static/images/bank.png'
-        }, {
-          name: '招商银行',
-          href: '#/product/finance/list',
-          icon: 'static/images/bank.png'
-        }, {
-          name: '招商银行',
-          href: '#/product/finance/list',
-          icon: 'static/images/bank.png'
-        },{
-          name: '招商银行',
-          href: '#/product/finance/list',
-          icon: 'static/images/bank.png'
-        },{
-          name: '招商银行',
-          href: '#/product/finance/list',
-          icon: 'static/images/bank.png'
-        },{
-          name: '招商银行',
-          href: '#/product/finance/list',
-          icon: 'static/images/bank.png'
-        }],
+        banks: [],
         list: []
-        
-        
-       
       };
     },
     mounted () {
@@ -114,6 +79,12 @@
       this.init();
     },
     methods: {
+      bankClick(item) {
+        window.location.href = '#/product/finance/list/' + item.id;
+      },
+      productClick(item) {
+        window.location.href = '#/product/finance/detail/' + item.id;
+      },
       init() {
         let self = this;
         this.$sendRequest({
@@ -121,9 +92,21 @@
           params: {
           },
           success(body){
-            self.list = body.data.list;
+            if (body.code === 'success') {
+              self.banks = body.data.banks;
+              self.list = body.data.list;
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
           },
           error(err){
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
           }
         });
       }
