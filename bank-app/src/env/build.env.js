@@ -5,5 +5,5 @@ export default {
   mode: "build",
   useNative: false,
   useSign: false,
-  requestRoot: "http://39.108.155.19:8080/end"
+  requestRoot: "http://119.23.41.237:8180/end"
 };
