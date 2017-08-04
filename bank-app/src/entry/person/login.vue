@@ -90,7 +90,7 @@
 
             // 登录成功写token到客户端
             native.setUserInfo({
-              userId: body.userId || '',
+              userId: body.data.userId || '',
               account: self.account,
               token: body.token
             });
