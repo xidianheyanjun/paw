@@ -128,6 +128,7 @@
   margin-right: 2%;
   vertical-align: middle;
   text-align: right;
+  font-size:15px;
 }
 
 .vv-row .vv-col-value {

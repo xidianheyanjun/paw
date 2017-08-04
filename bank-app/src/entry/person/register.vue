@@ -2,7 +2,7 @@
   <div class="paper">
     <div class="form">
       <div class="vv-row">
-        <div class="vv-col-title">手机号码</div>
+        <div class="vv-col-title">手机号</div>
         <div class="vv-col-value">
           <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" />
         </div>
@@ -132,6 +132,7 @@
   margin-right: 2%;
   vertical-align: middle;
   text-align: right;
+  font-size:15px;
 }
 
 .vv-row .vv-col-value {

@@ -1,18 +1,12 @@
 <template>
   <div>
     <div class="tab-body">
-      <div>
-        <div class="list-title">政银企对接</div>
-        <div v-for="item in list" :key="item.id" @click="redirect2detail(item)" class="list-item">
-          <span class="triangle-right"></span>
-          <span>{{item.title}}</span>
-        </div>
+      <div v-for="item in list" :key="item.id" @click="redirect2detail(item)" class="list-item">
+        <span class="triangle-right"></span>
+        <span>{{item.title}}</span>
       </div>
-      <hr class="divid-line"/>
-      <div>
-        <mu-list-item v-for="item in banner" :key="item.id">
-          <img :src="item.img" class="banner"/>
-        </mu-list-item>
+      <div class="banner" v-for="(item, index) in banner" :key="index">
+        <img :src="item.img" @click="gotoList(item.id)" />
       </div>
     </div>
   </div>
@@ -36,12 +30,12 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/home/index";
+            history.back(-1);
           }
         },
         center: {
           img: "",
-          title: "政银企",
+          title: "政银企对接",
           callback: null
         },
         right: {
@@ -78,32 +72,18 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .tab-body {
-    padding: 0 20px;
-  }
-
-  .divid-line {
-    border: 1px dashed #9575cd;
-  }
-
-  .banner {
-    width: 100%;
-    height: 80px;
-  }
-
-  .list-title {
-    padding-top: 20px;
-    font-size: 14px;
-    color: #ad1457;
-  }
-
-  .list-item {
-    padding: 16px;
-  }
-
-  .list-item span {
-    vertical-align: middle;
-    padding-left: 8px;
-    color: rgba(0, 0, 0, 0.6);
-  }
+.tab-body {
+  padding: 20px;
+}
+.list-item {
+  font-size:14px;
+  color: #333;
+  // border-bottom:1px dotted #f0f0f0;
+}
+.banner{
+  margin:10px auto;
+}
+.banner img{
+  width:100%;
+}
 </style>

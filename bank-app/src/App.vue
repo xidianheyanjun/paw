@@ -162,15 +162,11 @@
   }
 
   .triangle-right {
-    font-size: 0;
-    line-height: 0;
-    border-width: 10px;
-    border-color: #e5304f;
-    border-right-width: 0;
-    border-style: dashed;
-    border-left-style: solid;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
+    display:inline-block;
+    width:0;
+    height:0;
+    border:5px dashed transparent;
+    border-left:5px solid #2196f3;
   }
 
   .rv div.list-item {

@@ -2,10 +2,6 @@
   <div>
     <div class="tab-body">
       <div>
-        <div class="list-title">政银企预约</div>
-      </div>
-      <hr class="divid-line"/>
-      <div>
         <mu-row v-for="item in list" :key="item.id" class="vv-row">
           <mu-col v-if="item.position=='left'" width="20" tablet="20" desktop="20" class="vv-col-user">
             <img :src="item.img" class="img">
@@ -45,12 +41,12 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/home/index";
+            history.back(-1);
           }
         },
         center: {
           img: "",
-          title: "交流论坛",
+          title: "自由邀请洽谈",
           callback: null
         },
         right: {
@@ -87,21 +83,10 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .tab-body {
-    padding: 0 20px;
+    padding: 20px;
   }
-
-  .divid-line {
-    border: 1px dashed #9575cd;
-  }
-
-  .list-title {
-    padding-top: 20px;
-    font-size: 14px;
-    color: #ad1457;
-  }
-
   .vv-row {
-    margin: 10px 5px;
+    margin: 10px 0;
   }
 
   .vv-col-user {
@@ -121,9 +106,10 @@
 
   .vv-col-text {
     background-color: #fccb97;
-    padding: 10px 10px;
+    padding:10px;
+    font-size:14px;
     line-height: 150%;
-    text-indent: 10%;
+    text-indent: 2em;
     border-radius: 5px;
   }
 </style>
