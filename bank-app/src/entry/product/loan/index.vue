@@ -19,7 +19,7 @@
           img: "",
           title: "返回",
           callback: function () {
-            history.back(-1);
+            window.location.href = "#/home/index";
           }
         },
         center: {
