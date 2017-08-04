@@ -73,6 +73,7 @@ export default {
 </script>
 <style scoped>
 .vv-tab {
+  position:relative;
   width:100%;
   box-sizing: border-box;
   height: 48px;

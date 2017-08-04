@@ -78,8 +78,8 @@
   padding: 20px;
 }
 .list-item {
-  font-size:14px;
-  color: #333;
+  font-size:15px;
+  color: rgba(0, 0, 0, 0.6);
   // border-bottom:1px dotted #f0f0f0;
 }
 .banner{

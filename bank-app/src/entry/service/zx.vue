@@ -212,24 +212,28 @@ export default {
 }
 .vv-row .vv-col-title {
     display: inline-block;
-    width: 38%;
+    width: 25%;
     margin-bottom: 4%;
     margin-right: 2%;
     vertical-align: middle;
     text-align: right;
+    font-size: 15px;
 }
 
 .vv-row .vv-col-value {
     display: inline-block;
-    width: 50%;
+    width: 65%;
     overflow: hidden;
     text-align: left;
     vertical-align: middle;
 }
 
 .form .col{
-    margin-top: 5%;
-    position:relative;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: justify;
+    margin-top: 20px;
+    font-size:14px;
 }
 .form .vv-button{
     color:rgba(0,0,0,.54);
@@ -237,11 +241,15 @@ export default {
 .form .vv-checkbox{
     vertical-align: middle;
 }
+.form .mu-checkbox-icon{
+    margin-right:10px;
+}
 .form .link{
-    float:right;
+    display:block;
     color:#2196f3;
     text-decoration:underline;
     vertical-align: middle;
+    font-size:14px;
 }
 .form .vv-next{
     margin:5% auto;
@@ -251,11 +259,11 @@ export default {
     margin:0 5%;
 }
 .ft .msg{
-    font-size:12px;
-    color:rgba(0,0,0,.54);
+    font-size:13px;
+    color:#999;
 }
 .ft .link{
-    font-size:12px;
+    font-size:13px;
     color:#2196f3;
     text-decoration:underline;
 }

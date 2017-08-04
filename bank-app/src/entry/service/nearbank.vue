@@ -1,17 +1,6 @@
 <template>
 <div>
-    <mu-row class="vv-tab">
-        <mu-col width="50" tablet="50" desktop="50">
-          <mu-dropDown-menu :value="lateValue" @change="changeLate">
-            <mu-menu-item v-for="item in late" :key="item.value" :value="item.value" :title="item.name"/>
-          </mu-dropDown-menu>
-        </mu-col>
-        <mu-col width="50" tablet="50" desktop="50">
-          <mu-dropDown-menu :value="bankValue" @change="changeBank">
-            <mu-menu-item v-for="item in bank" :key="item.value" :value="item.value" :title="item.name"/>
-          </mu-dropDown-menu>
-        </mu-col>
-    </mu-row>
+    <picker :picks="pickList" @checkedPick="renderData" :curPick="curPick"></picker>
     <div class="content">
         <mu-list v-for="item in list" :key="item.title">
             <mu-list-item :title="item.title" @click="goto(item.href)">
@@ -27,81 +16,80 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import picker from '@/components/common/picker';
 export default {
     name: 'serviceNearbank',
+    components: {
+      picker
+    },
     computed: mapGetters([]),
     data() {
         return {
-            lateValue: '0',
-            late: [{
-                value: '0',
-                name: '网点/ATM'
-            },{
-                value: '1',
-                name: 'XX区'
-            }],
-            bankValue: '0',
-            bank: [{
-                value: '0',
-                name: '全部银行'
-            },{
-                value: '1',
-                name: '招商银行'
-            }, {
-                value: '2',
-                name: '建设银行'
-            }, {
-                value: '3',
-                name: '工商银行'
-            }, {
-                value: '4',
-                name: '农业银行'
-            }],
+            pickList: [],
+            curPick: '',
             list: []
         }
     },
     mounted() {
-        this.$store.dispatch("head_setHead", {
-            left: {
-                img: "",
-                title: "返回",
-                callback: function () {
-                window.location.href = "#/home/index";
-                }
-            },
-            center: {
-                img: "",
-                title: "附近银行",
-                callback: null
-            },
-            right: {
-                img: "",
-                title: "地图",
-                callback: function () {
-                window.location.href = "#/common/map";
-                }
-            }
-        });
-        this.renderList();
-    },
-    watch: {
-        lateValue(v) {
-            this.renderList();
+      this.$store.dispatch("head_setHead", {
+        left: {
+          img: "",
+          title: "返回",
+          callback: function () {
+            window.location.href = "#/home/index";
+          }
         },
-        bankValue(v) {
-            this.renderList();
+        center: {
+          img: "",
+          title: "附近银行",
+          callback: null
+        },
+        right: {
+          img: "",
+          title: "地图",
+          callback: function () {
+            window.location.href = "#/common/map";
+          }
         }
+      });
+      let query = this.$route.query;
+      let querykey = Object.keys(query)[0];
+      this.renderData(query[querykey]);// 页面初始化时目前只做一种条件查询
     },
     methods: {
-        changeLate(value) {
-            this.lateValue = value;
-        },
-        changeBank(value) {
-            this.bankValue = value;
-        },
         goto(url){
             console.log(url)
             window.location.href = url;
+        },
+        renderData(value) {
+            let self = this;
+            this.$sendRequest({
+            url: '/service/nearbank?query=' + value,
+            params: {
+            },
+            success(body){
+                if (body.code === 'success') {
+                let data = body.data;
+                    self.pickList = data.pickList || self.pickList;
+                    self.curPick = value;
+                    self.list = data.list;
+                } else {
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: body.msg
+                    });
+                }
+            },
+            error(err){
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '服务器繁忙,请稍后再试'
+                });
+            }
+            });
+        },
+        cardClick(item) {
+            window.location.href = '#/product/credit/detail/' + item.id;
         },
         renderList() {
             let self = this;
@@ -123,7 +111,7 @@ export default {
 </script>
 <style scoped>
 .content{
-    margin:5%;
+    // margin:20px;
 }
 .vv-right{
     color:#2196f3;

@@ -25,7 +25,10 @@
     </div>
 
     <div class="vv-module vv-cards">
-      <div class="vv-title">用途卡精选</div>
+      <div class="vv-title">
+        <span>用途卡精选</span>
+        <a class="more" @click.stop="">更多 &gt;</a>
+      </div>
       <ul class="card-list clearfix">
         <li class="card-item" v-for="(item, index) in list" :key="index" @click="gotoList(item.id)">
           <div class="txt">
@@ -38,7 +41,10 @@
     </div>
 
     <div class="vv-module vv-cards2">
-      <div class="vv-title">热卡推荐</div>
+      <div class="vv-title">
+        <span>热卡推荐</span>
+        <a class="more" @click.stop="">更多 &gt;</a>
+      </div>
       <ul class="card-list2">
         <li class="card-item2 clearfix" v-for="(item, index) in list2" :key="index" @click="gotoList(item.id)">
           <img class="img" :src="item.image" />
@@ -134,21 +140,26 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.vv-tab{
-  // padding:0 5%;
-  border-bottom: 1px solid #f0f0f0;
-}
 .vv-module{
   background:#fff;
   border-bottom:10px solid #eee;
 }
 .vv-title{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: justify;
   font-size:14px;
-  // color:rgba(0, 0, 0, 0.54);
   height:46px;
   line-height:46px;
-  padding-left:20px;
+  padding:0 20px;
   border-bottom: 1px solid #f0f0f0;
+}
+.vv-title span {
+  display:block;
+}
+.vv-title .more {
+  display:block;
+  color:#999;
 }
 .vv-icon{
   margin:0 auto 5px;

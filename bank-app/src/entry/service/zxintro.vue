@@ -1,6 +1,6 @@
 <template>
 <div class="info">
-    <div class="info-hd">服务条款</div>
+    <div class="info-hd">条款一</div>
     <div class="info-bd">
       服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款
     </div>
@@ -23,7 +23,7 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                window.location.href = "#/service/zx";
+                    history.back(-1);
                 }
             },
             center: {
@@ -52,14 +52,13 @@ export default {
   height: 100%;
 }
 .info-hd {
-    font-size: 14px;
+    font-size: 16px;
     color: #374760;
     margin-bottom: 10px;
-    text-align: center;
 }
 .info-bd {
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 15px;
+    line-height: 26px;
     text-indent: 2em;
 }
 </style>

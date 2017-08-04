@@ -1,0 +1,71 @@
+{
+  "code": "success",
+  "msg": "成功",
+  "data": {
+    "types": [{
+      "id": "1",
+      "name": "美食",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "电影",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "酒店",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "全部",
+      "icon": "static/images/bank.png"
+    }],
+    "coupons": [{
+      "id": "10323",
+      "title": "麦当劳",
+      "info": "巨无霸小巨人",
+      "image": "static/images/sun.jpg"
+    }, {
+      "id": "10323",
+      "title": "麦当劳",
+      "info": "巨无霸小巨人",
+      "image": "static/images/sun.jpg"
+    }, {
+      "id": "10323",
+      "title": "麦当劳",
+      "info": "巨无霸小巨人",
+      "image": "static/images/sun.jpg"
+    }],
+    "markets": [{
+      "id": "1001",
+      "title": "帮我选卡",
+      "info": "测基因 推荐卡",
+      "image": "static/images/act-card.png"
+    }, {
+      "id": "1001",
+      "title": "免费白金卡",
+      "info": "高额度，免年费",
+      "image": "static/images/act-card.png"
+    }, {
+      "id": "1001",
+      "title": "高颜值卡",
+      "info": "给高颜值的你",
+      "image": "static/images/act-card.png"
+    }, {
+      "id": "1001",
+      "title": "新手办卡",
+      "info": "新户专属 易下卡",
+      "image": "static/images/act-card.png"
+    }],
+    "banners": [{
+      "id": "12",
+      "img": "static/images/ad.jpg"
+    }, {
+      "id": "12",
+      "img": "static/images/ad.jpg"
+    }]
+  }
+}
+
+
+
+      

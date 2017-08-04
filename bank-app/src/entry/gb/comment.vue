@@ -86,7 +86,7 @@
 
   .list-title {
     padding-top: 20px;
-    font-size: 14px;
+    font-size: 15px;
     color: #ad1457;
   }
 

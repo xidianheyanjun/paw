@@ -13,11 +13,8 @@
         </div>
         <mu-infinite-scroll :scroller="policy.scroller" :loading="policy.loading" @load="onInfinite('policy')"/>
       </div>
-      <hr class="divid-line"/>
-      <div>
-        <mu-list-item v-for="item in policy.banner" :key="item.id">
-          <img :src="item.img" class="banner"/>
-        </mu-list-item>
+      <div class="banner">
+        <img :src="item.img" @click="gotoList(item.id)" v-for="(item, index) in policy.banner" :key="index" />
       </div>
     </div>
     <div v-if="activeTab === 'industry'" class="tab-body">
@@ -29,11 +26,8 @@
         </div>
         <mu-infinite-scroll :scroller="industry.scroller" :loading="industry.loading" @load="onInfinite('industry')"/>
       </div>
-      <hr class="divid-line"/>
-      <div>
-        <mu-list-item v-for="item in industry.banner" :key="item.id">
-          <img :src="item.img" class="banner"/>
-        </mu-list-item>
+      <div class="banner">
+        <img :src="item.img" @click="gotoList(item.id)" v-for="(item, index) in industry.banner" :key="index" />
       </div>
     </div>
     <div v-if="activeTab === 'forum'" class="tab-body">
@@ -44,7 +38,6 @@
         </div>
         <mu-infinite-scroll :scroller="forum.scroller" :loading="forum.loading" @load="onInfinite('forum')"/>
       </div>
-      <hr class="divid-line"/>
       <div class="message-container" v-if="forum.messages.length">
         <div class="list-title">留言</div>
         <div class="message-body">
@@ -126,6 +119,9 @@
       self.changeTab(self.activeTab);
     },
     methods: {
+      gotoList(id) {
+        window.location.href = '#/product/credit/list?query=' + id;
+      },
       changeTab(value){
         let self = this;
         self.activeTab = value;
@@ -185,38 +181,35 @@
 <style scoped>
   .mu-tabs {
     position: fixed;
+    background:#fff;
+    color: #333;
+    border:1px solid #f0f0f0;
+  }
+  .mu-tabs .mu-tab-link{
+    color:#333;
+  }
+  .mu-tabs .mu-tab-active{
+    color:#2196f3;
   }
   .tab-body {
-    padding: 0 20px;
+    padding:60px 20px 20px;
   }
-
-  .divid-line {
-    border: 1px dashed #9575cd;
-  }
-
-  .banner {
-    width: 100%;
-    height: 80px;
-  }
-
-  .list-title {
-    padding-top: 20px;
-    font-size: 14px;
-    color: #ad1457;
-  }
-
   .list-item {
-    padding: 16px;
-  }
-
-  .list-item span {
-    vertical-align: middle;
-    padding-left: 8px;
+    font-size:15px;
     color: rgba(0, 0, 0, 0.6);
+    // border-bottom:1px dotted #f0f0f0;
+  }
+  .list-title {
+    margin-bottom:10px;
+    padding: 10px;
+    font-size:16px;
+    border-bottom:1px solid #f0f0f0;
   }
 
   .message-container {
     background-color: #f6c19f;
+    border-radius:5px;
+    font-size:15px;
   }
 
   .message-body {
@@ -225,8 +218,9 @@
 
   .message {
     display: block;
+    box-sizing:border-box;
     width: 100%;
-    padding: 8px 0;
+    padding: 8px 5px;
     word-break: break-all;
     word-wrap: break-word;
   }
@@ -237,4 +231,9 @@
     width: 10px;
     height: 10px;
   }
+
+.banner img{
+  width:100%;
+  margin-bottom:10px;
+}
 </style>
