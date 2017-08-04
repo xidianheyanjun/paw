@@ -23,7 +23,7 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                window.location.href = "#/product/finance/index";
+                    history.back(-1);
                 }
             },
             center: {
@@ -35,7 +35,7 @@ export default {
                 img: "",
                 title: "地图",
                 callback: function () {
-                window.location.href = "#/common/map";
+                    window.location.href = "#/common/map";
                 }
             }
         });

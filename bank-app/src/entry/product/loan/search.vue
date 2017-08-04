@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="vv-row">
-                        <div class="vv-col-title">身份证号码</div>
+                        <div class="vv-col-title">身份证号</div>
                         <div class="vv-col-value">
                             <mu-text-field v-model.trim="personalData.cardNo" label="" hintText=""/>
                         </div>
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div class="vv-row">
-                        <div class="vv-col-title">手机号码</div>
+                        <div class="vv-col-title">手机号</div>
                         <div class="vv-col-value">
                             <mu-text-field v-model.trim="personalData.mobile" label="" hintText=""/>
                         </div>
@@ -200,14 +200,26 @@
         <div class="vv-search-default">
             <mu-sub-header class="vv-title">智能查询</mu-sub-header>
             <mu-content-block>
-                <mu-row gutter class="vv-row">
-                    <mu-col width="25" tablet="25" desktop="25" v-for="item in banks" :key="item.name">
-                        <a class="vv-block" :href="item.href">
-                            <img class="vv-icon" :src="item.icon"/>
+                <div class="vv-center">
+                    <mu-row gutter class="vv-row">
+                        <mu-col width="25" tablet="25" desktop="25" v-for="(item, index) in banks" :key="index">
+                            <a class="vv-block" @click="gotoList(item.id)">
+                            <div class="vv-icon">
+                                <img :src="item.icon"/>
+                            </div>
                             <div>{{item.name}}</div>
-                        </a>
-                    </mu-col>
-                </mu-row>
+                            </a>
+                        </mu-col>
+                        <mu-col width="25" tablet="25" desktop="25">
+                            <a class="vv-block" @click="gotoList('all')">
+                            <div class="vv-icon">
+                                <img src="static/images/more.png"/>
+                            </div>
+                            <div>更多</div>
+                            </a>
+                        </mu-col>
+                    </mu-row>
+                </div>
             </mu-content-block>
         </div>
     </div>
@@ -246,47 +258,7 @@ export default {
                 workCompanyTel: '',
                 job: ''
             },
-            banks: [{
-                name: '流动资金贷款',
-                href: '#/product/credit/list',
-                icon: 'static/images/bank.png'
-                }, {
-                name: '固定资产贷款',
-                href: '#/product/credit/list',
-                icon: 'static/images/bank.png'
-                }, {
-                name: '短期贷款',
-                href: '#/product/credit/list',
-                icon: 'static/images/bank.png'
-                }, {
-                name: '中长期贷款',
-                href: '#/product/credit/list',
-                icon: 'static/images/bank.png'
-                }, {
-                name: '信用贷款',
-                href: '#/product/credit/list',
-                icon: 'static/images/bank.png'
-                },{
-                name: '担保贷款',
-                href: '#/product/credit/list',
-                icon: 'static/images/bank.png'
-                },{
-                name: '其他形式贷款',
-                href: '#/product/credit/list',
-                icon: 'static/images/bank.png'
-                },{
-                name: '其他形式贷款',
-                href: '#/product/credit/list',
-                icon: 'static/images/bank.png'
-                }
-            ],
-            //个人
-            city: '',
-            study: '',
-            marry: '',
-            house: '',
-            work: '',
-            type: ''
+            banks: []
         }
     },
     mounted() {
@@ -313,6 +285,7 @@ export default {
                 }
             }
         });
+        this.init();
     },
     methods: {
         searchBtnClick() {
@@ -353,18 +326,56 @@ export default {
                     });
                 }
             });
+        },
+        gotoList(id) {
+            // window.location.href = '#/product/credit/list?query=' + id;
+        },
+        init() {
+            let self = this;
+            this.$sendRequest({
+                url: '/product/loan/search',
+                params: {
+                },
+                success(body){
+                if (body.code === 'success') {
+                    let data = body.data;
+                    self.banks = data.banks;
+                } else {
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: body.msg
+                    });
+                }
+                },
+                error(err){
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: '服务器繁忙,请稍后再试'
+                    });
+                }
+            });
         }
     }
 }
 </script>
+<style>
+.rv {
+    background:#eee;
+}
+</style>
 <style scoped>
+.vv-search {
+    background: #fff;
+}
 .vv-title{
     text-align:center;
-    font-size:18px;
+    font-size:17px;
     color:rgba(0,0,0,1);
 }
 .vv-search-default{
+    background: #fff;
     border-top:10px solid #eee;
+    padding-bottom:10px;
 }
 .vv-block{
   display:block;
@@ -389,16 +400,17 @@ export default {
 }
 .vv-row .vv-col-title {
     display: inline-block;
-    width: 38%;
+    width: 32%;
     margin-bottom: 4%;
     margin-right: 2%;
     vertical-align: middle;
     text-align: right;
+    font-size:15px;
 }
 
 .vv-row .vv-col-value {
     display: inline-block;
-    width: 50%;
+    width: 60%;
     overflow: hidden;
     text-align: left;
     vertical-align: middle;
@@ -408,5 +420,19 @@ export default {
 }
 .form .vv-button {
     margin: 5% 0;
+}
+.vv-icon{
+  margin:0 auto 5px;
+  width:45px;
+  height:45px;
+  background:#f6f6f6;
+  border-radius:100%;
+  text-align:center;
+  line-height:42px;
+}
+.vv-icon img {
+  width:32px;
+  height:32px;
+  vertical-align:middle;
 }
 </style>

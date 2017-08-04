@@ -2,39 +2,8 @@
   "code": "success",
   "msg": "成功",
   "data": {
-    "pickList": [{
-      "name": "性质A",
-      "list": [{
-        "name": "性质A-1",
-        "value": "1"
-      }, {
-        "name": "性质A-2",
-        "value": "2"
-      }, {
-        "name": "性质A-3",
-        "value": "3"
-      }]
-    }, {
-      "name": "性质B",
-      "list": [{
-        "name": "性质B-1",
-        "value": "1"
-      }, {
-        "name": "性质B-2",
-        "value": "2"
-      }]
-    }, {
-      "name": "性质C",
-      "list": [{
-        "name": "性质C-1",
-        "value": "1"
-      }, {
-        "name": "性质C-2",
-        "value": "2"
-      }]
-    }],
     "banks": [{
-      "id": "1",
+      "id": "zs",
       "name": "招商银行",
       "icon": "static/images/bank.png"
     }, {
@@ -64,19 +33,29 @@
     }],
     "list": [{
       "id": "1001",
-      "title": "好车主",
-      "info": "加油享折扣",
-      "image": "static/images/credit.jpg"
+      "title": "帮我选卡",
+      "info": "测基因 推荐卡",
+      "image": "static/images/act-card.png"
     }, {
       "id": "1001",
-      "title": "好车主",
-      "info": "加油享折扣",
-      "image": "static/images/credit.jpg"
+      "title": "免费白金卡",
+      "info": "高额度，免年费",
+      "image": "static/images/act-card.png"
+    }, {
+      "id": "1001",
+      "title": "高颜值卡",
+      "info": "给高颜值的你",
+      "image": "static/images/act-card.png"
+    }, {
+      "id": "1001",
+      "title": "新手办卡",
+      "info": "新户专属 易下卡",
+      "image": "static/images/act-card.png"
     }],
     "list2": [{
       "id": "1001",
       "title": "好车主",
-      "info": "加油享折扣",
+      "info": "加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣",
       "image": "static/images/credit.jpg"
     }, {
       "id": "1001",
@@ -95,6 +74,9 @@
       "image": "static/images/credit.jpg"
     }],
     "banners": [{
+      "id": "12",
+      "img": "static/images/ad.jpg"
+    }, {
       "id": "12",
       "img": "static/images/ad.jpg"
     }]

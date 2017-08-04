@@ -98,7 +98,7 @@
     left: 0;
     right: 0;
     overflow-y: auto;
-    background: #f8f8f8;
+    background: #fff;
   }
 
   .foot {

@@ -3,10 +3,20 @@
     <div class="vv-module">
       <div class="vv-center">
         <mu-row gutter class="vv-row">
-          <mu-col width="25" tablet="25" desktop="25" v-for="item in banks" :key="item.name">
-            <a class="vv-block" @click="bankClick(item)">
-              <img class="vv-icon" :src="item.icon"/>
+          <mu-col width="25" tablet="25" desktop="25" v-for="(item, index) in banks" :key="index">
+            <a class="vv-block" @click="gotoList(item.id)">
+              <div class="vv-icon">
+                <img :src="item.icon"/>
+              </div>
               <div>{{item.name}}</div>
+            </a>
+          </mu-col>
+          <mu-col width="25" tablet="25" desktop="25">
+            <a class="vv-block" @click="gotoList('all')">
+             <div class="vv-icon">
+                <img src="static/images/more.png"/>
+              </div>
+              <div>更多</div>
             </a>
           </mu-col>
         </mu-row>
@@ -14,7 +24,10 @@
     </div>
 
     <div>
-      <mu-sub-header class="vv-subheader">热销产品<mu-flat-button label="&gt;" class="vv-button" to="/product/finance/list" /></mu-sub-header>
+      <mu-sub-header class="vv-subheader">
+        <span class="title">热销产品</span>
+        <a class="more" @click.stop="">更多 &gt;</a>
+      </mu-sub-header>
       <mu-content-block>
         <div class="vv-col" v-for="(item, index) in list" :key="index" @click="productClick(item)">
             <div class="hd">
@@ -60,7 +73,7 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/home/index";
+            history.back(-1);
           }
         },
         center: {
@@ -79,8 +92,8 @@
       this.init();
     },
     methods: {
-      bankClick(item) {
-        window.location.href = '#/product/finance/list/' + item.id;
+      gotoList(id) {
+        window.location.href = '#/product/finance/list?query=' + id;
       },
       productClick(item) {
         window.location.href = '#/product/finance/detail/' + item.id;
@@ -121,38 +134,53 @@
   border-bottom:10px solid #eee;
 }
 .vv-icon{
+  margin:0 auto 5px;
   width:45px;
+  height:45px;
+  background:#f6f6f6;
   border-radius:100%;
+  text-align:center;
+  line-height:42px;
+}
+.vv-icon img {
+  width:32px;
+  height:32px;
+  vertical-align:middle;
 }
 .vv-center{
   text-align:center;
 }
 .vv-center .vv-row{
-  margin:5%;
+  margin:20px;
 }
 .vv-block{
   display:block;
-  margin-bottom:10%;
+  margin-bottom:10px;
   color:rgba(0, 0, 0, 0.87);
   font-size:12px;
   text-align:center;
 }
 .vv-col{
     position:relative;
-    margin-bottom:5%;
+    padding:15px 0 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.vv-col:last-child{
+  border-bottom:0;
 }
 .vv-col .hd{
     font-weight:bold;
+    padding-top:5px;
     font-size:14px;
 }
 .vv-col .bd{
-    margin:3% 0;
+    margin:10px 0;
     font-size:12px;
     color:rgba(0,0,0,.54);
 }
 .vv-col .tag{
     display:inline-block;
-    padding:1px 2%;
+    padding:1px 5px;
     background:#ff4081;
     border-radius:5px;
     font-size:10px;
@@ -178,7 +206,7 @@
 .vv-col .rt{
     position:absolute;
     right:0;
-    top:8%;
+    top:18px;
     text-align:right;
 }
 .vv-col .rt .num{
@@ -189,17 +217,33 @@
 }
 .vv-col .rt .txt{
     display:block;
-    margin-top:5%;
+    margin-top:10px;
     font-size:10px;
     color:rgba(0,0,0,.34);
 }
 .vv-subheader{
-    position:relative;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: justify;
+  font-size:14px;
+  height:46px;
+  line-height:46px;
+  padding:0 20px;
+  border-bottom: 1px solid #f0f0f0;
+  color:#333;
 }
 .vv-subheader .vv-button{
     position:absolute;
     top:0;
     right:0;
     width:40px;
+}
+.vv-subheader .title {
+  display:block;
+  font-size:14px;
+}
+.vv-subheader .more {
+  display:block;
+  color:#999;
 }
 </style>

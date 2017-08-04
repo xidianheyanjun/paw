@@ -1,25 +1,22 @@
 <template>
   <div>
     <div class="vv-module">
-      <mu-row class="vv-tab">
-        <mu-col width="33" tablet="33" desktop="33" v-for="(pick, index) in pickList" :key="index">
-          <mu-dropDown-menu :value="pick.value" @change="openPick($event, pick)">
-            <mu-menu-item v-for="(item, idx) in pick.list" :key="idx" :value="item.value" :title="item.name"/>
-          </mu-dropDown-menu>
-        </mu-col>
-      </mu-row>
-      
+      <div class="vv-title">按银行找卡</div>
       <div class="vv-center">
         <mu-row gutter class="vv-row">
           <mu-col width="25" tablet="25" desktop="25" v-for="(item, index) in banks" :key="index">
-            <a class="vv-block" @click="bankClick(item)">
-              <img class="vv-icon" :src="item.icon"/>
+            <a class="vv-block" @click="gotoList(item.id)">
+              <div class="vv-icon">
+                <img :src="item.icon"/>
+              </div>
               <div>{{item.name}}</div>
             </a>
           </mu-col>
           <mu-col width="25" tablet="25" desktop="25">
-            <a class="vv-block" @click="moreClick">
-              <img class="vv-icon" src="static/images/bank.png"/>
+            <a class="vv-block" @click="gotoList('all')">
+             <div class="vv-icon">
+                <img src="static/images/more.png"/>
+              </div>
               <div>更多</div>
             </a>
           </mu-col>
@@ -28,51 +25,37 @@
     </div>
 
     <div class="vv-module vv-cards">
-      <mu-sub-header>用途卡精选</mu-sub-header>
-
-      <mu-row class="vv-row vv-left-right">
-        <mu-col width="50" tablet="50" desktop="50" v-for="(item, index) in list" :key="index" class="vv-col">
-          <div @click="cardClick(item)">
-            <mu-col width="50" tablet="50" desktop="50" class="vv-info">
-              <span class="vv-title">{{item.title}}</span>
-              <span class="vv-subTitle">{{item.info}}</span>
-            </mu-col> 
-            <mu-col width="50" tablet="50" desktop="50" class="vv-card">
-              <mu-card>
-                <mu-card-media title="" subTitle="">
-                  <img :src="item.image" />
-                </mu-card-media>
-              </mu-card>
-            </mu-col>
+      <div class="vv-title">用途卡精选</div>
+      <ul class="card-list clearfix">
+        <li class="card-item" v-for="(item, index) in list" :key="index" @click="gotoList(item.id)">
+          <div class="txt">
+            <h3>{{item.title}}</h3>
+            <p v-html="item.info"></p>
           </div>
-        </mu-col>
-      </mu-row>
-      <mu-row class="vv-row vv-top-bottom">
-        <mu-col width="25" tablet="25" desktop="25" v-for="(item, index) in list2" :key="index" class="vv-col">
-          <div @click="cardClick(item)">
-            <div class="vv-info">
-              <span class="vv-title">{{item.title}}</span>
-            </div>
-            <mu-card>
-              <mu-card-media title="" subTitle="">
-                <img :src="item.image" />
-              </mu-card-media>
-            </mu-card>
-          </div>
-        </mu-col>
-      </mu-row>
+          <img :src="item.image" alt="" class="img">
+        </li>
+      </ul>
     </div>
 
-    <div class="vv-cards">
-      <mu-sub-header class="vv-title">热卡推荐<mu-flat-button label="选卡中心 &gt;" class="vv-button" to="/product/credit/list" /></mu-sub-header>
-
-      <mu-card>
-        <mu-card-media title="" subTitle="" v-for="(item, index) in banners" :key="index">
-          <img :src="item.img" @click="bannerClick(item)" />
-        </mu-card-media>
-      </mu-card>
-      
+    <div class="vv-module vv-cards2">
+      <div class="vv-title">热卡推荐</div>
+      <ul class="card-list2">
+        <li class="card-item2 clearfix" v-for="(item, index) in list2" :key="index" @click="gotoList(item.id)">
+          <img class="img" :src="item.image" />
+          <div class="txt">
+            <h3>{{item.title}}</h3>
+            <p v-html="item.info"></p>
+          </div>
+        </li>
+     </ul>
     </div>
+
+    <div class="vv-module">
+      <div class="vv-ad" v-for="(item, index) in banners" :key="index">
+        <img :src="item.img" @click="gotoList(item.id)" />
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -83,7 +66,6 @@
     components: {},
     data(){
       return {
-        pickList: [],
         banks: [],
         list: [],
         list2: [],
@@ -115,43 +97,8 @@
       this.init();
     },
     methods: {
-      openPick(value, pick) {
-        let self = this;
-        pick.value = value;
-        this.$sendRequest({
-          url: '/product/credit/index/' + value,
-          params: {
-          },
-          success(body){
-            if (body.code === 'success') {
-              let data = body.data;
-              self.banks = data.banks;
-            } else {
-              self.$store.dispatch('box_set_toast', {
-                show: true,
-                toastText: body.msg
-              });
-            }
-          },
-          error(err){
-            self.$store.dispatch('box_set_toast', {
-              show: true,
-              toastText: '服务器繁忙,请稍后再试'
-            });
-          }
-        });
-      },
-      moreClick() {
-        window.location.href = '#/product/credit/list/';
-      },     
-      bankClick(item) {
-        window.location.href = '#/product/credit/list/' + item.id;
-      },
-      cardClick(item) {
-        window.location.href = '#/product/credit/list/' + item.id;
-      },
-      bannerClick(item) {
-        window.location.href = '#/product/credit/list/' + item.id;
+      gotoList(id) {
+        window.location.href = '#/product/credit/list?query=' + id;
       },
       init() {
         let self = this;
@@ -162,10 +109,6 @@
           success(body){
             if (body.code === 'success') {
               let data = body.data;
-              data.pickList.forEach((item, index) => {
-                item.value = item.list[0].value;
-              });
-              self.pickList = data.pickList;
               self.banks = data.banks;
               self.list = data.list;
               self.list2 = data.list2;
@@ -193,73 +136,106 @@
 <style scoped>
 .vv-tab{
   // padding:0 5%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid #f0f0f0;
 }
 .vv-module{
+  background:#fff;
   border-bottom:10px solid #eee;
 }
+.vv-title{
+  font-size:14px;
+  // color:rgba(0, 0, 0, 0.54);
+  height:46px;
+  line-height:46px;
+  padding-left:20px;
+  border-bottom: 1px solid #f0f0f0;
+}
 .vv-icon{
+  margin:0 auto 5px;
   width:45px;
+  height:45px;
+  background:#f6f6f6;
   border-radius:100%;
+  text-align:center;
+  line-height:42px;
+}
+.vv-icon img {
+  width:32px;
+  height:32px;
+  vertical-align:middle;
 }
 .vv-center{
   text-align:center;
 }
 .vv-center .vv-row{
-  margin:5%;
+  margin:20px;
 }
 .vv-block{
   display:block;
-  margin-bottom:10%;
+  margin-bottom:15px;
   color:rgba(0, 0, 0, 0.87);
   font-size:12px;
   text-align:center;
 }
-.vv-cards{
-}
-.vv-cards .vv-left-right{
-  
-}
-.vv-cards .vv-left-right .vv-col{
-  padding:5%;
-  border:1px solid #eee;
-}
-.vv-cards .vv-left-right .vv-info{
+.card-item {
   float:left;
+  width:50%;
+  box-sizing:border-box;
+  border-right:1px solid #f0f0f0;
+  border-bottom:1px solid #f0f0f0;
+  padding: 20px;
+  height: 90px;
 }
-.vv-cards .vv-left-right .vv-card{
-  float:right;
+.card-item:nth-of-type(2n) {
+  border-right:0;
 }
-.vv-cards .vv-left-right span{
-  display:block;
-}
-.vv-cards .vv-row .vv-title{
-  font-size:14px;
-  margin-bottom:5%;
-}
-.vv-cards .vv-row .vv-subTitle{
-  color:green;
+.card-item .txt{
+  margin-top:10px;
+  float:left;
+  color: #999;
   font-size:12px;
 }
-.vv-cards .vv-top-bottom{
-  margin-bottom:3%;
+.card-item .txt h3{
+  font-size:15px;
+  margin-bottom:7px;
+  color:#2196f3;
 }
-.vv-cards .vv-top-bottom .vv-col{
-  padding:4%;
-  text-align:center;
-  border:1px solid #eee;
+.card-item .img{
+  float:right;
+  width:50px;
+  height:50px;
 }
-.vv-cards .vv-top-bottom .vv-title{
-  display:block;
-  margin-bottom:5%;
+.card-item2 {
+  margin:20px;
+  padding-bottom:20px;
+  border-bottom: 1px solid #f0f0f0;
 }
-.vv-cards .vv-title{
-  position:relative;
+.card-item2:last-child{
+  border-bottom:0;
 }
-.vv-cards .vv-button{
-  position:absolute;
-  right:0;
-  top:10%;
-  color:rgba(0, 0, 0, 0.54);
+.card-item2 .img {
+  float:left;
+  width:138px;
+  height:84px;
+  margin-right:10px;
 }
+.card-item2 .txt {
+  line-height:18px;
+}
+.card-item2 .txt h3{
+  font-size:15px;
+  margin-bottom:5px;
+}
+.card-item2 .txt p{
+  font-size:12px;
+  color:#999;
+}
+
+.vv-ad{
+  margin-bottom:10px;
+}
+.vv-ad img{
+  width:100%;
+}
+
 </style>

@@ -1,0 +1,18 @@
+{
+  "code": "success",
+  "msg": "成功",
+  "data": {
+    "id": "1",
+    "cardImg": "static/images/credit.jpg",
+    "cardName": "中信银联标准IC信用卡",
+    "cardTxt": "积分可兑3000多种礼品 还可兑航空里程",
+    "details": [{
+      "title": "专享特权",
+      "content": "消费1元积2积分 可兑换航空里程消费1元积2积分 可兑换航空里程消费1元积2积分 可兑换航空里程消费1元积2积分 可兑换航空里程"
+    }, {
+      "title": "基本信息",
+      "content": "大大"
+    }]
+  }
+}
+

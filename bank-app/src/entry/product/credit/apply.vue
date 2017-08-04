@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="vv-form">
     <div class="vv-row">
       <div class="vv-col-title">姓名</div>
@@ -7,7 +8,7 @@
       </div>
     </div>
     <div class="vv-row">
-      <div class="vv-col-title">身份证号码</div>
+      <div class="vv-col-title">身份证号</div>
       <div class="vv-col-value">
         <mu-text-field v-model.trim="applyData.cardNo" label="" hintText=""/>
       </div>
@@ -49,7 +50,7 @@
       </div>
     </div>
     <div class="vv-row">
-      <div class="vv-col-title">手机号码</div>
+      <div class="vv-col-title">手机号</div>
       <div class="vv-col-value">
         <mu-text-field v-model.trim="applyData.mobile" label="" hintText=""/>
       </div>
@@ -133,8 +134,9 @@
         <mu-text-field v-model.trim="applyData.job" label="" hintText=""/>
       </div>
     </div>
-    <mu-raised-button @click="submitBtnClick" label="提交申请" class="demo-raised-button vv-button" primary fullWidth/>
   </div>
+  <mu-raised-button @click="submitBtnClick" label="提交申请" class="demo-raised-button vv-button" primary fullWidth/>
+</div>
 </template>
 
 <script>
@@ -242,7 +244,7 @@
 <style scoped>
 .vv-form{
     width: 90%;
-    margin: 0 auto;
+    margin: 0 auto 60px;
 }
 .vv-form .vv-row {
     display: block;
@@ -253,16 +255,17 @@
 }
 .vv-row .vv-col-title {
     display: inline-block;
-    width: 38%;
+    width: 30%;
     margin-bottom: 4%;
     margin-right: 2%;
     vertical-align: middle;
     text-align: right;
+    font-size:14px;
 }
 
 .vv-row .vv-col-value {
     display: inline-block;
-    width: 50%;
+    width: 60%;
     overflow: hidden;
     text-align: left;
     vertical-align: middle;
@@ -270,7 +273,9 @@
 .vv-row .vv-col-value .mu-text-field {
   width: 100%;
 }
-.vv-form .vv-button {
-    margin: 5% 0;
+.vv-button {
+  position: fixed;
+  bottom:0;
+  left:0;
 }
 </style>

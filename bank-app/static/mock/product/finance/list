@@ -1,15 +1,74 @@
 {
   "code": "success",
   "msg": "成功",
-  "data": [{
-    "title": "工商银行赣州分行xxx贷款",
-    "content": "贷款品种介绍及要求：达士大夫撒大法师打",
-    "href": "#/product/finance/detail/001"
-  },{
-    "title": "工商银行赣州分行xxx贷款",
-    "content": "贷款品种介绍及要求：达士大夫撒大法师打",
-    "href": "#/product/finance/detail/002"
-  }]
+  "data": {
+    "pickList": [{
+      "list": [{
+        "name": "全部银行",
+        "value": "allbank"
+      }, {
+        "name": "招商银行",
+        "value": "zs"
+      }, {
+        "name": "民生银行",
+        "value": "ms"
+      }, {
+        "name": "浦发银行",
+        "value": "pf"
+      }, {
+        "name": "平安银行",
+        "value": "pa"
+      }]
+    }, {
+      "list": [{
+        "name": "全部用途",
+        "value": "allyt"
+      },{
+        "name": "大额取现卡",
+        "value": "qx"
+      }, {
+        "name": "车主卡",
+        "value": "cz"
+      }]
+    }, {
+      "list": [{
+        "name": "全部等级",
+        "value": "alldj"
+      }, {
+        "name": "普卡",
+        "value": "pk"
+      }, {
+        "name": "金卡",
+        "value": "jk"
+      }, {
+        "name": "白金卡",
+        "value": "bjk"
+      }]
+    }, {
+      "list": [{
+        "name": "更多",
+        "value": "more"
+      }, {
+        "name": "年费",
+        "value": "nf"
+      }, {
+        "name": "币种",
+        "value": "bz"
+      }, {
+        "name": "特权",
+        "value": "tq"
+      }]
+    }],
+    "list": [{
+      "title": "工商银行赣州分行xxx贷款",
+      "content": "贷款品种介绍及要求：达士大夫撒大法师打",
+      "href": "#/product/finance/detail/001"
+    },{
+      "title": "工商银行赣州分行xxx贷款",
+      "content": "贷款品种介绍及要求：达士大夫撒大法师打",
+      "href": "#/product/finance/detail/002"
+    }]
+  }
 }
 
 

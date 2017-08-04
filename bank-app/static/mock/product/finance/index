@@ -3,11 +3,7 @@
   "msg": "成功",
   "data": {
     "banks": [{
-      "id": "1",
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "id": "1",
+      "id": "zs",
       "name": "招商银行",
       "icon": "static/images/bank.png"
     }, {

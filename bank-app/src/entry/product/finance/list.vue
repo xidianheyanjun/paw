@@ -1,27 +1,6 @@
 <template>
   <div>
-    <mu-row class="vv-tab">
-        <mu-col width="25" tablet="25" desktop="25">
-            <mu-dropDown-menu :value="yieldratolValue" @change="changeYieldrate">
-            <mu-menu-item v-for="item in yieldrato" :key="item.value" :value="item.value" :title="item.name"/>
-            </mu-dropDown-menu>
-        </mu-col>
-        <mu-col width="25" tablet="25" desktop="25">
-            <mu-dropDown-menu :value="buydaysValue" @change="changeBuydays">
-            <mu-menu-item v-for="item in buydays" :key="item.value" :value="item.value" :title="item.name"/>
-            </mu-dropDown-menu>
-        </mu-col>
-        <mu-col width="25" tablet="25" desktop="25">
-            <mu-dropDown-menu :value="applyMoneyValue" @change="changeApplyMoney">
-            <mu-menu-item v-for="item in applyMoney" :key="item.value" :value="item.value" :title="item.name"/>
-            </mu-dropDown-menu>
-        </mu-col>
-        <mu-col width="25" tablet="25" desktop="22">
-            <mu-dropDown-menu :value="bankValue" @change="changeBank">
-            <mu-menu-item v-for="item in bank" :key="item.value" :value="item.value" :title="item.name"/>
-            </mu-dropDown-menu>
-        </mu-col>
-    </mu-row>
+    <picker :picks="pickList" @checkedPick="renderData" :curPick="curPick"></picker>
     
     <div class="vv-list">
         <a class="vv-col" v-for="item in list" :href="item.href" :key="item.title">
@@ -34,58 +13,16 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
+  import picker from '@/components/common/picker';
   export default {
     name: 'product',
-    components: {},
+    components: {
+        picker
+    },
     data(){
       return {
-        yieldratolValue: '1',
-        yieldrato: [{
-            value: '1',
-            name: '5.54%'
-        }, {
-            value: '2',
-            name: '7.54%'
-        }, {
-            value: '3',
-            name: '8.54%'
-        }],
-        buydaysValue: '1',
-        buydays: [{
-            value: '1',
-            name: '5天'
-        }, {
-            value: '2',
-            name: '10天'
-        }, {
-            value: '3',
-            name: '30天'
-        }],
-        applyMoneyValue: '1',
-        applyMoney: [{
-            value: '1',
-            name: '10万'
-        }, {
-            value: '2',
-            name: '50万'
-        }, {
-            value: '3',
-            name: '100万'
-        }],
-        bankValue: '1',
-        bank: [{
-            value: '1',
-            name: '招商银行'
-        }, {
-            value: '2',
-            name: '建设银行'
-        }, {
-            value: '3',
-            name: '工商银行'
-        }, {
-            value: '4',
-            name: '农业银行'
-        }],
+        pickList: [],
+        curPick: '',
         list: []
       };
     },
@@ -95,7 +32,7 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/finance/index";
+              history.back(-1);
           }
         },
         center: {
@@ -111,52 +48,41 @@
           }
         }
       });
-      this.renderList();
-    },
-    watch: {
-      yieldratolValue(v) {
-        this.renderList();
-      },
-      applyMoneyValue(v) {
-        this.renderList();
-      },
-      bankValue(v) {
-        this.renderList();
-      },
-      bankValue(v) {
-        this.renderList();
-      }
+      let query = this.$route.query;
+      let querykey = Object.keys(query)[0];
+      this.renderData(query[querykey]);// 页面初始化时目前只做一种条件查询
     },
     methods: {
-      changeYieldrate (value) {
-        this.yieldratolValue = value;
-      },
-      changeApplyMoney (value) {
-        this.applyMoneyValue = value;
-      },
-      changeBuydays (value) {
-        this.buydaysValue = value;
-      },
-      changeBank (value) {
-        this.bankValue = value;
-      },
-      renderList() {
-        let self = this;
-        this.$sendRequest({
-          url: '/product/finance/list',
-          params: {
-              yieldratolValue: self.yieldratolValue,
-              applyMoneyValue: self.applyMoneyValue,
-              buydaysValue: self.buydaysValue,
-              bankValue: self.bankValue
-          },
-          success(body){
-              self.list = body.data;
-          },
-          error(err){
-          }
-        });
-      }
+        renderData(value) {
+            let self = this;
+            this.$sendRequest({
+            url: '/product/finance/list?query=' + value,
+            params: {
+            },
+            success(body){
+                if (body.code === 'success') {
+                let data = body.data;
+                    self.pickList = data.pickList || self.pickList;
+                    self.curPick = value;
+                    self.list = data.list;
+                } else {
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: body.msg
+                    });
+                }
+            },
+            error(err){
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '服务器繁忙,请稍后再试'
+                });
+            }
+            });
+        },
+        cardClick(item) {
+            window.location.href = '#/product/credit/detail/' + item.id;
+        }
     }
   } 
 </script>
@@ -165,28 +91,28 @@
 <style scoped>
 .vv-title{
     text-align:center;
-    font-size:18px;
+    font-size:16px;
     color:rgba(0,0,0,1);
-}
-.vv-dropdown{
-    float:right;
 }
 .vv-col{
     clear:both;
     display:block;
-    padding-bottom:5%;
-    margin-bottom:5%;
-    border-bottom:1px dashed #eee;
+    padding-bottom:20px;
+    margin-bottom:20px;
+    border-bottom: 1px solid #f0f0f0;
     color:rgba(0,0,0,.87);
 }
+.vv-col:last-child{
+    border-bottom:0;
+}
 .vv-col .title{
-    margin-bottom:5%;
+    margin-bottom:20px;
 }
 .vv-col .content{
     color:rgba(0,0,0,.54);
-    font-size:12px;
+    font-size:13px;
 }
 .vv-list{
-    margin:5%;
+    margin:20px;
 }
 </style>
