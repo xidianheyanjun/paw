@@ -1,61 +1,68 @@
 <template>
   <div class="page-body">
-    <div class="vv-row">
-      <div class="vv-col-title">贷款种类</div>
-      <div class="vv-col-value">
-        <mu-select-field v-model="loanType" fullWidth>
-          <mu-menu-item v-for="item in loanTypes" :key="item.value" :value="item.value" :title="item.title"/>
-        </mu-select-field>
+    <mu-tabs :value="activeTab" @change="changeTab">
+      <mu-tab value="fangdai" title="房贷计算"/>
+      <mu-tab value="huankuanbijiao" title="还款比较"/>
+      <mu-tab value="cunkuanlilv" title="存款计算器"/>
+    </mu-tabs>
+    <div class="vv-form">
+      <div class="vv-row">
+        <div class="vv-col-title">贷款期限</div>
+        <div class="vv-col-value">
+          <mu-select-field v-model="fangdaiData.qixian" :labelFocusClass="['label-foucs']" label="" hintText="">
+            <mu-menu-item value="10" title="10年"/>
+            <mu-menu-item value="20" title="20年"/>
+            <mu-menu-item value="30" title="30年"/>
+          </mu-select-field>
+        </div>
       </div>
-    </div>
-    <div class="vv-row">
-      <div class="vv-col-title">贷款金额</div>
-      <div class="vv-col-value">
-        <mu-text-field hintText="" fullWidth/>
+      <div class="vv-row">
+        <div class="vv-col-title">商业贷款</div>
+        <div class="vv-col-value">
+          <mu-text-field v-model.trim="fangdaiData.sdje" label="" hintText=""/>
+        </div>
       </div>
-    </div>
-    <div class="vv-row">
-      <div class="vv-col-title">贷款期限</div>
-      <div class="vv-col-value">
-        <mu-select-field v-model="year" fullWidth>
-          <mu-menu-item v-for="item in years" :key="item.value" :value="item.value" :title="item.title"/>
-        </mu-select-field>
+      <div class="vv-row">
+        <div class="vv-col-title">商贷利率</div>
+        <div class="vv-col-value">
+          <mu-select-field v-model="fangdaiData.sdlilv" :labelFocusClass="['label-foucs']" label="" hintText="">
+            <mu-menu-item value="0.7" title="最新基准利率7折"/>
+            <mu-menu-item value="0.8" title="最新基准利率8折"/>
+            <mu-menu-item value="0.83" title="最新基准利率8.3折"/>
+            <mu-menu-item value="1" title="最新基准利率"/>
+          </mu-select-field>
+        </div>
       </div>
-    </div>
-    <div class="vv-row">
-      <div class="vv-col-title">还款方式</div>
-      <div class="vv-col-value">
-        <mu-select-field v-model="returnType" fullWidth>
-          <mu-menu-item v-for="item in returnTypes" :key="item.value" :value="item.value" :title="item.title"/>
-        </mu-select-field>
+      <div class="vv-row">
+        <div class="vv-col-title">手动输入利率</div>
+        <div class="vv-col-value">
+          <mu-text-field v-model.trim="fangdaiData.sdLilvValue" label="" hintText=""/>
+        </div>
       </div>
-    </div>
-    <div class="vv-row">
-      <div class="vv-col-title">年利率</div>
-      <div class="vv-col-value">
-        <mu-text-field hintText="" fullWidth/>
+      <div class="vv-row">
+        <div class="vv-col-title">公积金贷款</div>
+        <div class="vv-col-value">
+          <mu-text-field v-model.trim="fangdaiData.gjjje" label="" hintText=""/>
+        </div>
       </div>
-    </div>
-    <div class="button-group">
-      <mu-raised-button label="计算" @click="calculate" class="" primary/>
-    </div>
-    <div class="vv-row">
-      <div class="vv-col-title">月还款额</div>
-      <div class="vv-col-value">
-        <mu-text-field :hintText="payment" disabled fullWidth/>
+      <div class="vv-row">
+        <div class="vv-col-title">公积金利率</div>
+        <div class="vv-col-value">
+          <mu-select-field v-model="fangdaiData.gjjlilv" :labelFocusClass="['label-foucs']" label="" hintText="">
+            <mu-menu-item value="1" title="公积金基准利率"/>
+            <mu-menu-item value="1.1" title="公积金基准利率1.1倍"/>
+            <mu-menu-item value="1.2" title="公积金基准利率1.2倍"/>
+          </mu-select-field>
+        </div>
       </div>
-    </div>
-    <div class="vv-row">
-      <div class="vv-col-title">累计利息</div>
-      <div class="vv-col-value">
-        <mu-text-field :hintText="totalInterest" disabled fullWidth/>
+      <div class="vv-row">
+        <div class="vv-col-title">手动输入利率</div>
+        <div class="vv-col-value">
+          <mu-text-field v-model.trim="fangdaiData.gjjLilvValue" label="" hintText=""/>
+        </div>
       </div>
-    </div>
-    <div class="vv-row">
-      <div class="vv-col-title">本息合计</div>
-      <div class="vv-col-value">
-        <mu-text-field :hintText="totalPayment" disabled fullWidth/>
-      </div>
+
+      <mu-raised-button @click="calculate" label="计算" class="demo-raised-button vv-button" primary fullWidth/>
     </div>
   </div>
 </template>
@@ -67,6 +74,8 @@
     components: {},
     data(){
       return {
+        activeTab: "fangdai",
+        fangdaiData: {},
         loanType: "1",
         loanTypes: [{
           title: "个人公积金贷款",
@@ -133,6 +142,10 @@
       }
     },
     methods: {
+      changeTab(value){
+        let self = this;
+        self.activeTab = value;
+      },
       calculate(){
         this.payment = "2639.82";
         this.totalInterest = "233557.51";
@@ -142,33 +155,53 @@
   }
 </script>
 <style scoped>
-  .page-body {
-    width: 90%;
-    margin: 0 auto;
+  .mu-tabs {
+    position: fixed;
+    background:#fff;
+    color: #333;
+    border:1px solid #f0f0f0;
+  }
+  .mu-tabs .mu-tab-link{
+    color:#333;
+  }
+  .mu-tabs .mu-tab-active{
+    color:#2196f3;
   }
 
-  .vv-row {
+  .vv-form{
+    padding:60px 20px 20px;
+}
+.vv-form .vv-row {
     display: block;
     width: 100%;
     height: 40px;
+    margin-bottom: 5px;
     line-height: 40px;
-  }
-
-  .vv-row .vv-col-title {
+}
+.vv-row .vv-col-title {
     display: inline-block;
     width: 30%;
+    margin-bottom: 4%;
+    margin-right: 2%;
     vertical-align: middle;
-  }
+    text-align: right;
+    font-size:14px;
+}
 
-  .vv-row .vv-col-value {
+.vv-row .vv-col-value {
     display: inline-block;
     width: 60%;
+    overflow: hidden;
     text-align: left;
     vertical-align: middle;
-  }
-
-  .button-group {
-    text-align: center;
-    margin: 20px 0;
-  }
+}
+.vv-row .vv-col-value .mu-text-field {
+  width: 100%;
+}
+.vv-button {
+  margin:20px auto;
+  // position: fixed;
+  // bottom:0;
+  // left:0;
+}
 </style>
