@@ -4,25 +4,25 @@
     <div class="vv-row">
       <div class="vv-col-title">姓名</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.name" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.name" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">身份证号</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.cardNo" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.cardNo" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">证件到期日</div>
       <div class="vv-col-value">
-        <mu-date-picker v-model.trim="applyData.cardExpiredDate" label="" hintText=""/>
+        <mu-date-picker v-model.trim="applyData.cardExpiredDate" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">户籍所在城市</div>
       <div class="vv-col-value">
-        <mu-select-field v-model="applyData.cardCity" :labelFocusClass="['label-foucs']" label="" hintText="">
+        <mu-select-field v-model="applyData.cardCity" :labelFocusClass="['label-foucs']" label="" hintText="" :underlineShow="false">
           <mu-menu-item value="1" title="同身份证城市"/>
           <mu-menu-item value="2" title="其他城市"/>
         </mu-select-field>
@@ -31,7 +31,7 @@
     <div class="vv-row">
       <div class="vv-col-title">教育程度</div>
       <div class="vv-col-value">
-        <mu-select-field v-model="applyData.degree" :labelFocusClass="['label-foucs']" label="" hintText="">
+        <mu-select-field v-model="applyData.degree" :labelFocusClass="['label-foucs']" label="" hintText="" :underlineShow="false">
           <mu-menu-item value="1" title="本科"/>
           <mu-menu-item value="2" title="大专"/>
           <mu-menu-item value="3" title="高中或中专"/>
@@ -42,7 +42,7 @@
     <div class="vv-row">
       <div class="vv-col-title">婚姻状况</div>
       <div class="vv-col-value">
-        <mu-select-field v-model="applyData.maritalStatus" :labelFocusClass="['label-foucs']" label="" hintText="">
+        <mu-select-field v-model="applyData.maritalStatus" :labelFocusClass="['label-foucs']" label="" hintText="" :underlineShow="false">
           <mu-menu-item value="1" title="未婚"/>
           <mu-menu-item value="2" title="已婚"/>
           <mu-menu-item value="3" title="其他"/>
@@ -52,19 +52,19 @@
     <div class="vv-row">
       <div class="vv-col-title">手机号</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.mobile" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.mobile" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">住宅电话</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.homeTel" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.homeTel" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">住宅性质</div>
       <div class="vv-col-value">
-        <mu-select-field v-model="applyData.houseProperty" :labelFocusClass="['label-foucs']" label="" hintText="">
+        <mu-select-field v-model="applyData.houseProperty" :labelFocusClass="['label-foucs']" label="" hintText="" :underlineShow="false">
           <mu-menu-item value="1" title="租房"/>
           <mu-menu-item value="2" title="有按揭"/>
           <mu-menu-item value="3" title="无按揭"/>
@@ -77,37 +77,37 @@
     <div class="vv-row">
       <div class="vv-col-title">住房地址</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.hoseAddress" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.hoseAddress" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">电子邮箱</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.email" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.email" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">单位全称</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.workCompany" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.workCompany" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">现工作单位年限</div>
       <div class="vv-col-value">
-          <mu-text-field v-model.trim="applyData.workYears" label="" hintText=""/>
+          <mu-text-field v-model.trim="applyData.workYears" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">年薪</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.yearSalary" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.yearSalary" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">单位所属行业</div>
       <div class="vv-col-value">
-        <mu-select-field v-model="applyData.workCompanyNature" :labelFocusClass="['label-foucs']" label="" hintText="">
+        <mu-select-field v-model="applyData.workCompanyNature" :labelFocusClass="['label-foucs']" label="" hintText="" :underlineShow="false">
           <mu-menu-item value="1" title="政府"/>
           <mu-menu-item value="2" title="科教"/>
           <mu-menu-item value="3" title="商贸"/>
@@ -119,19 +119,19 @@
     <div class="vv-row">
       <div class="vv-col-title">单位地址</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.workCompanyAddress" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.workCompanyAddress" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">单位电话</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.workCompanyTel" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.workCompanyTel" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">职务</div>
       <div class="vv-col-value">
-        <mu-text-field v-model.trim="applyData.job" label="" hintText=""/>
+        <mu-text-field v-model.trim="applyData.job" label="" hintText="" :underlineShow="false" />
       </div>
     </div>
   </div>
@@ -240,38 +240,15 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.vv-form{
-    width: 90%;
-    margin: 0 auto 60px;
-}
-.vv-form .vv-row {
-    display: block;
-    width: 100%;
-    height: 40px;
-    margin-bottom: 5px;
-    line-height: 40px;
-}
-.vv-row .vv-col-title {
-    display: inline-block;
-    width: 30%;
-    margin-bottom: 4%;
-    margin-right: 2%;
-    vertical-align: middle;
-    text-align: right;
-    font-size:14px;
-}
-
-.vv-row .vv-col-value {
-    display: inline-block;
+<style scoped lang="scss">
+.vv-form {
+  margin: 0 auto 60px;
+  .vv-col-title {
+    width:40%;
+  }
+  .vv-col-value {
     width: 60%;
-    overflow: hidden;
-    text-align: left;
-    vertical-align: middle;
-}
-.vv-row .vv-col-value .mu-text-field {
-  width: 100%;
+  }
 }
 .vv-button {
   position: fixed;

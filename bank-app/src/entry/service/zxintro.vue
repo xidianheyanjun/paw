@@ -45,20 +45,22 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
+@import './../../assets/scss/_mixin.scss';
 .info {
   box-sizing: border-box;
-  padding: 8%;
+  padding: $spacing;
   height: 100%;
 }
 .info-hd {
-    font-size: 16px;
-    color: #374760;
+    font-size: $fontSize;
+    color: $fontColor;
     margin-bottom: 10px;
 }
 .info-bd {
-    font-size: 15px;
+    font-size: $fontSizeTitle;
     line-height: 26px;
     text-indent: 2em;
+    // color: $fontColor2;
 }
 </style>

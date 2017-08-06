@@ -46,9 +46,11 @@
       "id": "7"
     }],
     "banner": [{
+      "url": "http://www.baidu.com",
       "img": "static/images/banner.png",
       "id": "5"
     }, {
+      "url": "http://www.baidu.com",
       "img": "static/images/banner.png",
       "id": "6"
     }],

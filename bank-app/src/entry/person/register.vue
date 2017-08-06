@@ -1,22 +1,22 @@
 <template>
   <div class="paper">
-    <div class="form">
+    <div class="vv-form">
       <div class="vv-row">
         <div class="vv-col-title">手机号</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" />
+          <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" :underlineShow="false" />
         </div>
       </div>
       <div class="vv-row">
         <div class="vv-col-title">密码</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="(6-16位字符)" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" />
+          <mu-text-field label="" hintText="" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" :underlineShow="false" />
         </div>
       </div>
       <div class="vv-row">
         <div class="vv-col-title">再次输入密码</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="(6-16位字符)" v-model.trim="password2" type="password" :errorText="passwordError2" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError2')" />
+          <mu-text-field label="" hintText="" v-model.trim="password2" type="password" :errorText="passwordError2" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError2')" :underlineShow="false" />
         </div>
       </div>
       <mu-raised-button label="立即注册" class="vv-button" @click="register" primary fullWidth/>
@@ -113,40 +113,13 @@
     }
   }
 </script>
-<style scoped>
-.form{
-  width: 90%;
-  margin: 8% auto;
-}
-.form .vv-row {
-  display: block;
-  width: 100%;
-  height: 40px;
-  margin-bottom: 5px;
-  line-height: 40px;
-}
-.vv-row .vv-col-title {
-  display: inline-block;
-  width: 30%;
-  margin-bottom: 4%;
-  margin-right: 2%;
-  vertical-align: middle;
-  text-align: right;
-  font-size:15px;
-}
-
-.vv-row .vv-col-value {
-  display: inline-block;
-  width: 65%;
-  overflow: hidden;
-  text-align: left;
-  vertical-align: middle;
-}
-.vv-row .vv-col-value .mu-text-field {
-  width: 100%;
-}
-
-.vv-button {
-  margin: 10% 0;
+<style lang="scss" scoped>
+.vv-form {
+  .vv-col-title {
+    width:20%;
+  }
+  .vv-col-value {
+    width: 80%;
+  }
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <div class="paper">
     <div class="info">
-      <template v-if="!person_isLogin">
+      <div v-if="!person_isLogin" class="login-btn" @click="login">
         <mu-avatar :src="avatar" class="avatar" />
-        <div class="font-title mt-title" @click="login">点击登录</div>
-      </template>
-      <template v-if="person_isLogin">
+        <a class="font-title mt-title">点击登录</a>
+      </div>
+      <div v-if="person_isLogin" class="login-btn">
         <mu-avatar :src="avatar" class="avatar" />
-        <div class="font-title mt-title">{{account}}</div>
-      </template>
+        <span class="font-title mt-title">{{account}}</span>
+      </div>
     </div>
 
     <div class="setting">
@@ -134,60 +134,59 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
+@import './../../assets/scss/_mixin.scss';
   .paper {
     display: block;
     width: 100%;
     height: 100%;
-    background-color: #f0f0f0;
+    background-color: $bgColor2;
   }
 
   .info {
-    height: 30%;
+    height: 180px;
     text-align: center;
-    padding: 10%;
-    background-color: #374760;
+    padding: 50px  $spacing;
+    background-color: $bgColor;
+    .login-btn {
+      width:auto;
+      margin:0 auto;
+    }
+    .avatar {
+      width: 60px;
+      height: 60px;
+    }
+    .font-title{
+      display:block;
+      color: #dce0e6;
+      font-size: 18px;
+      margin-top: 10px;
+    }
   }
 
-  .avatar {
-    width: 60px;
-    height: 60px;
-  }
-
-  .font-title {
-    color: #dce0e6;
-    font-size: 18px;
-  }
-
-  .mt-title {
-    margin-top: 5%;
-  }
 
   .setting {
-    background-color: #ffffff;
-    // margin: 4% 0;
-  }
-
-  .setting .menu {
-    display: block;
-    border-bottom: 1px solid #efefef;
-  }
-
-  .setting .menu .menu-name {
-    display: inline-block;
-    padding-left: 6%;
-    width: 90%;
-    font-size: 16px;
-    height: 42px;
-    line-height: 42px;
-    color: #4b4b4b;
-  }
-
-  .setting .menu .menu-icon {
-    display: inline-block;
-    font-size: 18px;
-    height: 42px;
-    line-height: 42px;
-    color: #cccccc;
+    background-color: #fff;
+    .menu {
+      display: -webkit-box;
+      -webkit-box-align: center;
+      -webkit-box-pack: justify;
+      padding: 0 10px 0 $spacing;
+      border-bottom: 1px solid $lineColor;
+    }
+    .menu-name {
+      // width: 90%;
+      font-size: $fontSize;
+      height: 42px;
+      line-height: 42px;
+    }
+    .menu-icon {
+      width: 30px;
+      font-size: 18px;
+      height: 42px;
+      line-height: 42px;
+      text-align:center;
+      color: #ccc;
+    }
   }
 </style>

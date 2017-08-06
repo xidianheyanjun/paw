@@ -1,25 +1,21 @@
 <template>
   <div>
     <picker :picks="pickList" @checkedPick="renderData" :curPick="curPick"></picker>
-    <ul class="card-list2">
-        <li class="card-item2 clearfix" v-for="(item, index) in banks" :key="index" @click="cardClick(item)">
-          <img class="img" :src="item.image" />
-          <div class="txt">
-            <h3>{{item.title}}</h3>
-            <p v-html="item.info"></p>
-          </div>
-        </li>
-     </ul>
+
+    <card-row type="row1" :cards="banks" @goto="cardClick"></card-row>
+
   </div>
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import picker from '@/components/common/picker';
+  import cardRow from '@/components/common/card.row';
   export default {
     name: 'product',
     components: {
-      picker
+      picker,
+      cardRow
     },
     data(){
       return {
@@ -82,52 +78,18 @@
           }
         });
       },
-      cardClick(item) {
-        window.location.href = '#/product/credit/detail/' + item.id;
+      cardClick(id) {
+        window.location.href = '#/product/credit/detail/' + id;
       }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-
-<style>
-.rv {
-  background: #fff;
-}
-</style>
-<style scoped>
+<style lang="scss">
+@import './../../../assets/scss/_mixin.scss';
 .vv-tab {
   position: fixed;
-  top:56px;
+  top:0;
   left:0;
-}
-.card-list2{
-  margin-top:68px;
-}
-.card-item2 {
-  margin:20px;
-  padding-bottom:20px;
-  border-bottom: 1px solid #f0f0f0;
-}
-.card-item2:last-child{
-  border-bottom:0;
-}
-.card-item2 .img {
-  float:left;
-  width:138px;
-  height:84px;
-  margin-right:10px;
-}
-.card-item2 .txt {
-  line-height:18px;
-}
-.card-item2 .txt h3{
-  font-size:15px;
-  margin-bottom:5px;
-}
-.card-item2 .txt p{
-  font-size:12px;
-  color:#999;
 }
 </style>

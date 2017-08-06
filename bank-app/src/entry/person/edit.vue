@@ -68,42 +68,37 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
+@import './../../assets/scss/_mixin.scss';
   .paper {
     display: block;
     width: 100%;
     height: 100%;
-    background-color: #f0f0f0;
+    background-color: $bgColor2;
   }
 
   .setting {
-    background-color: #ffffff;
-    margin: 4% 0;
-  }
-
-  .setting .menu {
-    display: block;
-    border-bottom: 1px solid #efefef;
-  }
-
-  .setting .menu .menu-name {
-    display: inline-block;
-    padding-left: 6%;
-    width: 65%;
-    font-size: 18px;
-    height: 42px;
-    line-height: 42px;
-    color: #4b4b4b;
-  }
-
-  .setting .menu .menu-icon {
-    display: inline-block;
-    font-size: 18px;
-    width: 30%;
-    height: 42px;
-    line-height: 42px;
-    color: #cccccc;
-    text-align: center;
+    background-color: #fff;
+    .menu {
+      display: -webkit-box;
+      -webkit-box-align: center;
+      -webkit-box-pack: justify;
+      padding: 5px $spacing;
+      border-bottom: 1px solid $lineColor;
+    }
+    .menu-name {
+      // width: 90%;
+      font-size: $fontSize;
+      height: 42px;
+      line-height: 42px;
+    }
+    .menu-icon {
+      width: 42px;
+      font-size: 18px;
+      height: 42px;
+      line-height: 42px;
+      text-align:center;
+      color: #ccc;
+    }
   }
 </style>

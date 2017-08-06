@@ -1,16 +1,16 @@
 <template>
   <div class="paper">
-    <div class="form">
+    <div class="vv-form">
       <div class="vv-row">
         <div class="vv-col-title">手机号</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" />
+          <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" :underlineShow="false" />
         </div>
       </div>
       <div class="vv-row">
         <div class="vv-col-title">密 码</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="(6-16位字符)" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" />
+          <mu-text-field label="" hintText="" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" :underlineShow="false" />
         </div>
       </div>
       <div class="register">没有账号？<a class="link" :href="registerUrl">马上注册</a></div>
@@ -109,50 +109,15 @@
     }
   }
 </script>
-<style scoped>
-.form{
-  width: 90%;
-  margin: 8% auto;
-}
-.form .vv-row {
-  display: block;
-  width: 100%;
-  // height: 40px;
-  // margin-bottom: 5px;
-  line-height: 40px;
-}
-.vv-row .vv-col-title {
-  display: inline-block;
-  width: 20%;
-  margin-bottom: 2%;
-  margin-right: 2%;
-  vertical-align: middle;
-  text-align: right;
-  font-size:15px;
-}
-
-.vv-row .vv-col-value {
-  display: inline-block;
-  width: 70%;
-  overflow: hidden;
-  text-align: left;
-  vertical-align: middle;
-}
-.vv-row .vv-col-value .mu-text-field {
-  width: 100%;
-}
-
-.vv-button {
-  margin: 5% 0;
-}
-
-.link {
-  color: #2196f3;
-  text-decoration: underline;
-}
+<style scoped lang="scss">
+@import './../../assets/scss/_mixin.scss';
 .register {
   text-align: right;
-  margin: 8% 0 0;
-  font-size:14px;
+  margin:$spacing $spacing 0 0;
+  font-size: $fontSizeContent;
+}
+.link {
+  color: $mainColor;
+  text-decoration: underline;
 }
 </style>

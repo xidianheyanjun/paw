@@ -27,7 +27,9 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+@charset 'utf-8';
+@import './assets/scss/_mixin.scss';
   /* http://meyerweb.com/eric/tools/css/reset/
     v2.0 | 20110126
     License: none (public domain)
@@ -83,6 +85,25 @@
     border-spacing: 0;
   }
 
+  // 重写 muse-ui
+  .mu-text-field {
+    width: 100%;
+  }
+  .mu-text-field-content {
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: justify;
+    .mu-text-field-input,
+    .mu-text-field-help{
+      display:block;
+      position:inherit
+    }
+    .mu-text-field-input{
+      width:100px;
+    }
+  }
+
+  // common
   .head {
     position: fixed;
     top: 0;
@@ -99,6 +120,7 @@
     right: 0;
     overflow-y: auto;
     background: #fff;
+    color: $fontColor;
   }
 
   .foot {
@@ -173,6 +195,39 @@
     padding: 8px;
   }
 
+  // 表单填写
+  .vv-form {
+    .vv-row {
+      display: -webkit-box;
+      -webkit-box-align: center;
+      -webkit-box-pack: justify;
+      width: 100%;
+      height:40px;
+      line-height:40px;
+      box-sizing: border-box;
+      padding: 0 $spacing;
+      margin-bottom: 5px;
+      border-bottom: 1px solid $lineColor2;
+    }
+    .vv-col-title {
+      width: 20%;
+      vertical-align: middle;
+      font-size: $fontSizeContent;
+    }
+    .vv-col-value {
+      width: 80%;
+      overflow: hidden;
+      text-align: left;
+      // text-align: right;
+      vertical-align: middle;
+    }
+    .vv-button {
+      margin:$spacing auto;
+      // position: fixed;
+      // bottom:0;
+      // left:0;
+    }
+  }
   /**rest muse-ui css */
 html .vv-tab .mu-dropDown-menu-line{
   display: none;

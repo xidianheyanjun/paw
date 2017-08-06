@@ -1,26 +1,7 @@
 <template>
   <div>
     <div class="vv-module">
-      <div class="vv-center">
-        <mu-row gutter class="vv-row">
-          <mu-col width="25" tablet="25" desktop="25" v-for="(item, index) in banks" :key="index">
-            <a class="vv-block" @click="gotoList(item.id)">
-              <div class="vv-icon">
-                <img :src="item.icon"/>
-              </div>
-              <div>{{item.name}}</div>
-            </a>
-          </mu-col>
-          <mu-col width="25" tablet="25" desktop="25">
-            <a class="vv-block" @click="gotoList('all')">
-             <div class="vv-icon">
-                <img src="static/images/more.png"/>
-              </div>
-              <div>更多</div>
-            </a>
-          </mu-col>
-        </mu-row>
-      </div>
+      <icon-row :icons="banks" @goto="gotoList"></icon-row>
     </div>
 
     <div>
@@ -58,9 +39,12 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
+  import iconRow from '@/components/common/icon.row';
   export default {
     name: 'product',
-    components: {},
+    components: {
+      iconRow
+    },
     data(){
       return {
         banks: [],
@@ -133,33 +117,7 @@
 .vv-module{
   border-bottom:10px solid #eee;
 }
-.vv-icon{
-  margin:0 auto 5px;
-  width:45px;
-  height:45px;
-  background:#f6f6f6;
-  border-radius:100%;
-  text-align:center;
-  line-height:42px;
-}
-.vv-icon img {
-  width:32px;
-  height:32px;
-  vertical-align:middle;
-}
-.vv-center{
-  text-align:center;
-}
-.vv-center .vv-row{
-  margin:20px;
-}
-.vv-block{
-  display:block;
-  margin-bottom:10px;
-  color:rgba(0, 0, 0, 0.87);
-  font-size:12px;
-  text-align:center;
-}
+
 .vv-col{
     position:relative;
     padding:15px 0 20px;

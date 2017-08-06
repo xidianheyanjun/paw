@@ -13,20 +13,9 @@
         <span>信用卡优惠</span>
         <a class="more" @click.stop="">更多 &gt;</a>
       </div>
-      <div class="vv-center">
-        <mu-row gutter class="vv-row">
-          <mu-col width="25" tablet="25" desktop="25" v-for="(item, index) in types" :key="index">
-            <a class="vv-block" @click="gotoList(item.id)">
-              <div class="vv-icon">
-                <img :src="item.icon"/>
-              </div>
-              <div>{{item.name}}</div>
-            </a>
-          </mu-col>
-        </mu-row>
-      </div>
+      <icon-row :icons="types" @goto="gotoList"></icon-row>
     </div>
-
+    
     <div class="vv-module vv-cards">
       <div class="vv-title">
         <span>优惠券</span>
@@ -43,36 +32,24 @@
       </ul>
     </div>
 
-    <div class="vv-module vv-cards">
-      <div class="vv-title">
-        <span>超市促销</span>
-        <a class="more" @click.stop="">更多 &gt;</a>
-      </div>
-      <ul class="card-list clearfix">
-        <li class="card-item" v-for="(item, index) in markets" :key="index" @click="gotoList(item.id)">
-          <div class="txt">
-            <h3>{{item.title}}</h3>
-            <p v-html="item.info"></p>
-          </div>
-          <img :src="item.image" alt="" class="img">
-        </li>
-      </ul>
-    </div>
+    <card-row class="vv-module" type="row2" title="超市促销" moreUrl="#/product/credit/list" :cards="markets" @goto="gotoList"></card-row>
     
-    <div class="vv-module">
-      <div class="vv-ad" v-for="(item, index) in banners" :key="index">
-        <img :src="item.img" @click="gotoList(item.id)" />
-      </div>
-    </div>
+    <banner class="vv-module" :banners="banners"></banner>
 
   </div>
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
+  import iconRow from '@/components/common/icon.row';
+  import cardRow from '@/components/common/card.row';
+  import banner from '@/components/common/banner';
   export default {
     name: 'product',
     components: {
+      iconRow,
+      cardRow,
+      banner
     },
     data(){
       return {
@@ -143,111 +120,30 @@
   } 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss">
+@import './../../assets/scss/_mixin.scss';
 .vv-module{
   background:#fff;
-  border-bottom:10px solid #eee;
+  border-bottom:10px solid $bgColor2;
 }
-.vv-title{
-  display: -webkit-box;
-  -webkit-box-align: center;
-  -webkit-box-pack: justify;
-  font-size:14px;
-  height:46px;
-  line-height:46px;
-  padding:0 20px;
-  border-bottom: 1px solid #f0f0f0;
-}
-.vv-title span {
-  display:block;
-}
-.vv-title .more {
-  display:block;
-  color:#999;
-}
-.vv-icon{
-  margin:0 auto 5px;
-  width:45px;
-  height:45px;
-  background:#f6f6f6;
-  border-radius:100%;
-  text-align:center;
-  line-height:42px;
-}
-.vv-icon img {
-  width:32px;
-  height:32px;
-  vertical-align:middle;
-}
-.vv-center{
-  text-align:center;
-}
-.vv-center .vv-row{
-  margin:20px;
-}
-.vv-block{
-  display:block;
-  margin-bottom:15px;
-  color:rgba(0, 0, 0, 0.87);
-  font-size:12px;
-  text-align:center;
-}
-.card-item {
-  float:left;
-  width:50%;
-  box-sizing:border-box;
-  border-right:1px solid #f0f0f0;
-  border-bottom:1px solid #f0f0f0;
-  padding: 20px;
-  // height: 90px;
-}
-.card-item:nth-of-type(2n) {
-  border-right:0;
-}
-.card-item .txt{
-  margin-top:10px;
-  float:left;
-  color: #999;
-  font-size:12px;
-}
-.card-item .txt h3{
-  font-size:15px;
-  margin-bottom:7px;
-  color:#2196f3;
-}
-.card-item .img{
-  float:right;
-  width:50px;
-  height:50px;
-}
-
-.card-list3{
-
-}
-.card-item3{
-  width:33%;
-  text-align:center;
-}
-.card-item3:nth-of-type(2n) {
-  border-right:1px solid #f0f0f0;
-}
-.card-item3:nth-of-type(3n) {
-  border-right:0;
-}
-.card-item3 .img {
-  float:none;
-  display:block;
-  margin:0 auto;
-  width:80px;
-  height:60px;
-}
-
-.vv-ad{
-  margin-bottom:10px;
-}
-.vv-ad img{
-  width:100%;
+.card-list {
+  .card-item3{
+    width:33%;
+    text-align:center;
+    &:nth-of-type(2n) {
+      border-right:1px solid $lineColor;
+    }
+    &:nth-of-type(3n) {
+      border-right:0;
+    }
+    .img {
+      float:none;
+      display:block;
+      margin:0 auto;
+      width:80px;
+      height:60px;
+    }
+  }
 }
 
 </style>

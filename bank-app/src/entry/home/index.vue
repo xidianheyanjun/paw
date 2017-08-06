@@ -126,8 +126,8 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
+@import './../../assets/scss/_mixin.scss';
   .paper {
     display: block;
     width: 100%;
@@ -136,25 +136,24 @@
   }
 
   .info {
-    box-sizing: border-box;
-    height: 30%;
+    height: 180px;
     text-align: center;
-    padding: 10%;
-    background-color: #374760;
-  }
-
-  .avatar {
-    width: 60px;
-    height: 60px;
-  }
-
-  .font-title {
-    color: #dce0e6;
-    font-size: 16px;
-  }
-
-  .mt-title {
-    margin-top: 5%;
+    padding: 50px  $spacing;
+    background-color: $bgColor;
+    .login-btn {
+      width:auto;
+      margin:0 auto;
+    }
+    .avatar {
+      width: 60px;
+      height: 60px;
+    }
+    .font-title{
+      display:block;
+      color: #dce0e6;
+      font-size: 18px;
+      margin-top: 10px;
+    }
   }
 
 

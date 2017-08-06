@@ -1,0 +1,30 @@
+
+
+$mainColor: #2196f3;
+$mainColor2: #ff4081;
+$bgColor: #374760;
+$bgColor2: #eee;
+
+$fontColor: #333;
+$fontColor2: #999;
+$fontColor3: #666;
+$lineColor: #f0f0f0;
+$lineColor2: #e0e0e0;
+$backgroudColor: #dde3ff;
+$backgroudColor3: #f6c19f;
+$borderRadius: 6px;
+$spacing: 20px;
+
+$fontSize: 16px;
+$fontSizeTitle: 15px;
+$fontSizeContent: 14px;
+$fontSizeContent2: 13px;
+
+// %btn {
+// }
+
+%fix_width_content {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

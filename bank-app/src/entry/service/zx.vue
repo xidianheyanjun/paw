@@ -18,23 +18,23 @@
             <li>等待信息反馈</li>
         </ul>
     </div>
-    <div class="form">
+    <div class="vv-form">
         <div class="vv-row">
             <div class="vv-col-title">真实姓名</div>
             <div class="vv-col-value">
-                <mu-text-field v-model.trim="name" :errorText="nameError" hintText="" fullWidth/>
+                <mu-text-field v-model.trim="name" :errorText="nameError" hintText="" fullWidth :underlineShow="false"/>
             </div>
         </div>
         <div class="vv-row">
             <div class="vv-col-title">身份证</div>
             <div class="vv-col-value">
-                <mu-text-field v-model.trim="cardNo" :errorText="cardNoError" hintText="" fullWidth/>
+                <mu-text-field v-model.trim="cardNo" :errorText="cardNoError" hintText="" fullWidth :underlineShow="false"/>
             </div>
         </div>
         <div class="vv-row">
             <div class="vv-col-title">验证码</div>
             <div class="vv-col-value">
-                <mu-text-field v-model.trim="indentifyNo" :errorText="indentifyNoError" hintText="" fullWidth/>
+                <mu-text-field v-model.trim="indentifyNo" :errorText="indentifyNoError" hintText="" fullWidth :underlineShow="false"/>
             </div>
         </div>
         <div class="vv-row col">
@@ -164,14 +164,15 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
+@import './../../assets/scss/_mixin.scss';
 .process{
-    margin:5%;
+    margin:$spacing;
 }
 .process-num{
     float:left;
     text-align:center;
-    margin:0 auto 5%;
+    margin:0 auto $spacing;
     width:34px;
     height:34px;
     border:1px solid #2196f3;
@@ -199,72 +200,40 @@ export default {
     height:2px;
     background:#2196f3;
 }
-.form{
-    width: 90%;
-    margin: 0 auto;
-}
-.form .vv-row {
-    display: block;
-    width: 100%;
-    height: 40px;
-    margin-bottom: 5px;
-    line-height: 40px;
-}
-.vv-row .vv-col-title {
-    display: inline-block;
-    width: 25%;
-    margin-bottom: 4%;
-    margin-right: 2%;
-    vertical-align: middle;
-    text-align: right;
-    font-size: 15px;
-}
 
-.vv-row .vv-col-value {
-    display: inline-block;
-    width: 65%;
-    overflow: hidden;
-    text-align: left;
-    vertical-align: middle;
-}
-
-.form .col{
-    display: -webkit-box;
-    -webkit-box-align: center;
-    -webkit-box-pack: justify;
-    margin-top: 20px;
-    font-size:14px;
-}
-.form .vv-button{
-    color:rgba(0,0,0,.54);
-}
-.form .vv-checkbox{
-    vertical-align: middle;
-}
-.form .mu-checkbox-icon{
-    margin-right:10px;
-}
-.form .link{
-    display:block;
-    color:#2196f3;
-    text-decoration:underline;
-    vertical-align: middle;
-    font-size:14px;
-}
-.form .vv-next{
-    margin:5% auto;
+.vv-form {
+    border-top: 10px solid $bgColor2;
+    .col {
+        border-bottom:0;
+    }
+    .vv-checkbox{
+        vertical-align: middle;
+    }
+    .mu-checkbox-icon{
+        margin-right:10px;
+    }
+    .link{
+        display:block;
+        color:$mainColor;
+        text-decoration:underline;
+        vertical-align: middle;
+        font-size:15px;
+    }
+    .vv-next{
+        margin:$spacing auto;
+    }
 }
 .ft{
     text-align:right;
-    margin:0 5%;
-}
-.ft .msg{
-    font-size:13px;
-    color:#999;
-}
-.ft .link{
-    font-size:13px;
-    color:#2196f3;
-    text-decoration:underline;
+    margin:0 $spacing;
+    .msg{
+        font-size:$fontSizeContent2;
+        color:$fontColor2;
+    }
+    .link{
+        font-size:$fontSizeContent2;
+        color:$mainColor;
+        text-decoration:underline;
+    }
 }
 </style>

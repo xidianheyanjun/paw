@@ -13,9 +13,7 @@
         </div>
         <mu-infinite-scroll :scroller="policy.scroller" :loading="policy.loading" @load="onInfinite('policy')"/>
       </div>
-      <div class="banner">
-        <img :src="item.img" @click="gotoList(item.id)" v-for="(item, index) in policy.banner" :key="index" />
-      </div>
+      <banner class="vv-module" :banners="policy.banner"></banner>
     </div>
     <div v-if="activeTab === 'industry'" class="tab-body">
       <div>
@@ -26,9 +24,7 @@
         </div>
         <mu-infinite-scroll :scroller="industry.scroller" :loading="industry.loading" @load="onInfinite('industry')"/>
       </div>
-      <div class="banner">
-        <img :src="item.img" @click="gotoList(item.id)" v-for="(item, index) in industry.banner" :key="index" />
-      </div>
+      <banner class="vv-module" :banners="industry.banner"></banner>
     </div>
     <div v-if="activeTab === 'forum'" class="tab-body">
       <div>
@@ -50,10 +46,13 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  import banner from '@/components/common/banner';
   export default {
     name: 'infoIndex',
     computed: mapGetters([]),
-    components: {},
+    components: {
+      banner
+    },
     data(){
       return {
         activeTab: "policy",
@@ -119,6 +118,12 @@
       self.changeTab(self.activeTab);
     },
     methods: {
+      goto(url) {
+        if (!url) {
+          return;
+        }
+        window.location.href = url;
+      },
       gotoList(id) {
         window.location.href = '#/product/credit/list?query=' + id;
       },
@@ -177,43 +182,42 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss">
+@import './../../assets/scss/_mixin.scss';
   .mu-tabs {
     position: fixed;
     background:#fff;
     color: #333;
-    border:1px solid #f0f0f0;
-  }
-  .mu-tabs .mu-tab-link{
-    color:#333;
-  }
-  .mu-tabs .mu-tab-active{
-    color:#2196f3;
+    border:1px solid $lineColor;
+    .mu-tab-link{
+      color:$fontColor;
+    }
+    .mu-tab-active{
+      color: $mainColor;
+    }
   }
   .tab-body {
     padding:60px 20px 20px;
   }
   .list-item {
-    font-size:15px;
-    color: rgba(0, 0, 0, 0.6);
-    // border-bottom:1px dotted #f0f0f0;
+    font-size:$fontSizeTitle;
+    color:$fontColor3;
   }
   .list-title {
     margin-bottom:10px;
     padding: 10px;
-    font-size:16px;
-    border-bottom:1px solid #f0f0f0;
+    font-size:$fontSize;
+    border-bottom:1px solid $lineColor;
   }
 
   .message-container {
-    background-color: #f6c19f;
-    border-radius:5px;
-    font-size:15px;
+    background-color: $backgroudColor3;
+    border-radius:$borderRadius;
+    font-size:$fontSizeTitle;
   }
 
   .message-body {
-    padding: 0 15px;
+    padding: 0 $spacing;
   }
 
   .message {
@@ -225,15 +229,5 @@
     word-wrap: break-word;
   }
 
-  .icon {
-    border-radius: 50%;
-    background-color: #ff0000;
-    width: 10px;
-    height: 10px;
-  }
 
-.banner img{
-  width:100%;
-  margin-bottom:10px;
-}
 </style>

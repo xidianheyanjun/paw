@@ -122,14 +122,14 @@ export default{
         icon: "panorama_fish_eye",
         iconClass: "vv-sub-icon"
       }, {
-        label: "金融论坛",
+        label: "行业动态",
         href: '#/info/index/industry',
         cssClass: "vv-menu",
         labelClass: "vv-sub-label",
         icon: "panorama_fish_eye",
         iconClass: "vv-sub-icon"
       }, {
-        label: "行业动态",
+        label: "金融论坛",
         href: '#/info/index/forum',
         cssClass: "vv-menu",
         labelClass: "vv-sub-label",
