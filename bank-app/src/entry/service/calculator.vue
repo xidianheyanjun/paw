@@ -48,7 +48,7 @@
       <div class="vv-row">
         <div class="vv-col-title">手动输入利率</div>
         <div class="vv-col-value">
-          <mu-text-field v-model.trim="sdLilvValue" label="" hintText="" :underlineShow="false"/>
+          <mu-text-field v-model.trim="sdLilvValue" label="" hintText="" helpText="%" :underlineShow="false"/>
         </div>
       </div>
       <div class="vv-row">
@@ -70,7 +70,7 @@
       <div class="vv-row">
         <div class="vv-col-title">手动输入利率</div>
         <div class="vv-col-value">
-          <mu-text-field v-model.trim="gjjLilvValue" label="" hintText="" :underlineShow="false"/>
+          <mu-text-field v-model.trim="gjjLilvValue" label="" hintText="" helpText="%" :underlineShow="false"/>
         </div>
       </div>
 
@@ -82,50 +82,50 @@
         <dt class="title">等额本息（每月等额还款）</dt>
         <dd class="col">
           <span class="name">贷款总额</span>
-          <span class="value">{{debx_dkje}}</span>
+          <span class="value">{{debx_dkje}}元</span>
         </dd>
         <dd class="col">
           <span class="name">还款月数</span>
-          <span class="value">{{debx_dkqx}}</span>
+          <span class="value">{{debx_dkqx}}月</span>
         </dd>
         <dd class="col">
           <span class="name">每月还款</span>
-          <span class="value">{{debx_myhk}}</span>
+          <span class="value">{{debx_myhk}}元</span>
         </dd>
         <dd class="col">
           <span class="name">总支付利息</span>
-          <span class="value">{{debx_zflx}}</span>
+          <span class="value">{{debx_zflx}}元</span>
         </dd>
         <dd class="col">
           <span class="name">本息合计</span>
-          <span class="value">{{debx_hkze}}</span>
+          <span class="value">{{debx_hkze}}元</span>
         </dd>
       </dl>
       <dl class="form-list">
         <dt class="title">等额本金（逐月递减还款）</dt>
         <dd class="col">
           <span class="name">贷款总额</span>
-          <span class="value">{{debj_dkje}}</span>
+          <span class="value">{{debj_dkje}}元</span>
         </dd>
         <dd class="col">
           <span class="name">还款月数</span>
-          <span class="value">{{debj_dkqx}}</span>
+          <span class="value">{{debj_dkqx}}月</span>
         </dd>
         <dd class="col">
           <span class="name">首月还款</span>
-          <span class="value">{{debj_syhk}}</span>
+          <span class="value">{{debj_syhk}}元</span>
         </dd>
         <dd class="col">
           <span class="name">每月递减</span>
-          <span class="value">{{debj_mydj}}</span>
+          <span class="value">{{debj_mydj}}元</span>
         </dd>
         <dd class="col">
           <span class="name">总支付利息</span>
-          <span class="value">{{debj_zflx}}</span>
+          <span class="value">{{debj_zflx}}元</span>
         </dd>
         <dd class="col">
           <span class="name">本息合计</span>
-          <span class="value">{{debj_hkze}}</span>
+          <span class="value">{{debj_hkze}}元</span>
         </dd>
       </dl>
       <mu-raised-button @click="reCalculate" label="重新计算" class="demo-raised-button vv-button" primary fullWidth/>
