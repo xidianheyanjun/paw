@@ -5,35 +5,31 @@
     </div>
 
     <div>
-      <mu-sub-header class="vv-subheader">
+      <div class="vv-title" v-if="list.length">
         <span class="title">热销产品</span>
         <a class="more" @click.stop="">更多 &gt;</a>
-      </mu-sub-header>
-      <mu-content-block>
-        <div class="vv-col" v-for="(item, index) in list" :key="index" @click="productClick(item)">
+      </div>
+      <ul class="vv-product-linear">
+          <li class="item" v-for="(item, index) in list" :key="index" @click="productClick(item)">
             <div class="hd">
-                <span class="tag" v-if="item.tag">{{item.tag}}</span>
-                <span class="title">{{item.title}}</span>
+              <span class="tag" v-if="item.tag">{{item.tag}}</span>
+              <span class="title">{{item.title}}</span>
             </div>
             <div class="bd">
-                <span class="time">购买时间：{{item.time}}</span>
-                <span class="money">购买起点：{{item.money}}</span>
+              <span class="time">购买时间：{{item.time}}</span>
+              <span class="money">购买起点：{{item.money}}</span>
             </div>
             <div class="ft">
-                <span class="num">{{item.num}}%</span>
-                <mu-linear-progress mode="determinate" :value="parseFloat(item.num)" :size="10" :max="100" color="blue" />
+              <span class="num">{{item.num}}%</span>
+              <mu-linear-progress mode="determinate" :value="parseFloat(item.num)" :size="10" :max="100" color="blue" />
             </div>
             <div class="rt">
-                <strong class="num">{{item.num}}%</strong>
-                <span class="txt">收益率</span>
+              <strong class="num">{{item.num}}%</strong>
+              <span class="txt">收益率</span>
             </div>
-
-        </div>
-      </mu-content-block>
-      
+          </li>
+      </ul>
     </div>
-
-    
   </div>
 </template>
 
@@ -90,8 +86,9 @@
           },
           success(body){
             if (body.code === 'success') {
-              self.banks = body.data.banks;
-              self.list = body.data.list;
+              let data = body.data;
+              self.banks = data.banks;
+              self.list = data.list || [];
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,
@@ -111,97 +108,72 @@
   } 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
+<style scoped lang="scss">
+@import './../../../assets/scss/_mixin.scss';
 .vv-module{
-  border-bottom:10px solid #eee;
+  border-bottom:10px solid $bgColor2;
 }
-
-.vv-col{
+.vv-product-linear{
+  margin:0 $spacing;
+  .item{
     position:relative;
-    padding:15px 0 20px;
+    padding:15px 0;
+    box-sizing:border-box;
     border-bottom: 1px solid #f0f0f0;
-}
-.vv-col:last-child{
-  border-bottom:0;
-}
-.vv-col .hd{
+    &:last-child{
+      border-bottom:0;
+    }
+  }
+  .hd{
     font-weight:bold;
     padding-top:5px;
-    font-size:14px;
-}
-.vv-col .bd{
+    font-size:$fontSizeContent;
+  }
+  .bd{
     margin:10px 0;
     font-size:12px;
-    color:rgba(0,0,0,.54);
-}
-.vv-col .tag{
+    color:$fontColor2;
+  }
+  .tag{
     display:inline-block;
     padding:1px 5px;
-    background:#ff4081;
-    border-radius:5px;
+    background:$mainColor2;
+    border-radius:$borderRadius;
     font-size:10px;
     color:#fff;
     vertical-align:2px;
-}
-.vv-col .title{
+  }
+  .title{
     display:inline-block;
-    text-overflow: ellipsis;
     width:70%;
-    white-space: nowrap;
-    overflow: hidden;
-}
-.vv-col .ft{
+    @extend %fix_width_content;
+  }
+  .ft{
     position:relative;
-}
-.vv-col .ft .num{
-    position:absolute;
-    color:#fff;
-    font-size:10px;
-    z-index:10;
-}
-.vv-col .rt{
+    .num{
+      position:absolute;
+      color:#fff;
+      font-size:10px;
+      z-index:10;
+    }
+  }
+  .rt{
     position:absolute;
     right:0;
     top:18px;
     text-align:right;
-}
-.vv-col .rt .num{
-    display:block;
-    font-size:18px;
-    font-weight:bold;
-    color:#2196f3;
-}
-.vv-col .rt .txt{
-    display:block;
-    margin-top:10px;
-    font-size:10px;
-    color:rgba(0,0,0,.34);
-}
-.vv-subheader{
-  display: -webkit-box;
-  -webkit-box-align: center;
-  -webkit-box-pack: justify;
-  font-size:14px;
-  height:46px;
-  line-height:46px;
-  padding:0 20px;
-  border-bottom: 1px solid #f0f0f0;
-  color:#333;
-}
-.vv-subheader .vv-button{
-    position:absolute;
-    top:0;
-    right:0;
-    width:40px;
-}
-.vv-subheader .title {
-  display:block;
-  font-size:14px;
-}
-.vv-subheader .more {
-  display:block;
-  color:#999;
+    .num{
+      display:block;
+      font-size:18px;
+      font-weight:bold;
+      color:$mainColor;
+    }
+    .txt{
+      display:block;
+      margin-top:10px;
+      font-size:10px;
+      color:$fontColor2;
+    }
+  }
 }
 </style>

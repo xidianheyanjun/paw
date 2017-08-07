@@ -27,7 +27,7 @@
         },
         center: {
           img: "",
-          title: "政银企对接详情",
+          title: "对接信息发布详情",
           callback: null
         },
         right: {

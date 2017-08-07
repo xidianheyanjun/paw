@@ -1,5 +1,5 @@
 <template>
-  <div class="vv-tab">
+  <div class="vv-picker">
     <ul class="tabs">
       <li  v-for="(pick, index) in pickList" :key="index" :class="['tab', {'current': isShow && (curPickIdx === index)}]" :style="{width: tabWidth}">
         <div class="value" @click="openPick(pick, index)">{{pick.curVal.name}}</div>
@@ -13,7 +13,7 @@
 </template>
 <script>
 export default {
-  name: 'commonPicker',
+  name: 'picker',
   props: {
     picks: {
       type: Array,
@@ -71,63 +71,64 @@ export default {
   }
 }
 </script>
-<style scoped>
-.vv-tab {
+<style lang="scss" scoped>
+@import './../../assets/scss/_mixin.scss';
+.vv-picker{
   position:relative;
   width:100%;
   box-sizing: border-box;
   height: 48px;
-  padding: 5px 20px;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 5px $spacing;
+  border-bottom: 1px solid $lineColor;
   background:#fff;
   z-index: 999;
-}
-.vv-tab .tab{
-  float:left;
-  line-height: 38px;
-  text-align: center;
-}
-.vv-tab .value {
-  font-size: 13px;
-}
-.vv-tab .value:after {
-  content: '.';
-  overflow: hidden;
-  display: inline-block;
-  width:0;
-  height:0;
-  border:5px dashed transparent;
-  border-top: 5px solid #ddd;
-  margin-left:5px;
-  margin-top:5px;
-  vertical-align: middle;
-}
-.vv-tab .tab.current .value{
-  color: #2196f3;
-}
-.vv-tab .tab.current .value:after{
-  margin-top:0;
-  border-top:0;
-  border-bottom: 5px solid #2196f3;
-}
-.vv-tab .items {
-  position: absolute;
-  top:48px;
-  left:0;
-  width:100%;
-  text-align:left;
-  background:#fff;
-  z-index:100;
-}
-.vv-tab .item{
-  text-align:left;
-  box-sizing:border-box;
-  padding:0 20px;
-  border-bottom: 1px solid #f0f0f0;
-  font-size: 14px;
-}
-.vv-tab .item.cur {
-  color: #2196f3;
+  .tab{
+    float:left;
+    line-height: 38px;
+    text-align: center;
+  }
+  .value {
+    font-size: 13px;
+  }
+  .value:after {
+    content: '.';
+    overflow: hidden;
+    display: inline-block;
+    width:0;
+    height:0;
+    border:5px dashed transparent;
+    border-top: 5px solid $fontColor;
+    margin-left:5px;
+    margin-top:5px;
+    vertical-align: middle;
+  }
+  .tab.current .value{
+    color: $mainColor;
+  }
+  .tab.current .value:after{
+    margin-top:0;
+    border-top:0;
+    border-bottom: 5px solid $mainColor;
+  }
+  .items {
+    position: absolute;
+    top:48px;
+    left:0;
+    width:100%;
+    text-align:left;
+    background:#fff;
+    z-index:100;
+  }
+  .item{
+    text-align:left;
+    box-sizing:border-box;
+    padding:0 $spacing;
+    border-bottom: 1px solid $lineColor;
+    font-size: $fontSizeContent;
+  }
+  .item.cur {
+    color: $mainColor;
+  }
 }
 .mask {
   position: fixed;

@@ -1,5 +1,5 @@
 <template>
-  <div class="vv-article-detial">
+  <div class="vv-article-detail">
     <mu-sub-header v-html="info.title"></mu-sub-header>
     <mu-content-block v-html="info.content"></mu-content-block>
   </div>

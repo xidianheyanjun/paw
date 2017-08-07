@@ -1,6 +1,6 @@
 <template>
   <div>
-    <banner class="vv-module" v-if="banners.length" :banners="banners"></banner>
+    <banner v-if="banners.length" class="vv-module" :banners="banners"></banner>
     
     <div class="vv-module" v-if="types.length">
       <div class="vv-title">
@@ -10,25 +10,11 @@
       <icon-row :icons="types" @goto="gotoList"></icon-row>
     </div>
     
-    <div class="vv-module vv-cards" v-if="coupons.length">
-      <div class="vv-title">
-        <span>优惠券</span>
-        <a class="more" @click.stop="">更多 &gt;</a>
-      </div>
-      <ul class="card-list3 card-list clearfix">
-        <li class="card-item3 card-item" v-for="(item, index) in coupons" :key="index" @click="gotoList(item.id)">
-          <img :src="item.image" alt="" class="img">
-          <div class="txt">
-            <h3>{{item.title}}</h3>
-            <p v-html="item.info"></p>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <card-row v-if="coupons.length" class="vv-module" type="row3" title="优惠券" moreUrl="#/product/credit/list" :cards="coupons" @goto="gotoList"></card-row>
 
     <card-row v-if="markets.length" class="vv-module" type="row2" title="超市促销" moreUrl="#/product/credit/list" :cards="markets" @goto="gotoList"></card-row>
     
-    <banner class="vv-module" v-if="banners2.length" :banners="banners2"></banner>
+    <banner v-if="banners2.length" class="vv-module" :banners="banners2"></banner>
 
   </div>
 </template>
@@ -116,30 +102,10 @@
   } 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import './../../assets/scss/_mixin.scss';
 .vv-module{
   background:#fff;
   border-bottom:10px solid $bgColor2;
 }
-.card-list {
-  .card-item3{
-    width:33%;
-    text-align:center;
-    &:nth-of-type(2n) {
-      border-right:1px solid $lineColor;
-    }
-    &:nth-of-type(3n) {
-      border-right:0;
-    }
-    .img {
-      float:none;
-      display:block;
-      margin:0 auto;
-      width:80px;
-      height:60px;
-    }
-  }
-}
-
 </style>

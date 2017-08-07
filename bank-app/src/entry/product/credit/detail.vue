@@ -6,7 +6,7 @@
       <div class="cd-name">{{cardName}}</div>
       <div class="cd-txt">{{cardTxt}}</div>
     </div>
-    <div class="cd-cardlists">
+    <div class="cd-cardlists" v-if="details.length">
       <dl v-for="(item, index) in details" :key="index">
         <dt>
           <span class="title">{{item.title}}</span>
@@ -16,7 +16,7 @@
       </dl>
     </div>
   </div>
-  <mu-raised-button @click="apply" label="立即申请" class="demo-raised-button apply-btn" primary fullWidth/>
+  <mu-raised-button @click="apply" label="立即申请" class="demo-raised-button vv-button" primary fullWidth/>
 </div>
 </template>
 <script>
@@ -69,7 +69,7 @@ export default {
             self.cardImg = data.cardImg;
             self.cardName = data.cardName;
             self.cardTxt = data.cardTxt;
-            self.details = data.details;
+            self.details = data.details || [];
           } else {
             self.$store.dispatch('box_set_toast', {
               show: true,
@@ -91,54 +91,58 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped lang="scss">
+@import './../../../assets/scss/_mixin.scss';
 .cd-cardinfo{
-  padding: 20px 20px 10px;
+  padding: $spacing;
   line-height:28px;
+  .cd-img{
+    display:block;
+    margin:0 auto;
+    width:90%;
+  }
+  .cd-name{
+    margin-top:10px;
+    font-size:$fontSizeTitle;
+  }
+  .cd-txt{
+    font-size:$fontSizeContent2;
+    color:$fontColor2;
+  }
 }
-.cd-cardinfo .cd-img{
-  display:block;
-  margin:0 auto;
-  width:90%;
-}
-.cd-cardinfo .cd-name{
-  margin-top:10px;
-  font-size:15px;
-}
-.cd-cardinfo .cd-txt{
-  font-size:13px;
-  color:#999;
-}
+
 .cd-cardlists {
   margin-bottom:50px;
-  // border-bottom:10px solid #eee;
+  // border-bottom:10px solid $bgColor2;
+  dl{
+    border-top:10px solid $bgColor2;
+  }
+  dt{
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: justify;
+    font-size:$fontSizeContent;
+    height:46px;
+    line-height:46px;
+    padding:0 $spacing;
+    border-bottom: 1px solid $lineColor;
+  }
+  dt {
+    .title {
+      display:block;
+    }
+    .more {
+      display:block;
+      color:$fontColor2;
+    }
+  }
+  dd{
+    padding:$spacing;
+    line-height:24px;
+    font-size:$fontSizeContent;
+  }
 }
-.cd-cardlists dl{
-  border-top:10px solid #eee;
-}
-.cd-cardlists dt{
-  display: -webkit-box;
-  -webkit-box-align: center;
-  -webkit-box-pack: justify;
-  font-size:14px;
-  height:46px;
-  line-height:46px;
-  padding:0 20px;
-  border-bottom: 1px solid #e1e2e6;
-}
-.cd-cardlists dt .title {
-  display:block;
-}
-.cd-cardlists dt .more {
-  display:block;
-  color:#999;
-}
-.cd-cardlists dd{
-  padding:20px;
-  line-height:26px;
-  font-size:14px;
-}
-.apply-btn{
+.vv-button{
   position: fixed;
   bottom:0;
   left:0;

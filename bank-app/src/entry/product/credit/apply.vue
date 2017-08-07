@@ -241,6 +241,7 @@
 </script>
 
 <style scoped lang="scss">
+@import './../../../assets/scss/_mixin.scss';
 .vv-form {
   margin: 0 auto 60px;
   .vv-col-title {

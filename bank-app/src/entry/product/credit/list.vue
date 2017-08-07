@@ -85,11 +85,16 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import './../../../assets/scss/_mixin.scss';
-.vv-tab {
-  position: fixed;
-  top:0;
-  left:0;
+.rv{
+  .vv-picker {
+    position: fixed;
+    top:54px;
+    left:0;
+  }
+  .vv-cards{
+    margin-top:65px;
+  }
 }
 </style>

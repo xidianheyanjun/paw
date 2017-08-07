@@ -47,11 +47,11 @@
     }],
     "banner": [{
       "url": "#/product/credit/detail/1",
-      "img": "static/images/banner.png",
+      "img": "static/images/ad.jpg",
       "id": "5"
     }, {
       "url": "#/product/credit/detail/1",
-      "img": "static/images/banner.png",
+      "img": "static/images/ad.jpg",
       "id": "6"
     }],
     "messages": [{

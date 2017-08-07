@@ -85,6 +85,14 @@
     border-spacing: 0;
   }
 
+  .clearfix:after {
+    content: '';
+    height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+  }
+
   // 重写 muse-ui
   .mu-text-field {
     width: 100%;
@@ -99,7 +107,7 @@
       position:inherit
     }
     .mu-text-field-input{
-      width:100px;
+      width:130px;
     }
   }
   .mu-sub-header {
@@ -117,6 +125,21 @@
       margin: 10px 0;
       width:100%;
     }
+  }
+  html .vv-tab .mu-dropDown-menu-line{
+    display: none;
+  }
+  html .mu-menu-item-wrapper.active {
+    color:#2196f3;
+  }
+  html .mu-dropDown-menu {
+    font-size:14px;
+  }
+  html .mu-dropDown-menu-icon{
+    right: 27px;
+  }
+  html .mu-dropDown-menu-text{
+    padding-left:10px;
   }
   // common
   .head {
@@ -146,12 +169,22 @@
     height: 8%;
   }
 
-  .clearfix:after {
-    content: '';
-    height: 0;
-    display: block;
-    visibility: hidden;
-    clear: both;
+  .vv-title{
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: justify;
+    font-size:14px;
+    height:46px;
+    line-height:46px;
+    padding:0 20px;
+    border-bottom: 1px solid $lineColor;
+    span {
+      display:block;
+    }
+    .more {
+      display:block;
+      color:$fontColor2;
+    }
   }
 
   .vv-tac {
@@ -224,10 +257,10 @@
     }
     // 详情页
   }
-   .vv-article-detial {
+   .vv-article-detail {
       padding: 10px $spacing;
    }
-    // 对话形式
+  // 对话形式
   .vv-comment {
     margin-bottom: 15px;
     &:last-child{
@@ -259,6 +292,31 @@
       // line-height: 150%;
       // text-indent: 2em;
       border-radius: $borderRadius;
+    }
+  }
+  // 贷款/金融产品列表页面
+  .vv-products {
+    padding:$spacing;
+    .item {
+      margin-bottom:$spacing;
+      border-bottom:1px solid $lineColor;
+      &:last-child {
+        border-bottom:0;
+      }
+    }
+    .title {
+      font-size: $fontSizeTitle;
+      @extend %fix_width_content;
+    }
+    .content {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      margin:10px 0 15px;
+      font-size: $fontSizeContent2;
+      color: $fontColor2;
+      line-height:22px;
     }
   }
   // 表单填写
@@ -294,20 +352,55 @@
       // left:0;
     }
   }
-  /**rest muse-ui css */
-html .vv-tab .mu-dropDown-menu-line{
-  display: none;
-}
-html .mu-menu-item-wrapper.active {
-  color:#2196f3;
-}
-html .mu-dropDown-menu {
-  font-size:14px;
-}
-html .mu-dropDown-menu-icon{
-  right: 27px;
-}
-html .mu-dropDown-menu-text{
-  padding-left:10px;
-}
+  // 个人中心页面
+  .user-paper {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: $bgColor2;
+  }
+  .user-info {
+    height: 180px;
+    text-align: center;
+    padding: 50px  $spacing;
+    background-color: $bgColor;
+    .login-btn {
+      width:auto;
+      margin:0 auto;
+    }
+    .avatar {
+      width: 60px;
+      height: 60px;
+    }
+    .font-title{
+      display:block;
+      color: #dce0e6;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  }
+  .user-setting {
+    background-color: #fff;
+    .menu {
+      display: -webkit-box;
+      -webkit-box-align: center;
+      -webkit-box-pack: justify;
+      padding: 0 10px 0 $spacing;
+      border-bottom: 1px solid $lineColor;
+    }
+    .menu-name {
+      // width: 90%;
+      font-size: $fontSize;
+      height: 42px;
+      line-height: 42px;
+    }
+    .menu-icon {
+      width: 30px;
+      font-size: 18px;
+      height: 42px;
+      line-height: 42px;
+      text-align:center;
+      color: #ccc;
+    }
+  }
 </style>

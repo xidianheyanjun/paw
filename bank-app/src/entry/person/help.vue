@@ -45,21 +45,7 @@ export default {
     }
 }
 </script>
-<style scoped>
-.info {
-  box-sizing: border-box;
-  padding: 8%;
-  height: 100%;
-}
-.info-hd {
-    font-size: 14px;
-    color: #374760;
-    margin-bottom: 10px;
-    text-align: center;
-}
-.info-bd {
-    font-size: 12px;
-    line-height: 18px;
-    text-indent: 2em;
-}
+<style scoped lang="scss">
+@import './../../assets/scss/_mixin.scss';
+
 </style>

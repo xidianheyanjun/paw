@@ -1,35 +1,28 @@
 <template>
-    <div>
+    <div class="wrapper">
         <mu-sub-header class="vv-title" v-if="pageType === 'company'">企业用户贷款产品查询</mu-sub-header>
         <mu-sub-header class="vv-title" v-if="pageType === 'personal'">个人用户贷款产品查询</mu-sub-header>
-        <mu-dropDown-menu class="vv-dropdown" :value="bankValue" @change="changeBank">
-            <mu-menu-item v-for="(item, index) in banks" :key="index" :value="item.value" :title="item.name"/>
-        </mu-dropDown-menu>
-        <mu-content-block>
-            <a class="vv-col" v-for="(item, index) in list" @click="goto(item)" :key="index">
-                <div class="title">{{item.title}}</div>
-                <div class="content">{{item.content}}</div>
-            </a>
-        </mu-content-block>
+        <picker :picks="pickList" @checkedPick="renderData" :curPick="curPick"></picker>
+        <ul class="vv-products" v-if="list.length">
+            <li class="item" v-for="(item, index) in list" :key="index" @click="goto(item.id)">
+            <div class="title">{{item.title}}</div>
+            <div class="content" v-html="item.content"></div>
+            </li>
+        </ul>
     </div>
 </template>
 <script>
+import picker from '@/components/common/picker';
 export default {
-    name: 'loan',
+    name: 'loanList',
+    components: {
+      picker
+    },
     data(){
         return {
             pageType: 'company',
-            bankValue: '1',
-            banks: [{
-                value: '1',
-                name: '全部'
-            }, {
-                value: '2',
-                name: '工商银行'
-            }, {
-                value: '3',
-                name: '招商银行'
-            }],
+            pickList: [],
+            curPick: '',
             list: []
         }
     },
@@ -41,8 +34,7 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                // window.location.href = "#/product/loan/index";
-                    history.back(-1);
+                    window.location.href = "#/product/loan/index";
                 }
             },
             center: {
@@ -58,56 +50,60 @@ export default {
                 }
             }
         });
-        this.renderList();
+        let query = this.$route.query;
+        let querykey = Object.keys(query)[0];
+        this.renderData(query[querykey]);// 页面初始化时目前只做一种条件查询
     },
     methods: {
-        changeBank(value) {
-            this.bankValue = value;
-            this.renderList();
-        },
-        renderList() {
+        renderData(value) {
             let self = this;
             this.$sendRequest({
-                url: '/product/loan/list',
-                params: {
-                    type: self.pageType,
-                    bankValue: self.bankValue
-                },
-                success(body){
-                    self.list = body.data;
-                },
-                error(err){
+            url: '/product/loan/list?query=' + value,
+            params: {
+                type: self.pageType
+            },
+            success(body){
+                if (body.code === 'success') {
+                    let data = body.data;
+                    self.pickList = data.pickList || self.pickList;
+                    self.curPick = value;
+                    self.list = data.list || [];
+                } else {
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: body.msg
+                    });
                 }
+            },
+            error(err){
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '服务器繁忙,请稍后再试'
+                });
+            }
             });
         },
-        goto(item) {
-            window.location.href = '#/product/loan/detail/' + item.id;
+        goto(id) {
+            window.location.href = '#/product/loan/detail/' + id;
         }
     }
 }
 </script>
-<style scoped>
-.vv-title{
-    text-align:center;
-    font-size:18px;
-    color:rgba(0,0,0,1);
-}
-.vv-dropdown{
-    float:right;
-}
-.vv-col{
-    clear:both;
-    display:block;
-    padding-bottom:5%;
-    margin-bottom:5%;
-    border-bottom:1px dashed #eee;
-    color:rgba(0,0,0,.87);
-}
-.vv-col .title{
-    margin-bottom:5%;
-}
-.vv-col .content{
-    color:rgba(0,0,0,.54);
-    font-size:12px;
+<style lang="scss" scoped>
+@import './../../../assets/scss/_mixin.scss';
+.wrapper{
+    position: relative;
+    .vv-title {
+        height:49px;
+        line-height:49px;
+    }
+    .vv-picker{
+        position: absolute;
+        top:0;
+        right:0;
+        padding:5px 0 0;
+        width:100px;
+        border-bottom:0;
+    }
 }
 </style>

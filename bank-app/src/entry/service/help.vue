@@ -29,7 +29,7 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                window.location.href = "#/home/index";
+                    window.location.href = "#/home/index";
                 }
             },
             center: {
@@ -41,7 +41,7 @@ export default {
                 img: "",
                 title: "地图",
                 callback: function () {
-                window.location.href = "#/common/map";
+                    window.location.href = "#/common/map";
                 }
             }
         });
@@ -51,7 +51,8 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
+@import './../../assets/scss/_mixin.scss';
 .help-info {
     display: absolute;
     margin: 50% auto;
@@ -71,6 +72,6 @@ export default {
 }
 .help-hd .tel,
 .help-bd .title {
-    color: #2196f3;
+    color: $mainColor;
 }
 </style>

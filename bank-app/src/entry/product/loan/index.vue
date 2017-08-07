@@ -9,7 +9,7 @@
 <script>
   import {mapGetters, mapActions} from 'vuex';
   export default {
-    name: 'loan',
+    name: 'loanIndex',
     data() {
       return {}
     },
@@ -39,29 +39,30 @@
     methods: {}
   }
 </script>
-<style scoped>
-  .vv-wrapper {
-    position: relative;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    // background-color: #eee;
-    // background: url(../../../assets/images/sun.jpg) no-repeat;
-    // background-size: 100% 100%;
-  }
+<style scoped lang="scss">
+@import './../../../assets/scss/_mixin.scss';
+.vv-wrapper {
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // background-color: #eee;
+  // background: url(../../../assets/images/sun.jpg) no-repeat;
+  // background-size: 100% 100%;
+}
 
-  .vv-content {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
+.vv-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 
-  .vv-button {
-    display: block;
-    margin: 30% auto;
-    width: 50%;
-  }
+.vv-button {
+  display: block;
+  margin: 30% auto;
+  width: 50%;
+}
 </style>

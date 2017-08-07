@@ -1,6 +1,6 @@
 <template>
-  <div class="paper">
-    <div class="info">
+  <div class="user-paper">
+    <div class="user-info">
       <div v-if="!person_isLogin" class="login-btn" @click="login">
         <mu-avatar :src="avatar" class="avatar" />
         <a class="font-title mt-title">点击登录</a>
@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="setting">
+    <div class="user-setting">
       <div v-for="menu in person.menuList" @click="onMenuClick(menu.type, menu.param)" class="menu">
         <div class="menu-name">{{menu.name}}</div>
         <div class="menu-icon">&gt;</div>
@@ -132,61 +132,7 @@
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import './../../assets/scss/_mixin.scss';
-  .paper {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: $bgColor2;
-  }
-
-  .info {
-    height: 180px;
-    text-align: center;
-    padding: 50px  $spacing;
-    background-color: $bgColor;
-    .login-btn {
-      width:auto;
-      margin:0 auto;
-    }
-    .avatar {
-      width: 60px;
-      height: 60px;
-    }
-    .font-title{
-      display:block;
-      color: #dce0e6;
-      font-size: 18px;
-      margin-top: 10px;
-    }
-  }
-
-
-  .setting {
-    background-color: #fff;
-    .menu {
-      display: -webkit-box;
-      -webkit-box-align: center;
-      -webkit-box-pack: justify;
-      padding: 0 10px 0 $spacing;
-      border-bottom: 1px solid $lineColor;
-    }
-    .menu-name {
-      // width: 90%;
-      font-size: $fontSize;
-      height: 42px;
-      line-height: 42px;
-    }
-    .menu-icon {
-      width: 30px;
-      font-size: 18px;
-      height: 42px;
-      line-height: 42px;
-      text-align:center;
-      color: #ccc;
-    }
-  }
+  
 </style>

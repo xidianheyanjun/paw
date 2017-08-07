@@ -1,8 +1,8 @@
 <template>
 <div>
     <picker :picks="pickList" @checkedPick="renderData" :curPick="curPick"></picker>
-    <div class="content">
-        <mu-list v-for="item in list" :key="item.title">
+    <div class="nearbank-list" v-if="list.length">
+        <mu-list v-for="(item, index) in list" :key="index" class="item">
             <mu-list-item :title="item.title" @click="goto(item.href)">
                 <mu-avatar :src="item.icon" slot="leftAvatar"/>
                 <span slot="describe">{{item.addr}}</span>
@@ -109,12 +109,53 @@ export default {
     }
 }
 </script>
-<style scoped>
-.content{
-    // margin:20px;
+
+<style lang="scss">
+@import './../../assets/scss/_mixin.scss';
+.nearbank-list{
+    .mu-item-left{
+        width:45px;
+    }
+    .mu-avatar{
+        width:45px;
+        height:45px;
+        img{
+            width:32px;
+            height:32px;
+        }
+    } 
+    .mu-item-right{
+        width:60px;;
+    }
+    .item {
+        &:last-child .mu-divider {
+            height:0;
+        }
+        .mu-item-content{
+            box-sizing:border-box;
+            padding-right:10px;
+        }
+        .mu-item-title,
+        .mu-item-text span{
+            display:block;
+            @extend %fix_width_content;
+        }
+    }
+}
+</style>
+<style lang="scss" scoped>
+@import './../../assets/scss/_mixin.scss';
+.rv{
+  .vv-picker {
+    position: fixed;
+    top:54px;
+    left:0;
+  }
+  .nearbank-list{
+    margin-top:50px;
+  }
 }
 .vv-right{
-    color:#2196f3;
+    color:$mainColor;
 }
-
 </style>

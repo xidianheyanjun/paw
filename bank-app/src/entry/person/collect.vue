@@ -1,6 +1,6 @@
 <template>
-  <div class="paper">
-    <div class="setting">
+  <div class="user-paper">
+    <div class="user-setting">
       <div v-for="item in list" class="menu">
         <div class="menu-name">{{item.name}}</div>
         <div class="menu-icon">&gt;</div>
@@ -99,38 +99,7 @@
     }
   }
 </script>
-<style scoped>
-  .paper {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
+<style scoped lang="scss">
+@import './../../assets/scss/_mixin.scss';
 
-  .setting {
-    background-color: #ffffff;
-    margin: 4% 0;
-  }
-
-  .setting .menu {
-    display: block;
-    border-bottom: 1px solid #efefef;
-  }
-
-  .setting .menu .menu-name {
-    display: inline-block;
-    padding-left: 6%;
-    width: 80%;
-    font-size: 18px;
-    height: 42px;
-    line-height: 42px;
-    color: #4b4b4b;
-  }
-
-  .setting .menu .menu-icon {
-    display: inline-block;
-    font-size: 18px;
-    height: 42px;
-    line-height: 42px;
-    color: #cccccc;
-  }
 </style>

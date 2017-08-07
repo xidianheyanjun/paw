@@ -193,7 +193,7 @@
                 <mu-raised-button label="点击查询" class="demo-raised-button vv-button" @click="searchBtnClick" primary fullWidth/>
             </div>
         </div>
-        <div class="vv-search-default">
+        <div class="vv-search-default" v-if="banks.length">
             <mu-sub-header class="vv-title">智能查询</mu-sub-header>
             <icon-row :icons="banks" @goto="gotoList"></icon-row>
         </div>
@@ -296,7 +296,7 @@ export default {
                     }
 
                     // 跳转到贷款列表页
-                    window.location.href = "#/product/loan/list";
+                    window.location.href = "#/product/loan/list/" + self.pageType;
                 },
                 error(err){
                     self.$store.dispatch("box_set_toast", {
@@ -316,15 +316,15 @@ export default {
                 params: {
                 },
                 success(body){
-                if (body.code === 'success') {
-                    let data = body.data;
-                    self.banks = data.banks;
-                } else {
-                    self.$store.dispatch('box_set_toast', {
-                        show: true,
-                        toastText: body.msg
-                    });
-                }
+                    if (body.code === 'success') {
+                        let data = body.data;
+                        self.banks = data.banks || [];
+                    } else {
+                        self.$store.dispatch('box_set_toast', {
+                            show: true,
+                            toastText: body.msg
+                        });
+                    }
                 },
                 error(err){
                     self.$store.dispatch('box_set_toast', {
@@ -350,12 +350,6 @@ export default {
 }
 .vv-search {
     background: #fff;
-}
-.vv-title{
-    margin-top:10px;
-    text-align:center;
-    font-size:17px;
-    color: $fontColor;
 }
 .vv-search-default{
     background: #fff;

@@ -262,7 +262,7 @@
     height:40px;
     line-height:40px;
     box-sizing: border-box;
-    padding: 0 20px;
+    padding: 0 $spacing;
     border-bottom: 1px solid $lineColor2;
   }
   .title {

@@ -1,13 +1,13 @@
 <template>
-  <div class="paper">
-    <div class="setting">
+  <div class="user-paper">
+    <div class="user-setting edit">
       <div class="menu">
         <div class="menu-name">头像</div>
         <div class="menu-icon">
           <mu-avatar :src="avatar" class="avatar"/>
         </div>
       </div>
-      <div class="menu">
+      <div class="menu mobile">
         <div class="menu-name">手机号</div>
         <div class="menu-icon">{{account}}</div>
       </div>
@@ -68,37 +68,21 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import './../../assets/scss/_mixin.scss';
-  .paper {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: $bgColor2;
+.user-setting.edit{
+  .menu{
+    padding-right:$spacing;
   }
-
-  .setting {
-    background-color: #fff;
-    .menu {
-      display: -webkit-box;
-      -webkit-box-align: center;
-      -webkit-box-pack: justify;
-      padding: 5px $spacing;
-      border-bottom: 1px solid $lineColor;
-    }
-    .menu-name {
-      // width: 90%;
-      font-size: $fontSize;
-      height: 42px;
-      line-height: 42px;
-    }
-    .menu-icon {
-      width: 42px;
-      font-size: 18px;
-      height: 42px;
-      line-height: 42px;
-      text-align:center;
-      color: #ccc;
-    }
+  .mobile .menu-icon{
+    width:auto;
+    height:auto;
+    font-size:$fontSizeContent;
   }
+  .menu-icon,
+  .mu-avatar{
+    width:32px;
+    height:32px;
+  }
+}
 </style>
