@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div class="vv-module">
+    <div class="vv-module" v-if="banks.length">
       <div class="vv-title">按银行找卡</div>
       <icon-row :icons="banks" @goto="gotoList"></icon-row>
     </div>
 
-    <card-row class="vv-module" type="row2" title="用途卡精选" moreUrl="#/product/credit/list" :cards="list" @goto="gotoList"></card-row>
+    <card-row v-if="list.length" class="vv-module" type="row2" title="用途卡精选" moreUrl="#/product/credit/list" :cards="list" @goto="gotoList"></card-row>
     
-    <card-row class="vv-module" type="row1" title="热卡推荐" moreUrl="#/product/credit/list" :cards="list2" @goto="gotoList"></card-row>
+    <card-row v-if="list2.length" class="vv-module" type="row1" title="热卡推荐" moreUrl="#/product/credit/list" :cards="list2" @goto="gotoList"></card-row>
 
-    <banner class="vv-module" :banners="banners"></banner>
+    <banner class="vv-module" v-if="banners.length" :banners="banners"></banner>
 
   </div>
 </template>
@@ -71,10 +71,10 @@
           success(body){
             if (body.code === 'success') {
               let data = body.data;
-              self.banks = data.banks;
-              self.list = data.list;
-              self.list2 = data.list2;
-              self.banners = data.banners;
+              self.banks = data.banks || [];
+              self.list = data.list || [];
+              self.list2 = data.list2 || [];
+              self.banners = data.banners || [];
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,

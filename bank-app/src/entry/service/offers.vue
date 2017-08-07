@@ -1,14 +1,8 @@
 <template>
   <div>
-    <div class="vv-module">
-      <mu-card>
-        <mu-card-media title="" subTitle="">
-          <img src="static/images/ad.jpg" />
-        </mu-card-media>
-      </mu-card>
-    </div>
+    <banner class="vv-module" v-if="banners.length" :banners="banners"></banner>
     
-    <div class="vv-module">
+    <div class="vv-module" v-if="types.length">
       <div class="vv-title">
         <span>信用卡优惠</span>
         <a class="more" @click.stop="">更多 &gt;</a>
@@ -16,7 +10,7 @@
       <icon-row :icons="types" @goto="gotoList"></icon-row>
     </div>
     
-    <div class="vv-module vv-cards">
+    <div class="vv-module vv-cards" v-if="coupons.length">
       <div class="vv-title">
         <span>优惠券</span>
         <a class="more" @click.stop="">更多 &gt;</a>
@@ -32,9 +26,9 @@
       </ul>
     </div>
 
-    <card-row class="vv-module" type="row2" title="超市促销" moreUrl="#/product/credit/list" :cards="markets" @goto="gotoList"></card-row>
+    <card-row v-if="markets.length" class="vv-module" type="row2" title="超市促销" moreUrl="#/product/credit/list" :cards="markets" @goto="gotoList"></card-row>
     
-    <banner class="vv-module" :banners="banners"></banner>
+    <banner class="vv-module" v-if="banners2.length" :banners="banners2"></banner>
 
   </div>
 </template>
@@ -57,7 +51,8 @@
         types: [],
         coupons: [],
         markets: [],
-        banners: []
+        banners: [],
+        banners2: []
       };
     },
     mounted () {
@@ -94,10 +89,11 @@
           success(body){
             if (body.code === 'success') {
               let data = body.data;
-              self.types = data.types;
-              self.coupons = data.coupons;
-              self.markets = data.markets;
-              self.banners = data.banners;
+              self.types = data.types || [];
+              self.coupons = data.coupons || [];
+              self.markets = data.markets || [];
+              self.banners = data.banners || [];
+              self.banners2 = data.banners2 || [];
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,

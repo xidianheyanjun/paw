@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <mu-sub-header class="title">{{info.title}}</mu-sub-header>
-    <mu-content-block class="content">{{info.content}}</mu-content-block>
+  <div class="vv-article-detial">
+    <mu-sub-header v-html="info.title"></mu-sub-header>
+    <mu-content-block v-html="info.content"></mu-content-block>
   </div>
 </template>
 
@@ -27,7 +27,7 @@
         },
         center: {
           img: "",
-          title: "政银企",
+          title: "政银企对接详情",
           callback: null
         },
         right: {
@@ -52,22 +52,24 @@
           params: {
           },
           success(body){
-            self.info = body.data;
+            if (body.code === 'success') {
+              let data = body.data;
+              self.info = data.info;
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
           },
-          error(err){
+          error(err) {
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
           }
         });
       }
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-div{
-  padding: 8px 16px;
-}
-.content{
-  line-height:24px;
-}
-</style>

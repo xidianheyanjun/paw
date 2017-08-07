@@ -1,25 +1,25 @@
 <template>
   <div>
-    <div class="tab-body">
-      <div>
-        <div v-for="item in list" :key="item.id" @click="redirect2detail(item)" class="list-item">
-          <span class="triangle-right"></span>
-          <span>{{item.title}}</span>
-        </div>
+    <div class="vv-article">
+      <div v-if="list.length" v-for="item in list" :key="item.id" @click="redirect2detail(item)" class="list-item">
+        <span class="triangle-right"></span>
+        <span>{{item.title}}</span>
       </div>
-      <div class="banner" v-for="(item, index) in banner" :key="index">
-        <img :src="item.img" @click="gotoList(item.id)" />
-      </div>
+
+      <banner class="vv-module" v-if="banner.length" :banners="banner"></banner>
     </div>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
+  import banner from '@/components/common/banner';
   export default {
     name: 'gbForum',
     computed: mapGetters([]),
-    components: {},
+    components: {
+      banner
+    },
     data(){
       return {
         list: [],
@@ -32,7 +32,7 @@
           img: "",
           title: "返回",
           callback: function () {
-            history.back(-1);
+            window.location.href = "#/home/index";
           }
         },
         center: {
@@ -58,10 +58,22 @@
           params: {
           },
           success(body){
-            self.list = body.data.list;
-            self.banner = body.data.banner;
+            if (body.code === 'success') {
+              let data = body.data;
+              self.list = data.list || [];
+              self.banner = data.banner || [];
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
           },
           error(err){
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
           }
         });
       },
@@ -71,21 +83,3 @@
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.tab-body {
-  padding: 20px;
-}
-.list-item {
-  font-size:15px;
-  color: rgba(0, 0, 0, 0.6);
-  // border-bottom:1px dotted #f0f0f0;
-}
-.banner{
-  margin:10px auto;
-}
-.banner img{
-  width:100%;
-}
-</style>

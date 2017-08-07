@@ -5,7 +5,7 @@
       <mu-tab value="industry" title="行业动态"/>
       <mu-tab value="forum" title="金融论坛"/>
     </mu-tabs>
-    <div v-if="activeTab === 'policy'" class="tab-body">
+    <div v-if="activeTab === 'policy'" class="vv-article">
       <div>
         <div v-for="item in policy.list" :key="item.id" @click="redirect2detail('policy', item)" class="list-item">
           <span class="triangle-right"></span>
@@ -13,9 +13,9 @@
         </div>
         <mu-infinite-scroll :scroller="policy.scroller" :loading="policy.loading" @load="onInfinite('policy')"/>
       </div>
-      <banner class="vv-module" :banners="policy.banner"></banner>
+      <banner class="vv-module" v-if="policy.banner.length" :banners="policy.banner"></banner>
     </div>
-    <div v-if="activeTab === 'industry'" class="tab-body">
+    <div v-if="activeTab === 'industry'" class="vv-article">
       <div>
         <div class="list-title">国内新闻</div>
         <div v-for="item in industry.list" :key="item.id" @click="redirect2detail('industry', item)" class="list-item">
@@ -24,9 +24,9 @@
         </div>
         <mu-infinite-scroll :scroller="industry.scroller" :loading="industry.loading" @load="onInfinite('industry')"/>
       </div>
-      <banner class="vv-module" :banners="industry.banner"></banner>
+      <banner class="vv-module" v-if="industry.banner.length" :banners="industry.banner"></banner>
     </div>
-    <div v-if="activeTab === 'forum'" class="tab-body">
+    <div v-if="activeTab === 'forum'" class="vv-article">
       <div>
         <div v-for="item in forum.list" :key="item.id" @click="redirect2detail('forum', item)" class="list-item">
           <span class="triangle-right"></span>
@@ -37,7 +37,7 @@
       <div class="message-container" v-if="forum.messages.length">
         <div class="list-title">留言</div>
         <div class="message-body">
-          <div v-for="message in forum.messages" :key="message.id" class="message">{{message.text}}</div>
+          <div v-for="message in forum.messages" :key="message.id" class="message" v-html="message.text"></div>
         </div>
       </div>
     </div>
@@ -182,12 +182,12 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import './../../assets/scss/_mixin.scss';
   .mu-tabs {
     position: fixed;
     background:#fff;
-    color: #333;
+    color: $fontColor;
     border:1px solid $lineColor;
     .mu-tab-link{
       color:$fontColor;
@@ -196,21 +196,12 @@
       color: $mainColor;
     }
   }
-  .tab-body {
-    padding:60px 20px 20px;
-  }
-  .list-item {
-    font-size:$fontSizeTitle;
-    color:$fontColor3;
-  }
-  .list-title {
-    margin-bottom:10px;
-    padding: 10px;
-    font-size:$fontSize;
-    border-bottom:1px solid $lineColor;
+  .vv-article {
+    padding:60px 0 $spacing;
   }
 
   .message-container {
+    margin:10px $spacing;
     background-color: $backgroudColor3;
     border-radius:$borderRadius;
     font-size:$fontSizeTitle;

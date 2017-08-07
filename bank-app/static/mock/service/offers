@@ -54,10 +54,25 @@
     }],
     "banners": [{
       "id": "12",
-      "img": "static/images/ad.jpg"
+      "img": "static/images/ad.jpg",
+      "url": "#/product/credit/detail/1"
     }, {
       "id": "12",
-      "img": "static/images/ad.jpg"
+      "img": "static/images/ad.jpg",
+      "url": "#/product/credit/detail/1"
+    }, {
+      "id": "12",
+      "img": "static/images/ad.jpg",
+      "url": "#/product/credit/detail/1"
+    }],
+    "banners2": [{
+      "id": "12",
+      "img": "static/images/ad.jpg",
+      "url": "#/product/credit/detail/1"
+    }, {
+      "id": "12",
+      "img": "static/images/ad.jpg",
+      "url": "#/product/credit/detail/1"
     }]
   }
 }

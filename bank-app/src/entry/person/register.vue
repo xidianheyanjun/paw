@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="vv-row">
-        <div class="vv-col-title">密码</div>
+        <div class="vv-col-title">密 码</div>
         <div class="vv-col-value">
           <mu-text-field label="" hintText="" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" :underlineShow="false" />
         </div>
@@ -116,10 +116,10 @@
 <style lang="scss" scoped>
 .vv-form {
   .vv-col-title {
-    width:20%;
+    width:35%;
   }
   .vv-col-value {
-    width: 80%;
+    width: 65%;
   }
 }
 </style>

@@ -102,7 +102,22 @@
       width:100px;
     }
   }
-
+  .mu-sub-header {
+    padding:0 $spacing;
+    font-size:$fontSizeTitle;
+    color:$fontColor3;
+    text-align:center;
+  }
+  .mu-content-block {
+    color:$fontColor;
+    font-size:$fontSizeContent;
+    line-height:22px;
+    padding:10px 0;
+    img {
+      margin: 10px 0;
+      width:100%;
+    }
+  }
   // common
   .head {
     position: fixed;
@@ -183,18 +198,69 @@
     margin-left: 12%;
   }
 
-  .triangle-right {
-    display:inline-block;
-    width:0;
-    height:0;
-    border:5px dashed transparent;
-    border-left:5px solid #2196f3;
+  
+  // 咨询页面
+  .vv-article {
+    padding:$spacing 0;
+    // 列表页
+    .list-item {
+      padding:8px $spacing;
+      font-size:$fontSizeTitle;
+      color:$fontColor3;
+      @extend %fix_width_content;
+    }
+    .list-title {
+      margin-bottom:10px;
+      padding: 10px;
+      font-size:$fontSize;
+      border-bottom:1px solid $lineColor;
+    }
+    .triangle-right {
+      display:inline-block;
+      width:0;
+      height:0;
+      border:5px dashed transparent;
+      border-left:5px solid #2196f3;
+    }
+    // 详情页
   }
+   .vv-article-detial {
+      padding: 10px $spacing;
+   }
+    // 对话形式
+  .vv-comment {
+    margin-bottom: 15px;
+    &:last-child{
+      margin-bottom:0;
+    }
 
-  .rv div.list-item {
-    padding: 8px;
+    .comment-user {
+      text-align: center;
+      img {
+        width: 28px;
+        height:28px;
+        overflow:hidden;
+        border-radius: $borderRadius;
+      }
+      .name {
+        font-size:$fontSizeContent2;
+        padding-top: 4px;
+        @extend %fix_width_content;
+      }
+    }
+
+    .comment-text {
+      box-sizing:border-box;
+      min-height:48px;
+      line-height:24px;
+      background-color: $backgroudColor3;
+      padding:10px;
+      font-size:$fontSizeContent;
+      // line-height: 150%;
+      // text-indent: 2em;
+      border-radius: $borderRadius;
+    }
   }
-
   // 表单填写
   .vv-form {
     .vv-row {

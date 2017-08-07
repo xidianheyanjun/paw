@@ -1,21 +1,16 @@
 <template>
   <div>
-    <div class="tab-body">
-      <div>
-        <div class="list-title">4月12日中小微企业对接会圆满完成</div>
-      </div>
-      <hr class="divid-line"/>
-      <div>
-        <mu-row v-for="item in list" :key="item.id" class="vv-row">
-          <mu-col width="20" tablet="20" desktop="20" class="vv-col-user">
-            <img :src="item.img" class="img">
-            <div class="name">{{item.name}}</div>
-          </mu-col>
-          <mu-col width="80" tablet="80" desktop="80" class="vv-col-text">
-            {{item.text}}
-          </mu-col>
-        </mu-row>
-      </div>
+    <div class="vv-article">
+      <mu-sub-header v-html="title"></mu-sub-header>
+      <mu-content-block v-html="content"></mu-content-block>
+      <mu-row v-if="list.length" v-for="item in list" :key="item.id" class="vv-comment">
+        <mu-col width="20" tablet="20" desktop="20" class="comment-user">
+          <img :src="item.img" class="img">
+          <div class="name">{{item.name}}</div>
+        </mu-col>
+        <mu-col width="80" tablet="80" desktop="80" class="comment-text" v-html="item.text">
+        </mu-col>
+      </mu-row>
     </div>
   </div>
 </template>
@@ -28,6 +23,8 @@
     components: {},
     data(){
       return {
+        title: '',
+        content: '',
         list: []
       };
     },
@@ -42,7 +39,7 @@
         },
         center: {
           img: "",
-          title: "论坛详情",
+          title: "对接交流论坛详情",
           callback: null
         },
         right: {
@@ -64,9 +61,23 @@
           params: {
           },
           success(body){
-            self.list = body.data;
+            if (body.code === 'success') {
+              let data = body.data;
+              self.title = data.title;
+              self.content = data.content;
+              self.list = data.list || [];
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
           },
           error(err){
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
           }
         });
       }
@@ -74,44 +85,9 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  .tab-body {
-    padding: 0 20px;
-  }
-
-  .divid-line {
-    border: 1px dashed #9575cd;
-  }
-
-  .list-title {
-    padding-top: 20px;
-    font-size: 15px;
-    color: #ad1457;
-  }
-
-  .vv-row {
-    background-color: #fccb97;
-    margin: 10px 5px;
-  }
-
-  .vv-col-user {
-    text-align: center;
-    padding: 6% 0;
-  }
-
-  .img {
-    width: 40%;
-  }
-
-  .name {
-    font-size: 14px;
-    padding-top: 10%;
-  }
-
-  .vv-col-text {
-    padding: 10px 10px;
-    line-height: 150%;
-    text-indent: 10%;
-  }
+<style scoped lang="scss">
+@import './../../assets/scss/_mixin.scss';
+.vv-article {
+  padding:10px $spacing $spacing;
+}
 </style>

@@ -1,20 +1,18 @@
 <template>
   <div>
-    <div class="tab-body">
+    <div class="vv-article">
       <div>
-        <mu-row v-for="item in list" :key="item.id" class="vv-row">
-          <mu-col v-if="item.position=='left'" width="20" tablet="20" desktop="20" class="vv-col-user">
+        <mu-row v-for="item in list" :key="item.id" class="vv-comment">
+          <mu-col v-if="item.position=='left'" width="20" tablet="20" desktop="20" class="comment-user">
             <img :src="item.img" class="img">
             <div class="name">{{item.name}}</div>
           </mu-col>
-          <mu-col v-if="item.position=='left'" width="80" tablet="80" desktop="80" class="vv-col-text">
-            {{item.text}}
+          <mu-col v-if="item.position=='left'" width="80" tablet="80" desktop="80" class="comment-text" v-html="item.text">
           </mu-col>
 
-          <mu-col v-if="item.position=='right'" width="80" tablet="80" desktop="80" class="vv-col-text">
-            {{item.text}}
+          <mu-col v-if="item.position=='right'" width="80" tablet="80" desktop="80" class="comment-text" v-html="item.text">
           </mu-col>
-          <mu-col v-if="item.position=='right'" width="20" tablet="20" desktop="20" class="vv-col-user">
+          <mu-col v-if="item.position=='right'" width="20" tablet="20" desktop="20" class="comment-user">
             <img :src="item.img" class="img">
             <div class="name">{{item.name}}</div>
           </mu-col>
@@ -27,7 +25,7 @@
 <script>
   import { mapGetters } from 'vuex';
   export default {
-    name: 'gbForum',
+    name: 'gbMeet',
     computed: mapGetters([]),
     components: {},
     data(){
@@ -41,7 +39,7 @@
           img: "",
           title: "返回",
           callback: function () {
-            history.back(-1);
+            window.location.href = "#/home/index";
           }
         },
         center: {
@@ -66,10 +64,22 @@
           url: '/gb/meet',
           params: {
           },
-          success(body){
-            self.list = body.data;
+          success(body) {
+            if (body.code === 'success') {
+              let data = body.data;
+              self.list = data.list || [];
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
           },
-          error(err){
+          error(err) {
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
           }
         });
       },
@@ -80,36 +90,10 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  .tab-body {
-    padding: 20px;
-  }
-  .vv-row {
-    margin: 10px 0;
-  }
 
-  .vv-col-user {
-    text-align: center;
-    padding: 6% 0;
-  }
-
-  .img {
-    width: 40%;
-    border-radius: 5px;
-  }
-
-  .name {
-    font-size: 14px;
-    padding-top: 10%;
-  }
-
-  .vv-col-text {
-    background-color: #fccb97;
-    padding:10px;
-    font-size:14px;
-    line-height: 150%;
-    text-indent: 2em;
-    border-radius: 5px;
-  }
+<style scoped lang="scss">
+@import './../../assets/scss/_mixin.scss';
+.vv-article {
+  padding:$spacing;
+}
 </style>

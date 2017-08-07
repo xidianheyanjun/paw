@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <mu-sub-header>{{info.title}}</mu-sub-header>
-    <mu-content-block>{{info.content}}</mu-content-block>
+  <div class="vv-article-detial">
+    <mu-sub-header v-html="info.title"></mu-sub-header>
+    <mu-content-block v-html="info.content"></mu-content-block>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
   export default {
-    name: 'gbIndustry',
+    name: 'infoIndustry',
     computed: mapGetters([]),
     components: {},
     data(){
@@ -27,7 +27,7 @@
         },
         center: {
           img: "",
-          title: "政策宣传详情",
+          title: "行业动态详情",
           callback: null
         },
         right: {
@@ -49,9 +49,21 @@
           params: {
           },
           success(body){
-            self.info = body.data;
+            if (body.code === 'success') {
+              let data = body.data;
+              self.info = data.info;
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
           },
-          error(err){
+          error(err) {
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
           }
         });
       }
@@ -59,6 +71,3 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
