@@ -54,13 +54,6 @@
       "img": "static/images/ad.jpg",
       "id": "6"
     }],
-    "messages": [{
-      "text": "傻逼",
-      "id": 1
-    }, {
-      "text": "傻逼",
-      "id": 2
-    }],
     "totalPage": 10
   }
 }

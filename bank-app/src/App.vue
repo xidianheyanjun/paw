@@ -257,17 +257,20 @@
     }
     // 详情页
   }
-   .vv-article-detail {
-      padding: 10px $spacing;
-   }
   // 对话形式
   .vv-comment {
-    margin-bottom: 15px;
-    &:last-child{
-      margin-bottom:0;
+    .item {
+      display: -webkit-box;
+      // -webkit-box-align: center;
+      -webkit-box-pack: justify;
+      margin-bottom: 15px;
+      &:last-child{
+        margin-bottom:0;
+      }
     }
 
     .comment-user {
+      width:20%;
       text-align: center;
       img {
         width: 28px;
@@ -283,15 +286,66 @@
     }
 
     .comment-text {
+      position:relative;
+      width:80%;
       box-sizing:border-box;
       min-height:48px;
       line-height:24px;
-      background-color: $backgroudColor3;
+      background-color: $backgroudColor;
       padding:10px;
       font-size:$fontSizeContent;
-      // line-height: 150%;
-      // text-indent: 2em;
       border-radius: $borderRadius;
+      word-wrap:break-word;
+      &:before {
+        position:absolute;
+        left:-16px;
+        top:10px;
+        content: '';
+        display:block;
+        width:0;
+        height:0;
+        border:9px dashed transparent;
+        border-right:10px solid $backgroudColor;
+      }
+    }
+    .item-right {
+      .comment-text {
+        background-color: $backgroudColor3;
+        &:before {
+          right:-9px;
+          left:auto;
+          border-left: 10px solid $backgroudColor3;
+          border-right:0;
+        }
+      }
+    }
+  }
+  // 发言输入
+  .edit-message {
+    position: fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:47px;
+    line-height:47px;
+    box-sizing:border-box;
+    border-top: 1px solid $lineColor2;
+    .input-box {
+      margin-right:88px;
+    }
+    .eidt-input {
+      box-sizing:border-box;
+      width:100%;
+      padding:0 10px;
+    }
+    .vv-button {
+      position:absolute;
+      top:0;
+      right:0;
+      border-radius:0;
+      height:47px;
+      line-height:47px;
+      width:88px;
     }
   }
   // 贷款/金融产品列表页面

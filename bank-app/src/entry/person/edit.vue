@@ -18,13 +18,14 @@
 <script>
   import {mapGetters} from 'vuex';
   import native from "@/util/native";
+  const DEFAULT_AVATAR = require('./../../assets/images/atavar.png');
   export default {
     name: 'personEdit',
     computed: mapGetters([]),
     components: {},
     data(){
       return {
-        avatar: "static/images/atavar.png",
+        avatar: DEFAULT_AVATAR,
         account: ""
       };
     },

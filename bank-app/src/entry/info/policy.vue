@@ -1,19 +1,22 @@
 <template>
-  <div class="vv-article-detail">
-    <mu-sub-header v-html="info.title"></mu-sub-header>
-    <mu-content-block v-html="info.content"></mu-content-block>
+  <div>
+    <article-detail :title="title" :content="content"></article-detail>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
+  import articleDetail from '@/components/common/article.detail';
   export default {
     name: 'infoPolicy',
     computed: mapGetters([]),
-    components: {},
+    components: {
+      articleDetail
+    },
     data(){
       return {
-        info: {}
+        title: '',
+        content: ''
       };
     },
     mounted(){
@@ -51,7 +54,8 @@
           success(body){
             if (body.code === 'success') {
               let data = body.data;
-              self.info = data.info;
+              self.title = data.title;
+              self.content = data.content;
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,

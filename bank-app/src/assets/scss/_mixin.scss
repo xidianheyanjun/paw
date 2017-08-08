@@ -11,6 +11,7 @@ $fontColor3: #666;
 $lineColor: #f0f0f0;
 $lineColor2: #e0e0e0;
 $backgroudColor: #dde3ff;
+$backgroudColor2: #f6c19f;
 $backgroudColor3: #f6c19f;
 $borderRadius: 6px;
 $spacing: 20px;
@@ -27,4 +28,5 @@ $fontSizeContent2: 13px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  word-wrap:break-word;
 }

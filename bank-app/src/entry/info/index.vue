@@ -34,12 +34,7 @@
         </div>
         <mu-infinite-scroll :scroller="forum.scroller" :loading="forum.loading" @load="onInfinite('forum')"/>
       </div>
-      <div class="message-container" v-if="forum.messages.length">
-        <div class="list-title">留言</div>
-        <div class="message-body">
-          <div v-for="message in forum.messages" :key="message.id" class="message" v-html="message.text"></div>
-        </div>
-      </div>
+      <banner class="vv-module" v-if="forum.banner.length" :banners="forum.banner"></banner>
     </div>
   </div>
 </template>
@@ -81,7 +76,7 @@
           pageSize: 20,
           totalPage: -1,
           list: [],
-          messages: []
+          banner: []
         }
       };
     },

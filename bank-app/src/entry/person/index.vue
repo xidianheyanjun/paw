@@ -27,7 +27,7 @@
 <script>
   import {mapGetters} from 'vuex';
   import native from "@/util/native";
-  const DEFAULT_AVATAR = "static/images/atavar.png";
+  const DEFAULT_AVATAR = require('./../../assets/images/atavar.png');
   export default {
     name: 'personIndex',
     computed: mapGetters([
