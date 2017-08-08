@@ -11,7 +11,7 @@
             <mu-divider inset/>
         </mu-list>
     </div>
-    <w-map @fetchMapNearbanks="fetchMapNearbanks"></w-map>
+    <w-map v-if="allMapBanks.length === 0" @fetchMapNearbanks="fetchMapNearbanks"></w-map>
 </div>
 </template>
 <script>
@@ -24,10 +24,18 @@ export default {
       picker,
       wMap
     },
-    computed: mapGetters([]),
+    computed: {
+        ...mapGetters([
+            'gdmap'
+        ]),
+        allMapBanks() {
+            console.warn(this.gdmap.nearbank.pois);
+            return this.gdmap.nearbank.pois;
+        }
+    },
     data() {
         return {
-            allBanks: [], // 高德地图获取到的附近所有银行
+            // allMapBanks: [], // 高德地图获取到的附近所有银行
             pickList: [],
             curPick: '',
             list: []
@@ -56,10 +64,13 @@ export default {
         }
       });
       this.initPick();
+      this.fetchMapNearbanks();
     },
     methods: {
-        fetchMapNearbanks(list) {
-            this.allBanks = list;
+        fetchMapNearbanks(poiList) {
+            if (poiList) {
+                this.allMapBanks = poiList.pois;
+            }
             // {
             //     name: "华润银行",
             //     address: "福华路385号",
@@ -75,11 +86,10 @@ export default {
             this.renderBanks();
         },
         renderBanks(query = 'all') {
-            this.list = this.allBanks;
+            this.list = this.allMapBanks;
         },
-        goto(url){
-            console.log(url)
-            window.location.href = url;
+        goto(loc){
+            window.location.href = `#/common/map?lat=${loc.lat}&lng=${loc.lng}`;
         },
         initPick() {
             let self = this;
