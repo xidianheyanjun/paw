@@ -141,6 +141,9 @@
   html .mu-dropDown-menu-text{
     padding-left:10px;
   }
+  html .mu-appbar .left{
+    min-width:24px;
+  }
   // common
   .head {
     position: fixed;

@@ -98,11 +98,11 @@
     },
     mounted(){
       this.$store.dispatch("head_setHead", {
-        left: {
-          img: "",
-          title: "返回",
-          callback: null
-        },
+        // left: {
+        //   img: "",
+        //   title: "返回",
+        //   callback: null
+        // },
         center: {
           img: "",
           title: "惠银",
@@ -125,7 +125,6 @@
     }
   }
 </script>
-
 <style scoped lang="scss">
 @import './../../assets/scss/_mixin.scss';
   .paper {

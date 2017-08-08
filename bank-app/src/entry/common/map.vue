@@ -23,15 +23,15 @@
         },
         center: {
           img: "",
-          title: " ",
-          callback: null
-        },
-        right: {
-          img: "",
           title: "地图",
-          callback: function () {
-          }
+          callback: null
         }
+        // right: {
+        //   img: "",
+        //   title: "地图",
+        //   callback: function () {
+        //   }
+        // }
       });
       console.log("create map");
       let map = new AMap.Map('map', {

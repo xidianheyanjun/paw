@@ -15,7 +15,7 @@ export default{
     },
     right: {
       img: "",
-      title: "去登陆",
+      title: "地图",
       callback: null
     }
   }

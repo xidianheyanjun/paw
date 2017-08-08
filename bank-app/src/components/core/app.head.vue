@@ -1,7 +1,7 @@
 <template>
   <mu-appbar :title="head.center.title" titleClass="vv-tac">
-    <mu-flat-button @click="navClick('left')" :label="head.left.title" icon="reply" slot="left"/>
-    <mu-flat-button @click="navClick('right')" :label="head.right.title" icon="place" slot="right"/>
+    <mu-flat-button v-if="head.left" @click="navClick('left')" :label="head.left.title" icon="reply" slot="left"/>
+    <mu-flat-button v-if="head.right" @click="navClick('right')" :label="head.right.title" icon="place" slot="right"/>
   </mu-appbar>
 </template>
 
