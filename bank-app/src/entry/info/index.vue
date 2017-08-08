@@ -164,8 +164,7 @@
             //   self[kind].list.push(body.data.list[count]);
             // }
             self[kind].list = self[kind].list.concat(body.data.list);
-            self[kind].banner = self[kind].banner && self[kind].banner.concat(body.data.banner);
-            self[kind].messages = self[kind].messages && self[kind].messages.concat(body.data.messages);
+            // self[kind].banner = self[kind].banner && self[kind].banner.concat(body.data.banner);
             self[kind].totalPage = body.data.totalPage;
             self[kind].loading = false;
           },

@@ -45,15 +45,8 @@
       "title": "4月12日中小微企业对接会圆满完成",
       "id": "7"
     }],
-    "banner": [{
-      "url": "#/product/credit/detail/1",
-      "img": "static/images/ad.jpg",
-      "id": "5"
-    }, {
-      "url": "#/product/credit/detail/1",
-      "img": "static/images/ad.jpg",
-      "id": "6"
-    }],
+    "pageIndex": 1,
+    "pageSize": 20,
     "totalPage": 10
   }
 }

@@ -104,12 +104,13 @@
         console.warn('nearbank o%', this.nearbank)
         if (!this.userLocation.position) {
           this.geolocationUserLocation();
-        } else {
-          if (!this.nearbank.pois.length) {
-            this.placeSearchMap(this.userLocation);
-            return;
-          }
+          return;
         }
+        if (!this.nearbank.pois.length) {
+          this.placeSearchMap(this.userLocation);
+          return;
+        }
+        
         let lat = this.$route.query['lat'];
         let lng = this.$route.query['lng'];
         if (lat) {
@@ -117,6 +118,8 @@
             lat: lat,
             lng: lng
           });
+        } else if (this.userLocation.position) {
+          this.placeSearchMap(this.userLocation);
         }
       },
       geolocationUserLocation() {
@@ -145,6 +148,8 @@
 
           AMap.event.addListener(geolocation, 'complete', function (result) {
             console.log('AMap.Geolocation complete %o', result);
+            console.warn('user lng :', result.position.lng);
+            console.warn('user lng 2 :', result.position.getLng());
             self.$store.dispatch('gdmap_setUserLocation', result);
             self.placeSearchMap(result);
           });
@@ -161,6 +166,7 @@
             map: HYMap,
             panel: ''
           });
+          console.warn(result.position.getLng())
           placeSearch.searchNearBy('银行', new AMap.LngLat(result.position.getLng(), result.position.getLat()), 5000, function (statusSearch, resultSearch) {
             console.log(statusSearch);
             console.log(resultSearch);
@@ -181,7 +187,7 @@
             panel: ''
           });
           walking.search(
-            new AMap.LngLat(result.position.lng, result.position.lat),
+            new AMap.LngLat(result.position.getLng(), result.position.getLat()),
             new AMap.LngLat(resultSearchPoi.lng, resultSearchPoi.lat)
           );
         });
