@@ -20,7 +20,7 @@
     data(){
       return {
         pickList: [],
-        curPick: '',
+        curPick: [],
         banks: []
       };
     },
@@ -61,7 +61,7 @@
             if (body.code === 'success') {
               let data = body.data;
               self.pickList = data.pickList || self.pickList;
-              self.curPick = value;
+              self.curPick = [value];
               self.banks = data.banks;
             } else {
               self.$store.dispatch('box_set_toast', {

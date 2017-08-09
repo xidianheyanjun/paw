@@ -1,6 +1,6 @@
 <template>
 <div class="vv-icons">
-  <mu-row gutter class="row">
+  <mu-row gutter class="vv-row">
     <mu-col width="25" tablet="25" desktop="25" v-for="(item, index) in icons" :key="index">
       <a class="item" @click="iconClick(item.id)">
         <div class="icon">
@@ -40,12 +40,12 @@ export default {
 @import './../../assets/scss/_mixin.scss';
 .vv-icons {
   text-align:center;
-  .row {
-    margin:$spacing;
+  .vv-row {
+    margin:$spacing $spacing 0;
   }
   .item {
     display:block;
-    margin-bottom:15px;
+    margin-bottom:18px;
     color:rgba(0, 0, 0, 0.87);
     font-size:12px;
     text-align:center;
@@ -61,6 +61,7 @@ export default {
     img {
       width:32px;
       height:32px;
+      border-radius:100%;
       vertical-align:middle;
     }
   }

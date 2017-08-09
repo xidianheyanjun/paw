@@ -1,8 +1,12 @@
 <template>
     <div>
+        <div class="vv-module vv-search-default" v-if="banks.length">
+            <mu-sub-header class="vv-title">智能查询</mu-sub-header>
+            <icon-row :icons="banks" @goto="gotoList"></icon-row>
+        </div>
         <div class="vv-search">
+            <mu-sub-header class="vv-title">精确查询</mu-sub-header>
             <div class="vv-company vv-form" v-if="pageType === 'company'">
-                <mu-sub-header class="vv-title">企业用户贷款产品查询</mu-sub-header>
                 <div class="vv-row">
                     <div class="vv-col-title">企业性质</div>
                     <div class="vv-col-value">
@@ -50,7 +54,6 @@
                 <mu-raised-button label="点击查询" class="demo-raised-button vv-button" @click="searchBtnClick" primary fullWidth/>
             </div>
             <div class="vv-company vv-form" v-if="pageType === 'personal'">
-                <mu-sub-header class="vv-title">个人用户贷款产品查询</mu-sub-header>
                 <div class="vv-row">
                     <div class="vv-col-title">姓名</div>
                     <div class="vv-col-value">
@@ -193,10 +196,6 @@
                 <mu-raised-button label="点击查询" class="demo-raised-button vv-button" @click="searchBtnClick" primary fullWidth/>
             </div>
         </div>
-        <div class="vv-search-default" v-if="banks.length">
-            <mu-sub-header class="vv-title">智能查询</mu-sub-header>
-            <icon-row :icons="banks" @goto="gotoList"></icon-row>
-        </div>
     </div>
 </template>
 <script>
@@ -307,7 +306,7 @@ export default {
             });
         },
         gotoList(id) {
-            // window.location.href = '#/product/credit/list?query=' + id;
+            window.location.href = '#/product/loan/list/' + id;
         },
         init() {
             let self = this;
@@ -353,7 +352,6 @@ export default {
 }
 .vv-search-default{
     background: #fff;
-    border-top:10px solid $bgColor2;
     padding-bottom:10px;
 }
 </style>

@@ -96,7 +96,7 @@
         });
       },
       gotoList(id) {
-        window.location.href = '#/product/credit/detail/' + id;
+        window.location.href = '#/product/credit/list';
       }
     }
   } 

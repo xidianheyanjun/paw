@@ -18,7 +18,7 @@
         </div>
       </li>
     </ul>
-    
+    <div class="bottomSign"></div>
     <div class="edit-message">
       <div class="input-box">
         <input type="text" class="eidt-input" v-model.trim="messageVal">

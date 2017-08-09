@@ -19,7 +19,13 @@
           <mu-text-field label="" hintText="" v-model.trim="password2" type="password" :errorText="passwordError2" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError2')" :underlineShow="false" />
         </div>
       </div>
-      <mu-raised-button label="立即注册" class="vv-button" @click="register" primary fullWidth/>
+      <div class="vv-row">
+        <div class="vv-col-title">验证码</div>
+        <div class="vv-col-value">
+          <mu-text-field label="" hintText="" v-model.trim="indentifyCode" type="number" :errorText="indentifyCodeError" @input="clearErrorTips('indentifyCodeError')" :underlineShow="false" />
+        </div>
+      </div>
+      <mu-raised-button :label="btnTxt" class="vv-button" @click="register" primary fullWidth/>
     </div>
   </div>
 </template>
@@ -36,10 +42,19 @@
         passwordError: '',
         password2: '',
         passwordError2: '',
+        btnTxt: '立即注册',
+        indentifyCode: '',
+        indentifyCodeError: '',
         toast: false
       };
     },
     mounted() {
+      let titleTxt = '注册';
+      let isFindpassword = this.$route.query['type'];
+      if (isFindpassword == 'find') {
+        titleTxt = '找回密码';
+        this.btnTxt = '修改密码';
+      }
       this.$store.dispatch("head_setHead", {
         left: {
           img: "",
@@ -51,7 +66,7 @@
         },
         center: {
           img: "",
-          title: "注册",
+          title: titleTxt,
           callback: null
         },
         right: {

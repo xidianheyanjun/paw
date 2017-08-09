@@ -96,8 +96,5 @@
 
 <style lang="scss" scoped>
 @import './../../../assets/scss/_mixin.scss';
-.vv-module{
-  background:#fff;
-  border-bottom:10px solid $bgColor2;
-}
+
 </style>

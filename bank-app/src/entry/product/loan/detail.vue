@@ -1,19 +1,24 @@
 <template>
-  <div class="vv-article-detail">
-    <mu-sub-header>{{title}}</mu-sub-header>
-    <mu-content-block v-html="content"></mu-content-block>
+  <div>
+    <article-detail :title="title" :content="content" :isStar="isStar" :starUrl="starUrl" @starClick="starClick"></article-detail>
   </div>
 </template>
 <script>
+import articleDetail from '@/components/common/article.detail';
 export default {
   name: 'loanDetail',
-  data(){
-      return {
-          title: '',
-          content: ''
-      }
+  components: {
+    articleDetail
   },
-  mounted() {
+  data(){
+    return {
+      title: '',
+      content: '',
+      isStar: false,
+      starUrl: '#/product/loan/detail/',
+    };
+  },
+  mounted() { 
     this.$store.dispatch("head_setHead", {
       left: {
         img: "",
@@ -55,6 +60,7 @@ export default {
             let data = body.data;
             self.title = data.title;
             self.content = data.content;
+            self.isStar = data.isStar;
           } else {
             self.$store.dispatch('box_set_toast', {
               show: true,
@@ -70,6 +76,9 @@ export default {
         }
       });
     },
+    starClick(isStar) {
+      this.isStar = isStar;
+    }
   }
 }
 </script>

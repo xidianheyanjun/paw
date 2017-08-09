@@ -4,7 +4,7 @@
       <li  v-for="(pick, index) in pickList" :key="index" :class="['tab', {'current': isShow && (curPickIdx === index)}]" :style="{width: tabWidth}">
         <div class="value" @click="openPick(pick, index)">{{pick.curVal.name}}</div>
         <ul class="items" v-show="isShow && (index === curPickIdx)">
-          <li :class="['item', {'cur': idx === pick.curIdx}]" @click.stop="pickClick(item, index)" v-for="(item, idx) in pick.list" :key="idx">{{item.name}}</li>
+          <li :class="['item', {'cur': idx === pick.curIdx}]" @click.stop="pickClick(item, idx, index)" v-for="(item, idx) in pick.list" :key="idx">{{item.name}}</li>
         </ul>
       </li>
     </ul>
@@ -19,9 +19,10 @@ export default {
       type: Array,
       default: []
     },
+    // 存对应筛选条件项的value值
     curPick: {
-      type: String,
-      default: ''
+      type: Array,
+      default: []
     }
   },
   data() {
@@ -34,10 +35,14 @@ export default {
     pickList() {
       let self = this;
       this.picks.forEach((item, index) => {
-        item.curIdx = 0;
+        if (!self.curPick[index]) {
+          self.curPick[index] = item.list[0].value;
+          item.curIdx = 0;
+        }
         for (let i = 0, len = item.list.length; i < len; i++) {
-          if (self.curPick === item.list[i].value) {
+          if (self.curPick[index] === item.list[i].value) {
             item.curVal = item.list[i];
+            item.curIdx = i;
             break;
           }
         }
@@ -63,10 +68,12 @@ export default {
     closePick() {
       this.isShow = false;
     },
-    pickClick(item, index) {
+    pickClick(item, idx, index) {
       this.isShow = false;
-      this.picks[index].curVal = item;
-      this.$emit('checkedPick', item.value);
+      this.pickList[index].curVal = item;
+      this.pickList[index].curIdx = idx;
+      this.curPick[index] = item.value;
+      this.$emit('checkedPick', this.curPick);
     }
   }
 }

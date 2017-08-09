@@ -5,7 +5,8 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  let HYMap = {}; 
+  let HYMap = {};
+  const MAP_SEARCH_RADIUS = 5000;
   export default {
     name: 'map',
     computed: mapGetters([
@@ -20,7 +21,6 @@
           title: "返回",
           callback: function () {
             history.back(-1);
-            // window.location.href = "#/home/index";
           }
         },
         center: {
@@ -39,69 +39,18 @@
       this.nearbank = this.gdmap.nearbank;
       this.initMap();
 
-      // console.log("create map");
-      // let map = new AMap.Map('map', {
-      //   resizeEnable: true
-      // });
-
-      // console.warn(self.gdmap);
-      // map.plugin(["AMap.Geolocation"], function () {
-      //   let geolocation = new AMap.Geolocation({
-      //     enableHighAccuracy: true,//是否使用高精度定位，默认:true
-      //     timeout: 100000,          //超过10秒后停止定位，默认：无穷大
-      //     buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-      //     zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-      //     buttonPosition: 'RB'
-      //   });
-      //   console.log('AMap.Geolocation %o', geolocation);
-      //   map.addControl(geolocation);
-      //   geolocation.getCurrentPosition();
-      //   AMap.event.addListener(geolocation, 'error', function (err) {
-      //     console.log('AMap.Geolocation err %o', err);
-      //     self.$store.dispatch('box_set_toast', {
-      //       show: true,
-      //       toastText: '定位失败'
-      //     });
-      //     return;
-      //   });
-      //   AMap.event.addListener(geolocation, 'complete', function (result) {
-      //     console.log('AMap.Geolocation complete %o', result);
-      //     self.$store.dispatch('gdmap_setUserLocation', result);
-      //     AMap.service(['AMap.PlaceSearch', 'AMap.Walking'], function () {//回调函数
-      //       let placeSearch = new AMap.PlaceSearch({
-      //         pageSize: 50,
-      //         pageIndex: 1,
-      //         city: result.city, //城市
-      //         map: map,
-      //         panel: ""
-      //       });
-
-            // placeSearch.searchNearBy('银行', new AMap.LngLat(result.position.getLng(), result.position.getLat()), 5000, function (statusSearch, resultSearch) {
-            //   console.log(statusSearch);
-            //   console.log(resultSearch);
-              
-            //   self.$store.dispatch('gdmap_setNearbank', resultSearch.poiList);
-            //   self.$emit('fetchMapNearbanks', resultSearch.poiList.pois);
-            //   let walking = new AMap.Walking({
-            //     map: map,
-            //     panel: ""
-            //   });
-
-            //   console.log("search location");
-            //   walking.search(new AMap.LngLat(result.position.getLng(), result.position.getLat()), new AMap.LngLat(resultSearch.poiList.pois[0].location.lng, resultSearch.poiList.pois[0].location.lat));
-            // });
-          // });
-      //   });
-      // });
     },
     methods: {
       initMap() {
         console.log("create map");
+        if (!AMap) {
+          return;
+        }
         HYMap = new AMap.Map('map', {
           resizeEnable: true
         });
-        console.warn('userLocation o%', this.userLocation)
-        console.warn('nearbank o%', this.nearbank)
+        console.log('userLocation', this.userLocation)
+        console.log('nearbank', this.nearbank)
         if (!this.userLocation.position) {
           this.geolocationUserLocation();
           return;
@@ -115,15 +64,15 @@
         let lng = this.$route.query['lng'];
         if (lat) {
           this.walkingMap(this.userLocation, {
-            lat: lat,
-            lng: lng
+            lat,
+            lng
           });
         } else if (this.userLocation.position) {
           this.placeSearchMap(this.userLocation);
         }
       },
       geolocationUserLocation() {
-        console.warn('geolocationUserLocation');
+        console.log('geolocationUserLocation start');
         let self = this;
         HYMap.plugin(['AMap.Geolocation'], function () {
           let geolocation = new AMap.Geolocation({
@@ -133,41 +82,38 @@
             zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
             buttonPosition: 'RB'
           });
-          console.log('AMap.Geolocation %o', geolocation);
+          console.log('AMap.Geolocation:', geolocation);
           HYMap.addControl(geolocation);
           geolocation.getCurrentPosition();
 
           AMap.event.addListener(geolocation, 'error', function (err) {
-            console.log('AMap.Geolocation err %o', err);
+            console.log('AMap.Geolocation err:', err);
             self.$store.dispatch('box_set_toast', {
               show: true,
-              toastText: '定位失败'
+              toastText: '无法获取您的位置，请确保打开了定位'
             });
             return;
           });
 
           AMap.event.addListener(geolocation, 'complete', function (result) {
-            console.log('AMap.Geolocation complete %o', result);
-            console.warn('user lng :', result.position.lng);
-            console.warn('user lng 2 :', result.position.getLng());
+            console.log('AMap.Geolocation complete o%', result);
             self.$store.dispatch('gdmap_setUserLocation', result);
             self.placeSearchMap(result);
           });
         });
       },
       placeSearchMap(result) {
-        console.warn('placeSearchMap');
+        console.log('placeSearchMap start');
         let self = this;
         AMap.service(['AMap.PlaceSearch'], function () {//回调函数
           let placeSearch = new AMap.PlaceSearch({
-            pageSize: 50,
+            pageSize: 50, // 一次性查找的个数
             pageIndex: 1,
-            city: result.city, //城市
+            city: result.city,
             map: HYMap,
             panel: ''
           });
-          console.warn(result.position.getLng())
-          placeSearch.searchNearBy('银行', new AMap.LngLat(result.position.getLng(), result.position.getLat()), 5000, function (statusSearch, resultSearch) {
+          placeSearch.searchNearBy('银行', new AMap.LngLat(result.position.getLng(), result.position.getLat()), MAP_SEARCH_RADIUS, function (statusSearch, resultSearch) {
             console.log(statusSearch);
             console.log(resultSearch);
             
@@ -178,9 +124,9 @@
         });
       },
       walkingMap(result, resultSearchPoi) {
-        console.warn('walkingMap');
-        console.warn('result o%', result);
-        console.warn('resultSearchPoi o%', resultSearchPoi);
+        console.log('walkingMap start');
+        console.log('userLocation:', result);
+        console.log('resultSearchPoi:', resultSearchPoi);
         AMap.service(['AMap.Walking'], function () {
           let walking = new AMap.Walking({
             map: HYMap,
@@ -191,9 +137,6 @@
             new AMap.LngLat(resultSearchPoi.lng, resultSearchPoi.lat)
           );
         });
-      },
-      searchNearBanks() {
-        
       }
     }
   }

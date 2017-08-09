@@ -1,7 +1,5 @@
 <template>
     <div class="wrapper">
-        <mu-sub-header class="vv-title" v-if="pageType === 'company'">企业用户贷款产品查询</mu-sub-header>
-        <mu-sub-header class="vv-title" v-if="pageType === 'personal'">个人用户贷款产品查询</mu-sub-header>
         <picker :picks="pickList" @checkedPick="renderData" :curPick="curPick"></picker>
         <ul class="vv-products" v-if="list.length">
             <li class="item" v-for="(item, index) in list" :key="index" @click="goto(item.id)">
@@ -22,7 +20,7 @@ export default {
         return {
             pageType: 'company',
             pickList: [],
-            curPick: '',
+            curPick: [],
             list: []
         }
     },
@@ -34,7 +32,7 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                    window.location.href = "#/product/loan/index";
+                    history.back(-1);
                 }
             },
             center: {
@@ -66,7 +64,7 @@ export default {
                 if (body.code === 'success') {
                     let data = body.data;
                     self.pickList = data.pickList || self.pickList;
-                    self.curPick = value;
+                    self.curPick = [value];
                     self.list = data.list || [];
                 } else {
                     self.$store.dispatch('box_set_toast', {
@@ -98,12 +96,10 @@ export default {
         line-height:49px;
     }
     .vv-picker{
-        position: absolute;
-        top:0;
-        right:0;
-        padding:5px 0 0;
-        width:100px;
-        border-bottom:0;
+        position: fixed;
+    }
+    .vv-products {
+        padding-top:70px;
     }
 }
 </style>

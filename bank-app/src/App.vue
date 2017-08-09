@@ -172,6 +172,25 @@
     height: 8%;
   }
 
+  .no-data {
+    margin:50% auto;
+    font-size: $fontSizeContent;
+    color: $fontColor2;
+    text-align:center;
+    &:before {
+      content: '';
+      display:block;
+      width: 100px;
+      height:62px;
+      background: url(./assets/images/null.png) no-repeat;
+      background-size:cover;
+      margin:$spacing auto;
+    }
+  }
+  .vv-module{
+    background:#fff;
+    border-bottom:10px solid $bgColor2;
+  }
   .vv-title{
     display: -webkit-box;
     -webkit-box-align: center;

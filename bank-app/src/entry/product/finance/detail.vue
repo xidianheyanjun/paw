@@ -1,26 +1,22 @@
 <template>
-  <div class="vv-article-detail">
-    <mu-sub-header>{{title}}</mu-sub-header>
-    <mu-content-block>
-      <div class="detail" v-html="detail"></div>
-      <mu-flat-button :class="['vv-star', {'stared': isStar}]" @click="star" :label="starTxt" icon="star" primary/>
-    </mu-content-block>
+  <div>
+    <article-detail :title="title" :content="content" :isStar="isStar" :starUrl="starUrl" @starClick="starClick"></article-detail>
   </div>
 </template>
 <script>
+import articleDetail from '@/components/common/article.detail';
 export default {
-  name: 'loan',
+  name: 'financeDetail',
+  components: {
+    articleDetail
+  },
   data(){
     return {
       title: '',
-      detail: '',
-      isStar: false
-    }
-  },
-  computed: {
-    starTxt() {
-      return this.isStar ? '已收藏' : '点击收藏';
-    }
+      content: '',
+      isStar: false,
+      starUrl: '#/product/finance/detail/'
+    };
   },
   mounted() {
     this.$store.dispatch("head_setHead", {
@@ -47,19 +43,18 @@ export default {
     this.init();
   },
   methods: {
-    star() {
-      this.isStar = !this.isStar;
-
+    init() {
       let self = this;
-      let url = '/product/finance/';
-      url = this.isStar ? 'cancleStar' : 'star';
       this.$sendRequest({
-        url: url + self.$route.params['id'],
+        url: '/product/finance/detail/' + self.$route.params['id'],
         params: {
         },
         success(body){
           if (body.code === 'success') {
-            self.isStar = !self.isStar;
+            let data = body.data;
+            self.title = data.title;
+            self.content = data.content;
+            self.isStar = data.isStar;
           } else {
             self.$store.dispatch('box_set_toast', {
               show: true,
@@ -75,31 +70,8 @@ export default {
         }
       });
     },
-    init() {
-      let self = this;
-      this.$sendRequest({
-        url: '/product/finance/detail/' + self.$route.params['id'],
-        params: {
-        },
-        success(body){
-          if (body.code === 'success') {
-            let data = body.data;
-            self.title = data.title;
-            self.detail = data.detail;
-          } else {
-            self.$store.dispatch('box_set_toast', {
-              show: true,
-              toastText: body.msg
-            });
-          }
-        },
-        error(err){
-          self.$store.dispatch('box_set_toast', {
-            show: true,
-            toastText: '服务器繁忙,请稍后再试'
-          });
-        }
-      });
+    starClick(isStar) {
+      this.isStar = isStar;
     }
   }
 }

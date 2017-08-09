@@ -22,7 +22,7 @@ export default {
   data(){
     return {
       pickList: [],
-      curPick: '',
+      curPick: [],
       list: []
     };
   },
@@ -63,7 +63,7 @@ export default {
           if (body.code === 'success') {
             let data = body.data;
             self.pickList = data.pickList || self.pickList;
-            self.curPick = value;
+            self.curPick = [value];
             self.list = data.list || [];
           } else {
             self.$store.dispatch('box_set_toast', {
