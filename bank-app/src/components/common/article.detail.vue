@@ -65,7 +65,7 @@ export default {
 }
 .vv-star{
   position:fixed;
-  left:$spacing;
+  right:$spacing;
   top:80%;
   width:60px;
   height:60px;

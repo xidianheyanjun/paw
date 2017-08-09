@@ -1,5 +1,11 @@
 <template>
   <div class="vv-meet">
+    <div class="meet-hd">
+      <div class="meet-users">
+        <span class="txt">参与人员：</span>
+        <span class="name" v-for="(item, index) in onlineUsers">{{item}}</span>
+      </div>
+    </div>
     <ul class="vv-comment">
       <li v-for="(item, index) in list" :key="index">
         <div class="item item-left" v-if="!person_isLogin || !(person_isLogin && (item.userId == userId))">
@@ -18,7 +24,6 @@
         </div>
       </li>
     </ul>
-    <div class="bottomSign"></div>
     <div class="edit-message">
       <div class="input-box">
         <input type="text" class="eidt-input" v-model.trim="messageVal">
@@ -44,6 +49,15 @@
         isSending: false,
         messageVal: ''
       };
+    },
+    computed: {
+      onlineUsers() {
+        let names = [];
+        this.list.forEach(item => {
+          names.push(item.name);
+        });
+        return names;
+      }
     },
     watch: {
       person_isLogin(v) {
@@ -77,6 +91,10 @@
         }
       });
       this.init();
+    },
+    updated() {
+      let rvEl = document.body.querySelector('.rv');
+      rvEl.scrollTop = rvEl.scrollHeight;
     },
     methods: {
       init() {
@@ -163,8 +181,36 @@
 
 <style scoped lang="scss">
 @import './../../assets/scss/_mixin.scss';
+.meet-hd {
+  position: fixed;
+  top:56px;
+  left:0;
+  padding:15px $spacing;
+  box-sizing:border-box;
+  background:#fff;
+  border-bottom:1px solid $lineColor2;
+  z-index:90;
+  .meet-users {
+    height:56px;
+    line-height:28px;
+    overflow:hidden; 
+    text-overflow:ellipsis;
+    display:-webkit-box; 
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2; 
+  }
+  .txt{
+    color:$fontColor2;
+  }
+  .name{
+    &:after{
+      content:'、';
+      margin-right:5px;
+    }
+  }
+}
 .vv-comment {
-  padding:$spacing $spacing 60px;
+  padding:110px $spacing 60px;
   li {
     margin-bottom:15px;
   }

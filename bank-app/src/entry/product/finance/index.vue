@@ -4,7 +4,7 @@
       <icon-row :icons="banks" @goto="gotoList"></icon-row>
     </div>
 
-    <div>
+    <div class="vv-module vv-product-box">
       <div class="vv-title" v-if="list.length">
         <span class="title">热销产品</span>
         <a class="more" @click.stop="">更多 &gt;</a>
@@ -30,12 +30,19 @@
           </li>
       </ul>
     </div>
+
+    <div class="vv-notice" v-show="notice.length">
+      <div class="notice-list" ref="notice">
+        <a class="item" v-for="(item, index) in notice" :key="index" v-html="item.title" :href="item.url"></a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import iconRow from '@/components/common/icon.row';
+  let noticeTimer = null;
   export default {
     name: 'product',
     components: {
@@ -44,7 +51,8 @@
     data(){
       return {
         banks: [],
-        list: []
+        list: [],
+        notice: []
       };
     },
     mounted () {
@@ -70,8 +78,35 @@
         }
       });
       this.init();
+      // this.noticeScroll();
+    },
+    watch: {
+      notice(v) {
+        v && this.noticeScroll();
+      }
+    },
+    beforeDestroy() {
+      clearInterval(noticeTimer);
+      noticeTimer = null;
     },
     methods: {
+      noticeScroll() {
+        if (!this.notice.length) {
+          return;
+        }
+        const BROADCAST_TIME = 3000;
+        const distance = 40;
+        let count = 0;
+        let noticeLen = this.notice.length;
+        noticeTimer = setInterval(() => {
+          if (count < noticeLen) {
+            this.$refs.notice.style.top = -distance * count + 'px';
+            count++;
+          } else {
+            count = 0;
+          }
+        }, BROADCAST_TIME);
+      },
       gotoList(id) {
         window.location.href = '#/product/finance/list?query=' + id;
       },
@@ -89,6 +124,7 @@
               let data = body.data;
               self.banks = data.banks;
               self.list = data.list || [];
+              self.notice = data.notice || [];
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,
@@ -110,8 +146,8 @@
 
 <style scoped lang="scss">
 @import './../../../assets/scss/_mixin.scss';
-.vv-module{
-  border-bottom:10px solid $bgColor2;
+.vv-product-box{
+  margin-bottom:30px;
 }
 .vv-product-linear{
   margin:0 $spacing;
@@ -173,6 +209,44 @@
       margin-top:10px;
       font-size:10px;
       color:$fontColor2;
+    }
+  }
+}
+.vv-notice {
+  position:fixed;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:40px;
+  overflow:hidden;
+  box-sizing:border-box;
+  padding:0 $spacing;
+  line-height:40px;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  font-size:$fontSizeContent;
+  background:#fff;
+  border-top:1px solid $lineColor2;
+  z-index:30;
+  &:before{
+    content: '';
+    display:block;
+    width:10%;
+    min-width:32px;
+    height:24px;
+    background:url(./../../../assets/images/broadcast.jpeg) no-repeat;
+    background-size:cover;
+  }
+  .notice-list {
+    position:relative;
+    top:0;
+    left:0;
+    margin-left:5px;
+    width:85%;
+    .item{
+      color:$mainColor;
+      @extend %fix_width_content;
+      display:block;
     }
   }
 }
