@@ -19,37 +19,63 @@
 import { mapGetters } from 'vuex';
 import picker from '@/components/common/picker';
 import wMap from './../common/map';
-const BANK_PICK_PRENUM = 6; // 目前以ICON_BANK前面6个作为筛选项
 const ICON_BANK = [{
-        name: '农业银行',
-        value: 'nongye'
-    }, {
-        name: '建设银行',
-        value: 'jianshe'
-    }, {
         name: '工商银行',
         value: 'gongshang'
+    }, {
+        name: '农业银行',
+        value: 'nongye'
     }, {
         name: '中国银行',
         value: 'zhongguo'
     }, {
+        name: '建设银行',
+        value: 'jianshe'
+    }, {
+        name: '农发行',
+        value: 'nongfahang'//
+    }, {
         name: '邮政储蓄银行',
         value: 'youzheng'
-    }, {
-        name: '农村信用社',
-        value: 'xinyongshe'
     }, {
         name: '招商银行',
         value: 'zhaoshang'
     }, {
+        name: '民生银行',
+        value: 'minsheng'
+    }, {
         name: '交通银行',
         value: 'jiaotong'
+    }, {
+        name: '浦发银行',
+        value: 'pufa'
+    }, {
+        name: '兴业银行',
+        value: 'xingye'
     }, {
         name: '中信银行',
         value: 'zhongxin'
     }, {
-        name: '民生银行',
-        value: 'minsheng'
+        name: '江西银行',
+        value: 'jiangxi'//
+    }, {
+        name: '赣州银行',
+        value: 'ganzhou'//
+    }, {
+        name: '赣州农商银行',
+        value: 'ganzhounongshang'//
+    }, {
+        name: '九江银行',
+        value: 'jiujiang'
+    }, {
+        name: '赣州银座村镇银行',
+        value: 'ganzhouyinzuo'
+    }, {
+        name: '南康赣商村镇银行',
+        value: 'nankanggan'
+    }, {
+        name: '兴国新华村镇银行',
+        value: 'xingguo'
     }, {
         name: '光大银行',
         value: 'guangda'
@@ -59,13 +85,14 @@ const ICON_BANK = [{
     }, {
         name: '平安银行',
         value: 'pingan'
-    }, {
-        name: '浦发银行',
-        value: 'pufa'
-    }, {
-        name: '兴业银行',
-        value: 'xingye'
-    }];
+    }
+    // {
+    //     name: '农村信用社',
+    //     value: 'xinyongshe'
+    // }
+    ];
+// const BANK_PICK_PRENUM = ICON_BANK.length; 
+const BANK_PICK_PRENUM = 19; 
 function iconFormat(name) {
     let iconNames = ICON_BANK;
     let result = 'default';
@@ -73,6 +100,15 @@ function iconFormat(name) {
         let t_name = iconNames[i].name;
         if (t_name.indexOf('农村') > -1) {
             t_name = '农村';
+        }
+        if (t_name.indexOf('浦发银行') > -1) {
+            t_name = '浦东发展银行';
+        }
+        if (t_name.indexOf('赣州农商银行') > -1) {
+            t_name = '赣州农村商业银行';
+        }
+        if (t_name.indexOf('农发行') > -1) {
+            t_name = '农业发展银行';
         }
         if (name.indexOf(t_name) > -1) {
             result = iconNames[i].value;
@@ -93,7 +129,7 @@ export default {
             'gdmap'
         ]),
         allMapBanks() {
-            // console.log(this.gdmap.nearbank.count);
+            console.log('bank count:', this.gdmap.nearbank.pois.length);
             return this.gdmap.nearbank.pois;
         }
     },
@@ -203,6 +239,14 @@ export default {
 
 <style lang="scss">
 @import './../../assets/scss/_mixin.scss';
+@mixin bankIcon() {
+    $names: ('gongshang': 0, 'jianshe': 1, 'nongye': 2, 'zhongguo': 3, 'zhaoshang': 4, 'jiaotong': 5, 'youzheng': 6, 'xinyongshe': 7, 'zhongxin': 8, 'minsheng': 9, 'guangda': 10, 'guangfa': 11, 'beijing': 12, 'pufa': 13, 'pingan': 14, 'xingye': 15);
+    @each $name, $index in $names {
+        &.icon-#{$name} {
+            background-position:0 -#{$index * 30}px;
+        }
+    }
+}
 .nearbank-list{
     .mu-item-left{
         width:33px;
@@ -212,58 +256,11 @@ export default {
         height:30px;
         background: url('./../../assets/images/bank-icon/all.png') no-repeat;
         background-size:33px 480px;
+        @include bankIcon();
     }
     .icon-default {
         background-image: url('./../../assets/images/bank-icon/default.jpg');
         background-size:100%;
-    }
-    .icon-gongshang{
-        background-position: 0 0;
-    }
-    .icon-jianshe{
-        background-position: 0 -30px;
-    }
-    .icon-nongye{
-        background-position: 0 -60px;
-    }
-    .icon-zhongguo{
-        background-position: 0 -90px;
-    }
-    .icon-zhaoshang{
-        background-position: 0 -120px;
-    }
-    .icon-jiaotong{
-        background-position: 0 -150px;
-    }
-    .icon-youzheng{
-        background-position: 0 -180px;
-    }
-    .icon-xinyongshe{
-        background-position: 0 -210px;
-    }
-    .icon-zhongxin{
-        background-position: 0 -240px;
-    }
-    .icon-minsheng{
-        background-position: 0 -270px;
-    }
-    .icon-guangda{
-        background-position: 0 -300px;
-    }
-    .icon-guangfa{
-        background-position: 0 -330px;
-    }
-    .icon-beijing{
-        background-position: 0 -360px;
-    }
-    .icon-pufa{
-        background-position: 0 -390px;
-    }
-    .icon-pingan{
-        background-position: 0 -420px;
-    }
-    .icon-xingye{
-        background-position: 0 -450px;
     }
     .mu-item-right{
         width:60px;;
@@ -286,16 +283,16 @@ export default {
 </style>
 <style lang="scss" scoped>
 @import './../../assets/scss/_mixin.scss';
-.rv{
-  .vv-picker {
-    position: fixed;
-    top:54px;
-    left:0;
-  }
-  .nearbank-list{
-    margin-top:50px;
-  }
-}
+// .rv{
+//   .vv-picker {
+//     position: fixed;
+//     top:54px;
+//     left:0;
+//   }
+//   .nearbank-list{
+//     margin-top:50px;
+//   }
+// }
 .vv-right{
     color:$mainColor;
 }

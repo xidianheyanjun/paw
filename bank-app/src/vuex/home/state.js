@@ -100,7 +100,7 @@ export default{
         iconClass: "vv-sub-icon"
       }, {
         label: "信用卡优惠信息",
-        href: '#/service/offers',
+        href: '#/service/specials/index',
         cssClass: "vv-menu",
         labelClass: "vv-sub-label",
         icon: "panorama_fish_eye",

@@ -89,14 +89,14 @@ export default {
 
 <style lang="scss" scoped>
 @import './../../../assets/scss/_mixin.scss';
-.rv{
-  .vv-picker {
-    position: fixed;
-    top:54px;
-    left:0;
-  }
-  .vv-products{
-    margin-top:50px;
-  }
-}
+// .rv{
+//   .vv-picker {
+//     position: fixed;
+//     top:54px;
+//     left:0;
+//   }
+//   .vv-products{
+//     margin-top:50px;
+//   }
+// }
 </style>

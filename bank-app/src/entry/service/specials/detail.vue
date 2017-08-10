@@ -4,24 +4,18 @@
     <div class="cd-cardinfo">
       <img :src="cardImg" alt="" class="cd-img">
       <div class="cd-name">{{cardName}}</div>
-      <div class="cd-txt" v-html="cardTxt"></div>
-      <div class="cd-tags">
-        <span class="tag">普卡</span>
-        <span class="tag">人民币</span>
-        <span class="tag">刷卡免年费</span>
-      </div>
+      <div class="cd-txt">{{cardTxt}}</div>
     </div>
     <div class="cd-cardlists" v-if="details.length">
       <dl v-for="(item, index) in details" :key="index">
         <dt>
           <span class="title">{{item.title}}</span>
-          <!--a class="more" @click.stop="">更多 &gt;</a-->
+          <a class="more" @click.stop="">更多 &gt;</a>
         </dt>
         <dd v-html="item.content"></dd>
       </dl>
     </div>
   </div>
-  <mu-raised-button @click="apply" label="立即申请" class="demo-raised-button vv-button" primary fullWidth/>
 </div>
 </template>
 <script>
@@ -48,7 +42,7 @@ export default {
       },
       center: {
         img: "",
-        title: "信用卡详情",
+        title: "信用卡优惠信息详情",
         callback: null
       },
       right: {
@@ -65,7 +59,7 @@ export default {
     init() {
       let self = this;
       this.$sendRequest({
-        url: '/product/credit/detail/' + this.id,
+        url: '/service/specials/detail/' + this.id,
         params: {
         },
         success(body){
@@ -89,9 +83,6 @@ export default {
           });
         }
       });
-    },
-    apply() {
-      window.location.href = '#/product/credit/apply/' + this.id;
     }
   }
 }
@@ -109,19 +100,10 @@ export default {
   .cd-name{
     margin-top:10px;
     font-size:$fontSizeTitle;
-    line-height:22px;
   }
   .cd-txt{
     font-size:$fontSizeContent2;
     color:$fontColor2;
-  }
-  .cd-tags{
-    .tag{
-      padding:0 5px;
-      color:$mainColor;
-      font-size:$fontSizeContent2;
-      border:1px solid $mainColor;
-    }
   }
 }
 
@@ -155,17 +137,5 @@ export default {
     line-height:24px;
     font-size:$fontSizeContent;
   }
-}
-.vv-button{
-  position: fixed;
-  bottom:0;
-  left:0;
-  // height:45px;
-  // width:100%;
-  // line-height:45px;
-  // font-size:15px;
-  // color:#fff;
-  // text-align:center;
-  // background:#2196f3;
 }
 </style>

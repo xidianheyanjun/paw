@@ -4,6 +4,45 @@
   "data": {
     "pickList": [{
       "list": [{
+        "name": "收益率",
+        "value": "allyt"
+      },{
+        "name": "大额取现卡",
+        "value": "qx"
+      }, {
+        "name": "车主卡",
+        "value": "cz"
+      }]
+    }, {
+      "list": [{
+        "name": "购买天数",
+        "value": "alldj"
+      }, {
+        "name": "普卡",
+        "value": "pk"
+      }, {
+        "name": "金卡",
+        "value": "jk"
+      }, {
+        "name": "白金卡",
+        "value": "bjk"
+      }]
+    }, {
+      "list": [{
+        "name": "申购金额",
+        "value": "more"
+      }, {
+        "name": "年费",
+        "value": "nf"
+      }, {
+        "name": "币种",
+        "value": "bz"
+      }, {
+        "name": "特权",
+        "value": "tq"
+      }]
+    }, {
+      "list": [{
         "name": "全部银行",
         "value": "allbank"
       }, {
@@ -18,45 +57,6 @@
       }, {
         "name": "平安银行",
         "value": "pa"
-      }]
-    }, {
-      "list": [{
-        "name": "全部用途",
-        "value": "allyt"
-      },{
-        "name": "大额取现卡",
-        "value": "qx"
-      }, {
-        "name": "车主卡",
-        "value": "cz"
-      }]
-    }, {
-      "list": [{
-        "name": "全部等级",
-        "value": "alldj"
-      }, {
-        "name": "普卡",
-        "value": "pk"
-      }, {
-        "name": "金卡",
-        "value": "jk"
-      }, {
-        "name": "白金卡",
-        "value": "bjk"
-      }]
-    }, {
-      "list": [{
-        "name": "更多",
-        "value": "more"
-      }, {
-        "name": "年费",
-        "value": "nf"
-      }, {
-        "name": "币种",
-        "value": "bz"
-      }, {
-        "name": "特权",
-        "value": "tq"
       }]
     }],
     "list": [{

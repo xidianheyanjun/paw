@@ -4,26 +4,32 @@
       <div class="vv-row">
         <div class="vv-col-title">手机号</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" :underlineShow="false" />
+          <mu-text-field label="" hintText="请输入手机号" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" :underlineShow="false" />
         </div>
       </div>
       <div class="vv-row">
         <div class="vv-col-title">密 码</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" :underlineShow="false" />
+          <mu-text-field label="" hintText="请输入密码" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" :underlineShow="false" />
         </div>
       </div>
       <div class="vv-row">
         <div class="vv-col-title">再次输入密码</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="" v-model.trim="password2" type="password" :errorText="passwordError2" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError2')" :underlineShow="false" />
+          <mu-text-field label="" hintText="请再次输入密码" v-model.trim="password2" type="password" :errorText="passwordError2" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError2')" :underlineShow="false" />
         </div>
       </div>
       <div class="vv-row">
         <div class="vv-col-title">验证码</div>
+        <div class="input-box">
+          <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="indentifyCode" :disabled="isValidate" @input="clearErrorTips('indentifyCodeError')">
+          <div class="err-msg" v-text="indentifyCodeError"></div>
+          <a class="btn-send" :class="{'send': isSend}" @click="sendCodeBtnClick" v-text="sendCodeText"></a>
+        </div>
+        <!--div class="vv-col-title">验证码</div>
         <div class="vv-col-value">
           <mu-text-field label="" hintText="" v-model.trim="indentifyCode" type="number" :errorText="indentifyCodeError" @input="clearErrorTips('indentifyCodeError')" :underlineShow="false" />
-        </div>
+        </div-->
       </div>
       <mu-raised-button :label="btnTxt" class="vv-button" @click="register" primary fullWidth/>
     </div>
@@ -31,6 +37,8 @@
 </template>
 <script>
   import {mapGetters} from 'vuex';
+  const RESEND_TIME = 10;
+  let sendIndentifyCodeTimer = null;
   export default {
     name: 'personRegister',
     computed: mapGetters([]),
@@ -45,8 +53,23 @@
         btnTxt: '立即注册',
         indentifyCode: '',
         indentifyCodeError: '',
+        isSend: false,
+        isValidate: false,
+        sendCodeText:'获取',
+        resendTime: RESEND_TIME,
         toast: false
       };
+    },
+    watch: {
+      resendTime(v1) {
+        if (v1 && (v1 < RESEND_TIME)) {
+          this.sendCodeText = this.resendTime + 's';
+          this.isSend = true;
+        } else if (v1 === 0) {
+          this.sendCodeText = '获取';
+          this.isSend = false;
+        }
+      }
     },
     mounted() {
       let titleTxt = '注册';
@@ -82,6 +105,48 @@
       clearErrorTips(err) {
         this[err] = '';
       },
+      sendCodeBtnClick() {
+        let self = this;
+        this.$sendRequest({
+          url: '/user/indentifyCode',
+          params:{
+          },
+          success(body) {
+            let msg = '';
+            if (body.code === 'success') {
+              msg = '发送成功';
+              self.countdownTime();
+            } else {
+              msg = body.msg;
+            }
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: msg
+            });
+          },
+          error(err) {
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
+          }
+        });
+      },
+      countdownTime() {
+        let time = 1000;
+        if (sendIndentifyCodeTimer) {
+          clearInterval(sendIndentifyCodeTimer);
+          sendIndentifyCodeTimer = null;
+        }
+        sendIndentifyCodeTimer = setInterval(() => {
+          this.resendTime--;
+          if (this.resendTime < 0) {
+            this.resendTime = 0;
+            clearInterval(sendIndentifyCodeTimer);
+            sendIndentifyCodeTimer = null;
+          }
+        }, time);
+      },
       register() {
         let self = this;
         if (!self.account.length) {
@@ -94,6 +159,10 @@
         }
         if (self.password != self.password2) {
           self.passwordError2 = '两次输入的密码不一致';
+          return;
+        }
+        if (!self.indentifyCode.length) {
+          self.indentifyCodeError = '验证码不能为空';
           return;
         }
 
@@ -123,12 +192,12 @@
             return false;
           }
         });
-      },
-
+      }
     }
   }
 </script>
 <style lang="scss" scoped>
+@import './../../assets/scss/_mixin.scss';
 .vv-form {
   .vv-col-title {
     width:35%;
@@ -136,5 +205,34 @@
   .vv-col-value {
     width: 65%;
   }
+}
+.input-box{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: justify;
+  width: 65%;
+  .input{
+    width:90px;
+  }
+  .btn-send{
+    display:block;
+    width:30px;
+    color: $mainColor;
+    text-align:right;
+    font-size:$fontSizeContent2;
+    &.send{
+      color: $fontColor2;
+    }
+  }
+}
+
+.err-msg{
+  padding-top:3px;
+  color: #f44336;
+  font-size:12px;
+  // .px(font-size, 22);
+  // .rem(line-height, 30);
+  // .rem(min-height, 30);
+  // text-align: left;
 }
 </style>

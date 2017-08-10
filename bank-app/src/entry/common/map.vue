@@ -107,7 +107,7 @@
         let self = this;
         AMap.service(['AMap.PlaceSearch'], function () {//回调函数
           let placeSearch = new AMap.PlaceSearch({
-            pageSize: 50, // 一次性查找的个数
+            pageSize: 100, // 一次性查找的个数最多只能限制50个？？
             pageIndex: 1,
             city: result.city,
             map: HYMap,

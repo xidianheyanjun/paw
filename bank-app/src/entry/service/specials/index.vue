@@ -13,8 +13,6 @@
     <card-row v-if="coupons.length" class="vv-module" type="row3" title="优惠券" moreUrl="#/product/credit/list" :cards="coupons" @goto="gotoList"></card-row>
 
     <card-row v-if="markets.length" class="vv-module" type="row2" title="超市促销" moreUrl="#/product/credit/list" :cards="markets" @goto="gotoList"></card-row>
-    
-    <banner v-if="banners2.length" class="vv-module" :banners="banners2"></banner>
 
   </div>
 </template>
@@ -37,8 +35,7 @@
         types: [],
         coupons: [],
         markets: [],
-        banners: [],
-        banners2: []
+        banners: []
       };
     },
     mounted () {
@@ -69,7 +66,7 @@
       init() {
         let self = this;
         this.$sendRequest({
-          url: '/service/offers',
+          url: '/service/specials/index',
           params: {
           },
           success(body){
@@ -79,7 +76,6 @@
               self.coupons = data.coupons || [];
               self.markets = data.markets || [];
               self.banners = data.banners || [];
-              self.banners2 = data.banners2 || [];
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,
@@ -96,16 +92,12 @@
         });
       },
       gotoList(id) {
-        window.location.href = '#/product/credit/list';
+        window.location.href = '#/service/specials/list';
       }
     }
   } 
 </script>
 
 <style lang="scss" scoped>
-@import './../../assets/scss/_mixin.scss';
-.vv-module{
-  background:#fff;
-  border-bottom:10px solid $bgColor2;
-}
+@import './../../../assets/scss/_mixin.scss';
 </style>

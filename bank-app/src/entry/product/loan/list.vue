@@ -96,10 +96,10 @@ export default {
         line-height:49px;
     }
     .vv-picker{
-        position: fixed;
+        // position: fixed;
     }
     .vv-products {
-        padding-top:70px;
+        // padding-top:70px;
     }
 }
 </style>

@@ -85,12 +85,27 @@
     border-spacing: 0;
   }
 
-  .clearfix:after {
-    content: '';
-    height: 0;
-    display: block;
-    visibility: hidden;
-    clear: both;
+  button::-moz-focus-inner,
+  input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+  }
+
+  .clearfix,
+  .cf {
+    zoom: 1;
+
+    &:after {
+      content: "";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+    }
   }
 
   // 重写 muse-ui
@@ -108,6 +123,11 @@
     }
     .mu-text-field-input{
       width:130px;
+      position:relative;
+      z-index:10;
+    }
+    .mu-text-field-hint {
+      font-size:$fontSizeContent;
     }
   }
   .mu-sub-header {
@@ -143,6 +163,10 @@
   }
   html .mu-appbar .left{
     min-width:24px;
+  }
+  *::-webkit-input-placeholder {
+      color: rgba(0, 0, 0, 0.87);
+      font-size:$fontSizeContent;
   }
   // common
   .head {

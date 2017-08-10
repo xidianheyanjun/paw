@@ -2,7 +2,7 @@
   <div>
     <picker :picks="pickList" @checkedPick="renderData" :curPick="curPick"></picker>
 
-    <card-row type="row1" :cards="banks" @goto="cardClick"></card-row>
+    <card-row type="row1" :cards="list" @goto="cardClick"></card-row>
 
   </div>
 </template>
@@ -21,7 +21,7 @@
       return {
         pickList: [],
         curPick: [],
-        banks: []
+        list: []
       };
     },
     mounted () {
@@ -35,7 +35,7 @@
         },
         center: {
           img: "",
-          title: "信用卡",
+          title: "信用卡优惠信息",
           callback: null
         },
         right: {
@@ -54,7 +54,7 @@
       renderData(value) {
         let self = this;
         this.$sendRequest({
-          url: '/product/credit/list?query=' + value,
+          url: '/service/specials/list?query=' + value,
           params: {
           },
           success(body){
@@ -62,7 +62,7 @@
               let data = body.data;
               self.pickList = data.pickList || self.pickList;
               self.curPick = [value];
-              self.banks = data.banks;
+              self.list = data.list;
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,
@@ -79,7 +79,7 @@
         });
       },
       cardClick(id) {
-        window.location.href = '#/product/credit/detail/' + id;
+        window.location.href = '#/service/specials/detail/' + id;
       }
     }
   }

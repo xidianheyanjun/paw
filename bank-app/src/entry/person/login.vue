@@ -3,13 +3,13 @@
     <div class="vv-row">
       <div class="vv-col-title">手机号</div>
       <div class="vv-col-value">
-        <mu-text-field label="" hintText="" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" :underlineShow="false" />
+        <mu-text-field label="" hintText="请输入手机号" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">密 码</div>
       <div class="vv-col-value">
-        <mu-text-field label="" hintText="" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" :underlineShow="false" />
+        <mu-text-field label="" hintText="请输入密码" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" :underlineShow="false" />
       </div>
     </div>
     <div class="ft">

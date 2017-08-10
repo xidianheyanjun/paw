@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="vv-picker">
     <ul class="tabs">
       <li  v-for="(pick, index) in pickList" :key="index" :class="['tab', {'current': isShow && (curPickIdx === index)}]" :style="{width: tabWidth}">
@@ -8,8 +9,9 @@
         </ul>
       </li>
     </ul>
-    <div class="mask" v-show="isShow" @click.stop="closePick"></div>
   </div>
+  <div class="mask" v-show="isShow" @click.stop="closePick"></div>
+</div>
 </template>
 <script>
 export default {
@@ -139,10 +141,11 @@ export default {
 }
 .mask {
   position: fixed;
-  top: 104px;
+  top: 55px;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.4);
+  z-index:99;
 }
 </style>
