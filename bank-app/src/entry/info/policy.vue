@@ -25,7 +25,8 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/info/index/policy";
+            history.back(-1);
+            // window.location.href = "#/info/index/policy";
           }
         },
         center: {

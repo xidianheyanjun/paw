@@ -281,6 +281,14 @@
   // 咨询页面
   .vv-article {
     padding:$spacing 0;
+    .vv-article-list{
+      margin-bottom:10rem;
+    }
+    .vv-banners{
+      position:fixed;
+      bottom:0;
+      left:0;
+    }
     // 列表页
     .list-item {
       padding:8px $spacing;
@@ -450,6 +458,32 @@
       // position: fixed;
       // bottom:0;
       // left:0;
+    }
+    // 验证码
+    .input-box{
+      display: -webkit-box;
+      -webkit-box-align: center;
+      -webkit-box-pack: justify;
+      width: 65%;
+      .input{
+        width:90px;
+      }
+      .btn-send{
+        display:block;
+        width:30px;
+        color: $mainColor;
+        text-align:right;
+        font-size:$fontSizeContent2;
+        &.send{
+          color: $fontColor2;
+        }
+      }
+    }
+
+    .err-msg{
+      padding-top:3px;
+      color: #f44336;
+      font-size:12px;
     }
   }
   // 个人中心页面

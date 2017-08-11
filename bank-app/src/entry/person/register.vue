@@ -26,10 +26,6 @@
           <div class="err-msg" v-text="indentifyCodeError"></div>
           <a class="btn-send" :class="{'send': isSend}" @click="sendCodeBtnClick" v-text="sendCodeText"></a>
         </div>
-        <!--div class="vv-col-title">验证码</div>
-        <div class="vv-col-value">
-          <mu-text-field label="" hintText="" v-model.trim="indentifyCode" type="number" :errorText="indentifyCodeError" @input="clearErrorTips('indentifyCodeError')" :underlineShow="false" />
-        </div-->
       </div>
       <mu-raised-button :label="btnTxt" class="vv-button" @click="register" primary fullWidth/>
     </div>
@@ -205,34 +201,5 @@
   .vv-col-value {
     width: 65%;
   }
-}
-.input-box{
-  display: -webkit-box;
-  -webkit-box-align: center;
-  -webkit-box-pack: justify;
-  width: 65%;
-  .input{
-    width:90px;
-  }
-  .btn-send{
-    display:block;
-    width:30px;
-    color: $mainColor;
-    text-align:right;
-    font-size:$fontSizeContent2;
-    &.send{
-      color: $fontColor2;
-    }
-  }
-}
-
-.err-msg{
-  padding-top:3px;
-  color: #f44336;
-  font-size:12px;
-  // .px(font-size, 22);
-  // .rem(line-height, 30);
-  // .rem(min-height, 30);
-  // text-align: left;
 }
 </style>

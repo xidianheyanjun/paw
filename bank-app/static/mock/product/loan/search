@@ -7,27 +7,27 @@
       "name": "流动资金贷款",
       "icon": "static/images/bank.png"
     }, {
-      "id": "1",
+      "id": "2",
       "name": "固定资产贷款",
       "icon": "static/images/bank.png"
     }, {
-      "id": "1",
+      "id": "3",
       "name": "短期贷款",
       "icon": "static/images/bank.png"
     }, {
-      "id": "1",
+      "id": "4",
       "name": "中长期贷款",
       "icon": "static/images/bank.png"
     }, {
-      "id": "1",
+      "id": "5",
       "name": "信用贷款",
       "icon": "static/images/bank.png"
     }, {
-      "id": "1",
+      "id": "6",
       "name": "担保贷款",
       "icon": "static/images/bank.png"
     }, {
-      "id": "1",
+      "id": "7",
       "name": "其他形式贷款",
       "icon": "static/images/bank.png"
     }]

@@ -30,7 +30,8 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/info/index/forum";
+            history.back(-1);
+            // window.location.href = "#/info/index/forum";
           }
         },
         center: {

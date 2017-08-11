@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="page-zx">
     <div class="process">
         <div class="process-rate clearfix">
             <div class="process-num current">1</div>
@@ -22,19 +22,21 @@
         <div class="vv-row">
             <div class="vv-col-title">真实姓名</div>
             <div class="vv-col-value">
-                <mu-text-field v-model.trim="name" :errorText="nameError" hintText="" fullWidth :underlineShow="false"/>
+                <mu-text-field v-model.trim="name" :errorText="nameError" hintText="请输入真实姓名" @input="clearErrorTips('nameError')" fullWidth :underlineShow="false"/>
             </div>
         </div>
         <div class="vv-row">
             <div class="vv-col-title">身份证</div>
             <div class="vv-col-value">
-                <mu-text-field v-model.trim="cardNo" :errorText="cardNoError" hintText="" fullWidth :underlineShow="false"/>
+                <mu-text-field v-model.trim="cardNo" :errorText="cardNoError" hintText="请输入身份证" @input="clearErrorTips('cardNoError')" fullWidth :underlineShow="false"/>
             </div>
         </div>
         <div class="vv-row">
             <div class="vv-col-title">验证码</div>
-            <div class="vv-col-value">
-                <mu-text-field v-model.trim="indentifyNo" :errorText="indentifyNoError" hintText="" fullWidth :underlineShow="false"/>
+            <div class="input-box">
+            <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="indentifyCode" :disabled="isValidate" @input="clearErrorTips('indentifyCodeError')">
+            <div class="err-msg" v-text="indentifyCodeError"></div>
+            <a class="btn-send" :class="{'send': isSend}" @click="sendCodeBtnClick" v-text="sendCodeText"></a>
             </div>
         </div>
         <div class="vv-row col">
@@ -52,6 +54,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+const RESEND_TIME = 10;
+let sendIndentifyCodeTimer = null;
 export default {
     name: 'serviceZX',
     computed: mapGetters([]),
@@ -61,13 +65,26 @@ export default {
             checkVal: true,
             name: '',
             cardNo: '',
-            indentifyNo: '',
+            indentifyCode: '',
             nameError: '',
             cardNoError: '',
-            indentifyNoError: ''
+            indentifyCodeError: '',
+            isSend: false,
+            isValidate: false,
+            sendCodeText:'获取',
+            resendTime: RESEND_TIME,
         }
     },
     watch: {
+        resendTime(v1) {
+            if (v1 && (v1 < RESEND_TIME)) {
+                this.sendCodeText = this.resendTime + 's';
+                this.isSend = true;
+            } else if (v1 === 0) {
+                this.sendCodeText = '获取';
+                this.isSend = false;
+            }
+        },
         name(v1, v2) {
             if (v1 !== v2) {
                 this.nameError = '';
@@ -109,6 +126,51 @@ export default {
         });
     },
     methods: {
+        clearErrorTips(err) {
+            this[err] = '';
+        },
+        sendCodeBtnClick() {
+            let self = this;
+            this.$sendRequest({
+                url: '/service/zx',
+                params:{
+                },
+                success(body) {
+                    let msg = '';
+                    if (body.code === 'success') {
+                        msg = '发送成功';
+                        self.countdownTime();
+                    } else {
+                        msg = body.msg;
+                    }
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: msg
+                    });
+                },
+                error(err) {
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: '服务器繁忙,请稍后再试'
+                    });
+                }
+            });
+        },
+        countdownTime() {
+            let time = 1000;
+            if (sendIndentifyCodeTimer) {
+            clearInterval(sendIndentifyCodeTimer);
+            sendIndentifyCodeTimer = null;
+            }
+            sendIndentifyCodeTimer = setInterval(() => {
+            this.resendTime--;
+            if (this.resendTime < 0) {
+                this.resendTime = 0;
+                clearInterval(sendIndentifyCodeTimer);
+                sendIndentifyCodeTimer = null;
+            }
+            }, time);
+        },
         nextClick() {
             let self = this;
             if (!self.name.length) {
@@ -119,8 +181,8 @@ export default {
                 self.cardNoError = '请输入身份证';
                 return;
             }
-            if (!self.indentifyNo.length) {
-                self.indentifyNoError = '请输入验证码';
+            if (!self.indentifyCode.length) {
+                self.indentifyCodeError = '请输入验证码';
                 return;
             }
             if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(self.cardNo)) {  
@@ -139,7 +201,7 @@ export default {
                 params: {
                     name: self.name,
                     cardNo: self.cardNo,
-                    indentifyNo: self.indentifyNo
+                    indentifyCode: self.indentifyCode
                 },
                 success(body){
                     if (body.code != 'success') {
@@ -164,6 +226,13 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.page-zx{
+    .vv-form .input-box{
+        width:80%;
+    }
+}
+</style>
 <style lang="scss" scoped>
 @import './../../assets/scss/_mixin.scss';
 .process{

@@ -2,7 +2,7 @@
 <div class="vv-cards">
   <div class="vv-title" v-if="title">
     <span>{{title}}</span>
-    <a v-if="moreUrl" class="more" @click.stop="moreUrl">更多 &gt;</a>
+    <a v-if="moreUrl" class="more" :href="moreUrl">更多 &gt;</a>
   </div>
   <ul :class="[{'card-list clearfix': type === 'row1'}, {'card-list2 clearfix': type === 'row2'}, , {'card-list3 clearfix': type === 'row3'}]">
     <li :class="[{'card-item clearfix': type === 'row1'}, {'card-item2 clearfix': type === 'row2'}, {'card-item3 clearfix': type === 'row3'}]" v-for="(item, index) in cards" :key="index" @click="cardClick(item.id)">

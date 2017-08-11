@@ -1,8 +1,8 @@
 <template>
   <div>
-    <picker :picks="pickList" @checkedPick="renderData" :curPick="curPick"></picker>
+    <picker :picks="pickList" @checkedPick="reload" :curPick="curPick"></picker>
 
-    <card-row type="row1" :cards="banks" @goto="cardClick"></card-row>
+    <card-row type="row1" :cards="list" @goto="cardClick"></card-row>
 
   </div>
 </template>
@@ -21,8 +21,14 @@
       return {
         pickList: [],
         curPick: [],
-        banks: []
+        list: [],
+        queryIds: ''
       };
+    },
+    watch: {
+      queryIds(v) {
+        this.renderData(v);
+      }
     },
     mounted () {
       this.$store.dispatch("head_setHead", {
@@ -46,23 +52,30 @@
           }
         }
       });
-      let query = this.$route.query;
-      let querykey = Object.keys(query)[0];
-      this.renderData(query[querykey]);// 页面初始化时目前只做一种条件查询
+      this.queryIds = this.$route.query.ids;
     },
     methods: {
-      renderData(value) {
+      reload(queryIds) {
+        this.queryIds = queryIds;
+      },
+      renderData(queryIds = 'all,all') {
+        // console.warn('render',queryIds);
         let self = this;
+        
         this.$sendRequest({
-          url: '/product/credit/list?query=' + value,
+          url: '/product/credit/list?query=' + queryIds,
           params: {
           },
           success(body){
             if (body.code === 'success') {
               let data = body.data;
               self.pickList = data.pickList || self.pickList;
-              self.curPick = [value];
-              self.banks = data.banks;
+              self.curPick = [];
+              let curPick = queryIds.split(',');
+              curPick.forEach(item => {
+                self.curPick.push(item);
+              });
+              self.list = data.list;
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,

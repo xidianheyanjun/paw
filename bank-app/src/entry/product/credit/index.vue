@@ -1,16 +1,14 @@
 <template>
   <div>
+    <banner class="vv-module" v-if="banners.length" :banners="banners"></banner>
     <div class="vv-module" v-if="banks.length">
       <div class="vv-title">按银行找卡</div>
       <icon-row :icons="banks" @goto="gotoList"></icon-row>
     </div>
 
-    <card-row v-if="list.length" class="vv-module" type="row2" title="用途卡精选" moreUrl="#/product/credit/list" :cards="list" @goto="gotoList"></card-row>
+    <card-row v-if="list.length" class="vv-module" type="row2" title="用途卡精选" moreUrl="#/product/credit/list" :cards="list" @goto="gotoDetail"></card-row>
     
-    <card-row v-if="list2.length" class="vv-module" type="row1" title="热卡推荐" moreUrl="#/product/credit/list" :cards="list2" @goto="gotoList"></card-row>
-
-    <banner class="vv-module" v-if="banners.length" :banners="banners"></banner>
-
+    <card-row v-if="list2.length" class="vv-module" type="row1" title="热卡推荐" moreUrl="#/product/credit/list" :cards="list2" @goto="gotoDetail"></card-row>
   </div>
 </template>
 
@@ -59,9 +57,6 @@
       this.init();
     },
     methods: {
-      gotoList(id) {
-        window.location.href = '#/product/credit/list?query=' + id;
-      },
       init() {
         let self = this;
         this.$sendRequest({
@@ -89,6 +84,12 @@
             });
           }
         });
+      },
+      gotoList(id) {
+        window.location.href = '#/product/credit/list?ids=' + id;
+      },
+      gotoDetail(id) {
+        window.location.href = '#/product/credit/detail/' + id;
       }
     }
   } 

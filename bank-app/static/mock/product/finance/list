@@ -4,47 +4,8 @@
   "data": {
     "pickList": [{
       "list": [{
-        "name": "收益率",
-        "value": "allyt"
-      },{
-        "name": "大额取现卡",
-        "value": "qx"
-      }, {
-        "name": "车主卡",
-        "value": "cz"
-      }]
-    }, {
-      "list": [{
-        "name": "购买天数",
-        "value": "alldj"
-      }, {
-        "name": "普卡",
-        "value": "pk"
-      }, {
-        "name": "金卡",
-        "value": "jk"
-      }, {
-        "name": "白金卡",
-        "value": "bjk"
-      }]
-    }, {
-      "list": [{
-        "name": "申购金额",
-        "value": "more"
-      }, {
-        "name": "年费",
-        "value": "nf"
-      }, {
-        "name": "币种",
-        "value": "bz"
-      }, {
-        "name": "特权",
-        "value": "tq"
-      }]
-    }, {
-      "list": [{
         "name": "全部银行",
-        "value": "allbank"
+        "value": "all"
       }, {
         "name": "招商银行",
         "value": "zs"
@@ -57,6 +18,51 @@
       }, {
         "name": "平安银行",
         "value": "pa"
+      }]
+    }, {
+      "list": [{
+        "name": "收益率",
+        "value": "all"
+      },{
+        "name": "< 5%",
+        "value": "small3"
+      }, {
+        "name": ">= 5%且 <10%",
+        "value": "small5"
+      }, {
+        "name": ">= 10%",
+        "value": "big5"
+      }]
+    }, {
+      "list": [{
+        "name": "购买天数",
+        "value": "all"
+      }, {
+        "name": "90天",
+        "value": "month1"
+      }, {
+        "name": "180天",
+        "value": "month3"
+      }, {
+        "name": "365天",
+        "value": "year1"
+      }]
+    }, {
+      "list": [{
+        "name": "申购金额",
+        "value": "all"
+      }, {
+        "name": "5万",
+        "value": "w5"
+      }, {
+        "name": "10万",
+        "value": "w10"
+      }, {
+        "name": "100万",
+        "value": "w100"
+      }, {
+        "name": "200万",
+        "value": "w200"
       }]
     }],
     "list": [{

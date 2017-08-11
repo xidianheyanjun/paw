@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="vv-article">
-      <div v-if="list.length" v-for="item in list" :key="item.id" @click="redirect2detail(item)" class="list-item">
-        <span class="triangle-right"></span>
-        <span>{{item.title}}</span>
-      </div>
+      <ul class="vv-article-list">
+        <li v-if="list.length" v-for="item in list" :key="item.id" @click="redirect2detail(item)" class="list-item">
+          <span class="triangle-right"></span>
+          <span>{{item.title}}</span>
+        </li>
+      </ul>
 
       <banner class="vv-module" v-if="banner.length" :banners="banner"></banner>
     </div>

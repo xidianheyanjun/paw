@@ -8,25 +8,25 @@
         "value": "all"
       }, {
         "name": "流动资金贷款",
-        "value": "liudong"
+        "value": "1"
       }, {
         "name": "固定资产贷款",
-        "value": "guding"
+        "value": "2"
       }, {
         "name": "短期贷款",
-        "value": "duanqi"
+        "value": "3"
       }, {
         "name": "中长期贷款",
-        "value": "zhongchangqi"
+        "value": "4"
       }, {
         "name": "信用贷款",
-        "value": "xinyong"
+        "value": "5"
       }, {
         "name": "担保贷款",
-        "value": "danbao"
+        "value": "6"
       },{
         "name": "其他形式贷款",
-        "value": "qita"
+        "value": "7"
       }]
     }, {
       "list": [{

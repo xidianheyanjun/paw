@@ -295,7 +295,7 @@ export default {
                     }
 
                     // 跳转到贷款列表页
-                    window.location.href = "#/product/loan/list/" + self.pageType;
+                    window.location.href = '#/product/loan/list/' + self.pageType;
                 },
                 error(err){
                     self.$store.dispatch("box_set_toast", {
@@ -306,7 +306,7 @@ export default {
             });
         },
         gotoList(id) {
-            window.location.href = '#/product/loan/list/' + id;
+            window.location.href =  '#/product/loan/list/' + this.pageType + '?ids=' + id;
         },
         init() {
             let self = this;

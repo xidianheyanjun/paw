@@ -25,7 +25,8 @@
           img: "",
           title: "返回",
           callback: function () {
-            window.location.href = "#/gb/publish";
+            history.back(-1);
+            // window.location.href = "#/gb/publish";
           }
         },
         center: {

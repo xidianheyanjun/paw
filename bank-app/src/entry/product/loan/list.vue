@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <picker :picks="pickList" @checkedPick="renderData" :curPick="curPick"></picker>
+        <picker :picks="pickList" @checkedPick="reload" :curPick="curPick"></picker>
         <ul class="vv-products" v-if="list.length">
             <li class="item" v-for="(item, index) in list" :key="index" @click="goto(item.id)">
             <div class="title">{{item.title}}</div>
@@ -21,8 +21,14 @@ export default {
             pageType: 'company',
             pickList: [],
             curPick: [],
-            list: []
-        }
+            list: [],
+            queryIds: '' // 页面url带过来的ids参数
+        };
+    },
+    watch: {
+      queryIds(v) {
+        this.renderData(v);
+      }
     },
     mounted() {
         // 如果有携带参数则设置参数
@@ -48,15 +54,16 @@ export default {
                 }
             }
         });
-        let query = this.$route.query;
-        let querykey = Object.keys(query)[0];
-        this.renderData(query[querykey]);// 页面初始化时目前只做一种条件查询
+        this.queryIds = this.$route.query.ids;
     },
     methods: {
-        renderData(value) {
+        reload(queryIds) {
+            this.queryIds = queryIds;
+        },
+        renderData(queryIds = 'all,all,all,all') {
             let self = this;
             this.$sendRequest({
-            url: '/product/loan/list?query=' + value,
+            url: '/product/loan/list?query=' + queryIds,
             params: {
                 type: self.pageType
             },
@@ -64,7 +71,11 @@ export default {
                 if (body.code === 'success') {
                     let data = body.data;
                     self.pickList = data.pickList || self.pickList;
-                    self.curPick = [value];
+                    self.curPick = [];
+                    let curPick = queryIds.split(',');
+                    curPick.forEach(item => {
+                        self.curPick.push(item);
+                    });
                     self.list = data.list || [];
                 } else {
                     self.$store.dispatch('box_set_toast', {

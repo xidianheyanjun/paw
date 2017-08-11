@@ -7,7 +7,7 @@
     <div class="vv-module vv-product-box">
       <div class="vv-title" v-if="list.length">
         <span class="title">热销产品</span>
-        <a class="more" @click.stop="">更多 &gt;</a>
+        <a class="more" href="#/product/finance/list">更多 &gt;</a>
       </div>
       <ul class="vv-product-linear">
           <li class="item" v-for="(item, index) in list" :key="index" @click="productClick(item)">
@@ -16,7 +16,7 @@
               <span class="title">{{item.title}}</span>
             </div>
             <div class="bd">
-              <span class="time">购买时间：{{item.time}}</span>
+              <span class="time">购买天数：{{item.time}}</span>
               <span class="money">购买起点：{{item.money}}</span>
             </div>
             <div class="ft">
@@ -24,7 +24,7 @@
               <mu-linear-progress mode="determinate" :value="parseFloat(item.num)" :size="10" :max="100" color="blue" />
             </div>
             <div class="rt">
-              <strong class="num">{{item.num}}%</strong>
+              <strong class="num">{{item.profit}}%</strong>
               <span class="txt">收益率</span>
             </div>
           </li>
@@ -78,7 +78,7 @@
         }
       });
       this.init();
-      // this.noticeScroll();
+      this.noticeScroll();
     },
     watch: {
       notice(v) {
@@ -94,21 +94,22 @@
         if (!this.notice.length) {
           return;
         }
-        const BROADCAST_TIME = 3000;
-        const distance = 40;
-        let count = 0;
+        const BROADCAST_TIME = 100;
+        const elHeight = 20;
+        let distance = 0;
         let noticeLen = this.notice.length;
+        let noticeElHeight = elHeight * noticeLen;
         noticeTimer = setInterval(() => {
-          if (count < noticeLen) {
-            this.$refs.notice.style.top = -distance * count + 'px';
-            count++;
+          distance++;
+          if (distance < noticeElHeight) {
+            this.$refs.notice.style.top = -distance + 'px';
           } else {
-            count = 0;
+            distance = 0;
           }
         }, BROADCAST_TIME);
       },
       gotoList(id) {
-        window.location.href = '#/product/finance/list?query=' + id;
+        window.location.href = '#/product/finance/list?ids=' + id;
       },
       productClick(item) {
         window.location.href = '#/product/finance/detail/' + item.id;
@@ -191,6 +192,8 @@
       color:#fff;
       font-size:10px;
       z-index:10;
+      text-align:center;
+      margin-left:5px;
     }
   }
   .rt{
@@ -232,9 +235,9 @@
     content: '';
     display:block;
     width:10%;
-    min-width:32px;
-    height:24px;
-    background:url(./../../../assets/images/broadcast.jpeg) no-repeat;
+    min-width:30px;
+    height:30px;
+    background:url(./../../../assets/images/broadcast.png) no-repeat;
     background-size:cover;
   }
   .notice-list {

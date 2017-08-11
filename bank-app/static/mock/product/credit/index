@@ -7,68 +7,68 @@
       "name": "招商银行",
       "icon": "static/images/bank.png"
     }, {
-      "id": "1",
+      "id": "ms",
+      "name": "民生银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "pf",
+      "name": "浦发银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "pa",
+      "name": "平安银行",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "zs",
       "name": "招商银行",
       "icon": "static/images/bank.png"
     }, {
-      "id": "1",
+      "id": "zs",
       "name": "招商银行",
       "icon": "static/images/bank.png"
     }, {
-      "id": "1",
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "id": "1",
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "id": "1",
-      "name": "招商银行",
-      "icon": "static/images/bank.png"
-    }, {
-      "id": "1",
+      "id": "zs",
       "name": "招商银行",
       "icon": "static/images/bank.png"
     }],
     "list": [{
-      "id": "1001",
+      "id": "1",
       "title": "帮我选卡",
       "info": "测基因 推荐卡",
       "image": "static/images/act-card.png"
     }, {
-      "id": "1001",
+      "id": "1",
       "title": "免费白金卡",
       "info": "高额度，免年费",
       "image": "static/images/act-card.png"
     }, {
-      "id": "1001",
+      "id": "1",
       "title": "高颜值卡",
       "info": "给高颜值的你",
       "image": "static/images/act-card.png"
     }, {
-      "id": "1001",
+      "id": "1",
       "title": "新手办卡",
       "info": "新户专属 易下卡",
       "image": "static/images/act-card.png"
     }],
     "list2": [{
-      "id": "1001",
+      "id": "1",
       "title": "好车主",
       "info": "加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣加油享折扣",
       "image": "static/images/credit.jpg"
     }, {
-      "id": "1001",
+      "id": "1",
       "title": "好车主",
       "info": "加油享折扣",
       "image": "static/images/credit.jpg"
     }, {
-      "id": "1001",
+      "id": "1",
       "title": "好车主",
       "info": "加油享折扣",
       "image": "static/images/credit.jpg"
     }, {
-      "id": "1001",
+      "id": "1",
       "title": "好车主",
       "info": "加油享折扣",
       "image": "static/images/credit.jpg"

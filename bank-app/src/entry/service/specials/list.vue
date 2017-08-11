@@ -1,6 +1,6 @@
 <template>
   <div>
-    <picker :picks="pickList" @checkedPick="renderData" :curPick="curPick"></picker>
+    <picker :picks="pickList" @checkedPick="reload" :curPick="curPick"></picker>
 
     <card-row type="row1" :cards="list" @goto="cardClick"></card-row>
 
@@ -21,8 +21,17 @@
       return {
         pickList: [],
         curPick: [],
-        list: []
+        list: [],
+        queryIds: '' // 页面url带过来的ids参数
       };
+    },
+    watch: {
+      queryIds(v) {
+        this.renderData(v);
+        // if (v) {
+          // window.location.href = '#/service/specials/list?query=' + v;//不能改，会影响$router
+        // }
+      }
     },
     mounted () {
       this.$store.dispatch("head_setHead", {
@@ -46,23 +55,30 @@
           }
         }
       });
-      let query = this.$route.query;
-      let querykey = Object.keys(query)[0];
-      this.renderData(query[querykey]);// 页面初始化时目前只做一种条件查询
+      this.queryIds = this.$route.query.ids;
     },
     methods: {
-      renderData(value) {
+      reload(queryIds) {
+        this.queryIds = queryIds;
+      },
+      renderData(queryIds = 'all,all') {
+        // console.warn('render',queryIds);
         let self = this;
+        
         this.$sendRequest({
-          url: '/service/specials/list?query=' + value,
+          url: '/service/specials/list?query=' + queryIds,
           params: {
           },
           success(body){
             if (body.code === 'success') {
               let data = body.data;
               self.pickList = data.pickList || self.pickList;
-              self.curPick = [value];
-              self.list = data.list;
+              self.curPick = [];
+              let curPick = queryIds.split(',');
+              curPick.forEach(item => {
+                self.curPick.push(item);
+              });
+              self.list = data.list || [];
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,

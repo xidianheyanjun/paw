@@ -37,6 +37,8 @@ export default {
     pickList() {
       let self = this;
       this.picks.forEach((item, index) => {
+        // console.warn(self.curPick)
+        // console.warn(self.curPick.length)
         if (!self.curPick[index]) {
           self.curPick[index] = item.list[0].value;
           item.curIdx = 0;
@@ -75,7 +77,7 @@ export default {
       this.pickList[index].curVal = item;
       this.pickList[index].curIdx = idx;
       this.curPick[index] = item.value;
-      this.$emit('checkedPick', this.curPick);
+      this.$emit('checkedPick', this.curPick.join(','));
     }
   }
 }

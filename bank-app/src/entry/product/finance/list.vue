@@ -23,8 +23,14 @@ export default {
     return {
       pickList: [],
       curPick: [],
-      list: []
+      list: [],
+      queryIds: '' // 页面url带过来的ids参数
     };
+  },
+  watch: {
+    queryIds(v) {
+      this.renderData(v);
+    }
   },
   mounted () {
     this.$store.dispatch("head_setHead", {
@@ -48,23 +54,28 @@ export default {
         }
       }
     });
-    let query = this.$route.query;
-    let querykey = Object.keys(query)[0];
-    this.renderData(query[querykey]);// 页面初始化时目前只做一种条件查询
+    this.queryIds = this.$route.query.ids;
   },
   methods: {
-    renderData(value) {
+    reload(queryIds) {
+      this.queryIds = queryIds;
+    },
+    renderData(queryIds = 'all,all') {
       let self = this;
       this.$sendRequest({
-        url: '/product/finance/list?query=' + value,
+        url: '/product/finance/list?query=' + queryIds,
         params: {
         },
         success(body){
           if (body.code === 'success') {
             let data = body.data;
             self.pickList = data.pickList || self.pickList;
-            self.curPick = [value];
-            self.list = data.list || [];
+            self.curPick = [];
+            let curPick = queryIds.split(',');
+            curPick.forEach(item => {
+              self.curPick.push(item);
+            });
+            self.list = data.list;
           } else {
             self.$store.dispatch('box_set_toast', {
               show: true,

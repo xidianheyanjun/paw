@@ -10,9 +10,9 @@
       <icon-row :icons="types" @goto="gotoList"></icon-row>
     </div>
     
-    <card-row v-if="coupons.length" class="vv-module" type="row3" title="优惠券" moreUrl="#/product/credit/list" :cards="coupons" @goto="gotoList"></card-row>
+    <card-row v-if="coupons.length" class="vv-module" type="row3" title="优惠券" :moreUrl="'#/service/specials/list?ids=all,' + couponsId" :cards="coupons" @goto="gotoDetail"></card-row>
 
-    <card-row v-if="markets.length" class="vv-module" type="row2" title="超市促销" moreUrl="#/product/credit/list" :cards="markets" @goto="gotoList"></card-row>
+    <card-row v-if="markets.length" class="vv-module" type="row2" title="超市促销" :moreUrl="'#/service/specials/list?ids=all,' + marketsId" :cards="markets" @goto="gotoDetail"></card-row>
 
   </div>
 </template>
@@ -74,7 +74,9 @@
               let data = body.data;
               self.types = data.types || [];
               self.coupons = data.coupons || [];
+              self.couponsId = data.couponsId;
               self.markets = data.markets || [];
+              self.marketsId = data.marketsId;
               self.banners = data.banners || [];
             } else {
               self.$store.dispatch('box_set_toast', {
@@ -92,7 +94,10 @@
         });
       },
       gotoList(id) {
-        window.location.href = '#/service/specials/list';
+        window.location.href = '#/service/specials/list?ids=all,' + id;
+      },
+      gotoDetail(id) {
+        window.location.href = '#/service/specials/detail/' + id;
       }
     }
   } 
