@@ -164,83 +164,81 @@
 
 
   .navs {
-    height: 70%;
-  }
-  .navs .vv-col{
-    height: 22%;
-    overflow: hidden;
-    border-top: 1px solid #c1c1c1;
-    box-sizing: border-box;
+    height: 430px;
+    .vv-col {
+      display: -webkit-box;
+      -webkit-box-align: center;
+      -webkit-box-pack: justify;
+      height: 95px;
+      overflow: hidden;
+      border-top: 1px solid $lineColor2;
+      box-sizing: border-box;
+    }
+    .vv-bg-light-blue {
+      background-color: #58abd4;
+    }
+    .vv-bg-deep-purple {
+      background-color: #9a7aac;
+    }
+    .vv-bg-pink {
+      background-color: #e33a4b;
+    }
+    .vv-bg-light-green {
+      background-color: #98ba3f;
+    }
   }
 
-  .navs .vv-bg-light-blue {
-    background-color: #58abd4;
-  }
-
-  .vv-bg-deep-purple {
-    background-color: #9a7aac;
-  }
-
-  .vv-bg-pink {
-    background-color: #e33a4b;
-  }
-
-  .vv-bg-light-green {
-    background-color: #98ba3f;
-  }
-  
   .navs-item{
-    float: left;
-    width: 22%;
-    padding: 4% 0;
+    // float: left;
+    width: 23%;
+    // padding: 10px 0;
     color: #fff;
     text-align: center;
-    font-size: 13px;
+    font-size: $fontSizeContent;
   }
   .vv-flat-button {
     margin: 0 auto 5px;
     min-width: 40px;
   }
   .menus{
-    float: left;
+    width:77%;
     height: 100%;
     box-sizing: border-box;
-    width: 78%;
     background: #f8f8f8;
     padding: 0 5%;
   }
   .menus .vv-menu {
     float: left;
     color: #000;
-    margin: 10% 0;
+    margin: 15px 0;
     width: 33%;
-    padding: 5% 0;
+    padding: 28px 0;
     text-align: center;
     font-size: 14px;
   }
 
   .navs .vv-bg-deep-purple,
   .navs .vv-bg-pink {
-    height: 28%;
+    height: 120px;
   }
   .navs .vv-bg-deep-purple .navs-item,
   .navs .vv-bg-pink .navs-item {
-    padding-top: 7%;
+    padding-top: 0;
   }
   .navs .vv-bg-deep-purple .menus,
   .navs .vv-bg-pink .menus {
-    padding: 2% 0;
+    padding: 5px 0;
   }
   .navs .vv-bg-deep-purple .vv-menu{
     float:none;
-    margin: 2% 0;
-    padding: 2% 0;
+    margin: 10px 0;
+    padding: 5px 0;
     width: 100%;
   }
   .navs .vv-bg-pink .vv-menu {
     width: 50%;
-    margin: 2% 0 0;
-    padding: 2% 0;
+    margin: 10px 0 0;
+    padding: 5px 0;
   }
   .navs .vv-bg-pink .vv-menu:last-child {
     width: 100%;

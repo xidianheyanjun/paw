@@ -314,8 +314,8 @@ export default {
 .process-list{
     margin:$spacing;
     display: -webkit-box;
-      -webkit-box-align: center;
-      -webkit-box-pack: justify;
+    -webkit-box-align: center;
+    -webkit-box-pack: justify;
 }
 .process-item {
     text-align:center;
