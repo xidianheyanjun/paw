@@ -189,10 +189,15 @@ export default {
             }
             this.renderBanks();
         },
-        renderBanks(query = []) {
-            console.log('pick query:', query);
-            let brand = query[0] || 'all';
-            let hyType = query[1] || 'all';
+        renderBanks(query = '') {
+            // console.log('pick query:', query);
+            let brand = 'all';
+            let hyType = 'all';
+            if (query.indexOf(',') > -1) {
+                let queryArr = query.split(',');
+                brand = queryArr[0];
+                hyType = queryArr[1];
+            }
             let resultBanks = [];
             for (var i = 0, len = this.allMapBanks.length; i < len; i++) {
                 let bank = this.allMapBanks[i];
@@ -225,7 +230,7 @@ export default {
         },
         initPick() {
             let addBanks = this.pickList[0].list.concat(ICON_BANK.slice(0, BANK_PICK_PRENUM));
-            console.warn(addBanks);
+            // console.warn(addBanks);
             this.pickList[0].list = addBanks;
             let curPick = [];
             this.pickList.forEach(item => {
