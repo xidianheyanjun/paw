@@ -1,51 +1,103 @@
 <template>
 <div class="page-zx">
-    <div class="process">
-        <div class="process-rate clearfix">
-            <div class="process-num current">1</div>
-            <div class="process-divice"></div>
-            <div class="process-num">2</div>
-            <div class="process-divice"></div>
-            <div class="process-num">3</div>
-            <div class="process-divice"></div>
-            <div class="process-num">4</div>
+    <div class="process-list">
+        <div class="process-item current">
+            <div class="process-num">1</div>
+            <div class="process-txt">填写身份信息</div>
         </div>
-        
-        <ul class="process-txt clearfix">
-            <li>身份信息</li>
-            <li>补充信息</li>
-            <li>发送查询申请</li>
-            <li>等待信息反馈</li>
-        </ul>
+        <div class="process-divice"></div>
+        <div :class="['process-item', {'current': processNo >= 2}]">
+            <div class="process-num">2</div>
+            <div class="process-txt">补充用户信息</div>
+        </div>
+        <div class="process-divice"></div>
+        <div :class="['process-item', {'current': processNo >= 3}]">
+            <div class="process-num">3</div>
+            <div class="process-txt">发送查询申请</div>
+        </div>
+        <div class="process-divice"></div>
+        <div :class="['process-item', {'current': processNo >= 4}]">
+            <div class="process-num">4</div>
+            <div class="process-txt">等待信息反馈</div>
+        </div>
     </div>
     <div class="vv-form">
-        <div class="vv-row">
-            <div class="vv-col-title">真实姓名</div>
-            <div class="vv-col-value">
-                <mu-text-field v-model.trim="name" :errorText="nameError" hintText="请输入真实姓名" @input="clearErrorTips('nameError')" fullWidth :underlineShow="false"/>
+        <div class="process-list-1" v-if="processNo === 1">
+            <div class="vv-row">
+                <div class="vv-col-title">真实姓名</div>
+                <div class="vv-col-value">
+                    <mu-text-field v-model.trim="name" :errorText="nameError" hintText="请输入真实姓名" @input="clearErrorTips('nameError')" fullWidth :underlineShow="false"/>
+                </div>
             </div>
-        </div>
-        <div class="vv-row">
-            <div class="vv-col-title">身份证</div>
-            <div class="vv-col-value">
-                <mu-text-field v-model.trim="cardNo" :errorText="cardNoError" hintText="请输入身份证" @input="clearErrorTips('cardNoError')" fullWidth :underlineShow="false"/>
+            <div class="vv-row">
+                <div class="vv-col-title">身份证</div>
+                <div class="vv-col-value">
+                    <mu-text-field v-model.trim="cardNo" :errorText="cardNoError" hintText="请输入身份证" @input="clearErrorTips('cardNoError')" fullWidth :underlineShow="false"/>
+                </div>
             </div>
-        </div>
-        <div class="vv-row">
-            <div class="vv-col-title">验证码</div>
-            <div class="input-box">
-            <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="indentifyCode" :disabled="isValidate" @input="clearErrorTips('indentifyCodeError')">
-            <div class="err-msg" v-text="indentifyCodeError"></div>
-            <a class="btn-send" :class="{'send': isSend}" @click="sendCodeBtnClick" v-text="sendCodeText"></a>
+            <!--div class="vv-row">
+                <div class="vv-col-title">验证码</div>
+                <div class="input-box">
+                <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="indentifyCode" :disabled="isValidate" @input="clearErrorTips('indentifyCodeError')">
+                <div class="err-msg" v-text="indentifyCodeError"></div>
+                <a class="btn-send" :class="{'send': isSend}" @click="sendCodeBtnClick" v-text="sendCodeText"></a>
+                </div>
+            </div-->
+            <div class="col">
+                <mu-checkbox label="我已阅读并同意服务条款" class="vv-checkbox" v-model="checkVal"/>
+                <a href="#/service/zxintro" class="link">《服务条款》</a>
             </div>
+            <mu-raised-button @click="nextClick" label="下一步" class="vv-next" primary fullWidth/>
         </div>
-        <div class="vv-row col">
-            <mu-checkbox label="我已阅读服务条款" class="vv-checkbox" v-model="checkVal"/>
-            <a href="#/service/zxintro" class="link">服务条款</a>
+        <div class="process-list-2" v-if="processNo === 2">
+            <div class="vv-row">
+                <div class="vv-col-title">登录名</div>
+                <div class="vv-col-value">
+                    <mu-text-field v-model.trim="zxCount" :errorText="zxCountError" hintText="请输入登录名" @input="clearErrorTips('zxCountError')" fullWidth :underlineShow="false"/>
+                </div>
+            </div>
+            <div class="vv-row">
+                <div class="vv-col-title">密 码</div>
+                <div class="vv-col-value">
+                    <mu-text-field v-model.trim="zxPassword" :errorText="zxPasswordError" hintText="请输入密码" @input="clearErrorTips('zxPasswordError')" fullWidth :underlineShow="false"/>
+                </div>
+            </div>
+            <div class="vv-row">
+                <div class="vv-col-title">确认密码</div>
+                <div class="vv-col-value">
+                    <mu-text-field v-model.trim="zxPassword2" :errorText="zxPasswordError2" hintText="请再次输入密码" @input="clearErrorTips('zxPasswordError2')" fullWidth :underlineShow="false"/>
+                </div>
+            </div>
+            <div class="vv-row">
+                <div class="vv-col-title">电子邮箱</div>
+                <div class="vv-col-value">
+                    <mu-text-field v-model.trim="email" :errorText="emailError" hintText="请输入电子邮箱" @input="clearErrorTips('emailError')" fullWidth :underlineShow="false"/>
+                </div>
+            </div>
+            <div class="vv-row">
+                <div class="vv-col-title">手机号</div>
+                <div class="vv-col-value">
+                    <mu-text-field v-model.trim="mobile" :errorText="mobileError" hintText="请输入手机号" @input="clearErrorTips('mobileError')" fullWidth :underlineShow="false"/>
+                </div>
+            </div>
+            <div class="vv-row">
+                <div class="vv-col-title">动态码</div>
+                <div class="input-box">
+                <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入动态码" v-model.trim="indentifyCode" :disabled="isValidate" @input="clearErrorTips('indentifyCodeError')">
+                <div class="err-msg" v-text="indentifyCodeError"></div>
+                <a class="btn-send" :class="{'send': isSend}" @click="sendCodeBtnClick" v-text="sendCodeText"></a>
+                </div>
+            </div>
+            <mu-raised-button @click="nextClick" label="提交" class="vv-next" primary fullWidth/>
         </div>
-        <mu-raised-button @click="nextClick" label="下一步" class="vv-next" primary fullWidth/>
+        <div class="process-list-3" v-if="processNo === 3">
+            <div class="no-data">正在发送查询申请</div>
+        </div>
+        <div class="process-list-4" v-if="processNo === 4">
+            <div class="no-data">申请成功，请耐心等待信息反馈</div>
+        </div>
     </div>
-    <div class="ft">
+    <div class="ft" v-if="processNo === 1">
         <span class="msg">已有征信中心账户</span>
         <a href="#/person/login" class="link">立即登录</a>
     </div>
@@ -62,20 +114,38 @@ export default {
     components: {},
     data(){
         return {
-            checkVal: true,
             name: '',
-            cardNo: '',
-            indentifyCode: '',
             nameError: '',
+            cardNo: '',
             cardNoError: '',
+            checkVal: true,
+            processNo: 1,
+            zxCount: '',
+            zxCountError: '',
+            zxPassword: '',
+            zxPasswordError: '',
+            zxPassword2: '',
+            zxPasswordError2: '',
+            email: '',
+            emailError: '',
+            mobile: '',
+            mobileError: '',
+            indentifyCode: '',
             indentifyCodeError: '',
             isSend: false,
             isValidate: false,
             sendCodeText:'获取',
-            resendTime: RESEND_TIME,
+            resendTime: RESEND_TIME
         }
     },
     watch: {
+        processNo(v1) {
+            if (v1 == 3) {
+                setTimeout(() => {
+                    this.processNo++;
+                }, 3000);
+            }
+        },
         resendTime(v1) {
             if (v1 && (v1 < RESEND_TIME)) {
                 this.sendCodeText = this.resendTime + 's';
@@ -95,9 +165,9 @@ export default {
                 this.cardNoError = '';
             }
         },
-        indentifyNo(v1, v2) {
+        indentifyCode(v1, v2) {
             if (v1 !== v2) {
-                this.indentifyNoError = '';
+                this.indentifyCodeError = '';
             }
         }
     },
@@ -175,16 +245,16 @@ export default {
             let self = this;
             if (!self.name.length) {
                 self.nameError = '请输入真实姓名';
-                return;
+                // return;
             }
             if (!self.cardNo.length) {
                 self.cardNoError = '请输入身份证';
-                return;
+                // return;
             }
-            if (!self.indentifyCode.length) {
-                self.indentifyCodeError = '请输入验证码';
-                return;
-            }
+            // if (!self.indentifyCode.length) {
+            //     self.indentifyCodeError = '请输入验证码';
+            //     return;
+            // }
             if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(self.cardNo)) {  
                 self.cardNoError = '身份证输入不合法';
                 // return;
@@ -199,26 +269,24 @@ export default {
             self.$sendRequest({
                 url: '/service/zx',
                 params: {
+                    processNo: self.processNo,
                     name: self.name,
-                    cardNo: self.cardNo,
-                    indentifyCode: self.indentifyCode
+                    cardNo: self.cardNo
                 },
                 success(body){
-                    if (body.code != 'success') {
+                    if (body.code === 'success') {
+                        self.processNo++;
+                    } else {
                         self.$store.dispatch('box_set_toast', {
                             show: true,
                             toastText: body.msg
                         });
-                        return false;
                     }
-
-                    // 跳转到下一步
-                    // window.location.href = '#/service/zx';
                 },
                 error(err){
                     self.$store.dispatch('box_set_toast', {
-                    show: true,
-                    toastText: '服务器繁忙,请稍后再试'
+                        show: true,
+                        toastText: '服务器繁忙,请稍后再试'
                     });
                 }
             });
@@ -227,53 +295,74 @@ export default {
 }
 </script>
 <style lang="scss">
+@import './../../assets/scss/_mixin.scss';
 .page-zx{
     .vv-form .input-box{
-        width:80%;
+        width:77%;
+    }
+    .mu-checkbox-icon{
+        margin-right:5px;
+    }
+    .mu-checkbox-label{
+        font-size:$fontSizeContent;
+        color:$fontColor3;
     }
 }
 </style>
 <style lang="scss" scoped>
 @import './../../assets/scss/_mixin.scss';
-.process{
+.process-list{
     margin:$spacing;
+    display: -webkit-box;
+      -webkit-box-align: center;
+      -webkit-box-pack: justify;
 }
-.process-num{
-    float:left;
+.process-item {
     text-align:center;
-    margin:0 auto $spacing;
-    width:34px;
-    height:34px;
-    border:1px solid #2196f3;
-    border-radius:100%;
-    line-height:34px;
-    font-size:20px;
-    color:#2196f3;
-}
-.process-num.current{
-    background:#2196f3;
-    color:#fff;
-}
-.process-txt{
-    font-size:12px;
-    color:#2196f3;
-}
-.process-txt li{
-    float:left;
-    width:25%;
+    width:56px;
+    color:$mainColor;
+    .process-num {
+        width:56px;
+        height:56px;
+        border:1px solid $mainColor;
+        border-radius:100%;
+        font-size:30px;
+        line-height:56px;
+    }
+    .process-txt{
+        margin-top:10px;
+        line-height:16px;
+        font-size:12px;
+    }
+    &.current{
+        .process-num {
+            background:$mainColor;
+            color:#fff;
+        }
+    }
 }
 .process-divice{
-    float:left;
-    margin:17px 3%;
-    width:40px;
+    margin-top:-35px;
+    width:10px;
     height:2px;
-    background:#2196f3;
+    background:$mainColor;
 }
 
 .vv-form {
     border-top: 10px solid $bgColor2;
     .col {
-        border-bottom:0;
+        width: 100%;
+        height:40px;
+        line-height:40px;
+        box-sizing: border-box;
+        padding: 0 $spacing;
+        margin-bottom: 5px;
+    }
+    .vv-col-title {
+        width:23%;
+    }
+    .vv-col-value {
+        width:77%;
     }
     .vv-checkbox{
         vertical-align: middle;
@@ -282,14 +371,16 @@ export default {
         margin-right:10px;
     }
     .link{
-        display:block;
         color:$mainColor;
-        text-decoration:underline;
-        vertical-align: middle;
-        font-size:15px;
+        font-size:$fontSizeContent;
+        vertical-align:middle;
+        margin-left:-5px;
     }
     .vv-next{
         margin:$spacing auto;
+    }
+    .no-data {
+        margin:20% auto;
     }
 }
 .ft{
