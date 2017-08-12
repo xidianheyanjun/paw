@@ -3,7 +3,7 @@
  */
 export default {
   mode: "build",
-  useNative: true,
-  useSign: true,
+  useNative: false,
+  useSign: false,
   requestRoot: "http://119.23.41.237:8180/end"
 };
