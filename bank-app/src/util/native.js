@@ -43,9 +43,22 @@ let sign = (data) => {
   return signData;
 };
 
+let gotoTab = (tabIndex = 0) => {
+  if (!env.useNative) {
+    return;
+  }
+  tabIndex = tabIndex + '';
+  if (window.AndroidJSInterfaceV2) {
+    // signData = window.AndroidJSInterfaceV2.invoke('data', 'goToTab', tabIndex, null);
+  } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.goToTab) {
+    window.webkit.messageHandlers.goToTab.postMessage(tabIndex);
+  }
+}
+
 export default {
   setUserInfo: setUserInfo,
   getUserInfo: getUserInfo,
   isLogin: islogin,
-  sign: sign
+  sign: sign,
+  gotoTab: gotoTab
 };

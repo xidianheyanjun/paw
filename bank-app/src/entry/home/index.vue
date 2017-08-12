@@ -1,14 +1,22 @@
 <template>
   <div class="paper">
-    <div class="info">
-      <template v-if="!person_isLogin">
+    <div class="info" @click="gotoUserCenter">
+      <div v-if="!person_isLogin" class="login-btn">
+        <mu-avatar :src="avatar" class="avatar" />
+        <a class="font-title mt-title">点击登录</a>
+      </div>
+      <div v-if="person_isLogin" class="login-btn">
+        <mu-avatar :src="avatar" class="avatar" />
+        <span class="font-title mt-title">{{account}}</span>
+      </div>
+      <!--template v-if="!person_isLogin">
         <mu-avatar :src="avatar" @click="goto('#/person/login')" class="avatar" />
         <div class="font-title mt-title" @click="goto('#/person/login')">点击登录</div>
       </template>
       <template v-if="person_isLogin">
         <mu-avatar :src="avatar" class="avatar" @click="goto('#/person/index')" />
-        <div class="font-title mt-title" @click="goto('#/person/index')">{{account}}</div>
-      </template>
+        <div class="font-title mt-title" @click="gotoTab(1)">{{account}}</div>
+      </template-->
     </div>
     
     <ul class="navs">
@@ -121,6 +129,12 @@
     methods: {
       goto(url){
         window.location.href = url;
+      },
+      gotoUserCenter() {
+        if (this.person_isLogin) {
+          window.location.href = "#/person/index";
+        }
+        native.gotoTab(1);
       }
     }
   }
