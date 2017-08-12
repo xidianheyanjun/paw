@@ -9,14 +9,6 @@
         <mu-avatar :src="avatar" class="avatar" />
         <span class="font-title mt-title">{{account}}</span>
       </div>
-      <!--template v-if="!person_isLogin">
-        <mu-avatar :src="avatar" @click="goto('#/person/login')" class="avatar" />
-        <div class="font-title mt-title" @click="goto('#/person/login')">点击登录</div>
-      </template>
-      <template v-if="person_isLogin">
-        <mu-avatar :src="avatar" class="avatar" @click="goto('#/person/index')" />
-        <div class="font-title mt-title" @click="gotoTab(1)">{{account}}</div>
-      </template-->
     </div>
     
     <ul class="navs">
@@ -131,9 +123,10 @@
         window.location.href = url;
       },
       gotoUserCenter() {
-        if (this.person_isLogin) {
-          window.location.href = "#/person/index";
-        }
+        // 客户端切换的接口都没回调的。。。
+        // if (!this.person_isLogin) {
+        //   window.location.href = "#/person/login";
+        // }
         native.gotoTab(1);
       }
     }

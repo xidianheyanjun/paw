@@ -19,9 +19,9 @@ let setUserInfo = (data) => {
 let getUserInfo = () => {
   if (env.useNative) {
     if (window.AndroidJSInterfaceV2) {
-      window.AndroidJSInterfaceV2.invoke('data', 'getToken', '', null);
+      return window.AndroidJSInterfaceV2.invoke('data', 'getToken', '', null);
     } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.getToken) {
-      window.webkit.messageHandlers.getToken.postMessage(null);
+      return window.webkit.messageHandlers.getToken.postMessage(null);
     }
   } else {
     let userInfoJson = window.localStorage.getItem("userInfo");
@@ -38,7 +38,7 @@ let sign = (data) => {
   if (window.AndroidJSInterfaceV2) {
     signData = window.AndroidJSInterfaceV2.invoke('data', 'encryptData', data, null);
   } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.encryptData) {
-    window.webkit.messageHandlers.encryptData.postMessage(data);
+    signData = window.webkit.messageHandlers.encryptData.postMessage(data);
   }
   return signData;
 };
