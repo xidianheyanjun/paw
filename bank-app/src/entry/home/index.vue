@@ -124,9 +124,9 @@
       },
       gotoUserCenter() {
         // 客户端切换的接口都没回调的。。。
-        // if (!this.person_isLogin) {
-        //   window.location.href = "#/person/login";
-        // }
+        if (!this.person_isLogin) {
+          window.location.href = "#/person/login";
+        }
         native.gotoTab(1);
       }
     }
