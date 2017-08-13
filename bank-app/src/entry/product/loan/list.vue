@@ -65,7 +65,7 @@ export default {
             this.$sendRequest({
             url: '/product/loan/list?query=' + queryIds,
             params: {
-                type: self.pageType
+                loan_kind: self.pageType
             },
             success(body){
                 if (body.code === 'success') {

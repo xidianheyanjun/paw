@@ -5,21 +5,24 @@
       <img :src="cardImg" alt="" class="cd-img">
       <div class="cd-name">{{cardName}}</div>
       <div class="cd-txt" v-html="cardTxt"></div>
-      <div class="cd-tags">
-        <span class="tag">普卡</span>
-        <span class="tag">人民币</span>
-        <span class="tag">刷卡免年费</span>
+      <div class="cd-tags" v-if="tags.length">
+        <span class="tag" v-for="(item, index) in tags">{{item}}</span>
       </div>
     </div>
-    <div class="cd-cardlists" v-if="details.length">
+    <div class="cd-cardlists">
+      <dl>
+        <dd v-html="detail"></dd>
+      </dl>
+    </div>
+    <!--div class="cd-cardlists" v-if="details.length">
       <dl v-for="(item, index) in details" :key="index">
         <dt>
           <span class="title">{{item.title}}</span>
-          <!--a class="more" @click.stop="">更多 &gt;</a-->
+          <a class="more" @click.stop="">更多 &gt;</a>
         </dt>
         <dd v-html="item.content"></dd>
       </dl>
-    </div>
+    </div-->
   </div>
   <mu-raised-button @click="apply" label="立即申请" class="demo-raised-button vv-button" primary fullWidth/>
 </div>
@@ -33,7 +36,9 @@ export default {
       cardImg: '',
       cardName: '',
       cardTxt: '',
-      details: []
+      tags: [],
+      // details: []
+      detail: ''
     };
   },
   mounted() {
@@ -74,7 +79,9 @@ export default {
             self.cardImg = data.cardImg;
             self.cardName = data.cardName;
             self.cardTxt = data.cardTxt;
-            self.details = data.details || [];
+            self.tags = data.tags || [];
+            // self.details = data.details || [];
+            self.detail = data.detail;
           } else {
             self.$store.dispatch('box_set_toast', {
               show: true,
@@ -117,6 +124,7 @@ export default {
   }
   .cd-tags{
     .tag{
+      margin-right:5px;
       padding:0 5px;
       color:$mainColor;
       font-size:$fontSizeContent2;

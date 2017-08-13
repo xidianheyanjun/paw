@@ -2,7 +2,7 @@
   <div>
     <picker :picks="pickList" @checkedPick="reload" :curPick="curPick"></picker>
 
-    <card-row type="row1" :cards="list" @goto="cardClick"></card-row>
+    <card-row v-if="list.length" type="row1" :cards="list" @goto="cardClick"></card-row>
 
   </div>
 </template>
@@ -75,7 +75,7 @@
               curPick.forEach(item => {
                 self.curPick.push(item);
               });
-              self.list = data.list;
+              self.list = data.list || [];
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,

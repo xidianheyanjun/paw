@@ -1,10 +1,10 @@
 <template>
 <div class="vv-message" v-if="message.length">
-  <div class="message-title">留言</div>
+  <div class="message-title">精彩留言</div>
   <ul class="vv-comment message-content">
     <li v-for="(item, index) in message" :key="index" class="item item-left">
       <div class="comment-user">
-        <img :src="item.img" class="img">
+        <img :src="item.img || defaultAvator" class="img">
         <div class="name">{{item.name}}</div>
       </div>
       <div class="comment-text" v-html="item.text"></div>
@@ -32,6 +32,7 @@ export default {
   },
   data() {
     return {
+      defaultAvator: DEFAULT_AVATAR,
       isSending: false,
       messageVal: ''
     };
@@ -66,7 +67,7 @@ export default {
               let data = body.data;
               let userInfo = native.getUserInfo();
               self.message.push({
-                img: userInfo.avatar || DEFAULT_AVATAR,
+                img: userInfo.avatar || self.defaultAvator,
                 name: userInfo.account,
                 text: self.messageVal,
                 userId: userInfo.userId
@@ -92,13 +93,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.vv-message {
-  .edit-message {
-    position:relative;
-  }
-}
-</style>
+
 <style lang="scss" scoped>
 @import './../../assets/scss/_mixin.scss';
 .vv-message {
@@ -110,7 +105,7 @@ export default {
     border-bottom:1px solid $lineColor;
   }
   .message-content {
-    padding:$spacing;
+    padding:$spacing $spacing 60px;
   }
 }
 </style>

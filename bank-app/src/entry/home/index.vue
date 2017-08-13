@@ -126,8 +126,11 @@
         // 客户端切换的接口都没回调的。。。
         if (!this.person_isLogin) {
           window.location.href = "#/person/login";
+        } else {
+          window.location.href = "#/person/index";
         }
-        native.gotoTab(1);
+        // 一个tab对应一个webview，切换两边用户登录状态无法同步
+        // native.gotoTab(1);
       }
     }
   }

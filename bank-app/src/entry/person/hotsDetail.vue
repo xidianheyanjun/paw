@@ -8,7 +8,7 @@
   import { mapGetters } from 'vuex';
   import articleDetail from '@/components/common/article.detail';
   export default {
-    name: 'personHelp',
+    name: 'personHotsDetail',
     computed: mapGetters([]),
     components: {
       articleDetail
@@ -30,7 +30,7 @@
         },
         center: {
           img: "",
-          title: "帮助与反馈",
+          title: "热门推送详情",
           callback: null
         },
         right: {
@@ -46,8 +46,9 @@
     methods: {
       init() {
         let self = this;
+        let hotsId = this.$route.params['id'];
         this.$sendRequest({
-          url: '/user/help',
+          url: '/user/hots/detail/' + hotsId,
           params: {
           },
           success(body){

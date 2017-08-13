@@ -1,66 +1,75 @@
 <template>
-<div class="info">
-    <div class="info-hd">条款一</div>
-    <div class="info-bd">
-      服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款服务条款
-    </div>
-</div>
+  <div>
+    <article-detail :title="title" :content="content"></article-detail>
+  </div>
 </template>
-<script>
-import { mapGetters } from 'vuex';
-export default {
-    name: 'serviceZXInfo',
-    computed: mapGetters([]),
-    components: {},
-    data(){
-        return {
 
-        }
+<script>
+  import { mapGetters } from 'vuex';
+  import articleDetail from '@/components/common/article.detail';
+  export default {
+    name: 'serviceZxintro',
+    computed: mapGetters([]),
+    components: {
+      articleDetail
     },
-    mounted() {
-        this.$store.dispatch("head_setHead", {
-            left: {
-                img: "",
-                title: "返回",
-                callback: function () {
-                    history.back(-1);
-                }
-            },
-            center: {
-                img: "",
-                title: "服务条款",
-                callback: null
-            },
-            right: {
-                img: "",
-                title: "地图",
-                callback: function () {
-                window.location.href = "#/common/map";
-                }
-            }
-        });
+    data(){
+      return {
+        title: '',
+        content: ''
+      };
+    },
+    mounted(){
+      this.$store.dispatch("head_setHead", {
+        left: {
+          img: "",
+          title: "返回",
+          callback: function () {
+            history.back(-1);
+          }
+        },
+        center: {
+          img: "",
+          title: "帮助与反馈",
+          callback: null
+        },
+        right: {
+          img: "",
+          title: "地图",
+          callback: function () {
+            window.location.href = "#/common/map";
+          }
+        }
+      });
+      this.init();
     },
     methods: {
-
+      init() {
+        let self = this;
+        this.$sendRequest({
+          url: '/service/zxintro',
+          params: {
+          },
+          success(body){
+            if (body.code === 'success') {
+              let data = body.data;
+              self.title = data.title;
+              self.content = data.content;
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
+          },
+          error(err) {
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
+          }
+        });
+      }
     }
-}
+  }
 </script>
-<style lang="scss" scoped>
-@import './../../assets/scss/_mixin.scss';
-.info {
-  box-sizing: border-box;
-  padding: $spacing;
-  height: 100%;
-}
-.info-hd {
-    font-size: $fontSize;
-    color: $fontColor;
-    margin-bottom: 10px;
-}
-.info-bd {
-    font-size: $fontSizeTitle;
-    line-height: 26px;
-    text-indent: 2em;
-    // color: $fontColor2;
-}
-</style>

@@ -313,11 +313,16 @@ export default {
             this.$sendRequest({
                 url: '/product/loan/search',
                 params: {
+                    loan_kind: self.pageType
                 },
                 success(body){
                     if (body.code === 'success') {
                         let data = body.data;
-                        self.banks = data.banks || [];
+                        let banks = data.banks || [];
+                        if (banks.length > 7) {
+                            banks.length = 7;
+                        }
+                        self.banks = banks;
                     } else {
                         self.$store.dispatch('box_set_toast', {
                             show: true,

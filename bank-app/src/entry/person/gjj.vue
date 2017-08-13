@@ -98,7 +98,7 @@
         </div>
     </div>
     <div class="ft" v-if="processNo === 1">
-        <span class="msg">已有征信中心账户</span>
+        <span class="msg">已有公积金中心账户</span>
         <a href="#/person/login" class="link">立即登录</a>
     </div>
 
@@ -109,7 +109,7 @@ import { mapGetters } from 'vuex';
 const RESEND_TIME = 10;
 let sendIndentifyCodeTimer = null;
 export default {
-    name: 'serviceZX',
+    name: 'personGjj',
     computed: mapGetters([]),
     components: {},
     data(){
@@ -177,13 +177,12 @@ export default {
                 img: "",
                 title: "返回",
                 callback: function () {
-                    // window.location.href = "#/home/index";
                     history.back(-1);
                 }
             },
             center: {
                 img: "",
-                title: "查看征信",
+                title: "公积金查询",
                 callback: null
             },
             right: {

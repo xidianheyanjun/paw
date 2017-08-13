@@ -131,12 +131,12 @@ export default {
   }
   .img{
     float:right;
-    width:35%;
-    max-width:50px;
-    max-height:50px;
+    // max-width:50px;
+    // max-height:50px;
     overflow:hidden;
-    // width:50px;
-    // height:50px;
+    width:50px;
+    height:50px;
+    max-width:35%;
   }
 }
 .card-item3{

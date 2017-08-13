@@ -14,7 +14,7 @@ export default{
     }, {
       name: "我的公积金查询",
       type: "forward",
-      param: ""
+      param: "#/person/gjj"
     }, {
       name: "我的收藏",
       type: "forward",
@@ -22,11 +22,11 @@ export default{
     }, {
       name: "热点推送",
       type: "forward",
-      param: ""
+      param: "#/person/hots"
     }, {
       name: "帮助与反馈",
       type: "forward",
-      param: ""
+      param: "#/person/help"
     }],
     mapStoreKind: {
       credit: "信用卡优惠信息",

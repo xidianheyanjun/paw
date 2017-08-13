@@ -1,6 +1,6 @@
 <template>
   <div class="vv-meet">
-    <div class="meet-hd">
+    <div class="meet-hd" v-if="onlineUsers.length">
       <div class="meet-users">
         <span class="txt">参与人员：</span>
         <span class="name" v-for="(item, index) in onlineUsers">{{item}}</span>
@@ -10,7 +10,7 @@
       <li v-for="(item, index) in list" :key="index">
         <div class="item item-left" v-if="!person_isLogin || !(person_isLogin && (item.userId == userId))">
           <div class="comment-user">
-            <img :src="item.img" class="img">
+            <img :src="item.img || defaultAvator" class="img">
             <div class="name">{{item.name}}</div>
           </div>
           <div class="comment-text" v-html="item.text"></div>
@@ -18,7 +18,7 @@
         <div class="item item-right" v-if="person_isLogin && (item.userId == userId)">
           <div class="comment-text" v-html="item.text"></div>
           <div class="comment-user">
-            <img :src="item.img" class="img">
+            <img :src="item.img || defaultAvator" class="img">
             <div class="name">{{item.name}}</div>
           </div>
         </div>
@@ -43,27 +43,29 @@
     components: {},
     data(){
       return {
+        onlineUsers: [],
         list: [],
+        defaultAvator: DEFAULT_AVATAR,
         person_isLogin: false,
         userId: '',
         isSending: false,
         messageVal: ''
       };
     },
-    computed: {
-      onlineUsers() {
-        let names = [];
-        this.list.forEach(item => {
-          names.push(item.name);
-        });
-        return names;
-      }
-    },
+    // computed: {
+    //   onlineUsers() {
+    //     let names = [];
+    //     this.list.forEach(item => {
+    //       names.push(item.name);
+    //     });
+    //     return names;
+    //   }
+    // },
     watch: {
       person_isLogin(v) {
         if (v) {
           this.userId = native.getUserInfo().userId || '';
-          console.warn(this.userId)
+          console.warn('userId:', this.userId)
         }
       }
     },
@@ -151,7 +153,7 @@
                 let data = body.data;
                 let userInfo = native.getUserInfo();
                 self.list.push({
-                  img: userInfo.avatar || DEFAULT_AVATAR,
+                  img: userInfo.avatar || self.defaultAvator,
                   name: userInfo.account,
                   text: self.messageVal,
                   userId: userInfo.userId
@@ -181,36 +183,42 @@
 
 <style scoped lang="scss">
 @import './../../assets/scss/_mixin.scss';
-.meet-hd {
-  position: fixed;
-  top:56px;
-  left:0;
-  padding:15px $spacing;
-  box-sizing:border-box;
-  background:#fff;
-  border-bottom:1px solid $lineColor2;
-  z-index:90;
-  .meet-users {
-    height:56px;
-    line-height:28px;
-    overflow:hidden; 
-    text-overflow:ellipsis;
-    display:-webkit-box; 
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:2; 
-  }
-  .txt{
-    color:$fontColor2;
-  }
-  .name{
-    &:after{
-      content:'、';
-      margin-right:5px;
-    }
-  }
-}
+// .meet-hd {
+//   position: fixed;
+//   top:55px;
+//   left:0;
+//   padding:15px $spacing;
+//   box-sizing:border-box;
+//   background:#fff;
+//   border-bottom:1px solid $lineColor2;
+//   z-index:90;
+//   .meet-users {
+//     height:56px;
+//     line-height:28px;
+//     overflow:hidden; 
+//     text-overflow:ellipsis;
+//     display:-webkit-box; 
+//     -webkit-box-orient:vertical;
+//     -webkit-line-clamp:2; 
+//   }
+//   .txt{
+//     float:left;
+//     color:$fontColor2;
+//   }
+//   .name{
+//     float:left;
+//     display:block;
+//     max-width:100px;
+//     @extend %fix_width_content;
+//     &:after{
+//       content:'、';
+//       margin-right:5px;
+//     }
+//   }
+// }
 .vv-comment {
-  padding:110px $spacing 60px;
+  // padding:110px $spacing 60px;
+  padding:$spacing $spacing 60px;
   li {
     margin-bottom:15px;
   }

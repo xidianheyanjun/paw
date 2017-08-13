@@ -40,11 +40,11 @@ export default {
         // console.warn(self.curPick)
         // console.warn(self.curPick.length)
         if (!self.curPick[index]) {
-          self.curPick[index] = item.list[0].value;
+          self.curPick[index] = item.list[0].id;
           item.curIdx = 0;
         }
         for (let i = 0, len = item.list.length; i < len; i++) {
-          if (self.curPick[index] === item.list[i].value) {
+          if (self.curPick[index] === item.list[i].id) {
             item.curVal = item.list[i];
             item.curIdx = i;
             break;
@@ -76,7 +76,7 @@ export default {
       this.isShow = false;
       this.pickList[index].curVal = item;
       this.pickList[index].curIdx = idx;
-      this.curPick[index] = item.value;
+      this.curPick[index] = item.id;
       this.$emit('checkedPick', this.curPick.join(','));
     }
   }

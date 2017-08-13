@@ -5,39 +5,39 @@
     "pickList": [{
       "list": [{
         "name": "全部银行",
-        "value": "all"
+        "id": "all"
       }, {
         "name": "招商银行",
-        "value": "zs"
+        "id": "zs"
       }, {
         "name": "民生银行",
-        "value": "ms"
+        "id": "ms"
       }, {
         "name": "浦发银行",
-        "value": "pf"
+        "id": "pf"
       }, {
         "name": "平安银行",
-        "value": "pa"
+        "id": "pa"
       }]
     }, {
       "list": [{
         "name": "全部优惠",
-        "value": "all"
+        "id": "all"
       },{
         "name": "美食",
-        "value": "meal"
+        "id": "meal"
       }, {
         "name": "影票",
-        "value": "ticket"
+        "id": "ticket"
       }, {
         "name": "酒店",
-        "value": "hotel"
+        "id": "hotel"
       }, {
         "name": "优惠券",
-        "value": "coupons"
+        "id": "coupons"
       }, {
         "name": "超市促销",
-        "value": "market"
+        "id": "market"
       }]
     }],
     "list": [{

@@ -5,64 +5,64 @@
     "pickList": [{
       "list": [{
         "name": "全部银行",
-        "value": "all"
+        "id": "all"
       }, {
         "name": "招商银行",
-        "value": "zs"
+        "id": "zs"
       }, {
         "name": "民生银行",
-        "value": "ms"
+        "id": "ms"
       }, {
         "name": "浦发银行",
-        "value": "pf"
+        "id": "pf"
       }, {
         "name": "平安银行",
-        "value": "pa"
+        "id": "pa"
       }]
     }, {
       "list": [{
         "name": "收益率",
-        "value": "all"
+        "id": "all"
       },{
         "name": "< 5%",
-        "value": "small3"
+        "id": "small3"
       }, {
         "name": ">= 5%且 <10%",
-        "value": "small5"
+        "id": "small5"
       }, {
         "name": ">= 10%",
-        "value": "big5"
+        "id": "big5"
       }]
     }, {
       "list": [{
         "name": "购买天数",
-        "value": "all"
+        "id": "all"
       }, {
         "name": "90天",
-        "value": "month1"
+        "id": "month1"
       }, {
         "name": "180天",
-        "value": "month3"
+        "id": "month3"
       }, {
         "name": "365天",
-        "value": "year1"
+        "id": "year1"
       }]
     }, {
       "list": [{
         "name": "申购金额",
-        "value": "all"
+        "id": "all"
       }, {
         "name": "5万",
-        "value": "w5"
+        "id": "w5"
       }, {
         "name": "10万",
-        "value": "w10"
+        "id": "w10"
       }, {
         "name": "100万",
-        "value": "w100"
+        "id": "w100"
       }, {
         "name": "200万",
-        "value": "w200"
+        "id": "w200"
       }]
     }],
     "list": [{

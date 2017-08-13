@@ -1,10 +1,11 @@
 <template>
-  <div class="user-paper">
+  <div class="user-paper user-paper-store">
     <div class="user-setting">
-      <div v-for="item in list" class="menu">
+      <div v-if="list.length" v-for="item in list" class="menu">
         <div class="menu-name">{{item.name}}</div>
         <div class="menu-icon">&gt;</div>
       </div>
+      <div class="no-data" v-if="!list.length">{{noDataTips}}</div>
     </div>
 
     <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="onInfinite"/>
@@ -20,14 +21,28 @@
     ]),
     data() {
       return {
-        storeKind: "",
+        storeKind: '',
         list: [],
+        noDataTips: '',
         pageIndex: 0,
         pageSize: 20,
         totalPage: -1,
         loading: false,
         scroller: null
       };
+    },
+    watch: {
+      storeKind(v) {
+        let noDataTips = '您还没收藏任何信息哦';
+        if (v === 'credit') {
+          noDataTips = '您还没收藏的信用卡优惠信息哦';
+        } else if (v === 'finance') {
+          noDataTips = '您还没收藏的理财信息哦';
+        } else if (v === 'loan') {
+          noDataTips = '您还没收藏的贷款信息哦';
+        }
+        this.noDataTips = noDataTips;
+      }
     },
     mounted() {
       let self = this;
@@ -99,7 +114,9 @@
     }
   }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 @import './../../assets/scss/_mixin.scss';
-
+.user-paper-store {
+  background:#fff;
+}
 </style>

@@ -66,7 +66,11 @@
           success(body){
             if (body.code === 'success') {
               let data = body.data;
-              self.banks = data.banks || [];
+              let banks = data.banks || [];
+              if (banks.length > 7) {
+                  banks.length = 7;
+              }
+              self.banks = banks;
               self.list = data.list || [];
               self.list2 = data.list2 || [];
               self.banners = data.banners || [];
