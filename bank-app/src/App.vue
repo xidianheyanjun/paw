@@ -291,7 +291,7 @@
     }
     .vv-banners{
       position:fixed;
-      bottom:0;
+      bottom:56px;
       left:0;
     }
     // 列表页
