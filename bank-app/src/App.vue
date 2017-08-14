@@ -6,19 +6,23 @@
     <div class="rv">
       <router-view></router-view>
     </div>
-
+    <div class="foot">
+      <appFoot></appFoot>
+    </div>
     <toast/>
   </div>
 </template>
 
 <script>
   import appHead from "@/components/core/app.head";
+  import appFoot from "@/components/core/app.foot";
   import toast from "@/components/box/toast";
   import env from "./env";
   export default {
     name: 'app',
     components: {
       appHead,
+      appFoot,
       toast
     },
     data(){
@@ -180,7 +184,7 @@
   .rv {
     position: fixed;
     top: 55px;
-    bottom: 0;
+    bottom: 55px;
     left: 0;
     right: 0;
     overflow-y: auto;
@@ -193,7 +197,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 8%;
+    height: 56px;
+    border-top:1px solid $lineColor2;
   }
 
   .no-data {
@@ -377,7 +382,7 @@
   // 发言输入
   .edit-message {
     position: fixed;
-    bottom:0;
+    bottom:56px;
     left:0;
     width:100%;
     height:47px;

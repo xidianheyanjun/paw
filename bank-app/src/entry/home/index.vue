@@ -73,7 +73,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
   import native from "@/util/native";
   const DEFAULT_AVATAR = require('./../../assets/images/atavar.png');
   export default {
@@ -97,6 +97,7 @@
       }
     },
     mounted(){
+      this.$store.dispatch('foot_setActive', 0);
       this.$store.dispatch("head_setHead", {
         // left: {
         //   img: "",
@@ -118,6 +119,9 @@
       });
       this.person_isLogin = native.isLogin();
     },
+    destroyed() {
+      this.$store.dispatch('foot_setActive', '');
+    },
     methods: {
       goto(url){
         window.location.href = url;
@@ -129,6 +133,7 @@
         } else {
           window.location.href = "#/person/index";
         }
+        // this.$store.dispatch('foot_setActive', 1);
         // 一个tab对应一个webview，切换两边用户登录状态无法同步
         // native.gotoTab(1);
       }

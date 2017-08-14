@@ -3,9 +3,10 @@
  */
 export default{
   foot_setActive(state, position){
-    let list = state.foot.menuList;
-    for (let index = 0; index < list.length; ++index) {
-      list[index]["isActive"] = index == position;
-    }
+    state.foot.tabIndex = position;
+    // let list = state.foot.menuList;
+    // for (let index = 0; index < list.length; ++index) {
+    //   list[index]["isActive"] = index == position;
+    // }
   }
 };

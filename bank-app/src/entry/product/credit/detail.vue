@@ -166,7 +166,7 @@ export default {
 }
 .vv-button{
   position: fixed;
-  bottom:0;
+  bottom:56px;
   left:0;
   // height:45px;
   // width:100%;

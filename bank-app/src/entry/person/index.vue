@@ -51,14 +51,17 @@
       }
     },
     mounted(){
+      let self = this;
+      this.$store.dispatch('foot_setActive', 1);
       this.$store.dispatch("head_setHead", {
-        // left: {
-        //   img: "",
-        //   title: "返回",
-        //   callback: function () {
-        //     window.location.href = "#/home/index";
-        //   }
-        // },
+        left: {
+          img: "",
+          title: "返回",
+          callback: function () {
+            history.back(-1);
+            // window.location.href = "#/home/index";
+          }
+        },
         center: {
           img: "",
           title: "个人中心",
@@ -74,6 +77,9 @@
       });
 
       this.person_isLogin = native.isLogin();
+    },
+    destroyed() {
+      this.$store.dispatch('foot_setActive', '');
     },
     methods: {
       login(){
