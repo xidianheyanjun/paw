@@ -66,7 +66,7 @@ export default {
 .vv-star{
   position:fixed;
   right:$spacing;
-  top:80%;
+  bottom:80px;
   width:60px;
   height:60px;
   background:$lineColor;

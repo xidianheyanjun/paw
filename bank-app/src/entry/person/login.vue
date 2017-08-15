@@ -17,6 +17,12 @@
       <a class="btn" href="#/person/register?type=find">忘记密码</a>
     </div>
     <mu-raised-button label="立即登录" class="vv-button" @click="login" primary fullWidth/>
+
+    <div class="quick-login">
+      <span class="title">其他登录方式</span>
+      <a class="icon-weixin" @click="weixinLogin"></a>  
+    </div>
+
   </div>
 </template>
 <script>
@@ -105,6 +111,12 @@
             });
           }
         });
+      },
+      weixinLogin() {
+        let appid = '';// 微信开放平台申请
+        let redirect_uri = encodeURIComponent(window.location.href);// 后端重定向地址
+        let state = +new Date();// 随机数 防CSRF
+        window.location.href = `https://open.weixin.qq.com/sns/explorer_broker?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${state}&connect_redirect=1#wechat_redirect`;
       }
     }
   }
@@ -119,6 +131,34 @@
   font-size: $fontSizeContent;
   .btn {
     color: $fontColor2;
+  }
+}
+.quick-login{
+  position:fixed;
+  bottom:56px;
+  left:5%;
+  width:90%;
+  height:90px;
+  border-top:1px solid $lineColor;
+  .title{
+    position:absolute;
+    top:-10px;
+    left:50%;
+    transform: translateX(-50%);
+    padding:0 20px;
+    background:#fff;
+    display:block;
+    font-size:$fontSizeTitle;
+    color:$fontColor2;
+    text-align:center;
+  }
+  .icon-weixin{
+    display:block;
+    margin:10px auto;
+    background:url('./../../assets/images/icon-weixin.png') no-repeat;
+    background-size:cover;
+    width:60px;
+    height:60px;
   }
 }
 </style>
