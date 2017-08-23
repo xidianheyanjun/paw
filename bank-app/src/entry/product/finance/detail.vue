@@ -15,7 +15,7 @@ export default {
       title: '',
       content: '',
       isStar: false,
-      starUrl: '#/product/finance/detail/'
+      starUrl: '/product/finance/store/'
     };
   },
   mounted() {

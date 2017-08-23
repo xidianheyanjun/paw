@@ -59,10 +59,10 @@
       reload(queryIds) {
         this.queryIds = queryIds;
       },
-      renderData(queryIds = 'all,all') {
+      renderData(queryIds = 'all,all,all') {
         // console.warn('render',queryIds);
         let self = this;
-        
+
         this.$sendRequest({
           url: '/product/credit/list?query=' + queryIds,
           params: {

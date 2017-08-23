@@ -209,6 +209,7 @@
             }
           }
         }
+        applyData.cardId = this.$route.params.id;
         self.$sendRequest({
           url: "/product/credit/apply",
           params: applyData,
