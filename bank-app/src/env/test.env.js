@@ -5,5 +5,5 @@ export default {
   mode: "test",
   useNative: false,
   useSign: false,
-  requestRoot: "http://192.168.1.109:1989/end"
+  requestRoot: "http://172.25.122.129:1989/end"
 };

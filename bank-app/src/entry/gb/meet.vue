@@ -143,7 +143,7 @@
         if (this.messageVal.length) {
           let self = this;
           this.$sendRequest({
-            url: '/gb/meet',
+            url: '/gb/meet/send',
             params: {
               msg: self.messageVal
             },
@@ -195,11 +195,11 @@
 //   .meet-users {
 //     height:56px;
 //     line-height:28px;
-//     overflow:hidden; 
+//     overflow:hidden;
 //     text-overflow:ellipsis;
-//     display:-webkit-box; 
+//     display:-webkit-box;
 //     -webkit-box-orient:vertical;
-//     -webkit-line-clamp:2; 
+//     -webkit-line-clamp:2;
 //   }
 //   .txt{
 //     float:left;

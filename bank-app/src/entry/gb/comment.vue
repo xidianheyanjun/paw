@@ -21,7 +21,7 @@
         title: '',
         content: '',
         message: [],
-        sendMsgUrl: '/gb/comment/' + this.$route.params['id']
+        sendMsgUrl: '/gb/comment/send/' + this.$route.params['id']
       };
     },
     mounted(){
