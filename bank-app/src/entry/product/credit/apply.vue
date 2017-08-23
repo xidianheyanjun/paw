@@ -253,7 +253,7 @@
 }
 .vv-button {
   position: fixed;
-  bottom:0;
+  bottom:56px;
   left:0;
 }
 </style>

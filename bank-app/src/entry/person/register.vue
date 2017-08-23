@@ -8,22 +8,24 @@
                          max="11" @input="clearErrorTips('accountError')" :underlineShow="false"/>
         </div>
       </div>
-      <div class="vv-row">
-        <div class="vv-col-title">密 码</div>
-        <div class="vv-col-value">
-          <mu-text-field label="" hintText="请输入密码" v-model.trim="password" type="password" :errorText="passwordError"
-                         :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')"
-                         :underlineShow="false"/>
+      <template v-if="type !== 'find'">
+        <div class="vv-row">
+          <div class="vv-col-title">密 码</div>
+          <div class="vv-col-value">
+            <mu-text-field label="" hintText="请输入密码" v-model.trim="password" type="password" :errorText="passwordError"
+                          :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')"
+                          :underlineShow="false"/>
+          </div>
         </div>
-      </div>
-      <div class="vv-row">
-        <div class="vv-col-title">再次输入密码</div>
-        <div class="vv-col-value">
-          <mu-text-field label="" hintText="请再次输入密码" v-model.trim="password2" type="password"
-                         :errorText="passwordError2" :minLength="6" :maxLength="16"
-                         @input="clearErrorTips('passwordError2')" :underlineShow="false"/>
+        <div class="vv-row">
+          <div class="vv-col-title">密码确认</div>
+          <div class="vv-col-value">
+            <mu-text-field label="" hintText="请再次输入密码" v-model.trim="password2" type="password"
+                          :errorText="passwordError2" :minLength="6" :maxLength="16"
+                          @input="clearErrorTips('passwordError2')" :underlineShow="false"/>
+          </div>
         </div>
-      </div>
+      </template>
       <div class="vv-row">
         <div class="vv-col-title">验证码</div>
         <div class="input-box">
@@ -76,8 +78,7 @@
     },
     mounted() {
       let titleTxt = '注册';
-      this.type = this.$route.query['type'];
-      let isFindpassword = this.$route.query['type'];
+      let isFindpassword = this.type =  this.$route.query['type'];
       if (isFindpassword == 'find') {
         titleTxt = '找回密码';
         this.btnTxt = '修改密码';
@@ -159,27 +160,32 @@
           self.accountError = '手机号不能为空';
           return;
         }
-        if (!self.password.length) {
-          self.passwordError = '密码不能为空';
-          return;
-        }
-        if (self.password != self.password2) {
-          self.passwordError2 = '两次输入的密码不一致';
-          return;
+        if (self.type !== 'find') {
+          if (!self.password.length) {
+            self.passwordError = '密码不能为空';
+            return;
+          }
+          if (self.password != self.password2) {
+            self.passwordError2 = '密码不一致';
+            return;
+          }
         }
         if (!self.indentifyCode.length) {
           self.indentifyCodeError = '验证码不能为空';
           return;
         }
-
-        let url = self.type == "find" ? "/user/find" : "/user/register";
+        let postData = {
+           account: self.account,
+           indentifyCode: self.indentifyCode
+        };
+        let url = '/user/register';
+        if (this.type !== 'find') {
+          postData.password = self.password;
+          url = '/user/find';
+        }
         self.$sendRequest({
           url: url,
-          params: {
-            account: self.account,
-            password: self.password,
-            indentifyCode: self.indentifyCode
-          },
+          params: postData,
           success(body){
             let msg = body.code == "success" ? self.type == "find" ? "设置成功" : "注册成功" : body.msg;
             self.$store.dispatch("box_set_toast", {
@@ -209,10 +215,13 @@
 
   .vv-form {
     .vv-col-title {
-      width: 35%;
+      width: 22%;
     }
     .vv-col-value {
-      width: 65%;
+      // width: 65%;
+    }
+    .input-box{
+      width:80%;
     }
   }
 </style>

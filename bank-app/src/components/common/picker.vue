@@ -36,7 +36,14 @@ export default {
   computed: {
     pickList() {
       let self = this;
+      let pickList = [];
       this.picks.forEach((item, index) => {
+        if (item.list && item.list.length) {
+          pickList.push(item);
+        }
+      });
+      // this.picks = pickList;
+      pickList.forEach((item, index) => {
         // console.warn(self.curPick)
         // console.warn(self.curPick.length)
         if (!self.curPick[index]) {
@@ -54,7 +61,7 @@ export default {
           item.curVal = item.list[0];
         }
       });
-      return this.picks;
+      return pickList;
     },
     tabWidth() {
       return 100 / this.pickList.length + '%';
