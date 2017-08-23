@@ -93,6 +93,7 @@
               show: true,
               toastText: '无法获取您的位置，请确保打开了定位'
             });
+            self.$emit('fetchMapNearbanks', err.message);
             return;
           });
 
