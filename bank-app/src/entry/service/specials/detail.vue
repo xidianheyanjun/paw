@@ -6,7 +6,12 @@
       <div class="cd-name">{{cardName}}</div>
       <div class="cd-txt">{{cardTxt}}</div>
     </div>
-    <div class="cd-cardlists" v-if="details.length">
+    <div class="cd-cardlists">
+      <dl>
+        <dd v-html="details"></dd>
+      </dl>
+    </div>
+    <!--div class="cd-cardlists" v-if="details.length">
       <dl v-for="(item, index) in details" :key="index">
         <dt>
           <span class="title">{{item.title}}</span>
@@ -14,7 +19,7 @@
         </dt>
         <dd v-html="item.content"></dd>
       </dl>
-    </div>
+    </div-->
   </div>
 </div>
 </template>
@@ -68,7 +73,7 @@ export default {
             self.cardImg = data.cardImg;
             self.cardName = data.cardName;
             self.cardTxt = data.cardTxt;
-            self.details = data.details || [];
+            self.details = data.details;
           } else {
             self.$store.dispatch('box_set_toast', {
               show: true,

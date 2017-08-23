@@ -8,6 +8,8 @@
           <div class="content" v-html="item.content"></div>
         </li>
     </ul>
+    
+    <div class="no-data" v-show="!list.length">未能找到相应结果</div>
   </div>
 </template>
 

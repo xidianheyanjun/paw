@@ -4,6 +4,7 @@
 
     <card-row type="row1" :cards="list" @goto="cardClick"></card-row>
 
+    <div class="no-data" v-show="!list.length">未能找到相应结果</div>
   </div>
 </template>
 

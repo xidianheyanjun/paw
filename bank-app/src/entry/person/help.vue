@@ -45,6 +45,10 @@
     },
     methods: {
       init() {
+        this.title = '帮助与反馈';
+        this.content = '帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈';
+        return;
+        
         let self = this;
         this.$sendRequest({
           url: '/user/help',
