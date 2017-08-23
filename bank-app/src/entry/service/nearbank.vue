@@ -21,74 +21,74 @@ import picker from '@/components/common/picker';
 import wMap from './../common/map';
 const ICON_BANK = [{
         name: '工商银行',
-        value: 'gongshang'
+        id: 'gongshang'
     }, {
         name: '农业银行',
-        value: 'nongye'
+        id: 'nongye'
     }, {
         name: '中国银行',
-        value: 'zhongguo'
+        id: 'zhongguo'
     }, {
         name: '建设银行',
-        value: 'jianshe'
+        id: 'jianshe'
     }, {
         name: '农发行',
-        value: 'nongfahang'//
+        id: 'nongfahang'//
     }, {
         name: '邮政储蓄银行',
-        value: 'youzheng'
+        id: 'youzheng'
     }, {
         name: '招商银行',
-        value: 'zhaoshang'
+        id: 'zhaoshang'
     }, {
         name: '民生银行',
-        value: 'minsheng'
+        id: 'minsheng'
     }, {
         name: '交通银行',
-        value: 'jiaotong'
+        id: 'jiaotong'
     }, {
         name: '浦发银行',
-        value: 'pufa'
+        id: 'pufa'
     }, {
         name: '兴业银行',
-        value: 'xingye'
+        id: 'xingye'
     }, {
         name: '中信银行',
-        value: 'zhongxin'
+        id: 'zhongxin'
     }, {
         name: '江西银行',
-        value: 'jiangxi'//
+        id: 'jiangxi'//
     }, {
         name: '赣州银行',
-        value: 'ganzhou'//
+        id: 'ganzhou'//
     }, {
         name: '赣州农商银行',
-        value: 'ganzhounongshang'//
+        id: 'ganzhounongshang'//
     }, {
         name: '九江银行',
-        value: 'jiujiang'
+        id: 'jiujiang'
     }, {
         name: '赣州银座村镇银行',
-        value: 'ganzhouyinzuo'
+        id: 'ganzhouyinzuo'
     }, {
         name: '南康赣商村镇银行',
-        value: 'nankanggan'
+        id: 'nankanggan'
     }, {
         name: '兴国新华村镇银行',
-        value: 'xingguo'
+        id: 'xingguo'
     }, {
         name: '光大银行',
-        value: 'guangda'
+        id: 'guangda'
     }, {
         name: '广发银行',
-        value: 'guangfa'
+        id: 'guangfa'
     }, {
         name: '平安银行',
-        value: 'pingan'
+        id: 'pingan'
     }
     // {
     //     name: '农村信用社',
-    //     value: 'xinyongshe'
+    //     id: 'xinyongshe'
     // }
     ];
 // const BANK_PICK_PRENUM = ICON_BANK.length; 
@@ -111,7 +111,7 @@ function iconFormat(name) {
             t_name = '农业发展银行';
         }
         if (name.indexOf(t_name) > -1) {
-            result = iconNames[i].value;
+            result = iconNames[i].id;
             break;
         }
     }
@@ -138,18 +138,18 @@ export default {
             pickList: [{
                 list: [{
                     name: '全部银行',
-                    value: 'all'
+                    id: 'all'
                 }]
             }, {
                 list: [{
                     name: '营业厅/ATM',
-                    value: 'all'
+                    id: 'all'
                 }, {
                     name: '营业厅',
-                    value: 'hall'
+                    id: 'hall'
                 }, {
                     name: 'ATM',
-                    value: 'atm'
+                    id: 'atm'
                 }]
             }],
             curPick: [],
@@ -184,13 +184,17 @@ export default {
     },
     methods: {
         fetchMapNearbanks(poiList) {
+            if (typeof poiList === 'string') {
+                this.loadingTips = '未能找到相应结果';
+                return;
+            }
             if (poiList) {
                 this.allMapBanks = poiList.pois;
             }
             this.renderBanks();
         },
         renderBanks(query = '') {
-            // console.log('pick query:', query);
+            console.log('pick query:', query);
             let brand = 'all';
             let hyType = 'all';
             if (query.indexOf(',') > -1) {
@@ -199,6 +203,7 @@ export default {
                 hyType = queryArr[1];
             }
             let resultBanks = [];
+            // this.allMapBanks = [];
             for (var i = 0, len = this.allMapBanks.length; i < len; i++) {
                 let bank = this.allMapBanks[i];
                 if (!bank.icon) {
@@ -234,7 +239,7 @@ export default {
             this.pickList[0].list = addBanks;
             let curPick = [];
             this.pickList.forEach(item => {
-                curPick.push(item.value);
+                curPick.push(item.curVal.id);
             })
             this.curPick = curPick;
         }

@@ -97,14 +97,14 @@
           });
 
           AMap.event.addListener(geolocation, 'complete', function (result) {
-            console.log('AMap.Geolocation complete o%', result);
+            console.log('AMap.Geolocation complete', result);
             self.$store.dispatch('gdmap_setUserLocation', result);
             self.placeSearchMap(result);
           });
         });
       },
       placeSearchMap(result) {
-        console.log('placeSearchMap start');
+        console.log('placeSearchMap start', result);
         let self = this;
         AMap.service(['AMap.PlaceSearch'], function () {//回调函数
           let placeSearch = new AMap.PlaceSearch({
@@ -115,11 +115,19 @@
             panel: ''
           });
           placeSearch.searchNearBy('银行', new AMap.LngLat(result.position.getLng(), result.position.getLat()), MAP_SEARCH_RADIUS, function (statusSearch, resultSearch) {
-            console.log(statusSearch);
-            console.log(resultSearch);
-            
-            self.$store.dispatch('gdmap_setNearbank', resultSearch.poiList);
-            self.$emit('fetchMapNearbanks', resultSearch.poiList);
+            console.log('statusSearch:', statusSearch); // 无结果返回'no_data'
+            console.log('resultSearch:', resultSearch);
+            if (!resultSearch.poiList) {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: '暂无搜索到您五公里内的银行'
+              });
+            }
+            self.$store.dispatch('gdmap_setNearbank', resultSearch.poiList || {
+              count: 0,
+              pois: []
+            });
+            self.$emit('fetchMapNearbanks', resultSearch.poiList || statusSearch);
             // self.walkingMap(result, resultSearch.poiList.pois[0]);// 定位最近的一个银行
           });
         });
