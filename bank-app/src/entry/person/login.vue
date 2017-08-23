@@ -134,8 +134,8 @@
   }
 }
 .quick-login{
-  position:fixed;
-  bottom:56px;
+  position:absolute;
+  bottom:0;
   left:5%;
   width:90%;
   height:90px;

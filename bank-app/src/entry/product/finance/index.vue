@@ -16,7 +16,7 @@
               <span class="title">{{item.title}}</span>
             </div>
             <div class="bd">
-              <span class="time">购买天数：{{item.time}}</span>
+              <span class="time">购买天数：{{item.time}}天</span>
               <span class="money">购买起点：{{item.money}}</span>
             </div>
             <div class="ft">
@@ -166,14 +166,17 @@
     }
   }
   .hd{
-    font-weight:bold;
-    padding-top:5px;
+    font-weight:500;
+    margin-top:5px;
     font-size:$fontSizeContent;
   }
   .bd{
     margin:10px 0;
     font-size:12px;
     color:$fontColor2;
+    .time {
+      margin-right:5px;
+    }
   }
   .tag{
     display:inline-block;
@@ -222,7 +225,7 @@
 .vv-notice {
   position:fixed;
   left:0;
-  bottom:0;
+  bottom:56px;
   width:100%;
   height:40px;
   overflow:hidden;
