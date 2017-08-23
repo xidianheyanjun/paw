@@ -15,10 +15,10 @@ export default {
       title: '',
       content: '',
       isStar: false,
-      starUrl: '#/product/loan/detail/',
+      starUrl: '/product/loan/store/',
     };
   },
-  mounted() { 
+  mounted() {
     this.$store.dispatch("head_setHead", {
       left: {
         img: "",
