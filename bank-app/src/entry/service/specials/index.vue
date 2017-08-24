@@ -5,7 +5,7 @@
     <div class="vv-module" v-if="types.length">
       <div class="vv-title">
         <span>信用卡优惠</span>
-        <a class="more" @click="gotoList('')">更多 &gt;</a>
+        <!--a class="more" @click="gotoList('')">更多 &gt;</a-->
       </div>
       <icon-row :icons="types" @goto="gotoList"></icon-row>
     </div>

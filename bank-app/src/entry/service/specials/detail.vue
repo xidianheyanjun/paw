@@ -11,6 +11,7 @@
         <dd v-html="details"></dd>
       </dl>
     </div>
+
     <!--div class="cd-cardlists" v-if="details.length">
       <dl v-for="(item, index) in details" :key="index">
         <dt>
@@ -20,6 +21,10 @@
         <dd v-html="item.content"></dd>
       </dl>
     </div-->
+  </div>
+  <div :class="['vv-star', {'stared': isStar}]" @click="star">
+    <mu-flat-button class="vv-button" label="" icon="star" primary/>
+    <span class="txt">{{starTxt}}</span>
   </div>
 </div>
 </template>
@@ -32,8 +37,15 @@ export default {
       cardImg: '',
       cardName: '',
       cardTxt: '',
-      details: []
+      details: '',
+      isStar: false,
+      starUrl: '/service/specials/store/'
     };
+  },
+  computed: {
+    starTxt() {
+      return this.isStar ? '已收藏' : '点击收藏';
+    }
   },
   mounted() {
     this.id = this.$route.params.id;
@@ -74,6 +86,31 @@ export default {
             self.cardName = data.cardName;
             self.cardTxt = data.cardTxt;
             self.details = data.details;
+          } else {
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: body.msg
+            });
+          }
+        },
+        error(err){
+          self.$store.dispatch('box_set_toast', {
+            show: true,
+            toastText: '服务器繁忙,请稍后再试'
+          });
+        }
+      });
+    },
+    star() {
+      let self = this;
+      let url = this.starUrl;
+      this.$sendRequest({
+        url: url + self.id,
+        params: {
+        },
+        success(body){
+          if (body.code === 'success') {
+            self.isStar = !self.isStar;
           } else {
             self.$store.dispatch('box_set_toast', {
               show: true,
@@ -141,6 +178,33 @@ export default {
     padding:$spacing;
     line-height:24px;
     font-size:$fontSizeContent;
+  }
+}
+.vv-star{
+  position:fixed;
+  right:$spacing;
+  bottom:80px;
+  width:60px;
+  height:60px;
+  background:$lineColor;
+  border-radius:100%;
+  text-align:center;
+  color:$mainColor2;
+  .txt{
+    display:block;
+    font-size:10px;
+  }
+  .vv-button{
+    min-width:40px;
+    width:40px;
+    height:35px;
+    color:$mainColor2;
+  }
+  &.stared{
+    color: $fontColor2;
+    .vv-button {
+      color: $fontColor2;
+    }
   }
 }
 </style>

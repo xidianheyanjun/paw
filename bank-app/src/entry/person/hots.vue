@@ -4,7 +4,7 @@
     <span class="triangle-right"></span>
     <span>{{item.title}}</span>
   </div>
-  <div class="no-data" v-if="!list.length">暂无热门推送</div>
+  <div class="no-data" v-if="!list.length">暂无热点推送</div>
 </div>
 </template>
 <script>

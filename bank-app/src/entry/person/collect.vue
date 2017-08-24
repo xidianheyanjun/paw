@@ -1,7 +1,7 @@
 <template>
   <div class="user-paper user-paper-store">
     <div class="user-setting">
-      <div v-if="list.length" v-for="item in list" class="menu">
+      <div v-if="list.length" v-for="(item, index) in list" :key="index" class="menu" @click="goto(item.path)">
         <div class="menu-name">{{item.name}}</div>
         <div class="menu-icon">&gt;</div>
       </div>
@@ -110,6 +110,9 @@
             self.loading = false;
           }
         });
+      },
+      goto(path) {
+        window.location.href = path;
       }
     }
   }

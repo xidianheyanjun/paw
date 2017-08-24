@@ -205,7 +205,7 @@
                 show: true,
                 toastText: '请完成填写'
               });
-              // return;
+              return;
             }
           }
         }

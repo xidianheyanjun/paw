@@ -28,7 +28,7 @@ export default {
       let self = this;
       let url = this.starUrl;
       this.$sendRequest({
-        url: url + '/' + self.$route.params['id'],
+        url: url + self.$route.params['id'],
         params: {
         },
         success(body){

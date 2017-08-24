@@ -530,10 +530,11 @@
       border-bottom: 1px solid $lineColor;
     }
     .menu-name {
-      // width: 90%;
+      width: 90%;
       font-size: $fontSize;
       height: 42px;
       line-height: 42px;
+      @extend %fix_width_content;
     }
     .menu-icon {
       width: 30px;

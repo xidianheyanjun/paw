@@ -18,10 +18,10 @@
     </div>
     <mu-raised-button label="立即登录" class="vv-button" @click="login" primary fullWidth/>
 
-    <div class="quick-login">
+    <!--div class="quick-login">
       <span class="title">其他登录方式</span>
       <a class="icon-weixin" @click="weixinLogin"></a>  
-    </div>
+    </div-->
 
   </div>
 </template>

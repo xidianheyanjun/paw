@@ -41,7 +41,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex';
-  const RESEND_TIME = 10;
+  const RESEND_TIME = 60;
   let sendIndentifyCodeTimer = null;
   export default {
     name: 'personRegister',
