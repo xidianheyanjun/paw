@@ -180,12 +180,12 @@
   }
   .tag{
     display:inline-block;
-    padding:1px 5px;
+    padding:2px 5px;
     background:$mainColor2;
     border-radius:$borderRadius;
     font-size:10px;
     color:#fff;
-    vertical-align:2px;
+    vertical-align:4px;
   }
   .title{
     display:inline-block;

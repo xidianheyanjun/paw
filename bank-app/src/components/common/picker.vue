@@ -51,7 +51,7 @@ export default {
           item.curIdx = 0;
         }
         for (let i = 0, len = item.list.length; i < len; i++) {
-          if (self.curPick[index] === item.list[i].id) {
+          if (self.curPick[index] == item.list[i].id) {
             item.curVal = item.list[i];
             item.curIdx = i;
             break;

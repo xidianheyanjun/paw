@@ -1,7 +1,7 @@
 <template>
   <div class="user-paper">
-    <div class="user-info" @click="login">
-      <div v-if="!person_isLogin" class="login-btn">
+    <div class="user-info">
+      <div v-if="!person_isLogin" class="login-btn" @click="login">
         <mu-avatar :src="avatar" class="avatar" />
         <a class="font-title mt-title">点击登录</a>
       </div>
@@ -54,14 +54,14 @@
       let self = this;
       this.$store.dispatch('foot_setActive', 1);
       this.$store.dispatch("head_setHead", {
-        left: {
-          img: "",
-          title: "返回",
-          callback: function () {
-            history.back(-1);
-            // window.location.href = "#/home/index";
-          }
-        },
+        // left: {
+        //   img: "",
+        //   title: "返回",
+        //   callback: function () {
+        //     history.back(-1);
+        //     // window.location.href = "#/home/index";
+        //   }
+        // },
         center: {
           img: "",
           title: "个人中心",

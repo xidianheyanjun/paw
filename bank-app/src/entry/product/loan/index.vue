@@ -1,9 +1,7 @@
 <template>
-  <div class="vv-wrapper">
-    <div class="vv-content">
-      <mu-raised-button label="企业用户贷款" to="/product/loan/search/company" class="demo-raised-button vv-button" primary/>
-      <mu-raised-button label="个人用户贷款" to="/product/loan/search/personal" class="demo-raised-button vv-button" primary/>
-    </div>
+  <div class="vv-content">
+    <mu-raised-button label="企业用户贷款" to="/product/loan/search/company" class="demo-raised-button vv-button" primary/>
+    <mu-raised-button label="个人用户贷款" to="/product/loan/search/personal" class="demo-raised-button vv-button" primary/>
   </div>
 </template>
 <script>
@@ -41,28 +39,20 @@
 </script>
 <style scoped lang="scss">
 @import './../../../assets/scss/_mixin.scss';
-.vv-wrapper {
-  position: relative;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  // background-color: #eee;
-  // background: url(../../../assets/images/sun.jpg) no-repeat;
-  // background-size: 100% 100%;
-}
-
 .vv-content {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  width:50%;
 }
 
 .vv-button {
   display: block;
-  margin: 30% auto;
-  width: 50%;
+  margin-bottom:50px;
+  // width: 50%;
+  &:last-child{
+    margin-bottom:0;
+  }
 }
 </style>

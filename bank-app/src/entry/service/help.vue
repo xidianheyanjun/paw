@@ -54,10 +54,11 @@ export default {
 <style lang="scss" scoped>
 @import './../../assets/scss/_mixin.scss';
 .help-info {
-    display: absolute;
-    margin: 50% auto;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
     width: 240px;
-    height: 100%;
 }
 .help-hd {
     font-size: 28px;

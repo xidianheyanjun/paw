@@ -1,11 +1,11 @@
 <template>
   <div class="paper">
-    <div class="info" @click="gotoUserCenter">
-      <div v-if="!person_isLogin" class="login-btn">
+    <div class="user-info">
+      <div v-if="!person_isLogin" class="login-btn" @click="gotoUserCenter">
         <mu-avatar :src="avatar" class="avatar" />
         <a class="font-title mt-title">点击登录</a>
       </div>
-      <div v-if="person_isLogin" class="login-btn">
+      <div v-if="person_isLogin" class="login-btn" @click="gotoUserCenter">
         <mu-avatar :src="avatar" class="avatar" />
         <span class="font-title mt-title">{{account}}</span>
       </div>
@@ -149,26 +149,28 @@
     background-color: #f0f0f0;
   }
 
-  .info {
-    height: 180px;
-    text-align: center;
-    padding: 50px  $spacing;
-    background-color: $bgColor;
-    .login-btn {
-      width:auto;
-      margin:0 auto;
-    }
-    .avatar {
-      width: 60px;
-      height: 60px;
-    }
-    .font-title{
-      display:block;
-      color: #dce0e6;
-      font-size: 18px;
-      margin-top: 10px;
-    }
-  }
+  // .info {
+  //   position:relative;
+  //   height: 180px;
+  //   background-color: $bgColor;
+  //   .login-btn {
+  //     position:absolute;
+  //     top:50%;
+  //     left:50%;
+  //     transform: translate(-50%, -50%);
+  //     text-align:center;
+  //   }
+  //   .avatar {
+  //     width: 60px;
+  //     height: 60px;
+  //   }
+  //   .font-title{
+  //     display:block;
+  //     color: #dce0e6;
+  //     font-size: 18px;
+  //     margin-top: 10px;
+  //   }
+  // }
 
 
   .navs {

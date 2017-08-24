@@ -499,13 +499,15 @@
     background-color: $bgColor2;
   }
   .user-info {
+    position:relative;
     height: 180px;
-    text-align: center;
-    padding: 50px  $spacing;
     background-color: $bgColor;
     .login-btn {
-      width:auto;
-      margin:0 auto;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform: translate(-50%, -50%);
+      text-align:center;
     }
     .avatar {
       width: 60px;
