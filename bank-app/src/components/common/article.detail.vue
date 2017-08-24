@@ -26,7 +26,6 @@ export default {
   methods: {
     star() {
       let self = this;
-      self.$emit('starClick', !self.isStar);
       let url = this.starUrl;
       this.$sendRequest({
         url: url + '/' + self.$route.params['id'],
