@@ -106,6 +106,12 @@
         }
       });
     },
+    beforeDestroy() {
+      if (sendIndentifyCodeTimer) {
+        clearInterval(sendIndentifyCodeTimer);
+        sendIndentifyCodeTimer = null;
+      }
+    },
     methods: {
       clearErrorTips(err) {
         this[err] = '';

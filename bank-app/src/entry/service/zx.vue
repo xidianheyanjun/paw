@@ -171,6 +171,12 @@ export default {
             }
         }
     },
+    beforeDestroy() {
+      if (sendIndentifyCodeTimer) {
+        clearInterval(sendIndentifyCodeTimer);
+        sendIndentifyCodeTimer = null;
+      }
+    },
     mounted() {
         this.$store.dispatch("head_setHead", {
             left: {

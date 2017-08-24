@@ -85,5 +85,8 @@
     width:32px;
     height:32px;
   }
+  .menu-name{
+    width:auto;
+  }
 }
 </style>

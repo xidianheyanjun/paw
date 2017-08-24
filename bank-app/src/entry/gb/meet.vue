@@ -37,6 +37,8 @@
   import { mapGetters } from 'vuex';
   import native from "@/util/native";
   const DEFAULT_AVATAR = require('./../../assets/images/atavar.png');
+  let reloadTimer = null;
+  let reloadTime = 10000; // 每隔10s轮询一次
   export default {
     name: 'gbMeet',
     computed: mapGetters([]),
@@ -92,7 +94,18 @@
           }
         }
       });
-      this.init();
+      if (!reloadTimer) {
+        reloadTimer = setInterval(() => {
+          this.init();
+        }, reloadTime);
+      }
+      
+    },
+    beforeDestroy() {
+      if (reloadTimer) {
+        clearInterval(reloadTimer);
+        reloadTimer = null;
+      }
     },
     updated() {
       let rvEl = document.body.querySelector('.rv');
@@ -100,6 +113,7 @@
     },
     methods: {
       init() {
+        console.log(1);
         let self = this;
         this.$sendRequest({
           url: '/gb/meet',
