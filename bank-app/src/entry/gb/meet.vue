@@ -39,7 +39,7 @@
   const DEFAULT_AVATAR = require('./../../assets/images/atavar.png');
   let reloadTimer = null;
   let reloadTime = 10000; // 每隔10s轮询一次
-  
+
   export default {
     name: 'gbMeet',
     computed: mapGetters([]),
@@ -114,7 +114,6 @@
     },
     methods: {
       init() {
-        console.log(1);
         let self = this;
         this.$sendRequest({
           url: '/gb/meet',
