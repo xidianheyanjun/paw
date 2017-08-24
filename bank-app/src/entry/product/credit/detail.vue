@@ -29,6 +29,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import native from "@/util/native";
 export default {
   name: 'productCreditDetail',
   data() {
@@ -98,7 +99,14 @@ export default {
       });
     },
     apply() {
-      window.location.href = '#/product/credit/apply/' + this.id;
+      if (native.isLogin()) {
+        window.location.href = '#/product/credit/apply/' + this.id;
+      } else {
+        this.$store.dispatch("box_set_toast", {
+          show: true,
+          toastText: "请先登录"
+        });
+      }
     }
   }
 }
