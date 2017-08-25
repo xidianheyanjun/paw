@@ -35,6 +35,24 @@
           <a class="btn-send" :class="{'send': isSend}" @click="sendCodeBtnClick" v-text="sendCodeText"></a>
         </div>
       </div>
+      <template v-if="type == 'find'">
+        <div class="vv-row">
+          <div class="vv-col-title">密 码</div>
+          <div class="vv-col-value">
+            <mu-text-field label="" hintText="请输入新密码" v-model.trim="password" type="password" :errorText="passwordError"
+                           :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')"
+                           :underlineShow="false"/>
+          </div>
+        </div>
+        <div class="vv-row">
+          <div class="vv-col-title">密码确认</div>
+          <div class="vv-col-value">
+            <mu-text-field label="" hintText="请再次输入新密码" v-model.trim="password2" type="password"
+                           :errorText="passwordError2" :minLength="6" :maxLength="16"
+                           @input="clearErrorTips('passwordError2')" :underlineShow="false"/>
+          </div>
+        </div>
+      </template>
       <mu-raised-button :label="btnTxt" class="vv-button" @click="register" primary fullWidth/>
     </div>
   </div>
@@ -180,15 +198,22 @@
           self.indentifyCodeError = '验证码不能为空';
           return;
         }
+        if (self.type == 'find') {
+          if (!self.password.length) {
+            self.passwordError = '密码不能为空';
+            return;
+          }
+          if (self.password != self.password2) {
+            self.passwordError2 = '密码不一致';
+            return;
+          }
+        }
         let postData = {
            account: self.account,
+          password: self.password,
            indentifyCode: self.indentifyCode
         };
-        let url = '/user/register';
-        if (this.type !== 'find') {
-          postData.password = self.password;
-          url = '/user/find';
-        }
+        let url = this.type !== 'find' ? '/user/register' : '/user/find';
         self.$sendRequest({
           url: url,
           params: postData,

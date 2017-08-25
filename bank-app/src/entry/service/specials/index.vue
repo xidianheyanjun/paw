@@ -1,7 +1,7 @@
 <template>
   <div>
     <banner v-if="banners.length" class="vv-module" :banners="banners"></banner>
-    
+
     <div class="vv-module" v-if="types.length">
       <div class="vv-title">
         <span>信用卡优惠</span>
@@ -9,10 +9,10 @@
       </div>
       <icon-row :icons="types" @goto="gotoList"></icon-row>
     </div>
-    
-    <card-row v-if="coupons.length" class="vv-module" type="row3" title="优惠券" :moreUrl="'#/service/specials/list?ids=all,' + couponsId" :cards="coupons" @goto="gotoDetail"></card-row>
 
-    <card-row v-if="markets.length" class="vv-module" type="row2" title="超市促销" :moreUrl="'#/service/specials/list?ids=all,' + marketsId" :cards="markets" @goto="gotoDetail"></card-row>
+    <card-row v-if="coupons.length" class="vv-module" type="row3" title="优惠券" :moreUrl="'#/service/specials/list?ids=all,all'" :cards="coupons" @goto="gotoDetail"></card-row>
+
+    <card-row v-if="markets.length" class="vv-module" type="row2" title="超市促销" :moreUrl="'#/service/specials/list?ids=all,all'" :cards="markets" @goto="gotoDetail"></card-row>
 
   </div>
 </template>
@@ -93,14 +93,14 @@
           }
         });
       },
-      gotoList(id = '') {
+      gotoList(id = 'all') {
         window.location.href = '#/service/specials/list?ids=all,' + id;
       },
       gotoDetail(id) {
         window.location.href = '#/service/specials/detail/' + id;
       }
     }
-  } 
+  }
 </script>
 
 <style lang="scss" scoped>
