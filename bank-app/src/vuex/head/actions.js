@@ -16,6 +16,7 @@ export default{
         // title: head.left.title || "",
         callback: head.left.callback || null
       };
+      window.backpress = head.left.callback || null // 给安卓客户端调用（返回）
     }
     if (head.right) {
       headInfo.right = {
