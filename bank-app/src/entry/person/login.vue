@@ -20,7 +20,7 @@
 
     <!--div class="quick-login">
       <span class="title">其他登录方式</span>
-      <a class="icon-weixin" @click="weixinLogin"></a>  
+      <a class="icon-weixin" @click="weixinLogin"></a>
     </div-->
 
   </div>
@@ -96,7 +96,7 @@
 
             // 登录成功写token到客户端
             native.setUserInfo({
-              userId: body.data.userId || '',
+              userId: body.data.userId || 0,
               account: self.account,
               token: body.token
             });

@@ -85,6 +85,7 @@ export default {
             self.cardImg = data.cardImg;
             self.cardName = data.cardName;
             self.cardTxt = data.cardTxt;
+            self.isStar = data.isStar;
             self.details = data.details;
           } else {
             self.$store.dispatch('box_set_toast', {

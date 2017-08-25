@@ -28,8 +28,8 @@ Vue.prototype.$sendRequest = (option) => {
   let requestUrl = env.requestRoot + option.url;
   let method = env.mode == "dev" ? "get" : "post";
   let userInfo = native.getUserInfo();
-  option.params = option.params || {},
-  option.params.userId = userInfo.userId;
+  option.params = option.params || {};
+  option.params.userId = userInfo.userId || 0;
   option.params.token = userInfo.token;
   let data = JSON.stringify(option.params);
   let params = env.mode == "dev" ? {data: option.params} : {
