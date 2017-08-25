@@ -94,6 +94,8 @@
           }
         }
       });
+
+      this.init();
       if (!reloadTimer) {
         reloadTimer = setInterval(() => {
           this.init();
@@ -114,15 +116,16 @@
     methods: {
       init() {
         let self = this;
+        let msgLength = self.list.length;
         this.$sendRequest({
           url: '/gb/meet',
           params: {
-            ts: +new Date()
+            ts: msgLength > 0 ? self.list[msgLength - 1]["ts"] : 0
           },
           success(body) {
             if (body.code === 'success') {
               let data = body.data;
-              self.list = data.list || [];
+              self.list = self.list.concat(data.list || []);
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,
