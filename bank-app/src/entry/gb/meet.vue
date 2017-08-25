@@ -66,7 +66,7 @@
     watch: {
       person_isLogin(v) {
         if (v) {
-          this.userId = native.getUserInfo().userId || '';
+          this.userId = native.getUserInfo().userId || 0;
           console.warn('userId:', this.userId)
         }
       }
@@ -99,7 +99,7 @@
           this.init();
         }, reloadTime);
       }
-      
+
     },
     beforeDestroy() {
       if (reloadTimer) {
