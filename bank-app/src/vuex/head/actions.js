@@ -1,6 +1,8 @@
 /**
  * Created by Administrator on 2017/6/5.
  */
+
+import native from "@/util/native";
 export default{
   head_setHead(context, head){
     let headInfo = {
@@ -16,7 +18,9 @@ export default{
         // title: head.left.title || "",
         callback: head.left.callback || null
       };
-      window.backpress = head.left.callback || null // 给安卓客户端调用（返回）
+      window.backpress = head.left.callback || native.closeApp // 给安卓客户端调用（返回）
+    } else {
+      window.backpress = native.closeApp // 给安卓客户端调用（退出app）
     }
     if (head.right) {
       headInfo.right = {
