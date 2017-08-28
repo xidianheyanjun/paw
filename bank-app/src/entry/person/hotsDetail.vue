@@ -48,7 +48,7 @@
         let self = this;
         let hotsId = this.$route.params['id'];
         this.$sendRequest({
-          url: '/user/hots/detail/' + hotsId,
+          url: '/user/hotsDetail/' + hotsId,
           params: {
           },
           success(body){

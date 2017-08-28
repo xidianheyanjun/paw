@@ -2,7 +2,32 @@
   "code": "success",
   "msg": "成功",
   "data": {
-    "title": "帮助与反馈",
-    "content": "帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈帮助与反馈"
+    "types": [{
+      "id": "1",
+      "name": "贷款问题",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "查信用问题",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "信用卡、理财问题",
+      "icon": "static/images/bank.png"
+    }, {
+      "id": "1",
+      "name": "账户问题",
+      "icon": "static/images/bank.png"
+    }],
+    "list": [{
+      "id": "1",
+      "title": "选择不了联系人怎么办?选择不了联系人怎么办?选择不了联系人怎么办?"
+    }, {
+      "id": "1",
+      "title": "选择不了联系人怎么办?"
+    }, {
+      "id": "1",
+      "title": "选择不了联系人怎么办?"
+    }]
   }
 }

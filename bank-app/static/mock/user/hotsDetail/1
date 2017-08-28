@@ -1,0 +1,9 @@
+{
+  "code": "success",
+  "msg": "成功",
+  "data": {
+    "id": "1",
+    "title": "我想要取消贷款，怎么操作？",
+    "content": "【月光族、原子贷、信用卡贷、支付贷】未放贷的贷款都可以取消、点击【账户】->点击【贷款进度查询】或者【待完成贷款订单】->点击【编辑】->点击卡片上按钮“放弃贷款”即可。<img src='static/images/banner.png'><img src='static/images/banner.png'>"
+  }
+}

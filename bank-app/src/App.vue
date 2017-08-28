@@ -135,10 +135,11 @@
     }
   }
   .mu-sub-header {
-    padding:0 $spacing;
+    padding:0 $spacing 10px;
     font-size:$fontSizeTitle;
     color:$fontColor3;
     text-align:center;
+    line-height:24px;
   }
   .mu-content-block {
     color:$fontColor;
@@ -543,6 +544,9 @@
       line-height: 42px;
       text-align:center;
       color: #ccc;
+    }
+    .menu-icon-down {
+      transform: rotate(90deg);
     }
   }
 </style>

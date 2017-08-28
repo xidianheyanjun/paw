@@ -9,7 +9,7 @@
         <div class="name">{{item.name}}</div>
       </a>
     </mu-col>
-    <mu-col width="25" tablet="25" desktop="25">
+    <mu-col width="25" tablet="25" desktop="25" v-if="hasMore">
       <a class="item" @click="iconClick('all')">
         <div class="icon">
           <img src="static/images/more.png"/>
@@ -27,6 +27,10 @@ export default {
     icons: {
       type: Array,
       default: []
+    },
+    hasMore: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {

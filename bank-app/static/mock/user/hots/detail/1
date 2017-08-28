@@ -1,9 +1,0 @@
-{
-  "code": "success",
-  "msg": "成功",
-  "data": {
-    "title": "热门推送标题1",
-    "id": "1",
-    "content": "热门推送内容"
-  }
-}
