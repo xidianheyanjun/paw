@@ -210,6 +210,8 @@ export default {
             this.$sendRequest({
                 url: '/service/zx',
                 params:{
+                  name: self.name,
+                  cardNo: self.cardNo
                 },
                 success(body) {
                     let msg = '';
@@ -261,7 +263,7 @@ export default {
             //     self.indentifyCodeError = '请输入验证码';
             //     return;
             // }
-            if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(self.cardNo)) {  
+            if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(self.cardNo)) {
                 self.cardNoError = '身份证输入不合法';
                 // return;
             }
