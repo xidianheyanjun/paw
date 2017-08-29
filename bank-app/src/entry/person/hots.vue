@@ -1,7 +1,7 @@
 <template>
   <div class="user-paper">
     <div class="user-setting">
-      <div v-for="(item, index) in person.hotsKind" @click="goto(item.href)" class="menu">
+      <div v-for="(item, index) in hotsKindList" @click="goto(item.id)" class="menu">
         <div class="menu-name">{{item.name}}</div>
         <div class="menu-icon">&gt;</div>
       </div>
@@ -18,6 +18,7 @@
     ]),
     data() {
       return {
+        hotsKindList: []
       };
     },
     mounted() {
@@ -42,10 +43,35 @@
           }
         }
       });
+
+      this.init();
     },
     methods: {
-      goto(href){
-        window.location.href = href;
+      init(){
+        let self = this;
+        self.$sendRequest({
+          url: '/user/hots/kind',
+          params: {},
+          success(body){
+            if (body.code === 'success') {
+              self.hotsKindList = body.data;
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
+          },
+          error(err) {
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
+          }
+        });
+      },
+      goto(id){
+        window.location.href = "#/person/hotsList/" + id;
       }
     }
   }

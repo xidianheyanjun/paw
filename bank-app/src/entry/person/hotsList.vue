@@ -46,7 +46,7 @@
     },
     mounted() {
       let self = this;
-      self.hotsKind = self.$route.params["id"] || "creditInfo";
+      self.hotsKind = parseInt(self.$route.params["id"]) || 0;
       self.$store.dispatch("head_setHead", {
         left: {
           img: "",

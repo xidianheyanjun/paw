@@ -69,7 +69,7 @@ export default {
             let data = body.data;
             self.title = data.title;
             self.content = data.content;
-            self.relatedList = data.relatedList;
+            self.relatedList = data.relatedList || [];
             self.telNo = data.telNo;
           } else {
             self.$store.dispatch('box_set_toast', {
