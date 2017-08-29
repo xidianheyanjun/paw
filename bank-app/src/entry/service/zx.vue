@@ -50,30 +50,356 @@
             <mu-raised-button @click="nextClick" label="确定" class="vv-next" primary fullWidth/>
         </div>
         <div class="result" v-show="result">
-            <div class="hd">风险信息</div>
-            <dl class="form-list" v-if="result.zhixing.length">
-                <dt class="title">风险信息</dt>
-                <dd class="col" v-for="(item, index) in result.zhixing" :key="index">
-                <span class="name">{{item.title}}</span>
-                <span class="value">{{item.casenum}}元</span>
-                </dd>
-                <dd class="col">
-                <span class="name">还款月数</span>
-                <span class="value">{{debx_dkqx}}月</span>
-                </dd>
-                <dd class="col">
-                <span class="name">每月还款</span>
-                <span class="value">{{debx_myhk}}元</span>
-                </dd>
-                <dd class="col">
-                <span class="name">总支付利息</span>
-                <span class="value">{{debx_zflx}}元</span>
-                </dd>
-                <dd class="col">
-                <span class="name">本息合计</span>
-                <span class="value">{{debx_hkze}}元</span>
-                </dd>
-            </dl>
+            <div class="result-col" v-if="result.zhixing.length">
+                <div class="hd">执行公开信息</div>
+                <dl class="form-list" v-for="(item, index) in result.zhixing" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">立案时间</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行案号</span>
+                    <span class="value">{{item.casenum}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行法院</span>
+                    <span class="value">{{item.court}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行内容</span>
+                    <span class="value">{{item.content}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行状态</span>
+                    <span class="value">{{item.state}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="result-col" v-if="result.shixin.length">
+                <div class="hd">失信老赖名单</div>
+                <dl class="form-list" v-for="(item, index) in result.shixin" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">立案时间</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行案号</span>
+                    <span class="value">{{item.casenum}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行法院</span>
+                    <span class="value">{{item.court}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行内容</span>
+                    <span class="value">{{item.content}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行状态</span>
+                    <span class="value">{{item.state}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="result-col" v-if="result.xiangao.length">
+                <div class="hd">限制高消费名单</div>
+                <dl class="form-list" v-for="(item, index) in result.xiangao" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">立案时间</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行案号</span>
+                    <span class="value">{{item.casenum}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行法院</span>
+                    <span class="value">{{item.court}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行内容</span>
+                    <span class="value">{{item.content}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行状态</span>
+                    <span class="value">{{item.state}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="result-col" v-if="result.xianchu.length">
+                <div class="hd">限制出入境名单</div>
+                <dl class="form-list" v-for="(item, index) in result.xianchu" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">立案时间</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行案号</span>
+                    <span class="value">{{item.casenum}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行法院</span>
+                    <span class="value">{{item.court}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行内容</span>
+                    <span class="value">{{item.content}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行状态</span>
+                    <span class="value">{{item.state}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="result-col" v-if="result.caipan.length">
+                <div class="hd">民商事裁判文书</div>
+                <dl class="form-list" v-for="(item, index) in result.caipan" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">立案时间</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行案号</span>
+                    <span class="value">{{item.casenum}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行法院</span>
+                    <span class="value">{{item.court}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行内容</span>
+                    <span class="value">{{item.content}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行状态</span>
+                    <span class="value">{{item.state}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="result-col" v-if="result.shenpan.length">
+                <div class="hd">民商事审判流程</div>
+                <dl class="form-list" v-for="(item, index) in result.shenpan" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">立案时间</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行案号</span>
+                    <span class="value">{{item.casenum}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行法院</span>
+                    <span class="value">{{item.court}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行内容</span>
+                    <span class="value">{{item.content}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行状态</span>
+                    <span class="value">{{item.state}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="result-col" v-if="result.zuifan.length">
+                <div class="hd">犯罪及嫌疑人名单</div>
+                <dl class="form-list" v-for="(item, index) in result.zuifan" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">立案时间</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行案号</span>
+                    <span class="value">{{item.casenum}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行法院</span>
+                    <span class="value">{{item.court}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行内容</span>
+                    <span class="value">{{item.content}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行状态</span>
+                    <span class="value">{{item.state}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="result-col" v-if="result.weifa.length">
+                <div class="hd">行政违法记录</div>
+                <dl class="form-list" v-for="(item, index) in result.weifa" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">具体日期</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">当事人姓名</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">证件号码</span>
+                    <span class="value">{{item.id}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">案号</span>
+                    <span class="value">{{item.casenum}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">执行机关</span>
+                    <span class="value">{{item.court}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">违法事由</span>
+                    <span class="value">{{item.casetopic}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">行政执法结果</span>
+                    <span class="value">{{item.content}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">法院审理结果</span>
+                    <span class="value">{{item.content2}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="result-col" v-if="result.qianshui.length">
+                <div class="hd">欠税名单</div>
+                <dl class="form-list" v-for="(item, index) in result.qianshui" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">欠税发生时间</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">纳税人名称</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">证件号码</span>
+                    <span class="value">{{item.id}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">主管税务机关</span>
+                    <span class="value">{{item.court}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">欠款金额</span>
+                    <span class="value">{{item.money}}元</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">所欠税种</span>
+                    <span class="value">{{item.taxtype}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">欠税属期</span>
+                    <span class="value">{{item.taxperiod}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="result-col" v-if="result.feizheng.length">
+                <div class="hd">纳税非正常户</div>
+                <dl class="form-list" v-for="(item, index) in result.feizheng" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">认定日期</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">纳税人名称</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">纳税人识别号</span>
+                    <span class="value">{{item.id}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">主管税务机关</span>
+                    <span class="value">{{item.court}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="result-col" v-if="result.qiankuan.length">
+                <div class="hd">欠款欠税名单</div>
+                <dl class="form-list" v-for="(item, index) in result.qiankuan" :key="index">
+                    <dt class="title">{{item.title}}</dt>
+                    <dd class="col">
+                    <span class="name">具体时间</span>
+                    <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">欠款人姓名</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">身份</span>
+                    <span class="value">{{item.pctype}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">证件号码</span>
+                    <span class="value">{{item.id}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">欠款原因</span>
+                    <span class="valpctypeue">{{item.casetopic}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">拖欠金额</span>
+                    <span class="value">{{item.money}}元</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">异议备注</span>
+                    <span class="value">{{item.remark}}</span>
+                    </dd>
+                </dl>
+            </div>
         </div>
         <!--div class="process-list-2" v-show="processNo === 2">
             <div class="vv-row">
@@ -140,13 +466,25 @@ export default {
     components: {},
     data(){
         return {
-            name: '',
+            name: '宋华',
             nameError: '',
-            cardNo: '',
+            cardNo: '450305197805152014',
             cardNoError: '',
             checkVal: true,
             processNo: 1,
-            result: null
+            result: {
+                zhixing: [],
+                shixin: [],
+                xiangao: [],
+                xianchu: [],
+                caipan: [],
+                shenpan: [],
+                zuifan: [],
+                weifa: [],
+                qianshui: [],
+                feizheng: [],
+                qiankuan: []
+            }
             // zxCount: '',
             // zxCountError: '',
             // zxPassword: '',
@@ -310,12 +648,14 @@ export default {
                 },
                 success(body){
                     if (body.code === 'success') {
-                        // self.processNo++;
-                        let fxcontent = body.data.content.fxcontent
-                        this.result = {
+                        self.processNo++;
+                        let content = eval("(" + body.data.content + ")"); 
+                        let fxcontent = content.fxcontent;
+                        self.result = {
                             zhixing: fxcontent.zhixing || [],
                             shixin: fxcontent.shixin || [],
                             xiangao: fxcontent.xiangao || [],
+                            xianchu: fxcontent.xianchu || [],
                             caipan: fxcontent.caipan || [],
                             shenpan: fxcontent.shenpan || [],
                             zuifan: fxcontent.zuifan || [],
@@ -444,29 +784,53 @@ export default {
         text-decoration:underline;
     }
 }
+.result-col {
+    .hd {
+        position:relative;
+        height:50px;
+        line-height:50px;
+        background: $mainColor;
+        font-size: $fontSize;
+        color:#fff;
+        text-align:center;
+        padding: 0 $spacing;
+        // border-bottom: 1px solid $lineColor2;
+        // &:after{
+        //     position:absolute;
+        //     top:1px;
+        //     right:20px;
+        //     content:'>';
+        //     display:block;
+        // }
+    }
+}
 .form-list {
   .title,
   .col {
-    height:40px;
-    line-height:40px;
+    // height:40px;
+    // line-height:40px;
     box-sizing: border-box;
     padding: 0 $spacing;
     border-bottom: 1px solid $lineColor2;
   }
   .title {
+    height:40px;
+    line-height:40px;
     background: $backgroudColor;
     font-size: $fontSizeTitle;
   }
   .col {
     font-size: $fontSizeContent;
+    height: auto;
+    line-height:30px;
     .name,
     .value {
-      float:left;
+    //   float:left;
       display: block;
-      width: 50%;
+    //   width: 50%;
     }
     .value {
-      text-align: right;
+    //   text-align: right;
       color: $fontColor2;
     }
   }
