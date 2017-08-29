@@ -42,29 +42,29 @@ export default{
     }, {
       name: "收藏的贷款信息",
       href: "#/person/collect/loan"
-    }],
-    mapHotsKind: {
-      creditInfo: "最新信用卡资讯",
-      finance: "最热理财资讯",
-      policy: "最新政策",
-      creditSpecials: "最新信用卡优惠",
-      loanPolicy: "最新贷款政策"
-    },
-    hotsKind: [{
-      name: "最新信用卡资讯",
-      href: "#/person/hotsList/creditInfo"
-    }, {
-      name: "最热理财资讯",
-      href: "#/person/hotsList/finance"
-    }, {
-      name: "最新政策",
-      href: "#/person/hotsList/policy"
-    }, {
-      name: "最新信用卡优惠",
-      href: "#/person/hotsList/creditSpecials"
-    }, {
-      name: "最新贷款政策",
-      href: "#/person/hotsList/loanPolicy"
     }]
+    // mapHotsKind: {
+    //   creditInfo: "最新信用卡资讯",
+    //   finance: "最热理财资讯",
+    //   policy: "最新政策",
+    //   creditSpecials: "最新信用卡优惠",
+    //   loanPolicy: "最新贷款政策"
+    // },
+    // hotsKind: [{
+    //   name: "最新信用卡资讯",
+    //   href: "#/person/hotsList/creditInfo"
+    // }, {
+    //   name: "最热理财资讯",
+    //   href: "#/person/hotsList/finance"
+    // }, {
+    //   name: "最新政策",
+    //   href: "#/person/hotsList/policy"
+    // }, {
+    //   name: "最新信用卡优惠",
+    //   href: "#/person/hotsList/creditSpecials"
+    // }, {
+    //   name: "最新贷款政策",
+    //   href: "#/person/hotsList/loanPolicy"
+    // }]
   }
 };

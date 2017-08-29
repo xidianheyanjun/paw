@@ -21,9 +21,9 @@
     ]),
     data() {
       return {
-        hotsKind: '',
+        hotsKind: 0,
         list: [],
-        noDataTips: '',
+        noDataTips: '您暂无热点推送',
         pageIndex: 0,
         pageSize: 20,
         totalPage: -1,
@@ -31,19 +31,23 @@
         scroller: null
       };
     },
-    watch: {
-      hotsKind(v) {
-        let noDataTips = '您还没收藏任何信息哦';
-        if (v === 'credit') {
-          noDataTips = '您还没收藏的信用卡优惠信息哦';
-        } else if (v === 'finance') {
-          noDataTips = '您还没收藏的理财信息哦';
-        } else if (v === 'loan') {
-          noDataTips = '您还没收藏的贷款信息哦';
-        }
-        this.noDataTips = noDataTips;
-      }
-    },
+    // watch: {
+    //   hotsKind(v) {
+    //     let noDataTips = '您暂无热点推送';
+        // if (v === 'creditInfo') {
+        //   noDataTips = '您还没最新信用卡资讯哦';
+        // } else if (v === 'finance') {
+        //   noDataTips = '您还没最热理财资讯哦';
+        // } else if (v === 'policy') {
+        //   noDataTips = '您还没最新政策哦';
+        // } else if (v === 'creditSpecials') {
+        //   noDataTips = '您还没最新信用卡优惠哦';
+        // } else if (v === 'loanPolicy') {
+        //   noDataTips = '您还没最新贷款政策哦';
+        // }
+    //     this.noDataTips = noDataTips;
+    //   }
+    // },
     mounted() {
       let self = this;
       self.hotsKind = parseInt(self.$route.params["id"]) || 0;
@@ -57,7 +61,7 @@
         },
         center: {
           img: "",
-          title: self.person.mapHotsKind[self.hotsKind],
+          title: '热点推送',
           callback: null
         },
         right: {
