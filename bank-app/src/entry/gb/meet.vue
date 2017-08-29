@@ -120,7 +120,7 @@
         this.$sendRequest({
           url: '/gb/meet',
           params: {
-            ts: msgLength > 0 ? self.list[msgLength - 1]["ts"] : 0
+            ts: msgLength > 0 ? self.list[msgLength - 1]["ts"] + "" : ""
           },
           success(body) {
             if (body.code === 'success') {
