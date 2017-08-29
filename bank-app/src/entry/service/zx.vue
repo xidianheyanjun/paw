@@ -1,6 +1,6 @@
 <template>
 <div class="page-zx">
-    <div class="process-list">
+    <!--div class="process-list">
         <div class="process-item current">
             <div class="process-num">1</div>
             <div class="process-txt">填写身份信息</div>
@@ -20,9 +20,9 @@
             <div class="process-num">4</div>
             <div class="process-txt">等待信息反馈</div>
         </div>
-    </div>
+    </div-->
     <div class="vv-form">
-        <div class="process-list-1" v-if="processNo === 1">
+        <div class="process-list-1" v-show="processNo === 1">
             <div class="vv-row">
                 <div class="vv-col-title">真实姓名</div>
                 <div class="vv-col-value">
@@ -47,9 +47,35 @@
                 <mu-checkbox label="我已阅读并同意" class="vv-checkbox" v-model="checkVal"/>
                 <a href="#/service/zxintro" class="link">《服务条款》</a>
             </div>
-            <mu-raised-button @click="nextClick" label="下一步" class="vv-next" primary fullWidth/>
+            <mu-raised-button @click="nextClick" label="确定" class="vv-next" primary fullWidth/>
         </div>
-        <div class="process-list-2" v-if="processNo === 2">
+        <div class="result" v-show="result">
+            <div class="hd">风险信息</div>
+            <dl class="form-list" v-if="result.zhixing.length">
+                <dt class="title">风险信息</dt>
+                <dd class="col" v-for="(item, index) in result.zhixing" :key="index">
+                <span class="name">{{item.title}}</span>
+                <span class="value">{{item.casenum}}元</span>
+                </dd>
+                <dd class="col">
+                <span class="name">还款月数</span>
+                <span class="value">{{debx_dkqx}}月</span>
+                </dd>
+                <dd class="col">
+                <span class="name">每月还款</span>
+                <span class="value">{{debx_myhk}}元</span>
+                </dd>
+                <dd class="col">
+                <span class="name">总支付利息</span>
+                <span class="value">{{debx_zflx}}元</span>
+                </dd>
+                <dd class="col">
+                <span class="name">本息合计</span>
+                <span class="value">{{debx_hkze}}元</span>
+                </dd>
+            </dl>
+        </div>
+        <!--div class="process-list-2" v-show="processNo === 2">
             <div class="vv-row">
                 <div class="vv-col-title">登录名</div>
                 <div class="vv-col-value">
@@ -90,14 +116,14 @@
             </div>
             <mu-raised-button @click="nextClick" label="提交" class="vv-next" primary fullWidth/>
         </div>
-        <div class="process-list-3" v-if="processNo === 3">
+        <div class="process-list-3" v-show="processNo === 3">
             <div class="no-data">正在发送查询申请</div>
         </div>
-        <div class="process-list-4" v-if="processNo === 4">
+        <div class="process-list-4" v-show="processNo === 4">
             <div class="no-data">申请成功，请耐心等待信息反馈</div>
-        </div>
+        </div-->
     </div>
-    <div class="ft" v-if="processNo === 1">
+    <div class="ft" v-show="processNo === 1">
         <span class="msg">已有征信中心账户</span>
         <a href="#/person/login" class="link">立即登录</a>
     </div>
@@ -106,8 +132,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-const RESEND_TIME = 10;
-let sendIndentifyCodeTimer = null;
+// const RESEND_TIME = 10;
+// let sendIndentifyCodeTimer = null;
 export default {
     name: 'serviceZX',
     computed: mapGetters([]),
@@ -120,22 +146,23 @@ export default {
             cardNoError: '',
             checkVal: true,
             processNo: 1,
-            zxCount: '',
-            zxCountError: '',
-            zxPassword: '',
-            zxPasswordError: '',
-            zxPassword2: '',
-            zxPasswordError2: '',
-            email: '',
-            emailError: '',
-            mobile: '',
-            mobileError: '',
-            indentifyCode: '',
-            indentifyCodeError: '',
-            isSend: false,
-            isValidate: false,
-            sendCodeText:'获取',
-            resendTime: RESEND_TIME
+            result: null
+            // zxCount: '',
+            // zxCountError: '',
+            // zxPassword: '',
+            // zxPasswordError: '',
+            // zxPassword2: '',
+            // zxPasswordError2: '',
+            // email: '',
+            // emailError: '',
+            // mobile: '',
+            // mobileError: '',
+            // indentifyCode: '',
+            // indentifyCodeError: '',
+            // isSend: false,
+            // isValidate: false,
+            // sendCodeText:'获取',
+            // resendTime: RESEND_TIME
         }
     },
     watch: {
@@ -146,15 +173,15 @@ export default {
                 }, 3000);
             }
         },
-        resendTime(v1) {
-            if (v1 && (v1 < RESEND_TIME)) {
-                this.sendCodeText = this.resendTime + 's';
-                this.isSend = true;
-            } else if (v1 === 0) {
-                this.sendCodeText = '获取';
-                this.isSend = false;
-            }
-        },
+        // resendTime(v1) {
+        //     if (v1 && (v1 < RESEND_TIME)) {
+        //         this.sendCodeText = this.resendTime + 's';
+        //         this.isSend = true;
+        //     } else if (v1 === 0) {
+        //         this.sendCodeText = '获取';
+        //         this.isSend = false;
+        //     }
+        // },
         name(v1, v2) {
             if (v1 !== v2) {
                 this.nameError = '';
@@ -171,12 +198,12 @@ export default {
             }
         }
     },
-    beforeDestroy() {
-      if (sendIndentifyCodeTimer) {
-        clearInterval(sendIndentifyCodeTimer);
-        sendIndentifyCodeTimer = null;
-      }
-    },
+    // beforeDestroy() {
+    //   if (sendIndentifyCodeTimer) {
+    //     clearInterval(sendIndentifyCodeTimer);
+    //     sendIndentifyCodeTimer = null;
+    //   }
+    // },
     mounted() {
         this.$store.dispatch("head_setHead", {
             left: {
@@ -205,67 +232,67 @@ export default {
         clearErrorTips(err) {
             this[err] = '';
         },
-        sendCodeBtnClick() {
-            let self = this;
-            this.$sendRequest({
-                url: '/service/zx',
-                params:{
-                  name: self.name,
-                  cardNo: self.cardNo
-                },
-                success(body) {
-                    let msg = '';
-                    if (body.code === 'success') {
-                        msg = '发送成功';
-                        self.countdownTime();
-                    } else {
-                        msg = body.msg;
-                    }
-                    self.$store.dispatch('box_set_toast', {
-                        show: true,
-                        toastText: msg
-                    });
-                },
-                error(err) {
-                    self.$store.dispatch('box_set_toast', {
-                        show: true,
-                        toastText: '服务器繁忙,请稍后再试'
-                    });
-                }
-            });
-        },
-        countdownTime() {
-            let time = 1000;
-            if (sendIndentifyCodeTimer) {
-            clearInterval(sendIndentifyCodeTimer);
-            sendIndentifyCodeTimer = null;
-            }
-            sendIndentifyCodeTimer = setInterval(() => {
-            this.resendTime--;
-            if (this.resendTime < 0) {
-                this.resendTime = 0;
-                clearInterval(sendIndentifyCodeTimer);
-                sendIndentifyCodeTimer = null;
-            }
-            }, time);
-        },
+        // sendCodeBtnClick() {
+        //     let self = this;
+        //     this.$sendRequest({
+        //         url: '/service/zx',
+        //         params:{
+        //           name: self.name,
+        //           cardNo: self.cardNo
+        //         },
+        //         success(body) {
+        //             let msg = '';
+        //             if (body.code === 'success') {
+        //                 msg = '发送成功';
+        //                 self.countdownTime();
+        //             } else {
+        //                 msg = body.msg;
+        //             }
+        //             self.$store.dispatch('box_set_toast', {
+        //                 show: true,
+        //                 toastText: msg
+        //             });
+        //         },
+        //         error(err) {
+        //             self.$store.dispatch('box_set_toast', {
+        //                 show: true,
+        //                 toastText: '服务器繁忙,请稍后再试'
+        //             });
+        //         }
+        //     });
+        // },
+        // countdownTime() {
+        //     let time = 1000;
+        //     if (sendIndentifyCodeTimer) {
+        //     clearInterval(sendIndentifyCodeTimer);
+        //     sendIndentifyCodeTimer = null;
+        //     }
+        //     sendIndentifyCodeTimer = setInterval(() => {
+        //     this.resendTime--;
+        //     if (this.resendTime < 0) {
+        //         this.resendTime = 0;
+        //         clearInterval(sendIndentifyCodeTimer);
+        //         sendIndentifyCodeTimer = null;
+        //     }
+        //     }, time);
+        // },
         nextClick() {
             let self = this;
             if (!self.name.length) {
                 self.nameError = '请输入真实姓名';
-                // return;
+                return;
             }
             if (!self.cardNo.length) {
                 self.cardNoError = '请输入身份证';
-                // return;
+                return;
             }
             // if (!self.indentifyCode.length) {
             //     self.indentifyCodeError = '请输入验证码';
             //     return;
             // }
             if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(self.cardNo)) {
-                self.cardNoError = '身份证输入不合法';
-                // return;
+                self.cardNoError = '身份证不合法';
+                return;
             }
             if (!self.checkVal) {
                 self.$store.dispatch('box_set_toast', {
@@ -283,7 +310,20 @@ export default {
                 },
                 success(body){
                     if (body.code === 'success') {
-                        self.processNo++;
+                        // self.processNo++;
+                        let fxcontent = body.data.content.fxcontent
+                        this.result = {
+                            zhixing: fxcontent.zhixing || [],
+                            shixin: fxcontent.shixin || [],
+                            xiangao: fxcontent.xiangao || [],
+                            caipan: fxcontent.caipan || [],
+                            shenpan: fxcontent.shenpan || [],
+                            zuifan: fxcontent.zuifan || [],
+                            weifa: fxcontent.weifa || [],
+                            qianshui: fxcontent.qianshui || [],
+                            feizheng: fxcontent.feizheng || [],
+                            qiankuan: fxcontent.qiankuan || []
+                        };
                     } else {
                         self.$store.dispatch('box_set_toast', {
                             show: true,
@@ -319,45 +359,45 @@ export default {
 </style>
 <style lang="scss" scoped>
 @import './../../assets/scss/_mixin.scss';
-.process-list{
-    margin:$spacing;
-    display: -webkit-box;
-    -webkit-box-align: center;
-    -webkit-box-pack: justify;
-}
-.process-item {
-    text-align:center;
-    width:56px;
-    color:$mainColor;
-    .process-num {
-        width:56px;
-        height:56px;
-        border:1px solid $mainColor;
-        border-radius:100%;
-        font-size:30px;
-        line-height:56px;
-    }
-    .process-txt{
-        margin-top:10px;
-        line-height:16px;
-        font-size:12px;
-    }
-    &.current{
-        .process-num {
-            background:$mainColor;
-            color:#fff;
-        }
-    }
-}
-.process-divice{
-    margin-top:-35px;
-    width:10px;
-    height:2px;
-    background:$mainColor;
-}
+// .process-list{
+//     margin:$spacing;
+//     display: -webkit-box;
+//     -webkit-box-align: center;
+//     -webkit-box-pack: justify;
+// }
+// .process-item {
+//     text-align:center;
+//     width:56px;
+//     color:$mainColor;
+//     .process-num {
+//         width:56px;
+//         height:56px;
+//         border:1px solid $mainColor;
+//         border-radius:100%;
+//         font-size:30px;
+//         line-height:56px;
+//     }
+//     .process-txt{
+//         margin-top:10px;
+//         line-height:16px;
+//         font-size:12px;
+//     }
+//     &.current{
+//         .process-num {
+//             background:$mainColor;
+//             color:#fff;
+//         }
+//     }
+// }
+// .process-divice{
+//     margin-top:-35px;
+//     width:10px;
+//     height:2px;
+//     background:$mainColor;
+// }
 
 .vv-form {
-    border-top: 10px solid $bgColor2;
+    // border-top: 10px solid $bgColor2;
     .col {
         width: 100%;
         height:40px;
@@ -403,5 +443,32 @@ export default {
         color:$mainColor;
         text-decoration:underline;
     }
+}
+.form-list {
+  .title,
+  .col {
+    height:40px;
+    line-height:40px;
+    box-sizing: border-box;
+    padding: 0 $spacing;
+    border-bottom: 1px solid $lineColor2;
+  }
+  .title {
+    background: $backgroudColor;
+    font-size: $fontSizeTitle;
+  }
+  .col {
+    font-size: $fontSizeContent;
+    .name,
+    .value {
+      float:left;
+      display: block;
+      width: 50%;
+    }
+    .value {
+      text-align: right;
+      color: $fontColor2;
+    }
+  }
 }
 </style>
