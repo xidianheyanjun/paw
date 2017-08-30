@@ -577,9 +577,11 @@ export default {
     data(){
         return {
             person_isLogin: false,
-            name: '宋华',
+            // name: '宋华',
+            name: '',
             nameError: '',
-            cardNo: '450305197805152014',
+            // cardNo: '450305197805152014',
+            cardNo: '',
             cardNoError: '',
             checkVal: true,
             processNo: 1,
