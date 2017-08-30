@@ -22,7 +22,8 @@
         </div>
     </div-->
     <div class="vv-form">
-        <div class="process-list-1" v-show="processNo === 1">
+        <!--div class="process-list-1" v-show="processNo === 1"-->
+        <div class="process-list-1" v-show="!resultShow">
             <div class="vv-row">
                 <div class="vv-col-title">真实姓名</div>
                 <div class="vv-col-value">
@@ -49,9 +50,31 @@
             </div>
             <mu-raised-button @click="nextClick" label="确定" class="vv-next" primary fullWidth/>
         </div>
-        <div class="result" v-show="result">
-            <div class="result-col" v-if="result.zhixing.length">
-                <div class="hd">执行公开信息</div>
+        <div class="result" v-show="resultShow">
+            <mu-tabs :value="activeTab" @change="changeTab">
+                <mu-tab v-if="result.zhixing.length" value="zhixing" title="执行公开信息"/>
+                <mu-tab v-if="result.shixin.length" value="shixin" title="失信老赖名单"/>
+            </mu-tabs>
+            <mu-tabs :value="activeTab" @change="changeTab">
+                <mu-tab v-if="result.xiangao.length" value="xiangao" title="限制高消费名单"/>
+                <mu-tab v-if="result.xianchu.length" value="xianchu" title="限制出入境名单"/>
+            </mu-tabs>
+            <mu-tabs :value="activeTab" @change="changeTab">
+                <mu-tab v-if="result.caipan.length" value="caipan" title="民商事裁判文书"/>
+                <mu-tab v-if="result.shenpan.length" value="shenpan" title="民商事审判流程"/>
+            </mu-tabs>
+            <mu-tabs :value="activeTab" @change="changeTab">
+                <mu-tab v-if="result.zuifan.length" value="zuifan" title="犯罪及嫌疑人名单"/>
+                <mu-tab v-if="result.weifa.length" value="weifa" title="行政违法记录"/>
+            </mu-tabs>
+            <mu-tabs :value="activeTab" @change="changeTab">
+                <mu-tab v-if="result.qianshui.length" value="qianshui" title="欠税名单"/>
+                <mu-tab v-if="result.feizheng.length" value="feizheng" title="纳税非正常户"/>
+            </mu-tabs>
+            <mu-tabs :value="activeTab" @change="changeTab">
+                <mu-tab v-if="result.qiankuan.length" value="qiankuan" title="欠款欠税名单"/>
+            </mu-tabs>
+            <div class="result-col" v-if="activeTab === 'zhixing' && result.zhixing.length">
                 <dl class="form-list" v-for="(item, index) in result.zhixing" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
@@ -59,6 +82,14 @@
                     <span class="value">{{item.sslong}}</span>
                     </dd>
                     <dd class="col">
+                    <span class="name">被执行人姓名</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">证件号码</span>
+                    <span class="value">{{item.id}}</span>
+                    </dd>
+                    <dd class="col">
                     <span class="name">执行案号</span>
                     <span class="value">{{item.casenum}}</span>
                     </dd>
@@ -80,13 +111,20 @@
                     </dd>
                 </dl>
             </div>
-            <div class="result-col" v-if="result.shixin.length">
-                <div class="hd">失信老赖名单</div>
+            <div class="result-col" v-if="activeTab === 'shixin' && result.shixin.length">
                 <dl class="form-list" v-for="(item, index) in result.shixin" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
-                    <span class="name">立案时间</span>
+                    <span class="name">具体日期</span>
                     <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">被执行人姓名</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">证件号码</span>
+                    <span class="value">{{item.id}}</span>
                     </dd>
                     <dd class="col">
                     <span class="name">执行案号</span>
@@ -110,13 +148,20 @@
                     </dd>
                 </dl>
             </div>
-            <div class="result-col" v-if="result.xiangao.length">
-                <div class="hd">限制高消费名单</div>
+            <div class="result-col" v-if="activeTab === 'xiangao' && result.xiangao.length">
                 <dl class="form-list" v-for="(item, index) in result.xiangao" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
-                    <span class="name">立案时间</span>
+                    <span class="name">具体日期</span>
                     <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">被执行人姓名</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">证件号码</span>
+                    <span class="value">{{item.id}}</span>
                     </dd>
                     <dd class="col">
                     <span class="name">执行案号</span>
@@ -140,13 +185,20 @@
                     </dd>
                 </dl>
             </div>
-            <div class="result-col" v-if="result.xianchu.length">
-                <div class="hd">限制出入境名单</div>
+            <div class="result-col" v-if="activeTab === 'xianchu' && result.xianchu.length">
                 <dl class="form-list" v-for="(item, index) in result.xianchu" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
-                    <span class="name">立案时间</span>
+                    <span class="name">具体日期</span>
                     <span class="value">{{item.sslong}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">被限制人姓名</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">证件号码</span>
+                    <span class="value">{{item.id}}</span>
                     </dd>
                     <dd class="col">
                     <span class="name">执行案号</span>
@@ -170,59 +222,113 @@
                     </dd>
                 </dl>
             </div>
-            <div class="result-col" v-if="result.caipan.length">
-                <div class="hd">民商事裁判文书</div>
+            <div class="result-col" v-if="activeTab === 'caipan' && result.caipan.length">
                 <dl class="form-list" v-for="(item, index) in result.caipan" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
-                    <span class="name">立案时间</span>
+                    <span class="name">结案时间</span>
                     <span class="value">{{item.sslong}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行案号</span>
+                    <span class="name">当事人人姓名</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">证件号码</span>
+                    <span class="value">{{item.id}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">案号</span>
                     <span class="value">{{item.casenum}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行法院</span>
+                    <span class="name">诉讼地位</span>
+                    <span class="value">{{item.pctype}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">审查机关</span>
                     <span class="value">{{item.court}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行内容</span>
-                    <span class="value">{{item.content}}</span>
+                    <span class="name">涉案事由</span>
+                    <span class="value">{{item.casetopic}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行状态</span>
-                    <span class="value">{{item.state}}</span>
+                    <span class="name">涉案金额</span>
+                    <span class="value">{{item.money}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">审理结果</span>
+                    <span class="value">{{item.cotent}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">审理程序</span>
+                    <span class="value">{{item.vprogram}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">审理人员</span>
+                    <span class="value">{{item.tribunal}}</span>
                     </dd>
                     <dd class="col">
                     <span class="name">异议备注</span>
                     <span class="value">{{item.remark}}</span>
                     </dd>
+                    <dd class="col">
+                    <span class="name">完整内容查看当地地址</span>
+                    <span class="value">{{item.furl_casecon}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">原告当事人</span>
+                    <span class="value">{{item.plaintiff}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">被告当事人</span>
+                    <span class="value">{{item.defendant}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">其他当事人</span>
+                    <span class="value">{{item.ohterparty}}</span>
+                    </dd>
                 </dl>
             </div>
-            <div class="result-col" v-if="result.shenpan.length">
-                <div class="hd">民商事审判流程</div>
+            <div class="result-col" v-if="activeTab === 'shenpan' && result.shenpan.length">
                 <dl class="form-list" v-for="(item, index) in result.shenpan" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
-                    <span class="name">立案时间</span>
+                    <span class="name">具体日期</span>
                     <span class="value">{{item.sslong}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行案号</span>
+                    <span class="name">当事人姓名</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">证件号码</span>
+                    <span class="value">{{item.id}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">案号</span>
                     <span class="value">{{item.casenum}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行法院</span>
+                    <span class="name">诉讼地位</span>
+                    <span class="value">{{item.pctype}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">审查机关</span>
                     <span class="value">{{item.court}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行内容</span>
-                    <span class="value">{{item.content}}</span>
+                    <span class="name">公告类型</span>
+                    <span class="value">{{item.writtype}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行状态</span>
-                    <span class="value">{{item.state}}</span>
+                    <span class="name">涉案事由</span>
+                    <span class="value">{{item.casetopic}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">公告内容</span>
+                    <span class="value">{{item.content}}</span>
                     </dd>
                     <dd class="col">
                     <span class="name">异议备注</span>
@@ -230,29 +336,36 @@
                     </dd>
                 </dl>
             </div>
-            <div class="result-col" v-if="result.zuifan.length">
-                <div class="hd">犯罪及嫌疑人名单</div>
+            <div class="result-col" v-if="activeTab === 'zuifan' && result.zuifan.length">
                 <dl class="form-list" v-for="(item, index) in result.zuifan" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
-                    <span class="name">立案时间</span>
+                    <span class="name">处理时间</span>
                     <span class="value">{{item.sslong}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行案号</span>
+                    <span class="name">当事人姓名</span>
+                    <span class="value">{{item.name}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">证件号码</span>
+                    <span class="value">{{item.id}}</span>
+                    </dd>
+                    <dd class="col">
+                    <span class="name">案号</span>
                     <span class="value">{{item.casenum}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行法院</span>
+                    <span class="name">侦查/批捕/审判机关</span>
                     <span class="value">{{item.court}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行内容</span>
-                    <span class="value">{{item.content}}</span>
+                    <span class="name">违法事由</span>
+                    <span class="value">{{item.casetopic}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行状态</span>
-                    <span class="value">{{item.state}}</span>
+                    <span class="name">处理结果</span>
+                    <span class="value">{{item.content}}</span>
                     </dd>
                     <dd class="col">
                     <span class="name">异议备注</span>
@@ -260,8 +373,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="result-col" v-if="result.weifa.length">
-                <div class="hd">行政违法记录</div>
+            <div class="result-col" v-if="activeTab === 'weifa' && result.weifa.length">
                 <dl class="form-list" v-for="(item, index) in result.weifa" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
@@ -281,7 +393,7 @@
                     <span class="value">{{item.casenum}}</span>
                     </dd>
                     <dd class="col">
-                    <span class="name">执行机关</span>
+                    <span class="name">执法/复议/审判机关</span>
                     <span class="value">{{item.court}}</span>
                     </dd>
                     <dd class="col">
@@ -302,8 +414,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="result-col" v-if="result.qianshui.length">
-                <div class="hd">欠税名单</div>
+            <div class="result-col" v-if="activeTab === 'qianshui' && result.qianshui.length">
                 <dl class="form-list" v-for="(item, index) in result.qianshui" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
@@ -340,8 +451,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="result-col" v-if="result.feizheng.length">
-                <div class="hd">纳税非正常户</div>
+            <div class="result-col" v-if="activeTab === 'feizheng' && result.feizheng.length">
                 <dl class="form-list" v-for="(item, index) in result.feizheng" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
@@ -366,8 +476,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="result-col" v-if="result.qiankuan.length">
-                <div class="hd">欠款欠税名单</div>
+            <div class="result-col" v-if="activeTab === 'qiankuan' && result.qiankuan.length">
                 <dl class="form-list" v-for="(item, index) in result.qiankuan" :key="index">
                     <dt class="title">{{item.title}}</dt>
                     <dd class="col">
@@ -458,6 +567,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import native from "@/util/native";
 // const RESEND_TIME = 10;
 // let sendIndentifyCodeTimer = null;
 export default {
@@ -466,12 +576,15 @@ export default {
     components: {},
     data(){
         return {
+            person_isLogin: false,
             name: '宋华',
             nameError: '',
             cardNo: '450305197805152014',
             cardNoError: '',
             checkVal: true,
             processNo: 1,
+            resultShow: false,
+            activeTab: 'zhixing',
             result: {
                 zhixing: [],
                 shixin: [],
@@ -504,6 +617,12 @@ export default {
         }
     },
     watch: {
+        person_isLogin(v) {
+            if (v) {
+            this.userId = native.getUserInfo().userId || 0;
+            console.warn('userId:', this.userId)
+            }
+        },
         processNo(v1) {
             if (v1 == 3) {
                 setTimeout(() => {
@@ -543,12 +662,17 @@ export default {
     //   }
     // },
     mounted() {
+        let self = this;
+        this.person_isLogin = native.isLogin();
         this.$store.dispatch("head_setHead", {
             left: {
                 img: "",
                 title: "返回",
                 callback: function () {
-                    // window.location.href = "#/home/index";
+                    if (self.resultShow) {
+                        self.resultShow = false;
+                        return;
+                    }
                     history.back(-1);
                 }
             },
@@ -567,6 +691,10 @@ export default {
         });
     },
     methods: {
+        changeTab(value) {
+            let self = this;
+            self.activeTab = value;
+        },
         clearErrorTips(err) {
             this[err] = '';
         },
@@ -616,6 +744,13 @@ export default {
         // },
         nextClick() {
             let self = this;
+            if (!this.person_isLogin) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请先登录'
+                });
+                return;
+            }
             if (!self.name.length) {
                 self.nameError = '请输入真实姓名';
                 return;
@@ -648,9 +783,10 @@ export default {
                 },
                 success(body){
                     if (body.code === 'success') {
-                        self.processNo++;
+                        // self.processNo++;
                         let content = eval("(" + body.data.content + ")"); 
                         let fxcontent = content.fxcontent;
+                        self.resultShow = true;
                         self.result = {
                             zhixing: fxcontent.zhixing || [],
                             shixin: fxcontent.shixin || [],
@@ -784,7 +920,22 @@ export default {
         text-decoration:underline;
     }
 }
+.result{
+    .mu-tabs {
+    position: fixed;
+    background:#fff;
+    color: $fontColor;
+    border:1px solid $lineColor;
+    .mu-tab-link{
+      color:$fontColor;
+    }
+    .mu-tab-active{
+      color: $mainColor;
+    }
+  }
+}
 .result-col {
+    padding-top:50px;
     .hd {
         position:relative;
         height:50px;
@@ -807,15 +958,13 @@ export default {
 .form-list {
   .title,
   .col {
-    // height:40px;
-    // line-height:40px;
+    height:40px;
+    line-height:40px;
     box-sizing: border-box;
     padding: 0 $spacing;
     border-bottom: 1px solid $lineColor2;
   }
   .title {
-    height:40px;
-    line-height:40px;
     background: $backgroudColor;
     font-size: $fontSizeTitle;
   }
@@ -823,6 +972,9 @@ export default {
     font-size: $fontSizeContent;
     height: auto;
     line-height:30px;
+    &:last-child{
+        border-bottom:0;
+    }
     .name,
     .value {
     //   float:left;

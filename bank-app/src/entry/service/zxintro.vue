@@ -16,7 +16,18 @@
     data(){
       return {
         title: '',
-        content: ''
+        content: `本协议由****和您签订。为明确用户在接受和提供本手机客户端服务过程中的权利义务，特制订本协议。<span style="color:red;">您在通过本软件使用本公司提供的服务前，请仔细阅读以下全部条款，一经点击“同意”或“勾选”后完成下一步操作，即视为您同意了本协议全部条款。</span>所以，若您对本协议任何条款有异议的，请不要操作下一步或点击“同意”或“勾选”。
+                  <h3 style="font-weight:bold;">第一条 服务内容</h3>
+                  (一) 本公司提供的。。。。。。<br/>
+                  (二) 本公司提供的。。。。。
+                  <h3 style="font-weight:bold;">第二条 授权条款</h3>
+                  <div style="color:red;">
+                  (一) 本公司提供的。。。。。。<br/>
+                  (二) 本公司提供的。。。。。
+                  </div>
+                  <h3 style="font-weight:bold;">第三条 您的权利与义务</h3>
+                  (一) 本公司提供的。。。。。。<br/>
+                  (二) 本公司提供的。。。。。`
       };
     },
     mounted(){
@@ -30,7 +41,7 @@
         },
         center: {
           img: "",
-          title: "帮助与反馈",
+          title: "服务条款",
           callback: null
         },
         right: {
@@ -41,7 +52,7 @@
           }
         }
       });
-      this.init();
+      // this.init();
     },
     methods: {
       init() {
