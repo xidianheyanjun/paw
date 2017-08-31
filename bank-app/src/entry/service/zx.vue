@@ -786,7 +786,8 @@ export default {
                 success(body){
                     if (body.code === 'success') {
                         // self.processNo++;
-                        let content = eval("(" + body.data.content + ")"); 
+                        // let content = eval("(" + body.data.content + ")"); 
+                        let content = body.data.content; 
                         let fxcontent = content.fxcontent;
                         self.resultShow = true;
                         self.result = {
