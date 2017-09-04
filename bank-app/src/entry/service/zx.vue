@@ -51,28 +51,28 @@
             <mu-raised-button @click="nextClick" label="确定" class="vv-next" primary fullWidth/>
         </div>
         <div class="result" v-show="resultShow">
-            <mu-tabs :value="activeTab" @change="changeTab">
+            <mu-tabs :value="activeTab" @change="changeTab" v-if="result.zhixing.length || result.shixin.length">
                 <mu-tab v-if="result.zhixing.length" value="zhixing" title="执行公开信息"/>
                 <mu-tab v-if="result.shixin.length" value="shixin" title="失信老赖名单"/>
             </mu-tabs>
-            <mu-tabs :value="activeTab" @change="changeTab">
+            <mu-tabs :value="activeTab" @change="changeTab" v-if="result.xiangao.length || result.xianchu.length">
                 <mu-tab v-if="result.xiangao.length" value="xiangao" title="限制高消费名单"/>
                 <mu-tab v-if="result.xianchu.length" value="xianchu" title="限制出入境名单"/>
             </mu-tabs>
-            <mu-tabs :value="activeTab" @change="changeTab">
+            <mu-tabs :value="activeTab" @change="changeTab" v-if="result.caipan.length || result.shenpan.length">
                 <mu-tab v-if="result.caipan.length" value="caipan" title="民商事裁判文书"/>
                 <mu-tab v-if="result.shenpan.length" value="shenpan" title="民商事审判流程"/>
             </mu-tabs>
-            <mu-tabs :value="activeTab" @change="changeTab">
+            <mu-tabs :value="activeTab" @change="changeTab" v-if="result.zuifan.length || result.weifa.length">
                 <mu-tab v-if="result.zuifan.length" value="zuifan" title="犯罪及嫌疑人名单"/>
                 <mu-tab v-if="result.weifa.length" value="weifa" title="行政违法记录"/>
             </mu-tabs>
-            <mu-tabs :value="activeTab" @change="changeTab">
+            <mu-tabs :value="activeTab" @change="changeTab" v-if="result.qianshui.length || result.feizheng.length">
                 <mu-tab v-if="result.qianshui.length" value="qianshui" title="欠税名单"/>
                 <mu-tab v-if="result.feizheng.length" value="feizheng" title="纳税非正常户"/>
             </mu-tabs>
-            <mu-tabs :value="activeTab" @change="changeTab">
-                <mu-tab v-if="result.qiankuan.length" value="qiankuan" title="欠款欠税名单"/>
+            <mu-tabs :value="activeTab" @change="changeTab" v-if="result.qiankuan.length">
+                <mu-tab value="qiankuan" title="欠款欠税名单"/>
             </mu-tabs>
             <div class="result-col" v-if="activeTab === 'zhixing' && result.zhixing.length">
                 <dl class="form-list" v-for="(item, index) in result.zhixing" :key="index">
@@ -509,6 +509,7 @@
                     </dd>
                 </dl>
             </div>
+            <div class="no-data" v-else>您的征信良好</div>
         </div>
         <!--div class="process-list-2" v-show="processNo === 2">
             <div class="vv-row">
@@ -558,7 +559,7 @@
             <div class="no-data">申请成功，请耐心等待信息反馈</div>
         </div-->
     </div>
-    <div class="ft" v-show="processNo === 1">
+    <div class="ft" v-show="!resultShow">
         <span class="msg">已有征信中心账户</span>
         <a href="#/person/login" class="link">立即登录</a>
     </div>
@@ -790,19 +791,19 @@ export default {
                         let content = body.data.content; 
                         let fxcontent = content.fxcontent;
                         self.resultShow = true;
-                        self.result = {
-                            zhixing: fxcontent.zhixing || [],
-                            shixin: fxcontent.shixin || [],
-                            xiangao: fxcontent.xiangao || [],
-                            xianchu: fxcontent.xianchu || [],
-                            caipan: fxcontent.caipan || [],
-                            shenpan: fxcontent.shenpan || [],
-                            zuifan: fxcontent.zuifan || [],
-                            weifa: fxcontent.weifa || [],
-                            qianshui: fxcontent.qianshui || [],
-                            feizheng: fxcontent.feizheng || [],
-                            qiankuan: fxcontent.qiankuan || []
-                        };
+                        // self.result = {
+                        //     zhixing: fxcontent.zhixing || [],
+                        //     shixin: fxcontent.shixin || [],
+                        //     xiangao: fxcontent.xiangao || [],
+                        //     xianchu: fxcontent.xianchu || [],
+                        //     caipan: fxcontent.caipan || [],
+                        //     shenpan: fxcontent.shenpan || [],
+                        //     zuifan: fxcontent.zuifan || [],
+                        //     weifa: fxcontent.weifa || [],
+                        //     qianshui: fxcontent.qianshui || [],
+                        //     feizheng: fxcontent.feizheng || [],
+                        //     qiankuan: fxcontent.qiankuan || []
+                        // };
                     } else {
                         self.$store.dispatch('box_set_toast', {
                             show: true,
@@ -907,7 +908,7 @@ export default {
         margin:$spacing auto;
     }
     .no-data {
-        margin:20% auto;
+        // margin:20% auto;
     }
 }
 .ft{
