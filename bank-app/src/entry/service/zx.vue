@@ -791,19 +791,19 @@ export default {
                         let content = body.data.content; 
                         let fxcontent = content.fxcontent;
                         self.resultShow = true;
-                        // self.result = {
-                        //     zhixing: fxcontent.zhixing || [],
-                        //     shixin: fxcontent.shixin || [],
-                        //     xiangao: fxcontent.xiangao || [],
-                        //     xianchu: fxcontent.xianchu || [],
-                        //     caipan: fxcontent.caipan || [],
-                        //     shenpan: fxcontent.shenpan || [],
-                        //     zuifan: fxcontent.zuifan || [],
-                        //     weifa: fxcontent.weifa || [],
-                        //     qianshui: fxcontent.qianshui || [],
-                        //     feizheng: fxcontent.feizheng || [],
-                        //     qiankuan: fxcontent.qiankuan || []
-                        // };
+                        self.result = {
+                            zhixing: fxcontent.zhixing || [],
+                            shixin: fxcontent.shixin || [],
+                            xiangao: fxcontent.xiangao || [],
+                            xianchu: fxcontent.xianchu || [],
+                            caipan: fxcontent.caipan || [],
+                            shenpan: fxcontent.shenpan || [],
+                            zuifan: fxcontent.zuifan || [],
+                            weifa: fxcontent.weifa || [],
+                            qianshui: fxcontent.qianshui || [],
+                            feizheng: fxcontent.feizheng || [],
+                            qiankuan: fxcontent.qiankuan || []
+                        };
                     } else {
                         self.$store.dispatch('box_set_toast', {
                             show: true,
