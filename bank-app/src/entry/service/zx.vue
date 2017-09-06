@@ -509,7 +509,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="no-data" v-if="!result.zhixing.length && !result.shixin.length && !result.xiangao.length && !result.xianchu.length && !result.caipan.length && !result.shenpan.length && !result.zuifan.length && !result.weifa.length && !result.qianshui.length && !result.feizheng.length && !result.qiankuan.length">您的征信良好</div>
+            <div class="no-data icon-nice" v-if="!result.zhixing.length && !result.shixin.length && !result.xiangao.length && !result.xianchu.length && !result.caipan.length && !result.shenpan.length && !result.zuifan.length && !result.weifa.length && !result.qianshui.length && !result.feizheng.length && !result.qiankuan.length">您的征信良好</div>
         </div>
         <!--div class="process-list-2" v-show="processNo === 2">
             <div class="vv-row">
@@ -990,5 +990,14 @@ export default {
       color: $fontColor2;
     }
   }
+}
+.icon-nice {
+    font-size: 20px;
+    color: $mainColor;
+    &:before {
+        background-image: url('./../../assets/images/icon-nice.png');
+        width: 64px;
+        height: 64px;
+    }
 }
 </style>

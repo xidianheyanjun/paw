@@ -30,7 +30,7 @@
         },
         center: {
           img: "",
-          title: "热门推送详情",
+          title: "热点推送",
           callback: null
         },
         right: {
