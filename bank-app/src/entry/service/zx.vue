@@ -566,10 +566,10 @@
             <div class="no-data">申请成功，请耐心等待信息反馈</div>
         </div-->
     </div>
-    <div class="ft" v-show="!resultShow">
+    <!--div class="ft" v-show="!resultShow">
         <span class="msg">已有征信中心账户</span>
         <a href="#/person/login" class="link">立即登录</a>
-    </div>
+    </div-->
 
 </div>
 </template>
