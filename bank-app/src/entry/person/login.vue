@@ -3,13 +3,13 @@
     <div class="vv-row">
       <div class="vv-col-title">手机号</div>
       <div class="vv-col-value">
-        <mu-text-field label="" hintText="请输入手机号" v-model.trim="account" type="number" :errorText="accountError" max="11" @input="clearErrorTips('accountError')" :underlineShow="false" />
+        <mu-text-field label="" hintText="请输入手机号" v-model.trim="account" type="number" max="11" :underlineShow="false" />
       </div>
     </div>
     <div class="vv-row">
       <div class="vv-col-title">密 码</div>
       <div class="vv-col-value">
-        <mu-text-field label="" hintText="请输入密码" v-model.trim="password" type="password" :errorText="passwordError" :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')" :underlineShow="false" />
+        <mu-text-field label="" hintText="请输入密码" v-model.trim="password" type="password" :minLength="6" :maxLength="16" :underlineShow="false" />
       </div>
     </div>
     <div class="ft">
@@ -35,9 +35,9 @@
     data() {
       return {
         account: '',
-        accountError: '',
+        // accountError: '',
         password: '',
-        passwordError: ''
+        // passwordError: ''
       };
     },
     mounted() {
@@ -65,17 +65,25 @@
       });
     },
     methods: {
-      clearErrorTips(err) {
-        this[err] = '';
-      },
+      // clearErrorTips(err) {
+      //   this[err] = '';
+      // },
       login() {
         let self = this;
         if (!self.account.length) {
-          self.accountError = '手机号不能为空';
+          self.$store.dispatch("box_set_toast", {
+            show: true,
+            toastText: '手机号不能为空'
+          });
+          // self.accountError = '手机号不能为空';
           return;
         }
         if (!self.password.length) {
-          self.passwordError = '密码不能为空';
+          self.$store.dispatch("box_set_toast", {
+            show: true,
+            toastText: '密码不能为空'
+          });
+          // self.passwordError = '密码不能为空';
           return;
         }
 

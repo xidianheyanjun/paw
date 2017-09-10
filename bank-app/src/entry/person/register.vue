@@ -4,16 +4,16 @@
       <div class="vv-row">
         <div class="vv-col-title">手机号</div>
         <div class="vv-col-value">
-          <mu-text-field label="" hintText="请输入手机号" v-model.trim="account" type="number" :errorText="accountError"
-                         max="11" @input="clearErrorTips('accountError')" :underlineShow="false"/>
+          <mu-text-field label="" hintText="请输入手机号" v-model.trim="account" type="number"
+                         max="11" :underlineShow="false"/>
         </div>
       </div>
       <template v-if="type !== 'find'">
         <div class="vv-row">
           <div class="vv-col-title">密 码</div>
           <div class="vv-col-value">
-            <mu-text-field label="" hintText="请输入密码" v-model.trim="password" type="password" :errorText="passwordError"
-                          :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')"
+            <mu-text-field label="" hintText="请输入密码" v-model.trim="password" type="password"
+                          :minLength="6" :maxLength="16"
                           :underlineShow="false"/>
           </div>
         </div>
@@ -21,8 +21,8 @@
           <div class="vv-col-title">密码确认</div>
           <div class="vv-col-value">
             <mu-text-field label="" hintText="请再次输入密码" v-model.trim="password2" type="password"
-                          :errorText="passwordError2" :minLength="6" :maxLength="16"
-                          @input="clearErrorTips('passwordError2')" :underlineShow="false"/>
+                          :minLength="6" :maxLength="16"
+                          :underlineShow="false"/>
           </div>
         </div>
       </template>
@@ -30,8 +30,8 @@
         <div class="vv-col-title">验证码</div>
         <div class="input-box">
           <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="indentifyCode"
-                 :disabled="isValidate" @input="clearErrorTips('indentifyCodeError')">
-          <div class="err-msg" v-text="indentifyCodeError"></div>
+                 :disabled="isValidate">
+          <!--div class="err-msg" v-text="indentifyCodeError"></div-->
           <a class="btn-send" :class="{'send': isSend}" @click="sendCodeBtnClick" v-text="sendCodeText"></a>
         </div>
       </div>
@@ -39,8 +39,8 @@
         <div class="vv-row">
           <div class="vv-col-title">密 码</div>
           <div class="vv-col-value">
-            <mu-text-field label="" hintText="请输入新密码" v-model.trim="password" type="password" :errorText="passwordError"
-                           :minLength="6" :maxLength="16" @input="clearErrorTips('passwordError')"
+            <mu-text-field label="" hintText="请输入新密码" v-model.trim="password" type="password"
+                           :minLength="6" :maxLength="16"
                            :underlineShow="false"/>
           </div>
         </div>
@@ -48,8 +48,8 @@
           <div class="vv-col-title">密码确认</div>
           <div class="vv-col-value">
             <mu-text-field label="" hintText="请再次输入新密码" v-model.trim="password2" type="password"
-                           :errorText="passwordError2" :minLength="6" :maxLength="16"
-                           @input="clearErrorTips('passwordError2')" :underlineShow="false"/>
+                          :minLength="6" :maxLength="16"
+                          :underlineShow="false"/>
           </div>
         </div>
       </template>
@@ -68,14 +68,14 @@
       return {
         type: "",
         account: '',
-        accountError: '',
+        // accountError: '',
         password: '',
-        passwordError: '',
+        // passwordError: '',
         password2: '',
-        passwordError2: '',
+        // passwordError2: '',
         btnTxt: '立即注册',
         indentifyCode: '',
-        indentifyCodeError: '',
+        // indentifyCodeError: '',
         isSend: false,
         isValidate: false,
         sendCodeText: '获取',
@@ -181,32 +181,38 @@
       register() {
         let self = this;
         if (!self.account.length) {
-          self.accountError = '手机号不能为空';
+          self.$store.dispatch('box_set_toast', {
+            show: true,
+            toastText: '手机号不能为空'
+          });
+          // self.accountError = '手机号不能为空';
           return;
         }
-        if (self.type !== 'find') {
+        // if (self.type !== 'find') {
           if (!self.password.length) {
-            self.passwordError = '密码不能为空';
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '密码不能为空'
+            });
+            // self.passwordError = '密码不能为空';
             return;
           }
           if (self.password != self.password2) {
-            self.passwordError2 = '密码不一致';
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '密码不一致'
+            });
+            // self.passwordError2 = '密码不一致';
             return;
           }
-        }
+        // }
         if (!self.indentifyCode.length) {
-          self.indentifyCodeError = '验证码不能为空';
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '验证码不能为空'
+            });
+          // self.indentifyCodeError = '验证码不能为空';
           return;
-        }
-        if (self.type == 'find') {
-          if (!self.password.length) {
-            self.passwordError = '密码不能为空';
-            return;
-          }
-          if (self.password != self.password2) {
-            self.passwordError2 = '密码不一致';
-            return;
-          }
         }
         let postData = {
            account: self.account,

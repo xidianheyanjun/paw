@@ -126,7 +126,8 @@
       position:inherit
     }
     .mu-text-field-input{
-      width:130px;
+      // width:130px;
+      width: 100%;
       position:relative;
       z-index:10;
     }

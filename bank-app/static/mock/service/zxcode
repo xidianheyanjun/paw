@@ -1,0 +1,10 @@
+{
+  "code": "success",
+  "msg": "成功",
+  "data": {
+    "sendCodeValue": "1f2d",
+    "sendCodeImg": "static/images/specials.jpg",
+    "remarkCode": "标识"
+  }
+}
+

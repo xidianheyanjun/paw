@@ -27,13 +27,20 @@
             <div class="vv-row">
                 <div class="vv-col-title">真实姓名</div>
                 <div class="vv-col-value">
-                    <mu-text-field v-model.trim="name" :errorText="nameError" hintText="请输入真实姓名" @input="clearErrorTips('nameError')" fullWidth :underlineShow="false"/>
+                    <mu-text-field v-model.trim="name" hintText="请输入真实姓名" fullWidth :underlineShow="false"/>
                 </div>
             </div>
             <div class="vv-row">
                 <div class="vv-col-title">身份证</div>
                 <div class="vv-col-value">
-                    <mu-text-field v-model.trim="cardNo" :errorText="cardNoError" hintText="请输入身份证" @input="clearErrorTips('cardNoError')" fullWidth :underlineShow="false"/>
+                    <mu-text-field v-model.trim="cardNo" hintText="请输入身份证"  fullWidth :underlineShow="false"/>
+                </div>
+            </div>
+            <div class="vv-row">
+                <div class="vv-col-title">验证码</div>
+                <div class="input-box">
+                <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="indentifyCode" :disabled="isValidate">
+                <img class="btn-send" @click="changeCodeBtnClick" :src="sendCodeImg" />
                 </div>
             </div>
             <!--div class="vv-row">
@@ -569,6 +576,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import native from "@/util/native";
+const DEFAULT_AVATAR = require('./../../assets/images/atavar.png');
 // const RESEND_TIME = 10;
 // let sendIndentifyCodeTimer = null;
 export default {
@@ -580,10 +588,10 @@ export default {
             person_isLogin: false,
             // name: '宋华',
             name: '',
-            nameError: '',
+            // nameError: '',
             // cardNo: '450305197805152014',
             cardNo: '',
-            cardNoError: '',
+            // cardNoError: '',
             checkVal: true,
             processNo: 1,
             resultShow: false,
@@ -600,7 +608,7 @@ export default {
                 qianshui: [],
                 feizheng: [],
                 qiankuan: []
-            }
+            },
             // zxCount: '',
             // zxCountError: '',
             // zxPassword: '',
@@ -611,10 +619,13 @@ export default {
             // emailError: '',
             // mobile: '',
             // mobileError: '',
-            // indentifyCode: '',
+            indentifyCode: '',
             // indentifyCodeError: '',
             // isSend: false,
-            // isValidate: false,
+            isValidate: false,
+            sendCodeValue: '',
+            sendCodeImg: '',
+            remarkCode: ''
             // sendCodeText:'获取',
             // resendTime: RESEND_TIME
         }
@@ -692,14 +703,44 @@ export default {
                 }
             }
         });
+        this.init();
     },
     methods: {
+        init() {
+            this.$sendRequest({
+                url: '/service/zxcode',
+                params: {
+                },
+                success(body){
+                    if (body.code === 'success') {
+                        let data = body.data;
+                        self.sendCodeValue = data.sendCodeValue;
+                        self.sendCodeImg = data.sendCodeImg;
+                        self.remarkCode = data.remarkCode;
+                    } else {
+                        self.$store.dispatch('box_set_toast', {
+                            show: true,
+                            toastText: body.msg
+                        });
+                    }
+                },
+                error(err){
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: '服务器繁忙,请稍后再试'
+                    });
+                }
+            });
+        },
         changeTab(value) {
             let self = this;
             self.activeTab = value;
         },
-        clearErrorTips(err) {
-            this[err] = '';
+        // clearErrorTips(err) {
+        //     this[err] = '';
+        // },
+        changeCodeBtnClick() {
+            this.init();
         },
         // sendCodeBtnClick() {
         //     let self = this;
@@ -755,19 +796,35 @@ export default {
                 return;
             }
             if (!self.name.length) {
-                self.nameError = '请输入真实姓名';
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请输入真实姓名'
+                });
+                // self.nameError = '请输入真实姓名';
                 return;
             }
             if (!self.cardNo.length) {
-                self.cardNoError = '请输入身份证';
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请输入身份证'
+                });
+                // self.cardNoError = '请输入身份证';
                 return;
             }
-            // if (!self.indentifyCode.length) {
-            //     self.indentifyCodeError = '请输入验证码';
-            //     return;
-            // }
+            if (!self.indentifyCode.length) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请输入验证码'
+                });
+                // self.indentifyCodeError = '请输入验证码';
+                return;
+            }
             if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(self.cardNo)) {
-                self.cardNoError = '身份证不合法';
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '身份证不合法'
+                });
+                // self.cardNoError = '身份证不合法';
                 return;
             }
             if (!self.checkVal) {
@@ -777,12 +834,22 @@ export default {
                 });
                 return;
             }
+            if (self.indentifyCode != self.sendCodeValue) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '验证码错误'
+                });
+                // self.indentifyCodeError = '请输入验证码';
+                return;
+            }
             self.$sendRequest({
                 url: '/service/zx',
                 params: {
                     processNo: self.processNo,
                     name: self.name,
-                    cardNo: self.cardNo
+                    cardNo: self.cardNo,
+                    indentifyCode: self.indentifyCode,
+                    remarkCode: self.remarkCode
                 },
                 success(body){
                     if (body.code === 'success') {
