@@ -47,10 +47,12 @@ componentsPaths.forEach((path)=> {
   let indexPoint = path.indexOf(".");
   let filePath = path.substring(indexStart, indexPoint);
   let componentName = filePath.replace(/\//g, "_");// 斜杠会出错因此转换斜杠成下划线
-  importData.push(`import ${componentName} from "@/entry${filePath}";`);
-  initData.push(`{path: "${filePath}", name:"${filePath}", component: ${componentName}}`);
+  // importData.push(`import ${componentName} from "@/entry${filePath}";`);
+  // initData.push(`{path: "${filePath}", name:"${filePath}", component: ${componentName}}`);
+  initData.push(`{path: "${filePath}", name:"${filePath}", component: resolve => require(["@/entry${filePath}"], resolve)}`);
   // 详情页增加标识
-  initData.push(`{path: "${filePath}/:id", name:"${filePath}/id", component: ${componentName}}`);
+  // initData.push(`{path: "${filePath}/:id", name:"${filePath}/id", component: ${componentName}}`);
+  initData.push(`{path: "${filePath}/:id", name:"${filePath}/id", component: resolve => require(["@/entry${filePath}"], resolve)}`);
 });
 // 添加默认路径
 initData.push(`{path: "*", redirect: {name: "/home/index"}}`);
