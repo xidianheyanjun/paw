@@ -1,0 +1,10 @@
+{
+  "code": "success",
+  "msg": "成功",
+  "data": {
+    "status": "register",
+    "captchaImg": "static/images/captcha.jpeg",
+    "userid": "标识"
+  }
+}
+
