@@ -35,11 +35,19 @@
                     <mu-text-field v-model.trim="cardNo" hintText="请输入身份证"  fullWidth :underlineShow="false"/>
                 </div>
             </div>
+            <div class="vv-row">
+                <div class="vv-col-title">验证码</div>
+                <div class="input-box">
+                <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="captchaCode" :disabled="isImgValidate">
+                <a v-show="!captchaCodeImg" class="btn-send" @click="captchaCodeBtnClick">点击获取</a>
+                <img v-show="captchaCodeImg" class="img-send" :src="captchaCodeImg" />
+                </div>
+            </div>
             <div class="col">
                 <mu-checkbox label="我已阅读并同意" class="vv-checkbox" v-model="checkVal"/>
                 <a href="#/service/zxintro" class="link">《服务条款》</a>
             </div>
-            <mu-raised-button @click="checkStatus" label="下一步" class="vv-next" primary fullWidth/>
+            <mu-raised-button @click="gotoNext" label="下一步" class="vv-next" primary fullWidth/>
         </div>
         <div class="process-list-2" v-show="processNo === 2">
             <div class="vv-row">
@@ -77,13 +85,6 @@
                 <div class="input-box">
                 <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入动态码" v-model.trim="indentifyCode" :disabled="isValidate" />
                 <a class="btn-send" :class="{'send': isSend}" @click="sendCodeBtnClick" v-text="sendCodeText"></a>
-                </div>
-            </div>
-            <div class="vv-row">
-                <div class="vv-col-title">验证码</div>
-                <div class="input-box">
-                <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="captchaCode" :disabled="isImgValidate">
-                <img class="img-send" @click="captchaCodeBtnClick" :src="captchaCodeImg" />
                 </div>
             </div>
             <mu-raised-button @click="registerClick" label="下一步" class="vv-next" primary fullWidth/>
@@ -616,6 +617,7 @@ export default {
             captchaCode: '',
             captchaCodeImg: '',
             remarkCode: '',
+            htmlToken: '',
             tcId: '',
             sendCodeText:'获取',
             resendTime: RESEND_TIME,
@@ -727,11 +729,84 @@ export default {
                 success(body){
                     if (body.code === 'success') {
                         if (body.data.captchaImg) { // 去注册
-                            self.processNo++;
+                            // self.processNo++;
                             self.captchaCodeImg = body.data.captchaImg;
                             self.remarkCode = body.data.userid;
                         } else { // 去登录
 
+                        }
+                    } else {
+                        self.$store.dispatch('box_set_toast', {
+                            show: true,
+                            toastText: body.msg
+                        });
+                    }
+                },
+                error(err){
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: '服务器繁忙,请稍后再试'
+                    });
+                }
+            });
+        },
+        gotoNext() {
+            let self = this;
+            if (!this.person_isLogin) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请先登录'
+                });
+                return;
+            }
+            if (!self.name.length) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请输入真实姓名'
+                });
+                return;
+            }
+            if (!self.cardNo.length) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请输入身份证'
+                });
+                return;
+            }
+            if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(self.cardNo)) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '身份证不合法'
+                });
+                return;
+            }
+            if (!self.captchaCode.length) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请输入验证码'
+                });
+                return;
+            }
+            if (!self.checkVal) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请阅读并同意服务条款'
+                });
+                return;
+            }
+            self.$sendRequest({
+                url: '/service/zx/getHtmlToken',
+                params: {
+                    name: self.name,
+                    idType: 0,
+                    idNo: self.cardNo,
+                    captchaCode: self.captchaCode
+                },
+                success(body){
+                    if (body.code === 'success') {
+                        if (body.data && body.data.htmlToken) {
+                            self.processNo++;
+                            self.htmlToken = body.data.htmlToken;
                         }
                     } else {
                         self.$store.dispatch('box_set_toast', {
@@ -754,6 +829,13 @@ export default {
                 self.$store.dispatch('box_set_toast', {
                     show: true,
                     toastText: '请输入手机号'
+                });
+                return;
+            }
+            if (!/^1\d{10}$/.test(self.mobile)) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '手机号不合法'
                 });
                 return;
             }
@@ -827,10 +909,17 @@ export default {
                 });
                 return;
             }
-            if (!self.captchaCode.length) {
+            if (!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(self.email)) {
                 self.$store.dispatch('box_set_toast', {
                     show: true,
-                    toastText: '请输入验证码'
+                    toastText: '邮箱地址不合法'
+                });
+                return;
+            }
+            if (!/^1\d{10}$/.test(self.mobile)) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '手机号不合法'
                 });
                 return;
             }
@@ -840,14 +929,14 @@ export default {
                     name: self.name,
                     userid: self.remarkCode,
                     idNo: self.cardNo,
-                    captchaCode: self.captchaCode,
                     loginName: self.zxCount,
                     passWord: self.zxPassword,
                     confirmPassWord: self.zxPassword2,
                     mobileTel: self.mobile,
                     email: self.email,
                     verifyCode: self.indentifyCode,
-                    tcId: self.tcId
+                    tcId: self.tcId,
+                    htmlToken: self.htmlToken
                 },
                 success(body){
                     if (body.code === 'success') {
@@ -1064,6 +1153,9 @@ export default {
         //     display:block;
         // }
     }
+}
+.vv-form .input-box .btn-send {
+    width: 100px;
 }
 .vv-form .input-box .img-send {
     width: 100px;

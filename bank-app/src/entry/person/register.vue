@@ -214,6 +214,13 @@
           // self.indentifyCodeError = '验证码不能为空';
           return;
         }
+        if (!/^1\d{10}$/.test(self.account)) {
+            self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: '手机号不合法'
+            });
+            return;
+        }
         let postData = {
            account: self.account,
           password: self.password,
