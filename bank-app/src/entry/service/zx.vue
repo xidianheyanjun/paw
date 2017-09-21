@@ -757,28 +757,28 @@ export default {
                     show: true,
                     toastText: '请先登录'
                 });
-                return;
+                // return;
             }
             if (!self.name.length) {
                 self.$store.dispatch('box_set_toast', {
                     show: true,
                     toastText: '请输入真实姓名'
                 });
-                return;
+                // return;
             }
             if (!self.cardNo.length) {
                 self.$store.dispatch('box_set_toast', {
                     show: true,
                     toastText: '请输入身份证'
                 });
-                return;
+                // return;
             }
             if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(self.cardNo)) {
                 self.$store.dispatch('box_set_toast', {
                     show: true,
                     toastText: '身份证不合法'
                 });
-                return;
+                // return;
             }
             if (!self.captchaCode.length) {
                 self.$store.dispatch('box_set_toast', {
@@ -825,6 +825,13 @@ export default {
         },
         sendCodeBtnClick() {
             let self = this;
+            if (!self.zxCount.length) {
+                self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: '请输入登录名'
+                });
+                return;
+            }
             if (!self.mobile.length) {
                 self.$store.dispatch('box_set_toast', {
                     show: true,
@@ -843,6 +850,7 @@ export default {
                 url: '/service/zx/mobileCode',
                 params:{
                   name: self.name,
+                  loginName: self.loginName,
                   userid: self.remarkCode,
                   mobileTel: self.mobile
                 },
