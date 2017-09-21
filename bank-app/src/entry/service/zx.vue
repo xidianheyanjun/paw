@@ -795,10 +795,10 @@ export default {
                 return;
             }
             self.$sendRequest({
-                url: '/service/zx/getHtmlToken',
+                url: '/service/zx/write',
                 params: {
                     name: self.name,
-                    idType: 0,
+                    userid: self.remarkCode,
                     idNo: self.cardNo,
                     captchaCode: self.captchaCode
                 },
