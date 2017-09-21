@@ -43,6 +43,20 @@
                 <img v-show="captchaCodeImg" class="img-send" :src="captchaCodeImg" />
                 </div>
             </div>
+            <template v-if="status === 'registered'">
+                <div class="vv-row">
+                    <div class="vv-col-title">登录名</div>
+                    <div class="vv-col-value">
+                        <mu-text-field v-model.trim="zxCount" hintText="请输入登录名" fullWidth :underlineShow="false"/>
+                    </div>
+                </div>
+                <div class="vv-row">
+                    <div class="vv-col-title">密 码</div>
+                    <div class="vv-col-value">
+                        <mu-text-field v-model.trim="zxPassword" hintText="请输入密码" fullWidth :underlineShow="false"/>
+                    </div>
+                </div>
+            </template>
             <div class="col">
                 <mu-checkbox label="我已阅读并同意" class="vv-checkbox" v-model="checkVal"/>
                 <a href="#/service/zxintro" class="link">《服务条款》</a>
@@ -90,7 +104,16 @@
             <mu-raised-button @click="registerClick" label="下一步" class="vv-next" primary fullWidth/>
         </div>
         <div class="process-list-3" v-show="processNo === 3">
-            <div class="no-data">正在发送查询申请</div>
+            <div class="vv-form">
+                <div class="vv-row" v-for="(item, index) in loginIssues" :key="index">
+                    <div class="vv-col-title">{{item.question}}</div>
+                    <div class="vv-col-value">
+                        <mu-select-field v-model="" :labelFocusClass="['label-foucs']" label="" hintText="请选择" :underlineShow="false">
+                            <mu-menu-item v-for="(item2, index2) in item.options" value="item2" title="item2"/>
+                        </mu-select-field>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="process-list-4" v-show="processNo === 4">
             <div class="no-data">申请成功，请耐心等待信息反馈</div>
@@ -621,6 +644,8 @@ export default {
             tcId: '',
             sendCodeText:'获取',
             resendTime: RESEND_TIME,
+            status: '', // unregistered,registered,result
+            loginIssues: [],
         }
     },
     watch: {
@@ -728,12 +753,17 @@ export default {
                 },
                 success(body){
                     if (body.code === 'success') {
-                        if (body.data.captchaImg) { // 去注册
+                        const data = body.data;
+                        const status = self.status = data.status;
+                        if (status === 'unregistered' || status === 'registered') { // 未注册=>去注册
                             // self.processNo++;
-                            self.captchaCodeImg = body.data.captchaImg;
-                            self.remarkCode = body.data.userid;
-                        } else { // 去登录
-
+                            self.captchaCodeImg = data.captchaImg;
+                            self.remarkCode = data.userid;
+                        }
+                        // if (status === 'registered'){ // 已注册，未查询过=>去登录
+                        // }
+                        if (status === 'result') { // 已注册，已查询过=>显示结果
+                            self.processNo = 4;
                         }
                     } else {
                         self.$store.dispatch('box_set_toast', {
@@ -794,34 +824,79 @@ export default {
                 });
                 return;
             }
-            self.$sendRequest({
-                url: '/service/zx/write',
-                params: {
-                    name: self.name,
-                    userid: self.remarkCode,
-                    idNo: self.cardNo,
-                    captchaCode: self.captchaCode
-                },
-                success(body){
-                    if (body.code === 'success') {
-                        if (body.data && body.data.htmlToken) {
-                            self.processNo++;
-                            self.htmlToken = body.data.htmlToken;
+            if (self.status === 'unregistered') {
+                self.$sendRequest({
+                    url: '/service/zx/write',
+                    params: {
+                        name: self.name,
+                        userid: self.remarkCode,
+                        idNo: self.cardNo,
+                        captchaCode: self.captchaCode
+                    },
+                    success(body){
+                        if (body.code === 'success') {
+                            if (body.data && body.data.htmlToken) {
+                                self.processNo = 2;
+                                self.htmlToken = body.data.htmlToken;
+                            }
+                        } else {
+                            self.$store.dispatch('box_set_toast', {
+                                show: true,
+                                toastText: body.msg
+                            });
                         }
-                    } else {
+                    },
+                    error(err){
                         self.$store.dispatch('box_set_toast', {
                             show: true,
-                            toastText: body.msg
+                            toastText: '服务器繁忙,请稍后再试'
                         });
                     }
-                },
-                error(err){
+                });
+            } else if (self.status === 'registered') {
+                if (!self.zxCount.length) {
                     self.$store.dispatch('box_set_toast', {
                         show: true,
-                        toastText: '服务器繁忙,请稍后再试'
+                        toastText: '请输入登录名'
                     });
+                    // return;
                 }
-            });
+                if (!self.zxPassword.length) {
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: '请输入密码'
+                    });
+                    // return;
+                }
+                self.$sendRequest({
+                    url: '/service/zx/login',
+                    params: {
+                        loginName: self.zxCount,
+                        userid: self.remarkCode,
+                        passWord: self.zxPassword,
+                        captchaCode: self.captchaCode
+                    },
+                    success(body){
+                        if (body.code === 'success') {
+                            if (body.data && body.data.htmlToken) {
+                                self.processNo = 3;
+                                self.loginIssues = body.data.issues;
+                            }
+                        } else {
+                            self.$store.dispatch('box_set_toast', {
+                                show: true,
+                                toastText: body.msg
+                            });
+                        }
+                    },
+                    error(err){
+                        self.$store.dispatch('box_set_toast', {
+                            show: true,
+                            toastText: '服务器繁忙,请稍后再试'
+                        });
+                    }
+                });
+            }
         },
         sendCodeBtnClick() {
             let self = this;
@@ -922,14 +997,14 @@ export default {
                     show: true,
                     toastText: '邮箱地址不合法'
                 });
-                return;
+                // return;
             }
             if (!/^1\d{10}$/.test(self.mobile)) {
                 self.$store.dispatch('box_set_toast', {
                     show: true,
                     toastText: '手机号不合法'
                 });
-                return;
+                // return;
             }
             self.$sendRequest({
                 url: '/service/zx/register',
