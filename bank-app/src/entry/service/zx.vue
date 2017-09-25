@@ -18,7 +18,7 @@
         <div class="process-divice"></div>
         <div :class="['process-item', {'current': processNo > 4}]">
             <div class="process-num">3</div>
-            <div class="process-txt">完成账号注册</div>
+            <div class="process-txt">完成注册马上登录</div>
         </div>
     </div>
     <div class="process-list" v-if="status === 'registered'">
@@ -119,7 +119,7 @@
             <div class="issues-wrapper" v-for="(item, index) in loginIssues" :key="index">
                 <div class="title">{{item.question}}</div>
                 <div class="value">
-                    <mu-radio v-for="(item2, index2) in item.options" :label="item2" name="group" :nativeValue="item2" v-model="item.answer" class="demo-radio"/> <br/>
+                    <mu-radio v-for="(item2, index2) in item.options" :label="item2" :name="item.answer" :nativeValue="item2" v-model="item.answer" class="demo-radio"/> <br/>
                 </div>
             </div>
             <mu-raised-button @click="gotoNext4" label="下一步" class="vv-next" primary fullWidth/>
@@ -579,10 +579,18 @@ export default {
         gotoNext4() {
             let self = this;
             let answers = [];
-            self.loginIssues.forEach(item => {
+            for (let i = 0, len = self.loginIssues.length; i < len; i++) {
+                let item = self.loginIssues[i];
+                if (!item.answer) {
+                    self.$store.dispatch('box_set_toast', {
+                        show: true,
+                        toastText: '请回答完所有问题'
+                    });
+                    return;
+                } 
                 answers.push(item.answer);
-            });
-            console.warn(answers);
+            }
+            // console.warn(answers);
             self.$sendRequest({
                 url: '/service/zx/sendIssues',
                 params: {
