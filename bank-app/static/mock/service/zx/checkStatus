@@ -2,7 +2,7 @@
   "code": "success",
   "msg": "成功",
   "data": {
-    "status": "unregistered",
+    "status": "registered",
     "captchaImg": "static/images/captcha.jpeg",
     "userid": "标识"
   }

@@ -274,13 +274,13 @@ export default {
                     if (body.code === 'success') {
                         const data = body.data;
                         const status = self.status = data.status;
-                        if (status === 'unregistered') { // 未注册=>去注册
+                        if (status === 'unregistered' || status === 'registered') { // 未注册=>去注册// 已注册，未查询过=>去登录
                             self.processNo = 2;
                             self.captchaCodeImg = data.captchaImg;
                             self.remarkCode = data.userid;
                         }
-                        if (status === 'registered'){ // 已注册，未查询过=>去登录
-                        }
+                        // if (status === 'registered'){ // 已注册，未查询过=>去登录
+                        // }
                         if (status === 'result') { // 已注册，已查询过=>显示结果
                             self.processNo = 5;
                         }
@@ -450,7 +450,7 @@ export default {
                     },
                     success(body) {
                         if (body.code === 'success') {
-                            self.tcId = self.tcId;
+                            self.tcId = body.data.tcId;
                             self.countdownTime();
                         } else {
                             self.$store.dispatch('box_set_toast', {
