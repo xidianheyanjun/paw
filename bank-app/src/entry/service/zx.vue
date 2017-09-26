@@ -119,7 +119,7 @@
             <div class="issues-wrapper" v-for="(item, index) in loginIssues" :key="index">
                 <div class="title">{{item.question}}</div>
                 <div class="value">
-                    <mu-radio v-for="(item2, index2) in item.options" :label="item2" :name="item.answer" :nativeValue="item2" v-model="item.answer" class="demo-radio"/> <br/>
+                    <mu-radio v-for="(item2, index2) in item.options" :key="index2" :label="item2" :name="item.answer" :nativeValue="item2" v-model="item.answer" class="demo-radio"/> <br/>
                 </div>
             </div>
             <mu-raised-button @click="gotoNext4" label="下一步" class="vv-next" primary fullWidth/>
