@@ -125,6 +125,13 @@
         <mu-raised-button @click="gotoNext4" label="下一步" class="vv-next" primary fullWidth/>
       </div>
       <div class="process-list-5" v-show="processNo === 5">
+        <div class="vv-row">
+          <div class="vv-col-title">查询码</div>
+          <div class="input-box">
+            <mu-text-field v-model.trim="tradeCode" hintText="请输入查询码" fullWidth :underlineShow="false"/>
+          </div>
+        </div>
+        <mu-raised-button @click="downloadZx" label="获取征信报告" class="vv-next" primary fullWidth/>
         <div class="result" v-html="result"></div>
       </div>
     </div>
@@ -165,6 +172,7 @@
         resendTime: RESEND_TIME,
         status: '', // unregistered,registered
         loginIssues: [],
+        tradeCode:'',
         result: '',
         msg: ''
       }
@@ -387,6 +395,7 @@
             success(body){
               if (body.code === 'success') {
                 if (body.data && body.data.code == 23007) {
+                  // 回答问题获取查询码
                   self.processNo = 4;
                   self.msg = body.data.msg;
                   let issues = body.data.msg;
@@ -408,6 +417,12 @@
                     options: [issues['kbaList[4].options1'], issues['kbaList[4].options2'], issues['kbaList[4].options3'], issues['kbaList[4].options4'], issues['kbaList[4].options5']]
                   }];
                   self.loginIssues = issuesList;
+                }else if(body.data && body.data.code == 23006){
+                  // 输入查询码获取征信报告
+                  self.processNo = 5;
+                  self.htmlToken = body.data.msg.htmlToken;
+                }else if(body.data && body.data.code == 23022){
+                  // 输入手机动态码申请查询码
                 }
               } else {
                 self.$store.dispatch('box_set_toast', {
@@ -612,6 +627,26 @@
                 toastText: body.msg
               });
             }
+          },
+          error(err){
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
+          }
+        });
+      },
+      downloadZx(){
+        let self = this;
+        self.$sendRequest({
+          url: '/service/zx/getReport',
+          params: {
+            loginName: self.zxCount,
+            userid: self.remarkCode,
+            tradeCode: self.tradeCode,
+            htmlToken: self.htmlToken
+          },
+          success(body){
           },
           error(err){
             self.$store.dispatch('box_set_toast', {
