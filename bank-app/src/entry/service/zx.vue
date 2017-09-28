@@ -423,6 +423,7 @@
                   self.htmlToken = body.data.msg.htmlToken;
                 }else if(body.data && body.data.code == 23022){
                   // 输入手机动态码申请查询码
+                  self.processNo = 3;
                 }
               } else {
                 self.$store.dispatch('box_set_toast', {
