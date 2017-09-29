@@ -6,7 +6,7 @@
         <div class="process-txt">填写身份信息</div>
       </div>
       <div class="process-divice"></div>
-      <div :class="['process-item', {'current': processNo > 2}]">
+      <div :class="['process-item', {'current': processNo >= 2}]">
         <div class="process-num">2</div>
         <div class="process-txt">补充用户信息</div>
       </div>
@@ -17,7 +17,7 @@
       </div>
       <div class="process-divice"></div>
       <div :class="['process-item', {'current': processNo > 4}]">
-        <div class="process-num">3</div>
+        <div class="process-num">4</div>
         <div class="process-txt">完成注册马上登录</div>
       </div>
     </div>
@@ -39,7 +39,7 @@
       <div class="process-divice"></div>
       <div :class="['process-item', {'current': processNo === 5}]">
         <div class="process-num">4</div>
-        <div class="process-txt">得到征信结果</div>
+        <div class="process-txt">获取征信结果</div>
       </div>
     </div>
     <div class="vv-form">
@@ -72,14 +72,14 @@
         <div class="vv-row">
           <div class="vv-col-title">密 码</div>
           <div class="vv-col-value">
-            <mu-text-field v-model.trim="zxPassword" hintText="请输入密码" fullWidth :underlineShow="false"/>
+            <mu-text-field type="password" v-model.trim="zxPassword" hintText="请输入密码" fullWidth :underlineShow="false"/>
           </div>
         </div>
         <template  v-if="status === 'unregistered'">
           <div class="vv-row">
             <div class="vv-col-title">确认密码</div>
             <div class="vv-col-value">
-              <mu-text-field v-model.trim="zxPassword2" hintText="请再次输入密码"  fullWidth :underlineShow="false"/>
+              <mu-text-field type="password" v-model.trim="zxPassword2" hintText="请再次输入密码"  fullWidth :underlineShow="false"/>
             </div>
           </div>
           <div class="vv-row">
@@ -264,7 +264,7 @@
             show: true,
             toastText: '身份证不合法'
           });
-          // return;
+          return;
         }
         if (!self.checkVal) {
           self.$store.dispatch('box_set_toast', {
@@ -315,14 +315,14 @@
             show: true,
             toastText: '请输入登录名'
           });
-          // return;
+          return;
         }
         if (!self.zxPassword.length) {
           self.$store.dispatch('box_set_toast', {
             show: true,
             toastText: '请输入密码'
           });
-          // return;
+          return;
         }
         if (self.status === 'unregistered') {
           if (self.zxPassword2 !== self.zxPassword) {
@@ -344,7 +344,7 @@
               show: true,
               toastText: '邮箱地址不合法'
             });
-            // return;
+            return;
           }
         }
         if (!self.captchaCode.length) {
@@ -399,7 +399,7 @@
                   self.processNo = 4;
                   self.msg = body.data.msg;
                   let issues = body.data.msg;
-                  console.warn(issues)
+                //   console.warn(issues)
                   let issuesList = [{
                     question: issues['kbaList[0].question'],
                     options: [issues['kbaList[0].options1'], issues['kbaList[0].options2'], issues['kbaList[0].options3'], issues['kbaList[0].options4'], issues['kbaList[0].options5']]
@@ -424,6 +424,8 @@
                 }else if(body.data && body.data.code == 23022){
                   // 输入手机动态码申请查询码
                   self.processNo = 3;
+                  self.mobile = body.data.mobile;
+                  self.indentifyCode = '';
                 }
               } else {
                 self.$store.dispatch('box_set_toast', {
@@ -449,14 +451,14 @@
               show: true,
               toastText: '请输入手机号'
             });
-            // return;
+            return;
           }
           if (!/^1\d{10}$/.test(self.mobile)) {
             self.$store.dispatch('box_set_toast', {
               show: true,
               toastText: '手机号不合法'
             });
-            // return;
+            return;
           }
           this.$sendRequest({
             url: '/service/zx/mobileCode',
@@ -548,7 +550,10 @@
               if (body.code === 'success') {
                 self.processNo = 2;
                 self.status = 'registered';
-                self.checkStatus();
+                self.zxCount = '';
+                self.zxPassword = '';
+                self.captchaCode = '';
+                // self.checkStatus(); // TODO 使用mock数据的话要注释这行
               } else {
                 self.$store.dispatch('box_set_toast', {
                   show: true,
@@ -565,7 +570,7 @@
           });
         } else if (self.status === 'registered') {
           self.$sendRequest({
-            url: '/service/zx/getReport',
+            url: '/service/zx/searchCode',
             params: {
               loginName: self.zxCount,
               userid: self.remarkCode,
@@ -575,10 +580,11 @@
             },
             success(body){
               if (body.code === 'success') {
-                if (body.data && body.data.msg) {
-                  self.processNo = 5;
-                  self.result = body.data.msg;
-                }
+                self.processNo = 5;
+                // if (body.data && body.data.msg) {
+                //   self.processNo = 5;
+                //   self.result = body.data.msg;
+                // }
               } else {
                 self.$store.dispatch('box_set_toast', {
                   show: true,
@@ -622,6 +628,7 @@
             if (body.code === 'success') {
               self.processNo = 3;
               self.mobile = body.data.mobile;
+              self.indentifyCode = '';
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,
@@ -648,6 +655,14 @@
             htmlToken: self.htmlToken
           },
           success(body){
+            if (body.code === 'success') {
+                self.result = body.data.msg;
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
           },
           error(err){
             self.$store.dispatch('box_set_toast', {
