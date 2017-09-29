@@ -553,7 +553,7 @@
                 self.zxCount = '';
                 self.zxPassword = '';
                 self.captchaCode = '';
-                // self.checkStatus(); // TODO 使用mock数据的话要注释这行
+                self.checkStatus(); // TODO 使用mock数据的话要注释这行
               } else {
                 self.$store.dispatch('box_set_toast', {
                   show: true,
