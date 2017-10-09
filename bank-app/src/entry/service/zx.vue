@@ -519,7 +519,8 @@
         tradeCode:'',
         result: '',
         msg: '',
-        loginNextFlage: 0
+        loginNextFlage: 0,
+        isClicking: false
       }
     },
     watch: {
@@ -618,6 +619,10 @@
           });
           return;
         }
+        if (self.isClicking) {
+          return;
+        }
+        self.isClicking = true;
         self.$sendRequest({
           url: '/service/zx/checkStatus',
           params: {
@@ -625,6 +630,7 @@
             cardNo: self.cardNo
           },
           success(body){
+            self.isClicking = false;
             if (body.code === 'success') {
               const data = body.data;
               const status = self.status = data.status;
@@ -646,6 +652,7 @@
             }
           },
           error(err){
+            self.isClicking = false;
             self.$store.dispatch('box_set_toast', {
               show: true,
               toastText: '服务器繁忙,请稍后再试'
@@ -699,6 +706,10 @@
           });
           return;
         }
+        if (self.isClicking) {
+          return;
+        }
+        self.isClicking = true;
         if (self.status === 'unregistered') {
           self.$sendRequest({
             url: '/service/zx/write',
@@ -709,6 +720,7 @@
               captchaCode: self.captchaCode
             },
             success(body){
+              self.isClicking = false;
               if (body.code === 'success') {
                 if (body.data && body.data.htmlToken) {
                   self.processNo = 3;
@@ -722,6 +734,7 @@
               }
             },
             error(err){
+              self.isClicking = false;
               self.$store.dispatch('box_set_toast', {
                 show: true,
                 toastText: '服务器繁忙,请稍后再试'
@@ -738,6 +751,7 @@
               captchaCode: self.captchaCode
             },
             success(body){
+              self.isClicking = false;
               if (body.code === 'success') {
                 if (body.data && body.data.code == 23007) {
                   // 回答问题获取查询码
@@ -783,6 +797,7 @@
               }
             },
             error(err){
+              self.isClicking = false;
               self.$store.dispatch('box_set_toast', {
                 show: true,
                 toastText: '服务器繁忙,请稍后再试'
@@ -808,6 +823,10 @@
             });
             return;
           }
+          if (self.isClicking) {
+            return;
+          }
+          self.isClicking = true;
           this.$sendRequest({
             url: '/service/zx/mobileCode',
             params:{
@@ -817,6 +836,7 @@
               mobileTel: self.mobile
             },
             success(body) {
+              self.isClicking = false;
               if (body.code === 'success') {
                 self.tcId = body.data.tcId;
                 self.countdownTime();
@@ -828,6 +848,7 @@
               }
             },
             error(err) {
+              self.isClicking = false;
               self.$store.dispatch('box_set_toast', {
                 show: true,
                 toastText: '服务器繁忙,请稍后再试'
@@ -835,6 +856,10 @@
             }
           });
         } else if (self.status === 'registered') {
+          if (self.isClicking) {
+            return;
+          }
+          self.isClicking = true;
           this.$sendRequest({
             url: '/service/zx/loginMobileCode',
             params:{
@@ -842,6 +867,7 @@
               userid: self.remarkCode
             },
             success(body) {
+              self.isClicking = false;
               if (body.code === 'success') {
                 self.countdownTime();
               } else {
@@ -852,6 +878,7 @@
               }
             },
             error(err) {
+              self.isClicking = false;
               self.$store.dispatch('box_set_toast', {
                 show: true,
                 toastText: '服务器繁忙,请稍后再试'
@@ -878,6 +905,10 @@
           });
           return;
         }
+        if (self.isClicking) {
+          return;
+        }
+        self.isClicking = true;
         if (self.status === 'unregistered') {
           self.$sendRequest({
             url: '/service/zx/register',
@@ -895,6 +926,7 @@
               htmlToken: self.htmlToken
             },
             success(body){
+              self.isClicking = false;
               if (body.code === 'success') {
                 self.processNo = 2;
                 self.status = 'registered';
@@ -910,6 +942,7 @@
               }
             },
             error(err){
+              self.isClicking = false;
               self.$store.dispatch('box_set_toast', {
                 show: true,
                 toastText: '服务器繁忙,请稍后再试'
@@ -927,6 +960,7 @@
               relationalParams: {}
             },
             success(body){
+              self.isClicking = false;
               if (body.code === 'success') {
                 self.processNo = 5;
                 // if (body.data && body.data.msg) {
@@ -941,6 +975,7 @@
               }
             },
             error(err){
+              self.isClicking = false;
               self.$store.dispatch('box_set_toast', {
                 show: true,
                 toastText: '服务器繁忙,请稍后再试'
@@ -965,6 +1000,10 @@
           self.msg['kbaList[' + i + '].answerresult'] = item.answer;
         }
         console.log(self.loginIssues);
+        if (self.isClicking) {
+          return;
+        }
+        self.isClicking = true;
         self.$sendRequest({
           url: '/service/zx/submit',
           params: {
@@ -973,6 +1012,7 @@
             questions: JSON.stringify(self.msg)
           },
           success(body){
+            self.isClicking = false;
             if (body.code === 'success') {
               self.processNo = 5;
               // self.processNo = 3;
@@ -986,6 +1026,7 @@
             }
           },
           error(err){
+            self.isClicking = false;
             self.$store.dispatch('box_set_toast', {
               show: true,
               toastText: '服务器繁忙,请稍后再试'
@@ -995,6 +1036,10 @@
       },
       downloadZx(){
         let self = this;
+        if (self.isClicking) {
+          return;
+        }
+        self.isClicking = true;
         self.$sendRequest({
           url: '/service/zx/getReport',
           params: {
@@ -1004,6 +1049,7 @@
             htmlToken: self.htmlToken
           },
           success(body){
+            self.isClicking = false;
             if (body.code === 'success') {
                 self.result = body.data.msg;
             } else {
@@ -1014,16 +1060,13 @@
             }
           },
           error(err){
+            self.isClicking = false;
             self.$store.dispatch('box_set_toast', {
               show: true,
               toastText: '服务器繁忙,请稍后再试'
             });
           }
         });
-      },
-      changeTab(value) {
-        let self = this;
-        self.activeTab = value;
       },
       captchaCodeBtnClick() {
         this.checkStatus();
