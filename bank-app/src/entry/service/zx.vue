@@ -774,6 +774,11 @@
                   self.processNo = 3;
                   self.mobile = body.data.mobile;
                   self.indentifyCode = '';
+                }else{
+                  self.$store.dispatch('box_set_toast', {
+                    show: true,
+                    toastText: body.data.retMsg
+                  });
                 }
               } else {
                 self.$store.dispatch('box_set_toast', {
@@ -1005,7 +1010,7 @@
           },
           success(body){
             if (body.code === 'success') {
-                self.result = body.data.msg;
+                self.result = body.data.result.msg;
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,
