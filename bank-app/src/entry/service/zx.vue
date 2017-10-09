@@ -1,6 +1,6 @@
 <template>
   <div class="page-zx">
-    <div class="process-list" v-if="status === 'unregistered'">
+    <div class="process-list" v-if="!result && status === 'unregistered'">
       <div class="process-item current">
         <div class="process-num">1</div>
         <div class="process-txt">填写身份信息</div>
@@ -21,7 +21,7 @@
         <div class="process-txt">完成注册马上登录</div>
       </div>
     </div>
-    <div class="process-list" v-if="loginNextFlage > 0 && status === 'registered'">
+    <div class="process-list" v-if="!result && loginNextFlage > 0 && status === 'registered'">
       <div class="process-item current">
         <div class="process-num">1</div>
         <div class="process-txt">登录征信账号</div>
@@ -58,7 +58,7 @@
         </div>
       </template>
     </div>
-    <div class="vv-form">
+    <div class="vv-form" v-if="!result">
       <div class="process-list-1" v-show="processNo === 1">
         <div class="vv-row">
           <div class="vv-col-title">真实姓名</div>
@@ -148,8 +148,336 @@
           </div>
         </div>
         <mu-raised-button @click="downloadZx" label="获取征信报告" class="vv-next" primary fullWidth/>
-        <div class="result" v-html="result"></div>
       </div>
+    </div>
+    <div class="vv-form result" v-if="result">
+      <dl class="form-list">
+        <dt class="title">用户基本信息</dt>
+        <dd class="col">
+          <span class="name">姓名</span>
+          <span class="value">{{result.customerInfo.customerName}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">身份证号</span>
+          <span class="value">{{result.customerInfo.certNo}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">查询时间</span>
+          <span class="value">{{result.customerInfo.queryTime}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">报告时间</span>
+          <span class="value">{{result.customerInfo.reportTime}}</span>
+        </dd>
+      </dl>
+      <dl class="form-list" v-if="result.guarantor.length" v-for="(item, index) in result.guarantor" :key="index">
+        <dt class="title">保证人代偿信息 {{result.guarantor.length > 1 ? index + 1 : ''}}</dt>
+        <dd class="col">
+          <span class="name">报告编号</span>
+          <span class="value">{{item.reportNo}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">最近一次代偿日期</span>
+          <span class="value">{{item.lastCompensatoryDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">最近一次代偿单位</span>
+          <span class="value">{{item.lastCompensatoryCompany}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">累计代偿金额</span>
+          <span class="value">{{item.lastCompensatoryAmount}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">最近一次还款时间</span>
+          <span class="value">{{item.guarantorLastRepaymentDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">最近一次还款金额</span>
+          <span class="value">{{item.guarantorLastRepaymentAmount}}</span>
+        </dd>
+      </dl>
+      <dl class="form-list" v-if="result.guarantyInfo.length" v-for="(item, index) in result.guarantyInfo" :key="index">
+        <dt class="title">为他人担保信息 {{result.guarantyInfo.length > 1 ? index + 1 : ''}}</dt>
+        <dd class="col">
+          <span class="name">担保金额</span>
+          <span class="value">{{item.guarantyAmount}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">担保贷款合同金额</span>
+          <span class="value">{{item.contractAmount}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">担保时间</span>
+          <span class="value">{{item.guanantyDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">目标银行</span>
+          <span class="value">{{item.bankName}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">截至当前查询时间</span>
+          <span class="value">{{item.queryDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">被担保人证件号码</span>
+          <span class="value">{{item.guaranteedCertNo}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">担保贷款本金余额</span>
+          <span class="value">{{item.guarantyBalance}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">被担保人姓名</span>
+          <span class="value">{{item.guaranteedName}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">被担保人证件类型</span>
+          <span class="value">{{item.guaranteedCertType}}</span>
+        </dd>
+      </dl>
+      <dl class="form-list" v-if="result.creditOverdue.length" v-for="(item, index) in result.creditOverdue" :key="index">
+        <dt class="title">信贷详细信息-信用卡发生过逾期 {{result.creditOverdue.length > 1 ? index + 1 : ''}}</dt>
+        <dd class="col">
+          <span class="name">卡名</span>
+          <span class="value">{{item.creditOverdueCardname}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">当前信用额度</span>
+          <span class="value">{{item.creditOverdueLimit}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">逾期声明</span>
+          <span class="value">{{item.creditOverdueAnnounce}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">办卡银行</span>
+          <span class="value">{{item.creditOverdueApplyCardBank}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">超过90天逾期的月数</span>
+          <span class="value">{{item.creditOverdueMore90}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">状态</span>
+          <span class="value">{{item.creditOverdueState}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">最近5年处于逾期的月数</span>
+          <span class="value">{{item.creditOverdueLast5yMonth}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">已使用额度</span>
+          <span class="value">{{item.creditOverdueUsedLimit}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">状态时间</span>
+          <span class="value">{{item.creditOverdueCancelState}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">查询时间</span>
+          <span class="value">{{item.creditOverdueQueryDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">币种</span>
+          <span class="value">{{item.creditOverdueCurrency}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">办卡时间</span>
+          <span class="value">{{item.creditOverdueApplyCardDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">逾期金额</span>
+          <span class="value">{{item.creditOverdueAmount}}</span>
+        </dd>
+      </dl>
+      <dl class="form-list" v-if="result.creditNormal.length" v-for="(item, index) in result.creditNormal" :key="index">
+        <dt class="title">信贷详细信息-信用卡未逾期或未超60天 {{result.creditNormal.length > 1 ? index + 1 : ''}}</dt>
+        <dd class="col">
+          <span class="name">办卡银行</span>
+          <span class="value">{{item.creditNormalApplyCardBank}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">当前信用额度</span>
+          <span class="value">{{item.creditNormalLimit}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">办卡时间</span>
+          <span class="value">{{item.creditNormalApplyCardDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">卡名</span>
+          <span class="value">{{item.creditNormalCardname}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">状态</span>
+          <span class="value">{{item.creditNormalState}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">（使用）透支余额</span>
+          <span class="value">{{item.creditNormalBalance}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">币种</span>
+          <span class="value">{{item.creditNormalCurrency}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">状态时间</span>
+          <span class="value">{{item.creditNormalCancelState}}</span>
+        </dd>
+      </dl>
+      <dl class="form-list" v-if="result.credit60.length" v-for="(item, index) in result.credit60" :key="index">
+        <dt class="title">信贷详细信息-信用卡透支超过60天 {{result.credit60.length > 1 ? index + 1 : ''}}</dt>
+        <dd class="col">
+          <span class="name">超过90天透支的月数</span>
+          <span class="value">{{item.credit60More90}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">最近5年内透支超过60天的月数</span>
+          <span class="value">{{item.credit60Last5yDay}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">状态</span>
+          <span class="value">{{item.credit60State}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">状态时间</span>
+          <span class="value">{{item.credit60CancelState}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">办卡银行</span>
+          <span class="value">{{item.credit60ApplyCardBank}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">办卡时间</span>
+          <span class="value">{{item.credit60ApplyCardDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">币种</span>
+          <span class="value">{{item.credit60Currency}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">查询时间</span>
+          <span class="value">{{item.credit60QueryDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">当前信用额度</span>
+          <span class="value">{{item.credit60Limit}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">透支余额</span>
+          <span class="value">{{item.credit60Balance}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">卡名</span>
+          <span class="value">{{item.credit60Cardname}}</span>
+        </dd>
+      </dl>
+      <dl class="form-list" v-if="result.administrativeSanction.length" v-for="(item, index) in result.administrativeSanction" :key="index">
+        <dt class="title">行政处罚记录信息 {{result.administrativeSanction.length > 1 ? index + 1 : ''}}</dt>
+        <dd class="col">
+          <span class="name">是否行政复议</span>
+          <span class="value">{{item.isReconsideration}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">处罚金额</span>
+          <span class="value">{{item.punishAmount}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">处罚机构</span>
+          <span class="value">{{item.punishAgency}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">处罚生效时间</span>
+          <span class="value">{{item.punishEffDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">处罚内容</span>
+          <span class="value">{{item.punishContent}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">行政复议结果</span>
+          <span class="value">{{item.reconsiderationResult}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">处罚截至时间</span>
+          <span class="value">{{item.punishEndTime}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">文书编号</span>
+          <span class="value">{{item.documentNo}}</span>
+        </dd>
+      </dl>
+      <dl class="form-list" v-if="result.compulsoryExecution.length" v-for="(item, index) in result.compulsoryExecution" :key="index">
+        <dt class="title">强制执行记录信息 {{result.compulsoryExecution.length > 1 ? index + 1 : ''}}</dt>
+        <dd class="col">
+          <span class="name">执行法院</span>
+          <span class="value">{{item.executionCourt}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">执行案由</span>
+          <span class="value">{{item.compulsoryCaseReason}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">结案时间</span>
+          <span class="value">{{item.closedTime}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">已执行标的</span>
+          <span class="value">{{item.executedSubject}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">案号</span>
+          <span class="value">{{item.compulsoryCaseNo}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">申请执行标的</span>
+          <span class="value">{{item.executionSubject}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">案件状态</span>
+          <span class="value">{{item.caseState}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">结案方式</span>
+          <span class="value">{{item.compulsoryClosedManner}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">申请执行标的金额</span>
+          <span class="value">{{item.executionAmount}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">已执行的金额</span>
+          <span class="value">{{item.executedAmount}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">立案时间</span>
+          <span class="value">{{item.compulsoryFileTime}}</span>
+        </dd>
+      </dl>
+      <dl class="form-list" v-if="result.assetsDisposal.length" v-for="(item, index) in result.assetsDisposal" :key="index">
+        <dt class="title">资产处置信息 {{result.assetsDisposal.length > 1 ? index + 1 : ''}}</dt>
+        <dd class="col">
+          <span class="name">资产处置时间</span>
+          <span class="value">{{item.bondAcceptDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">资产处置单位</span>
+          <span class="value">{{item.bondAcceptCompany}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">资产处置金额</span>
+          <span class="value">{{item.bondAcceptAmount}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">最近一次还款日期</span>
+          <span class="value">{{item.assetsLastRepaymentDate}}</span>
+        </dd>
+        <dd class="col">
+          <span class="name">最近一次还款金额</span>
+          <span class="value">{{item.assetsLastRepaymentAmount}}</span>
+        </dd>
+      </dl>
     </div>
   </div>
 </template>
@@ -915,7 +1243,42 @@
   }
   }
   .result {
-    padding: 0 20px;
+    // padding: 0 20px;
     line-height: 26px;
   }
+.form-list {
+  .title,
+  .col {
+    // height:40px;
+    height:auto;
+    line-height:40px;
+    box-sizing: border-box;
+    // padding: 0 $spacing;
+    border-bottom: 1px solid $lineColor2;
+  }
+  .col {
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: justify;
+  }
+  .title {
+    background: $backgroudColor;
+    font-size: $fontSizeTitle;
+  }
+  .col {
+    font-size: $fontSizeContent;
+    .name,
+    .value {
+      // float:left;
+      display: block;
+      // width: 40%;
+    }
+    .value {
+      // width: 60%;
+      // float:right;
+      text-align: right;
+      color: $fontColor2;
+    }
+  }
+}
 </style>
