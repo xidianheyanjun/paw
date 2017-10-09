@@ -21,26 +21,42 @@
         <div class="process-txt">完成注册马上登录</div>
       </div>
     </div>
-    <div class="process-list" v-if="status === 'registered'">
+    <div class="process-list" v-if="loginNextFlage > 0 && status === 'registered'">
       <div class="process-item current">
         <div class="process-num">1</div>
         <div class="process-txt">登录征信账号</div>
       </div>
-      <div class="process-divice"></div>
-      <div :class="['process-item', {'current': processNo === 4 || processNo === 3  || processNo === 5}]">
-        <div class="process-num">2</div>
-        <div class="process-txt">授权回答问题</div>
-      </div>
-      <div class="process-divice"></div>
-      <div :class="['process-item', {'current': processNo === 3 || processNo === 5}]">
-        <div class="process-num">3</div>
-        <div class="process-txt">验证手机动态码</div>
-      </div>
-      <div class="process-divice"></div>
-      <div :class="['process-item', {'current': processNo === 5}]">
-        <div class="process-num">4</div>
-        <div class="process-txt">获取征信结果</div>
-      </div>
+      <template v-if="loginNextFlage === 1">
+        <div class="process-divice"></div>
+        <div :class="['process-item', {'current': processNo === 4 || processNo === 3  || processNo === 5}]">
+          <div class="process-num">2</div>
+          <div class="process-txt">授权回答问题</div>
+        </div>
+        <div class="process-divice"></div>
+        <div :class="['process-item', {'current': processNo === 5}]">
+          <div class="process-num">3</div>
+          <div class="process-txt">获取征信结果</div>
+        </div>
+      </template>
+      <template v-if="loginNextFlage === 2">
+        <div class="process-divice"></div>
+        <div :class="['process-item', {'current': processNo === 3 || processNo === 5}]">
+          <div class="process-num">2</div>
+          <div class="process-txt">验证手机动态码</div>
+        </div>
+        <div class="process-divice"></div>
+        <div :class="['process-item', {'current': processNo === 5}]">
+          <div class="process-num">3</div>
+          <div class="process-txt">获取征信结果</div>
+        </div>
+      </template>
+      <template v-if="loginNextFlage === 3">
+        <div class="process-divice"></div>
+        <div :class="['process-item', {'current': processNo === 5}]">
+          <div class="process-num">2</div>
+          <div class="process-txt">获取征信结果</div>
+        </div>
+      </template>
     </div>
     <div class="vv-form">
       <div class="process-list-1" v-show="processNo === 1">
@@ -174,7 +190,8 @@
         loginIssues: [],
         tradeCode:'',
         result: '',
-        msg: ''
+        msg: '',
+        loginNextFlage: 0
       }
     },
     watch: {
@@ -396,6 +413,7 @@
               if (body.code === 'success') {
                 if (body.data && body.data.code == 23007) {
                   // 回答问题获取查询码
+                  self.loginNextFlage = 1;
                   self.processNo = 4;
                   self.msg = body.data.msg;
                   let issues = body.data.msg;
@@ -419,10 +437,12 @@
                   self.loginIssues = issuesList;
                 }else if(body.data && body.data.code == 23006){
                   // 输入查询码获取征信报告
+                  self.loginNextFlage = 3;
                   self.processNo = 5;
                   self.htmlToken = body.data.msg.htmlToken;
                 }else if(body.data && body.data.code == 23022){
                   // 输入手机动态码申请查询码
+                  self.loginNextFlage = 2;
                   self.processNo = 3;
                   self.mobile = body.data.mobile;
                   self.indentifyCode = '';
@@ -626,9 +646,10 @@
           },
           success(body){
             if (body.code === 'success') {
-              self.processNo = 3;
-              self.mobile = body.data.mobile;
-              self.indentifyCode = '';
+              self.processNo = 5;
+              // self.processNo = 3;
+              // self.mobile = body.data.mobile;
+              // self.indentifyCode = '';
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,
