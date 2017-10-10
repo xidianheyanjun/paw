@@ -7,6 +7,7 @@ import router from './router';
 import store from './vuex/store';
 import env from './env';
 import native from './util/native';
+import Indicator from './util/sendRequestLoading';
 import 'es6-promise/auto';
 
 // 引入UI框架
@@ -36,7 +37,9 @@ Vue.prototype.$sendRequest = (option) => {
     data: data,
     sign: env.useSign ? native.sign(data) : ""
   };
+  Indicator.open();
   return Vue.http[method](requestUrl, params).then(function (data) {
+    Indicator.close();
     console.log(data);
     let body = env.mode != "dev" ? data.body : JSON.parse(data.body);
     option.success && option.success(body);
