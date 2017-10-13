@@ -58,7 +58,7 @@
         </div>
       </template-->
     </div>
-    <div class="vv-form" v-if="!result">
+    <div class="vv-form" v-if="!result && status">
       <div class="process-list-1" v-show="processNo === 1">
         <div class="vv-row">
           <div class="vv-col-title">真实姓名</div>
@@ -599,10 +599,6 @@
           img: "",
           title: "返回",
           callback: function () {
-            if (self.resultShow) {
-              self.resultShow = false;
-              return;
-            }
             history.back(-1);
           }
         },
@@ -1147,10 +1143,10 @@
       // 点击获取更新验证码图片
       captchaCodeBtnClick() {
         let self = this;
-        if (self.status === 'registered') {
-          this.checkStatus();
-        } else if (self.status === 'unregistered') {
+        if (self.status === 'unregistered') {
           this.register1();
+        } else {
+          this.checkStatus();
         }
       },
       // 发送手机验证码短信 倒计时
