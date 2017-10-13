@@ -2,9 +2,131 @@
   "code": "success",
   "msg": "成功",
   "data": {
-    "status": "unregistered",
     "captchaImg": "static/images/captcha.jpeg",
-    "userid": "标识"
+    "userid": "标识",
+    "result": {
+      "msg": {
+        "administrativeSanction": [
+          {
+            "documentNo": "222", 
+            "isReconsideration": "222", 
+            "punishAgency": "222", 
+            "punishAmount": 222, 
+            "punishContent": "222", 
+            "punishEffDate": "2015 年 3 月", 
+            "punishEndTime": "2015 年 3 月", 
+            "reconsiderationResult": "222", 
+            "reportNo": "2015050403000211234161"
+          }
+        ], 
+        "assetsDisposal": [
+          {
+            "assetsLastRepaymentAmount": 222, 
+            "assetsLastRepaymentDate": "2015-04-03 17:26:50", 
+            "bondAcceptAmount": 222, 
+            "bondAcceptCompany": "22", 
+            "bondAcceptDate": "2015-04-03 17:27:11", 
+            "reportNo": "2015050403000211234161"
+          }
+        ], 
+        "compulsoryExecution": [
+          {
+            "caseState": "已结案", 
+            "closedTime": "2013 年 10 月", 
+            "compulsoryCaseNo": "2013 秀法民执字第00***号", 
+            "compulsoryCaseReason": "借款合同纠纷", 
+            "compulsoryClosedManner": "终结执行", 
+            "compulsoryFileTime": "2013 年 4 月", 
+            "executedAmount": 222, 
+            "executedSubject": "--", 
+            "executionAmount": 222, 
+            "executionCourt": "重庆市***人民法院", 
+            "executionSubject": "222", 
+            "reportNo": "2015050403000211234161"
+          }
+        ], 
+        "customerInfo": {
+          "certNo": "**************0210", 
+          "certType": "身份证", 
+          "customerName": "韦小宝", 
+          "isMarried": "未婚", 
+          "queryTime": "2015-05-04 00:40:38", 
+          "reportNo": "2015050403000211234161", 
+          "reportTime": "2015-05-04 17:50:21"
+        }, 
+        "guarantor": [
+          {
+            "guarantorLastRepaymentAmount": 222, 
+            "guarantorLastRepaymentDate": "2015-04-03 17:28:21", 
+            "lastCompensatoryAmount": 22, 
+            "lastCompensatoryCompany": "222", 
+            "lastCompensatoryDate": "2015-04-03 17:28:17", 
+            "reportNo": "2015050403000211234161"
+          }
+        ], 
+        "guarantyInfo": [
+          {
+            "bankName": "22", 
+            "contractAmount": 222, 
+            "guanantyDate": "2015-04-03 17:28:54", 
+            "guaranteedCertNo": "22", 
+            "guaranteedCertType": "222", 
+            "guaranteedName": "222", 
+            "guarantyAmount": 222, 
+            "guarantyBalance": 22, 
+            "queryDate": "2015-04-03 17:28:44", 
+            "reportNo": "2015050403000211234161"
+          }
+        ], 
+        "credit60": [
+          {
+            "credit60ApplyCardBank": "22", 
+            "credit60ApplyCardDate": "2015-04-03 17:29:25", 
+            "credit60Balance": 22, 
+            "credit60CancelState": "2015 年 10 月", 
+            "credit60State": "销户", 
+            "credit60Cardname": "22", 
+            "credit60Currency": "22", 
+            "credit60Last5yDay": 22, 
+            "credit60Limit": 22, 
+            "credit60More90": 22, 
+            "credit60QueryDate": "2015 年 3 月", 
+            "reportNo": "2015050403000211234161"
+          }
+        ], 
+        "creditNormal": [
+          {
+            "creditNormalApplyCardBank": "中国建设银行北京市分行", 
+            "creditNormalApplyCardDate": "2011-12-20 00:00:00", 
+            "creditNormalBalance": 0, 
+            "creditNormalCancelState": "2016 年 3月", 
+            "creditNormalCardname": "贷记卡", 
+            "creditNormalCurrency": "美元账户", 
+            "creditNormalLimit": 2568, 
+            "creditNormalState": "正常", 
+            "reportNo": "2016050403000211317161"
+          }
+        ], 
+        "creditOverdue": [
+          {
+            "creditOverdueAmount": 0, 
+            "creditOverdueAnnounce": "逾期声明", 
+            "creditOverdueApplyCardBank": "中国农业银行", 
+            "creditOverdueApplyCardDate": "2007-05-25 00:00:00", 
+            "creditOverdueCancelState": "2015 年 10月", 
+            "creditOverdueState": "结清", 
+            "creditOverdueCardname": "贷记卡", 
+            "creditOverdueCurrency": "人民币账户", 
+            "creditOverdueLast5yMonth": 2, 
+            "creditOverdueLimit": 50000, 
+            "creditOverdueMore90": 0, 
+            "creditOverdueUsedLimit": 0, 
+            "creditOverdueQueryDate": "2015 年 3 月", 
+            "reportNo": "2016050403000211317161"
+          }
+        ]
+      }
+    }
   }
 }
 

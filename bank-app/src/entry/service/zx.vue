@@ -10,18 +10,18 @@
         <div class="process-num">2</div>
         <div class="process-txt">补充用户信息</div>
       </div>
-      <div class="process-divice"></div>
+      <!--div class="process-divice"></div>
       <div :class="['process-item', {'current': processNo === 3}]">
         <div class="process-num">3</div>
         <div class="process-txt">验证手机动态码</div>
-      </div>
+      </div-->
       <div class="process-divice"></div>
       <div :class="['process-item', {'current': processNo > 4}]">
-        <div class="process-num">4</div>
+        <div class="process-num">3</div>
         <div class="process-txt">完成注册马上登录</div>
       </div>
     </div>
-    <div class="process-list" v-if="!result && loginNextFlage > 0 && status === 'registered'">
+    <div class="process-list" v-if="!result && loginNextFlage > 0 && loginNextFlage < 3 && status === 'registered'">
       <div class="process-item current">
         <div class="process-num">1</div>
         <div class="process-txt">登录征信账号</div>
@@ -50,13 +50,13 @@
           <div class="process-txt">获取征信结果</div>
         </div>
       </template>
-      <template v-if="loginNextFlage === 3">
+      <!--template v-if="loginNextFlage === 3">
         <div class="process-divice"></div>
         <div :class="['process-item', {'current': processNo === 5}]">
           <div class="process-num">2</div>
           <div class="process-txt">获取征信结果</div>
         </div>
-      </template>
+      </template-->
     </div>
     <div class="vv-form" v-if="!result">
       <div class="process-list-1" v-show="processNo === 1">
@@ -72,11 +72,22 @@
             <mu-text-field v-model.trim="cardNo" hintText="请输入身份证"  fullWidth :underlineShow="false"/>
           </div>
         </div>
+        <div class="vv-row">
+          <div class="vv-col-title">验证码</div>
+          <div class="input-box">
+            <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="captchaCode" :disabled="isImgValidate">
+            <a v-show="!captchaCodeImg" class="btn-send" @click="captchaCodeBtnClick">点击获取</a>
+            <img v-show="captchaCodeImg" class="img-send" :src="captchaCodeImg" @click="captchaCodeBtnClick" />
+          </div>
+        </div>
         <div class="col">
           <mu-checkbox label="我已阅读并同意" class="vv-checkbox" v-model="checkVal"/>
           <a href="#/service/zxintro" class="link">《服务条款》</a>
         </div>
-        <mu-raised-button @click="checkStatus" label="下一步" class="vv-next" primary fullWidth/>
+        <mu-raised-button @click="gotoNext1" label="下一步" class="vv-next" primary fullWidth/>
+        <div class="ft">
+          <a @click.prevent="gotoLink" class="link">{{status === 'registered' ? '注册' : '登录'}}</a>
+        </div>
       </div>
       <div class="process-list-2" v-show="processNo === 2">
         <div class="vv-row">
@@ -91,7 +102,7 @@
             <mu-text-field type="password" v-model.trim="zxPassword" hintText="请输入密码" fullWidth :underlineShow="false"/>
           </div>
         </div>
-        <template  v-if="status === 'unregistered'">
+        <template v-if="status === 'unregistered'">
           <div class="vv-row">
             <div class="vv-col-title">确认密码</div>
             <div class="vv-col-value">
@@ -104,22 +115,42 @@
               <mu-text-field v-model.trim="email" hintText="请输入电子邮箱" fullWidth :underlineShow="false"/>
             </div>
           </div>
+          <div class="vv-row">
+            <div class="vv-col-title">手机号</div>
+            <div class="vv-col-value">
+              <mu-text-field v-model.trim="mobileShow" :hintText="mobileShow" fullWidth :underlineShow="false" disabled />
+            </div>
+          </div>
+          <div class="vv-row">
+            <div class="vv-col-title">动态码</div>
+            <div class="input-box">
+              <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入动态码" v-model.trim="indentifyCode" :disabled="isValidate" />
+              <a class="btn-send" :class="{'send': isSend}" @click="sendCodeBtnClick" v-text="sendCodeText"></a>
+            </div>
+          </div>
         </template>
-        <div class="vv-row">
+        <div v-if="status === 'registered'" class="vv-row">
           <div class="vv-col-title">验证码</div>
           <div class="input-box">
             <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="captchaCode" :disabled="isImgValidate">
             <a v-show="!captchaCodeImg" class="btn-send" @click="captchaCodeBtnClick">点击获取</a>
-            <img v-show="captchaCodeImg" class="img-send" :src="captchaCodeImg" />
+            <img v-show="captchaCodeImg" class="img-send" :src="captchaCodeImg" @click="captchaCodeBtnClick" />
           </div>
         </div>
+        <div class="col" v-if="status === 'registered'">
+          <mu-checkbox label="我已阅读并同意" class="vv-checkbox" v-model="checkVal"/>
+          <a href="#/service/zxintro" class="link">《服务条款》</a>
+        </div>
         <mu-raised-button @click="gotoNext2" label="下一步" class="vv-next" primary fullWidth/>
+        <div class="ft">
+          <a @click.prevent="gotoLink" class="link">{{status === 'registered' ? '注册' : '登录'}}</a>
+        </div>
       </div>
       <div class="process-list-3" v-show="processNo === 3">
         <div class="vv-row">
           <div class="vv-col-title">手机号</div>
           <div class="vv-col-value">
-            <mu-text-field v-model.trim="mobile" hintText="请输入手机号" fullWidth :underlineShow="false"/>
+            <mu-text-field v-model.trim="mobileShow" hintText="请输入手机号" fullWidth :underlineShow="false"/>
           </div>
         </div>
         <div class="vv-row">
@@ -141,6 +172,9 @@
         <mu-raised-button @click="gotoNext4" label="下一步" class="vv-next" primary fullWidth/>
       </div>
       <div class="process-list-5" v-show="processNo === 5">
+        <p class="tips">查询码审核通过后将以短信形式发送到您手机上，请注意查收。<br>
+        审核将有一定延时，请耐心等候。
+        </p>
         <div class="vv-row">
           <div class="vv-col-title">查询码</div>
           <div class="input-box">
@@ -503,6 +537,7 @@
         zxPassword2: '',
         email: '',
         mobile: '',
+        mobileShow: '',
         indentifyCode: '',
         isSend: false,
         isValidate: false,
@@ -526,8 +561,12 @@
     watch: {
       person_isLogin(v) {
         if (v) {
-          this.userId = native.getUserInfo().userId || 0;
-          console.warn('userId:', this.userId)
+          const LoginUserInfo = native.getUserInfo();
+          this.userId = LoginUserInfo.userId || 0;
+          // LoginUserInfo.account = '13888888888'
+          this.mobile = LoginUserInfo.account;
+          this.mobileShow = LoginUserInfo.account.replace(/(\d{5})\d{4}(\d{2})/, '$1****$2');
+          // console.warn('userId:', this.userId)
         }
       },
       // processNo(v1) {
@@ -580,6 +619,7 @@
           }
         }
       });
+      this.checkStatus();
     },
     methods: {
       checkStatus() {
@@ -591,6 +631,82 @@
           });
           return;
         }
+        self.$sendRequest({
+          url: '/service/zx/checkStatus',
+          params: {
+          },
+          success(body){
+            if (body.code === 'success') {
+              const data = body.data;
+              if (data.captchaImg && data.userid) {
+                self.status = 'registered';
+                self.processNo = 2;
+                self.captchaCodeImg = data.captchaImg;
+                self.remarkCode = data.userid;
+              } else if (data.result) { // 有缓存=>显示结果
+                self.result = data.result.msg;
+              }
+            } else {
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: body.msg
+              });
+            }
+          },
+          error(err){
+            self.isClicking = false;
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
+          }
+        });
+      },
+      gotoLink() {
+        let self = this;
+        if (self.status === 'registered') {
+          self.register1();
+        } else {
+          self.processNo = 1;
+          self.status = 'registered';
+        }
+      },
+      // 注册第一步(进入注册页面)
+      register1() {
+        let self = this;
+        self.$sendRequest({
+            url: '/service/zx/register1',
+            params: {
+            },
+            success(body){
+              self.isClicking = false;
+              if (body.code === 'success') {
+                const data = body.data;
+                if (data.captchaImg && data.userid) {
+                  self.processNo = 1;
+                  self.status = 'unregistered';
+                  self.captchaCodeImg = data.captchaImg;
+                  self.remarkCode = data.userid;
+                }
+              } else {
+                self.$store.dispatch('box_set_toast', {
+                  show: true,
+                  toastText: body.msg
+                });
+              }
+            },
+            error(err){
+              self.isClicking = false;
+              self.$store.dispatch('box_set_toast', {
+                show: true,
+                toastText: '服务器繁忙,请稍后再试'
+              });
+            }
+          });
+      },
+      // 注册第二步
+      gotoNext1() {
+        let self = this;
         if (!self.name.length) {
           self.$store.dispatch('box_set_toast', {
             show: true,
@@ -612,6 +728,13 @@
           });
           return;
         }
+        if (!self.captchaCode.length) {
+          self.$store.dispatch('box_set_toast', {
+            show: true,
+            toastText: '请输入验证码'
+          });
+          return;
+        }
         if (!self.checkVal) {
           self.$store.dispatch('box_set_toast', {
             show: true,
@@ -624,25 +747,24 @@
         }
         self.isClicking = true;
         self.$sendRequest({
-          url: '/service/zx/checkStatus',
+          url: '/service/zx/register2',
           params: {
             name: self.name,
-            cardNo: self.cardNo
+            cardNo: self.cardNo,
+            userid: self.remarkCode,
+            captchaCode: self.captchaCode
           },
           success(body){
             self.isClicking = false;
             if (body.code === 'success') {
-              const data = body.data;
-              const status = self.status = data.status;
-              if (status === 'unregistered' || status === 'registered') { // 未注册=>去注册
+              if (body.data && body.data.htmlToken) {
+                self.htmlToken = body.data.htmlToken;
                 self.processNo = 2;
-                self.captchaCodeImg = data.captchaImg;
-                self.remarkCode = data.userid;
-              }
-              // if (status === 'registered'){ // 已注册，未查询过=>去登录
-              // }
-              if (status === 'result') { // 已注册，已查询过=>显示结果
-                self.processNo = 5;
+                self.zxCount = '';
+                self.zxPassword = '';
+                self.zxPassword2 = '';
+                self.email = '';
+                self.verifyCode = '';
               }
             } else {
               self.$store.dispatch('box_set_toast', {
@@ -660,6 +782,7 @@
           }
         });
       },
+      // 注册第三步(最后一步) / 登录第一步
       gotoNext2() {
         let self = this;
         if (!self.zxCount.length) {
@@ -698,13 +821,22 @@
             });
             return;
           }
+          if (!self.indentifyCode.length) {
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '请输入手机动态码'
+            });
+            return;
+          }
         }
-        if (!self.captchaCode.length) {
-          self.$store.dispatch('box_set_toast', {
-            show: true,
-            toastText: '请输入验证码'
-          });
-          return;
+        if (self.status === 'registered') {
+          if (!self.checkVal) {
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '请阅读并同意服务条款'
+            });
+            return;
+          }
         }
         if (self.isClicking) {
           return;
@@ -712,20 +844,33 @@
         self.isClicking = true;
         if (self.status === 'unregistered') {
           self.$sendRequest({
-            url: '/service/zx/write',
+            url: '/service/zx/register3',
             params: {
               name: self.name,
               userid: self.remarkCode,
               idNo: self.cardNo,
-              captchaCode: self.captchaCode
+              loginName: self.zxCount,
+              passWord: self.zxPassword,
+              confirmPassWord: self.zxPassword2,
+              mobileTel: self.mobile,
+              email: self.email,
+              verifyCode: self.indentifyCode,
+              tcId: self.tcId,
+              htmlToken: self.htmlToken
             },
             success(body){
               self.isClicking = false;
               if (body.code === 'success') {
-                if (body.data && body.data.htmlToken) {
-                  self.processNo = 3;
-                  self.htmlToken = body.data.htmlToken;
-                }
+                self.processNo = 2;
+                self.status = 'registered';
+                self.zxCount = '';
+                self.zxPassword = '';
+                self.captchaCode = '';
+                self.$store.dispatch('box_set_toast', {
+                  show: true,
+                  toastText: '注册成功'
+                });
+                // self.checkStatus(); // mock注释这行 TODO
               } else {
                 self.$store.dispatch('box_set_toast', {
                   show: true,
@@ -786,7 +931,7 @@
                   // 输入手机动态码申请查询码
                   self.loginNextFlage = 2;
                   self.processNo = 3;
-                  self.mobile = body.data.mobile;
+                  // self.mobile = body.data.mobile;
                   self.indentifyCode = '';
                 }else{
                   self.$store.dispatch('box_set_toast', {
@@ -811,32 +956,18 @@
           });
         }
       },
+      // 发送手机验证码：注册第三步 / 登录第二步
       sendCodeBtnClick() {
         let self = this;
+        if (self.isClicking) {
+          return;
+        }
+        self.isClicking = true;
         if (self.status === 'unregistered') {
-          if (!self.mobile.length) {
-            self.$store.dispatch('box_set_toast', {
-              show: true,
-              toastText: '请输入手机号'
-            });
-            return;
-          }
-          if (!/^1\d{10}$/.test(self.mobile)) {
-            self.$store.dispatch('box_set_toast', {
-              show: true,
-              toastText: '手机号不合法'
-            });
-            return;
-          }
-          if (self.isClicking) {
-            return;
-          }
-          self.isClicking = true;
           this.$sendRequest({
-            url: '/service/zx/mobileCode',
+            url: '/service/zx/registerMobileCode',
             params:{
               name: self.name,
-              loginName: self.loginName,
               userid: self.remarkCode,
               mobileTel: self.mobile
             },
@@ -861,10 +992,6 @@
             }
           });
         } else if (self.status === 'registered') {
-          if (self.isClicking) {
-            return;
-          }
-          self.isClicking = true;
           this.$sendRequest({
             url: '/service/zx/loginMobileCode',
             params:{
@@ -892,17 +1019,9 @@
           });
         }
       },
+      // 登录第二步：23022 填写手机验证码
       gotoNext3() {
         let self = this;
-        if (self.status === 'unregistered') {
-          if (!self.mobile.length) {
-            self.$store.dispatch('box_set_toast', {
-              show: true,
-              toastText: '请输入手机号'
-            });
-            return;
-          }
-        }
         if (!self.indentifyCode.length) {
           self.$store.dispatch('box_set_toast', {
             show: true,
@@ -914,81 +1033,35 @@
           return;
         }
         self.isClicking = true;
-        if (self.status === 'unregistered') {
-          self.$sendRequest({
-            url: '/service/zx/register',
-            params: {
-              name: self.name,
-              userid: self.remarkCode,
-              idNo: self.cardNo,
-              loginName: self.zxCount,
-              passWord: self.zxPassword,
-              confirmPassWord: self.zxPassword2,
-              mobileTel: self.mobile,
-              email: self.email,
-              verifyCode: self.indentifyCode,
-              tcId: self.tcId,
-              htmlToken: self.htmlToken
-            },
-            success(body){
-              self.isClicking = false;
-              if (body.code === 'success') {
-                self.processNo = 2;
-                self.status = 'registered';
-                self.zxCount = '';
-                self.zxPassword = '';
-                self.captchaCode = '';
-                self.checkStatus(); // TODO 使用mock数据的话要注释这行
-              } else {
-                self.$store.dispatch('box_set_toast', {
-                  show: true,
-                  toastText: body.msg
-                });
-              }
-            },
-            error(err){
-              self.isClicking = false;
+        self.$sendRequest({
+          url: '/service/zx/submitMobileCode',
+          params: {
+            loginName: self.zxCount,
+            userid: self.remarkCode,
+            verifyCode: self.indentifyCode,
+            htmlToken: self.htmlToken,
+          },
+          success(body){
+            self.isClicking = false;
+            if (body.code === 'success') {
+              self.processNo = 5;
+            } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,
-                toastText: '服务器繁忙,请稍后再试'
+                toastText: body.msg
               });
             }
-          });
-        } else if (self.status === 'registered') {
-          self.$sendRequest({
-            url: '/service/zx/searchCode',
-            params: {
-              loginName: self.zxCount,
-              userid: self.remarkCode,
-              verifyCode: self.indentifyCode,
-              htmlToken: self.htmlToken,
-              relationalParams: {}
-            },
-            success(body){
-              self.isClicking = false;
-              if (body.code === 'success') {
-                self.processNo = 5;
-                // if (body.data && body.data.msg) {
-                //   self.processNo = 5;
-                //   self.result = body.data.msg;
-                // }
-              } else {
-                self.$store.dispatch('box_set_toast', {
-                  show: true,
-                  toastText: body.msg
-                });
-              }
-            },
-            error(err){
-              self.isClicking = false;
-              self.$store.dispatch('box_set_toast', {
-                show: true,
-                toastText: '服务器繁忙,请稍后再试'
-              });
-            }
-          });
-        }
+          },
+          error(err){
+            self.isClicking = false;
+            self.$store.dispatch('box_set_toast', {
+              show: true,
+              toastText: '服务器繁忙,请稍后再试'
+            });
+          }
+        });
       },
+      // 登录第二步：23007 回答问题
       gotoNext4() {
         let self = this;
         let answers = [];
@@ -1010,7 +1083,7 @@
         }
         self.isClicking = true;
         self.$sendRequest({
-          url: '/service/zx/submit',
+          url: '/service/zx/submitAnswers',
           params: {
             loginName: self.zxCount,
             userid: self.remarkCode,
@@ -1020,9 +1093,6 @@
             self.isClicking = false;
             if (body.code === 'success') {
               self.processNo = 5;
-              // self.processNo = 3;
-              // self.mobile = body.data.mobile;
-              // self.indentifyCode = '';
             } else {
               self.$store.dispatch('box_set_toast', {
                 show: true,
@@ -1039,6 +1109,7 @@
           }
         });
       },
+      // 获取征信结构化数据
       downloadZx(){
         let self = this;
         if (self.isClicking) {
@@ -1073,9 +1144,16 @@
           }
         });
       },
+      // 点击获取更新验证码图片
       captchaCodeBtnClick() {
-        this.checkStatus();
+        let self = this;
+        if (self.status === 'registered') {
+          this.checkStatus();
+        } else if (self.status === 'unregistered') {
+          this.register1();
+        }
       },
+      // 发送手机验证码短信 倒计时
       countdownTime() {
         let time = 1000;
         if (sendIndentifyCodeTimer) {
@@ -1111,6 +1189,15 @@
 </style>
 <style lang="scss" scoped>
   @import './../../assets/scss/_mixin.scss';
+  .tips {
+    margin: 10px $spacing;
+    padding: 10px;
+    color: $mainColor2;
+    border: 1px solid $mainColor2;
+    border-radius: 4px;
+    font-size: $fontSizeContent2;
+    line-height: 20px;
+  }
   .process-list{
     margin:$spacing;
     display: -webkit-box;
