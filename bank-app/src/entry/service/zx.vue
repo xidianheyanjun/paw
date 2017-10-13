@@ -995,7 +995,7 @@
           this.$sendRequest({
             url: '/service/zx/loginMobileCode',
             params:{
-              loginName: self.loginName,
+              loginName: self.zxCount,
               userid: self.remarkCode
             },
             success(body) {
