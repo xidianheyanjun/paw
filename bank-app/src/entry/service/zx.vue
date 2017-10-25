@@ -516,6 +516,19 @@
   </div>
 </template>
 <script>
+/**
+  * 登录流程：
+  * 1 输入登录名、密码、图片验证码
+  * 2.1 输入查询码（23006）
+  * 2.2 回答问题（23007）
+  * 2.3 输入手机短信验证码（23022）
+  * 3 显示征信结果
+  * (1)1->2.1->3; (2)1->2.2->2.1->3; (3)1->2.3->2.1->3
+
+  * 注册流程：
+  * 1、 输入姓名、身份证、图片验证码
+  * 2、 输入登录名、密码、确认密码、电子邮箱、手机号、手机短信验证码
+  */
   import { mapGetters } from 'vuex';
   import native from "@/util/native";
   const DEFAULT_AVATAR = require('./../../assets/images/atavar.png');
@@ -599,7 +612,12 @@
           img: "",
           title: "返回",
           callback: function () {
-            history.back(-1);
+            if (self.status === 'unregistered' && self.processNo === 1) { // 注册页面返回到登录页面
+              self.status = 'registered';
+              self.processNo = 2;
+            } else {
+              history.back(-1);
+            }
           }
         },
         center: {
