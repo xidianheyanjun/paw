@@ -543,7 +543,7 @@
         person_isLogin: false,
         name: '',
         cardNo: '',
-        checkVal: true,
+        checkVal: false,
         processNo: 1,
         zxCount: '',
         zxPassword: '',
@@ -752,7 +752,7 @@
         if (!self.checkVal) {
           self.$store.dispatch('box_set_toast', {
             show: true,
-            toastText: '请阅读并同意服务条款'
+            toastText: '请先阅读并同意服务条款'
           });
           return;
         }

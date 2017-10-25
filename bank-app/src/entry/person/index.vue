@@ -136,6 +136,13 @@
           this.forward("#/person/login");
           return false;
         }
+        if (param === '#/person/gjj') {
+          this.$store.dispatch("box_set_toast", {
+            show: true,
+            toastText: "暂未接入，敬请期待~"
+          });
+          return;
+        }
         this[type](param);
       }
     }
