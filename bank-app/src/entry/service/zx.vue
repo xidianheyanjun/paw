@@ -75,9 +75,9 @@
         <div class="vv-row">
           <div class="vv-col-title">验证码</div>
           <div class="input-box">
-            <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="captchaCode" :disabled="isImgValidate">
-            <a v-show="!captchaCodeImg" class="btn-send" @click="captchaCodeBtnClick">点击获取</a>
-            <img v-show="captchaCodeImg" class="img-send" :src="captchaCodeImg" @click="captchaCodeBtnClick" />
+            <input ref="input" type="" class="input mu-text-field-input" placeholder="请输入验证码" v-model.trim="captchaCodeRegister" :disabled="isImgValidate">
+            <a v-show="!captchaCodeImgRegister" class="btn-send" @click="captchaCodeBtnClick">点击获取</a>
+            <img v-show="captchaCodeImgRegister" class="img-send" :src="captchaCodeImgRegister" @click="captchaCodeBtnClick" />
           </div>
         </div>
         <div class="col">
@@ -85,8 +85,10 @@
           <a href="#/service/zxintro" class="link">《服务条款》</a>
         </div>
         <mu-raised-button @click="gotoNext1" label="下一步" class="vv-next" primary fullWidth/>
-        <div class="ft">
-          <a @click.prevent="gotoLink" class="link">{{status === 'registered' ? '注册' : '登录'}}</a>
+        <div class="ft" v-if="status === 'registered'">
+          <span class="link_tips">还没有登录账号</span>
+          <!--a @click.prevent="gotoLink" class="link">{{status === 'registered' ? '注册' : '登录'}}</a-->
+          <a @click.prevent="gotoLink" class="link">去注册</a>
         </div>
       </div>
       <div class="process-list-2" v-show="processNo === 2">
@@ -142,8 +144,10 @@
           <a href="#/service/zxintro" class="link">《服务条款》</a>
         </div>
         <mu-raised-button @click="gotoNext2" label="下一步" class="vv-next" primary fullWidth/>
-        <div class="ft">
-          <a @click.prevent="gotoLink" class="link">{{status === 'registered' ? '注册' : '登录'}}</a>
+        <div class="ft" v-if="status === 'registered'">
+          <span class="link_tips">还没有登录账号</span>
+          <!--a @click.prevent="gotoLink" class="link">{{status === 'registered' ? '注册' : '登录'}}</a-->
+          <a @click.prevent="gotoLink" class="link">去注册</a>
         </div>
       </div>
       <div class="process-list-3" v-show="processNo === 3">
@@ -557,6 +561,8 @@
         isImgValidate: false,
         captchaCode: '',
         captchaCodeImg: '',
+        captchaCodeRegister: '',
+        captchaCodeImgRegister: '',
         remarkCode: '',
         htmlToken: '',
         tcId: '',
@@ -699,7 +705,7 @@
                 if (data.captchaImg && data.userid) {
                   self.processNo = 1;
                   self.status = 'unregistered';
-                  self.captchaCodeImg = data.captchaImg;
+                  self.captchaCodeImgRegister = data.captchaImg;
                   self.remarkCode = data.userid;
                 }
               } else {
@@ -742,7 +748,7 @@
           });
           return;
         }
-        if (!self.captchaCode.length) {
+        if (!self.captchaCodeRegister.length) {
           self.$store.dispatch('box_set_toast', {
             show: true,
             toastText: '请输入验证码'
@@ -766,7 +772,7 @@
             name: self.name,
             cardNo: self.cardNo,
             userid: self.remarkCode,
-            captchaCode: self.captchaCode
+            captchaCode: self.captchaCodeRegister
           },
           success(body){
             self.isClicking = false;
@@ -1276,6 +1282,11 @@
     font-size:$fontSizeContent;
     vertical-align:middle;
     margin-left:-5px;
+  }
+  .link_tips {
+    margin-right:10px;
+    color: grey;
+    font-size:$fontSizeContent;
   }
   .vv-next{
     margin:$spacing auto;
